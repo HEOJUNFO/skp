@@ -1,0 +1,28 @@
+
+<script id="imgPopupTemplate" type="text/x-handlebars-template">
+    <!--  이미지 팝업 -->
+    <div class="popup"><!-- 활성화시 on class 추가 -->
+        <a href="javascript:void(0)" class="popup_close">닫기</a>
+        <div class="popup_wrap swiper-container">
+            <div class="swiper-wrapper">
+                \{{#each list}}
+                <div class="swiper-slide">
+                    \{{#ifvalue ../channelType value='OP'}}
+                    <img src="\{{this}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-mobilead-default@3x.png'">
+                    \{{/ifvalue}}
+                    \{{#ifvalue ../channelType value='BLE'}}
+                    <img src="\{{this}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-locationad-default@3x.png'">
+                    \{{/ifvalue}}
+                    \{{#ifvalue ../channelType value='SP'}}
+                    <img src="\{{this}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-pushad-default@3x.png'">
+                    \{{/ifvalue}}
+                    \{{#ifvalue ../channelType value='DFP'}}
+                    <img src="\{{this}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-d-aad-default@3x.png'">
+                    \{{/ifvalue}}
+                </div>
+                \{{/each}}
+            </div>
+            <div class="swiper-pagination popup_pagination"></div>
+        </div>
+    </div>
+</script>

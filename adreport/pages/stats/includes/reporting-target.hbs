@@ -1,0 +1,124 @@
+<script id="targetTemplate" type="text/x-handlebars-template">
+				<!-- 광고 타겟고객 추출 리포트 -->
+				<div class="report_group reportTargetContainer">
+					<div class="report">
+						<div class="report_top">
+							<span class="report_group_title">광고 타겟고객 추출</span>
+							<span class="report_group_sub_title">SK플래닛 Data Platform</span>
+						</div>
+						<div class="report_wrap">
+							<!-- 방문확률이 높은 고객 -->
+							<div class="chart" id="adreportTargetVisit">
+								<div class="chart_title">
+									<p>
+										최근 3개월간 매장주변 방문고객활동 분석결과<br>
+										\{{contPlcName}} 광고집행시<br>
+										<em>방문확률이 높은 고객은 \{{comma liveAroundCustCnt}}명</em> 입니다.
+									</p>
+								</div>
+								<div class="chart_container doughnut">
+								    <canvas id="canvas_visit_doughnut"></canvas><!-- 차트 -->
+								    <div id="legend_visit_doughnut" class="legend"></div><!-- 범례 -->
+								</div>
+								<details>
+									<summary><span>광고 집행 신청하기</span></summary>
+
+									<div class="input_form">
+										<span class="title">광고를 신청하세요</span>
+										<div class="input_form_wrap">
+											<form>
+												<fieldset>	
+													<div class="info_form">
+														<ul>
+															<li class="on"><!-- 기본 입력 li에 on class 추가 -->
+																<span class="input_title">상호</span>
+																<div class="input_wrap">
+																	<input type="text" class="contents_input" value="\{{contPlcName}}" readonly>
+																</div>
+															</li>
+															<li class="on"><!-- 기본 입력 li에 on class 추가 -->
+																<span class="input_title">신청일</span>
+																<div class="input_wrap">
+																	<input type="text" class="contents_input" value="\{{yyyymmddHan applyDate}}" readonly>
+																</div>
+															</li>
+														</ul>
+														<div class="btn adApplyTarget" data-apply-type="AT-V">
+															<button>신청하기</button>
+														</div>
+														<div class="done" style="display:none">
+															<p>
+																<em>요청되었습니다.</em><br>
+																담당자가 직접 연락드릴예정입니다.
+															</p>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</details>
+							</div>
+							<!-- // 방문확률이 높은 고객 -->
+
+							<div class="space" id="targetGubunSpace" style="display:none"><hr></div>
+
+							<!-- 광고 확인 확률이 높은 고객 -->
+							<div class="chart" id="adreportTargetClick">
+								<div class="chart_title">
+									<p>
+										최근 3개월간 유사광고 반응고객 분석결과<br>
+                                        \{{contPlcName}} 광고집행시<br>
+										<em>광고를 확인할 확률이 높은 고객은 \{{comma adClickCustCnt}}명</em> 입니다.
+									</p>
+								</div>
+								<div class="chart_container doughnut">
+								    <canvas id="canvas_ad_doughnut"></canvas><!-- 차트 -->
+								     <div id="legend_ad_doughnut" class="legend"></div><!-- 범례 -->
+								</div>
+								<details>
+									<summary><span>광고 집행 신청하기</span></summary>
+
+									<div class="input_form">
+										<span class="title">광고를 신청하세요</span>
+										<div class="input_form_wrap">
+											<form>
+												<fieldset>	
+													<div class="info_form">
+														<ul>
+															<li class="on"><!-- 기본 입력 li에 on class 추가 -->
+																<span class="input_title">상호</span>
+																<div class="input_wrap">
+																	<input type="text" class="contents_input" value="\{{contPlcName}}" readonly>
+																</div>
+															</li>
+															<li class="on"><!-- 기본 입력 li에 on class 추가 -->
+																<span class="input_title">신청일</span>
+																<div class="input_wrap">
+																	<input type="text" class="contents_input" value="\{{yyyymmddHan applyDate}}" readonly>
+																</div>
+															</li>
+														</ul>
+														<div class="btn adApplyTarget" data-apply-type="AT-C">
+															<button>신청하기</button>
+														</div>
+														<div class="done" style="display:none">
+															<p>
+																<em>요청되었습니다.</em><br>
+																담당자가 직접 연락드릴예정입니다.
+															</p>
+														</div>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</details>
+							</div>
+							<!-- // 광고 확인 확률이 높은 고객 -->
+						</div>
+					</div>
+				</div>
+				<!-- //광고 타겟고객 추출 리포트 -->
+</script>
+

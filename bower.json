@@ -1,0 +1,24 @@
+{
+  "name": "adreport-frontend",
+  "version": "1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "jquery": "3.6.0",
+    "handlebars": "~4.7.7",
+    "jStorage": "~0.4.8",
+    "json2": "*",
+    "raphael": "2.1.1",
+    "bootstrap": "~4.4.1",
+    "jquery-form": "~3.46.0",
+    "cookies-js": "*",
+    "underscore": "~1.13.2",
+    "es6-shim": "^0.35.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1"
+  }
+}

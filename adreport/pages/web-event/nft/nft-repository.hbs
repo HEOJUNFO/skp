@@ -1,0 +1,301 @@
+---
+layout: default-event.hbs
+title: Play AR
+jsfile:
+- pages/web-event/nft/nft-repository
+---
+<div class="wrap">
+    <!-- header 영역  -->
+    <header class="moweb_header">
+        <a href="javascript:$.goEventMainPage();">&lt;</a>
+        <div><span><span id="titleName"></span></div>
+    </header>
+    <!-- //header 영역 -->
+    <section>
+        <!-- NFT 보관함 -->
+        <div class="nft_locker">
+            <div class="empty" style="display: none;">
+                <p><span id="winningTypeName"></span> 응모/당첨 이력이 없습니다.</p>
+            </div>
+
+            <div class="my_locker">
+                <div class="my_wallet" style="display: none;">
+                    <span class="locker_title">나의 지갑 정보</span>
+                    <div class="info_form">
+                        <ul>
+                            <!-- Kaikas NFT 지갑주소 없을시-->
+                            <li class="on">
+                                <span class="title moved_fix"><a href="#">Kaikas NFT 지갑주소</a></span>
+                                <div class="ntf_addr">			
+                                    <input type="text" class="contents_input" value="" id="nftWalletAddress" maxlength="100" placeholder="지갑주소 입력/복사하기" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                                    <a href="#" class="modify" id="nftCopyBtn">복사</a>
+                                    <a id="nftAddrText"></a>
+                                </div>
+                            </li>
+                            <!-- // Kaikas NFT 지갑주소 없을시(지갑 생성 방법)-->
+
+                            <!-- Kaikas NFT 지갑주소 있을때 수정 -->
+                            {{!-- <li class="on">
+                                <span class="title moved_fix"><a href="#">Kaikas NFT 지갑주소</a></span>
+                                <div class="ntf_addr">			
+                                    <input type="text" class="contents_input" value="" maxlength="100" placeholder="지갑주소 수정하기">
+                                    <a href="#" class="modify">수정</a>
+                                </div>
+                            </li> --}}
+                            <!-- // Kaikas NFT 지갑주소 있을때 수정 -->
+                            <!-- Kaikas NFT 지갑주소 있을때 수정중 -->
+                            {{!-- <li class="on">
+                                <span class="title moved_fix"><a href="#">Kaikas NFT 지갑주소</a></span>
+                                <div class="ntf_addr">			
+                                    <input type="text" class="contents_input" value="OxcD02....1d6137" maxlength="100" placeholder="지갑주소 수정하기">
+                                    <a href="#" class="modify ing">수정완료</a>
+                                </div>
+                            </li> --}}
+                            <!-- // Kaikas NFT 지갑주소 있을때 수정중 -->
+
+                        </ul>
+                    </div>
+                    <div class="btn" style="display: none;">
+                        <a id="saveNftBtn">동의하고 입력완료</a>
+                    </div>
+                </div>
+                <div class="my_collection" id="nftMyCollection" style="display: none;">
+                    <span class="collection_title">나의 NFT 컬렉션</span>
+                    <a href="#" class="more">전체보기</a>
+                    <div class="collection_swiper">
+                        <!-- Swiper -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper" id="nftRepositoryTemplateDiv">
+                                <script id="nftRepositoryTemplate" type="text/x-handlebars-template">
+                                \{{#each this}}
+                                <div class="swiper-slide">
+                                    <a href="javascript:void(0);">
+                                        \{{#if (lte this.holderTranceStatus 0)}}
+                                        <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.nftTokenInfo.arEventWinning.arEventWinningId}});"><img src="\{{this.nftTokenInfo.arEventWinning.nftImgUrl}}" alt="" data-nftid="\{{this.arEventNftTokenInfoId}}" data-repositoryid="\{{id}}" data-trans-status="\{{this.holderTranceStatus}}" data-product-name="\{{this.nftTokenInfo.arEventWinning.productName}}"></div>
+                                        \{{/if}}
+                                        \{{#if (gte this.holderTranceStatus 1)}}
+                                        <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.nftTokenInfo.arEventWinning.arEventWinningId}});"><img src="\{{this.nftTokenInfo.arEventWinning.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.arEventNftTokenInfoId}}" data-repositoryid="\{{id}}" data-trans-status="\{{this.holderTranceStatus}}" data-product-name="\{{this.nftTokenInfo.arEventWinning.productName}}"></div>
+                                        \{{/if}}
+                                    </a>
+                                </div>
+                                \{{/each}}
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my_collection_list" id="myCollectionList" style="display: none;">
+                    <span class="collection_title">NFT 보관 리스트</span>
+                    <ul class="list" id="nftRepositoryCollectionTemplateUl">
+                        <script id="nftRepositoryCollectionTemplate" type="text/x-handlebars-template">
+                        <!-- 비활성화시 dim -->
+                        \{{#each this}}
+                        <li>
+                            <a href="javascript:void(0);">
+                                \{{#if (lte this.holderTranceStatus 0)}}
+                                <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.nftTokenInfo.arEventWinning.arEventWinningId}});"><img src="\{{this.nftTokenInfo.arEventWinning.nftImgUrl}}" alt="" data-nftid="\{{this.arEventNftTokenInfoId}}" data-repositoryid="\{{id}}" data-trans-status="\{{this.holderTranceStatus}}" data-product-name="\{{this.nftTokenInfo.arEventWinning.productName}}"></div>
+                                \{{/if}}
+                                \{{#if (gte this.holderTranceStatus 1)}}
+                                <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.nftTokenInfo.arEventWinning.arEventWinningId}});"><img src="\{{this.nftTokenInfo.arEventWinning.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.arEventNftTokenInfoId}}" data-repositoryid="\{{id}}" data-trans-status="\{{this.holderTranceStatus}}" data-product-name="\{{this.nftTokenInfo.arEventWinning.productName}}"></div>
+                                \{{/if}}
+                            </a>
+                        </li>
+                        \{{/each}}
+                        </script>
+                    </ul>
+                </div>
+
+                <div class="my_collection" id="couponMyCollection" style="display: none;">
+                    <span class="collection_title">내 쿠폰리스트</span>
+                    <a href="javascript:void(0);" class="more">전체보기</a>
+                    <div class="collection_swiper">
+                        <!-- Swiper -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper" id="couponRepositoryTemplateDiv">
+                                <script id="couponRepositoryTemplate" type="text/x-handlebars-template">
+                                \{{#each this}}
+                                <div class="swiper-slide">
+                                    <a href="javascript:void(0);">
+                                        \{{#ifvalue this.isUse value=false}}
+                                        <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                        \{{/ifvalue}}
+                                        \{{#ifvalue this.isUse value=true}}
+                                        <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                        \{{/ifvalue}}
+                                    </a>
+                                </div>
+                                \{{/each}}
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my_collection_list" id="couponMyCollectionList" style="display: none;">
+                    <span class="collection_title">내 쿠폰리스트</span>
+                    <ul class="list" id="couponRepositoryCollectionTemplateUl">
+                        <script id="couponRepositoryCollectionTemplate" type="text/x-handlebars-template">
+                        <!-- 비활성화시 dim -->
+                        \{{#each this}}
+                        <li>
+                            <a href="javascript:void(0);">
+                                 \{{#ifvalue this.isUse value=false}}
+                                <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                \{{/ifvalue}}
+                                \{{#ifvalue this.isUse value=true}}
+                                <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                \{{/ifvalue}}
+                            </a>
+                        </li>
+                        \{{/each}}
+                        </script>
+                    </ul>
+                </div>
+            
+
+                <div class="event">
+                    <span class="event_title">지금 참여가능한 Event</span>
+                    <div class="event_swiper">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper" id="nftBannerTemplateDiv">
+                                <script id="nftBannerTemplate" type="text/x-handlebars-template">
+                                \{{#each this}}
+                                <div class="swiper-slide" data-banner-sort="\{{bannerSort}}">
+                                    <a href="javascript:void(0);"><img src="\{{bannerImgUrl}}" alt="" data-bannerid="\{{id}}" data-url="\{{bannerTargetUrl}}"></a>
+                                </div>
+                                \{{/each}}
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination pagination"></div>
+                </div>
+            </div>
+
+            <!-- 소유권 이전 결과 -->
+            <div class="transfer_result" style="display: none;">
+                <a href="#" class="close">닫기</a>
+                <p>
+                    내지갑으로 이전이<br>
+                    완료되었습니다.
+                </p>
+            </div>
+            <!-- //소유권 이전 결과 -->
+
+        </div>
+        <!-- // NFT 보관함 -->
+    </section>
+
+    <section id="nftNoticeSection" style="display: none;">
+        <!-- NFT 지갑 생성 안내 -->
+        <div class="win_info">
+            <a href="#" class="close">닫기</a>
+
+            <div class="nft_info">
+                <div class="top">
+                    <span class="win_title">NFT 지갑 생성 안내</span>
+                    <div class="nft_info_desc">
+                        <ol>
+                            <li>Kaikas 지갑주소만 소유권이전이 가능합니다.</li>
+                            <li>Kaikas 지갑은 PC 크롬으로 설치 가능합니다.</li>
+                            {{!-- <li>지갑주소가 없는 경우 이벤트 종료시점까지 지갑 주소를 등록하시고, 소유권이전버튼을 통해 소유권 이전을 실행해 주세요.</li> --}}
+                            {{!-- <li>이벤트 종료일 이후 소유권 이전은 불가능 합니다.</li> --}}
+                            <li>지갑주소를 잘못등록시 다른사람에게 소유권이전이 될 수 있으며 이경우 당사는 책임지지 않으니,  등록시 확인후 정확한 지갑주소를 등록해 주세요.</li>
+                            <li>
+                                본 AR이벤트의 NFT 보관함은 NFT 지갑과는 다른 서비스이고, 다만 경품으로 지급받은 NFT의 소유권 이전을 위한 현황만 보여지는 서비스입니다.<br>
+                                따라서 실재 NFT 지갑의 소유결과와 다를 수 있으니 참고 부탁드립니다.
+                            </li>
+                        </ol>
+
+                        <div class="nft_download">
+                            <span>Kaikas 지갑 다운로드 방법 </span>
+                            <ol>
+                                <li>PC 크롬 브라우저 설치</li>
+                                <li>크롬 웹스토어에서 카이카스(Kaikas) 다운</li>
+                                <li>크롬 확장프로그램에서 카이카스 실행</li>
+                                <li>비밀번호, 계정명 생성</li>
+                                <li>신규 지갑 생성 완료</li>
+                            </ol>
+                        </div>
+                        <p>*내 지갑정보를 정상적으로 등록하지 않은 경우 본 AR이벤트로 부터 당첨된 NFT의 소유권 이전이 불가능합니다.</p>
+                    </div>
+                    <div class="btn">
+                        <button class="grey" id="kasWayBtn">KaiKas 지갑생성방법보기</button>
+                        <button id="nftNoticeSectionConfirmBtn">확인</button>
+                        <span>고객이용문의 playar_cs@skplanet.com</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- // 개인정보 수집 및 이용 동의항목 -->
+    </section>
+
+    <section id="owerTransSection" style="display: none;">
+        <!-- 팝업  -->
+        <div class="layer_popup">
+            <div class="popup_contents">
+                <div class="pfl_pop">
+                    <span class="pop_title">소유권이전요청</span>
+
+                    <p>
+                        등록하신 <em id="owerTransSectionEm" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"></em> 지갑으로<br>
+                        <em id="owerTransSectionProductEm"></em><br>
+                        소유권 이전을 요청합니다.<br>
+                        등록하신 지갑정보가 맞고, 소유권 이전을<br>
+                        요청하시겠습니까?
+                    </p>
+                </div>
+            </div>
+
+            <div class="btn full">
+                <button class="grey">이전하지 않고 상세보기</button>
+                <button class="confirm">소유권 이전요청</button>
+
+                <p class="inquiry">고객이용문의 playar_cs@skplanet.1com</p>
+            </div>
+        </div>
+        <!-- // 팝업 -->
+        <!-- 딤드 배경 -->
+        <div class="dimmed_bg_lightdark"></div>
+        <!-- // 딤드 배경 -->
+    </section>
+
+    <section id="walletRegSection" style="display: none;">
+        <!-- 팝업  -->
+        <div class="layer_popup">
+            <div class="popup_contents">
+                <div class="pfl_pop">
+                    <span class="pop_title">지갑정보등록</span>
+
+                    <p>
+                        {{!-- 등록하신 <em id="owerTransSectionEm" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"></em> 지갑으로<br>
+                        <em id="owerTransSectionProductEm"></em><br> --}}
+                        NFT 지갑정보가 등록되지 않았습니다.<br>
+                        지갑정보 등록시 이벤트 상세를 통해 고지한 날짜에 <br>
+                        정상적으로 NFT air drop이 가능합니다.<br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="btn full">
+                <button class="grey">확인</button>
+                <button class="confirm">등록하지 않고 상세보기</button>
+
+                <p class="inquiry">고객이용문의 playar_cs@skplanet.com</p>
+            </div>
+        </div>
+        <!-- // 팝업 -->
+        <!-- 딤드 배경 -->
+        <div class="dimmed_bg_lightdark"></div>
+        <!-- // 딤드 배경 -->
+    </section>
+
+    <!-- 공통 팝업 -->
+    {{> common-popup }}
+    <!-- //공통 팝업 -->
+    
+</div>

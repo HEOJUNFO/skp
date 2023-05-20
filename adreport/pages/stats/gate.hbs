@@ -1,0 +1,149 @@
+---
+layout: default.hbs
+#layout: default-event.hbs
+title: AD Reporting
+jsfile:
+- pages/stats/gate
+cssfile:
+---
+<div class="wrap">
+    <div class="container">
+        <section>
+            <!-- 게이트 화면 -->
+            <div class="gate_wrap">
+                <div class="gate_top_wrap">
+                    <div class="logo_wrap">
+                        <span class="logo">SK Planet</span>
+                    </div>
+                    <div class="gate_top">
+                        <p class="title">
+                            매출향상을 위한 선택<br>
+                            <em>SK플래닛 광고플랫폼<br>
+                                모바일 리포트</em>입니다.
+                        </p>
+                        <p class="txt">
+                            OK캐쉬백, Syrup Wallet<br>
+                            사용자가 있는 곳이라면<br>
+                            어디든 찾아가서 광고를 노출합니다.
+                        </p>
+                    </div>
+                    <div class="input_form">
+                        <div class="input_form_wrap">
+                            <form>
+                                <fieldset>
+                                    <div class="info_form">
+                                        <ul>
+                                            <li><!-- 입력 활성화시 li에 on class 추가 하단 js 참고 -->
+                                                <span class="input_title" style="text-align: left;">휴대폰 번호</span>
+                                                <div class="input_wrap">
+                                                    <input type="text" id="contents_input" class="contents_input only-number" value="" placeholder="휴대폰 번호를 숫자만 입력하세요" style="text-align: left;">
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                        <div class="btn" id="adSearchBtn">
+                                            <button><span>광고 조회하기</span></button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad_list">
+                    <span class="title" id="titleCount"></span>
+                    <div class="ad_list_wrap"></div>
+                    <div class="more" id="moreList" style="display: none;">
+                        <a href="#" id="moreSearch"><span>더보기</span></a>
+                    </div>
+
+                    <script id="listItemTemplate" type="text/x-handlebars-template">
+                        \{{#list}}
+                        <div class="ad gateRowView">
+                            <a href="#" class="itemWrap">
+                                <div class="img_wrap">
+                                    \{{#ifvalue ./channelType value='OP'}}
+                                    <img src="\{{adreportImgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-mobilead-default@3x.png'">
+                                    \{{/ifvalue}}
+                                    \{{#ifvalue ./channelType value='BLE'}}
+                                    <img src="\{{adreportImgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-locationad-default@3x.png'">
+                                    \{{/ifvalue}}
+                                    \{{#ifvalue ./channelType value='SP'}}
+                                    <img src="\{{adreportImgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-pushad-default@3x.png'">
+                                    \{{/ifvalue}}
+                                    \{{#ifvalue ./channelType value='DFP'}}
+                                    <img src="\{{adreportImgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-d-aad-default@3x.png'">
+                                    \{{/ifvalue}}
+                                </div>
+                                <div class="ad_info">
+                                    <div class="info_top">
+                                        <span class="ad_type"
+                                              data-solutioncode="\{{solutionCode}}"
+                                              data-channeltype="\{{channelType}}"
+                                              data-marketingid="\{{marketingId}}"
+                                              data-cont-plc-name="\{{adreportContPlcName}}"
+                                              data-advertiser-mid="\{{advertiserMid}}"
+                                              data-real-service-end-date="\{{realServiceEndDate}}">\{{solutionName}}</span>
+                                        <span class="txt"><em>\{{adreportMarketingTitle}}</em></span>
+                                        <span class="period">\{{yymmddHan realServiceEndDate}}</span>
+                                    </div>
+                                    <div class="more">
+                                        <span>확인하기</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        \{{/list}}
+                        \{{#list4SF}}
+                        <div class="ad gateRowViewSF">
+                            <a href="#" class="itemWrap">
+                                <div class="img_wrap"><img src="\{{img}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-syrupf-default@3x.png'"></div>
+                                <div class="ad_info">
+                                    <div class="info_top">
+                                        <span class="ad_type"
+                                              data-solutioncode="SF"
+                                              data-channeltype="SF"
+                                              data-marketingid=""
+                                              data-cont-plc-name="\{{name}}"
+                                              data-advertiser-mid="\{{MID}}"
+                                              data-real-service-end-date="\{{endDate}}">\{{reportName}}</span>
+                                        <span class="txt"><em>\{{name}}</em></span>
+                                        <span class="period">\{{yymmddHan endDate}}</span>
+                                    </div>
+                                    <div class="more">
+                                        <span>확인하기</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        \{{/list4SF}}
+                    </script>
+
+                </div>
+            </div>
+            <!-- //게이트 화면 -->
+
+            <!-- footer -->
+            <div class="footer">
+                <div class="ft_top"><span class="txt">SK플래닛(주) 사업자 정보</span></div>
+                <div class="ft_bottom">
+                    SK플래닛(주) 대표이사 이한상<br>
+                    사업자 등록 번호  104 - 86 - 36968<br>
+                    통신판매업 신고번호  2014 - 경기성남 - 0036<br>
+                    대표전화  02-6119-0114<br>
+                    경기도 성남시 분당구 판교로 264 더 플래닛
+
+                    <div class="ft_content">
+                        <ul>
+                            <li><a href="//sodar.syrup.co.kr/terms-logout.html" target="_blank">서비스 이용약관</a></li>
+                            <li><a href="//sodar.syrup.co.kr/privacy-logout.html" class="strong" target="_blank">개인정보 처리방침</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- //footer -->
+
+        </section>
+    </div>
+</div>

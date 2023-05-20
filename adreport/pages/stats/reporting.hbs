@@ -1,0 +1,186 @@
+---
+layout: default.hbs
+#layout: default-dev.hbs
+title: AD Reporting
+jsfile:
+- pages/stats/reporting-common
+- pages/stats/reporting
+- pages/stats/reporting-ad_summary
+- pages/stats/reporting-banner
+- pages/stats/reporting-location
+- pages/stats/reporting-menu
+- pages/stats/reporting-mobile
+- pages/stats/reporting-push
+- pages/stats/reporting-syrupfriends
+- pages/stats/reporting-target
+- pages/stats/reporting-tmpl_dailystat
+- pages/stats/reporting-tmpl_imgpopup
+- pages/stats/reporting-tmpl_monthstat
+- pages/stats/reporting-tmpl_nodata
+- pages/stats/reporting-tmpl_sumstat
+- pages/stats/reporting-tmpl_trend
+- pages/stats/reporting-tmpl_img
+- pages/stats/reporting-tmpl_syrupfriends_nodata
+cssfile:
+---
+<div class="wrap">
+	<div class="container">
+		<!-- header 영역  -->
+		<header>
+			<span class="logo">SK Planet</span>
+			<div class="txt"><span id="headerMarketingTitle"></span></div>
+		</header>
+		<!-- //header 영역 -->
+
+		<section>
+			<!-- 최근 집행광고 summary -->
+            {{!--> reporting-ad_summary--}}
+			<!-- //최근 집행광고 summary -->
+
+			<!-- 상단 메뉴 -->
+			<!--<div class="menu">-->
+                {{!--> reporting-menu--}}
+			<!--</div>-->
+			<!-- // 상단 메뉴 -->
+
+            <div id="display-area">
+
+            </div>
+
+			<!-- 광고 타겟고객 추출 -->
+			<div class="target" style="display: none;">
+			</div>
+			<!-- //광고 타겟고객 추출 -->
+
+
+			<!-- 모바일 마케팅 소개 -->
+			<div class="introduction" style="display: none;">
+				<div class="introduction_top">
+					<span class="title">
+						<em>최적의 모바일<br>
+						마케팅</em>을 소개합니다.
+					</span>
+
+					<p class="txt">
+                        SK플래닛에서 제공하는 다양한 마케팅 솔루션을 경험해 보세요
+                        <!--
+						SK플래닛은 다양한 오프라인 기반 광고주를<br>
+						대상으로 모바일 마케팅 분석을 해드립니다.-->
+					</p>
+				</div>
+				<div class="banner_list">
+					<div class="banner">
+						<a href="https://event.okcashbag.com/ld/ld.jsp?linkurl=ocbt://com.skmc.okcashbag.home_google/detail/event?url=https://event.okcashbag.com/event/dts/smb/blockEventMain.mocb"><img src="https://dt-static.syrup.co.kr/img_smb/ocb_banner_1.png" alt=""></a>
+					</div>
+					<div class="banner">
+						<a href="https://www.syrup.co.kr/download?ue_no=24710"><img src="https://dt-static.syrup.co.kr/img_smb/syrup_banner_1.png" alt=""></a>
+					</div>
+				</div>
+			</div>
+			<!-- //모바일 마케팅 소개 -->
+
+			<!-- 공유하기 -->
+			<!--
+			<div class="share">
+				<div class="share_wrap">
+				<dl>
+					<dt>공유해보세요.</dt>
+					<dd>
+						<ul class="sns-list">
+							<li class="katalk"><a href="#none"><img src="../img/ico_share_kakao.png" alt="카카오톡"></a></li>
+							<li class="sms"><a href="#none"><img src="../img/ico_share_sms.png" alt="SMS 문자"></a></li>
+						</ul>
+					</dd>
+				</dl>
+				</div>
+			</div>
+			-->
+			<!-- //공유하기 -->
+				
+			<!-- footer -->
+			<div class="footer">
+				<div class="ft_top"><span class="txt">SK플래닛(주) 사업자 정보</span></div>
+				<div class="ft_bottom">
+					SK플래닛(주) 대표이사 이한상<br>
+					사업자 등록 번호  104 - 86 - 36968<br>
+					통신판매업 신고번호  2014 - 경기성남 - 0036<br>
+					대표전화  02-6119-0114<br>
+					경기도 성남시 분당구 판교로 264 더 플래닛
+
+					<div class="ft_content">
+						<ul>
+							<li><a href="//sodar.syrup.co.kr/terms-logout.html" target="_blank">서비스 이용약관</a></li>
+							<li><a href="//sodar.syrup.co.kr/privacy-logout.html" class="strong" target="_blank">개인정보 처리방침</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- //footer -->
+
+			<!-- top -->
+			<div class="goto_top">
+				 <a href="#">위로가기</a>
+			</div>
+			<!-- //top -->
+		</section>
+	</div>
+</div>
+
+{{> reporting-tmpl_dailystat}}
+{{> reporting-tmpl_imgpopup}}
+{{> reporting-tmpl_monthstat}}
+{{> reporting-tmpl_nodata}}
+{{> reporting-tmpl_sumstat}}
+{{> reporting-tmpl_trend}}
+{{> reporting-tmpl_img}}
+{{> reporting-tmpl_syrupfriends}}
+{{> reporting-tmpl_syrupfriends_nodata}}
+{{> reporting-target}}
+
+<script id="displayTemplate" type="text/x-handlebars-template">
+    \{{#each this}}
+    <div id="divmenu\{{indexToOrderNo @index}}" class="divmenu" data-channel-type="\{{this}}">
+        \{{#ifvalue this value='OP'}}
+            {{> reporting-mobile}}
+        \{{/ifvalue}}
+        \{{#ifvalue this value='BLE'}}
+            {{> reporting-location}}
+        \{{/ifvalue}}
+        \{{#ifvalue this value='SP'}}
+            {{> reporting-push}}
+        \{{/ifvalue}}
+        \{{#ifvalue this value='DFP'}}
+            {{> reporting-banner}}
+        \{{/ifvalue}}
+        \{{#ifvalue this value='SF'}}
+            {{> reporting-syrupfriends}}
+        \{{/ifvalue}}
+    </div>
+    \{{/each}}
+</script>
+
+<script id="menuListTemplate" type="text/x-handlebars-template">
+    \{{#each this}}
+    <div class="swiper-slide">
+        <a href="#" id="menu\{{indexToOrderNo @index}}" class="\{{#if @first}}mobile on\{{/if}} menuRow" data-channel-type="\{{this}}">
+                            <span>
+                                \{{#ifvalue this value='OP'}}
+                                    모바일전단
+                                \{{/ifvalue}}
+                                \{{#ifvalue this value='BLE'}}
+                                    위치광고
+                                \{{/ifvalue}}
+                                \{{#ifvalue this value='SP'}}
+                                    푸시광고
+                                \{{/ifvalue}}
+                                \{{#ifvalue this value='DFP'}}
+                                    배너광고
+                                \{{/ifvalue}}
+                                \{{#ifvalue this value='SF'}}
+                                    시럽프렌즈
+                                \{{/ifvalue}}
+                            </span>
+        </a>
+    </div>
+    \{{/each}}
+</script>

@@ -1,0 +1,61 @@
+<script id="noDataTemplate" type="text/x-handlebars-template">
+    <div class="leaflet mobile">
+        <div class="leaflet_report">
+            <span class="title">\{{channelName}} 리포트</span>
+        </div>
+        <div class="no_report">
+            <div>
+                <span>
+                    최근 3개월 내 이용한<br>
+                    <em>\{{channelName}}\{{#ifvalue channelType value="OP"}}이\{{else}}가\{{/ifvalue}} 없습니다</em>
+                </span>
+                <p>
+                    \{{channelTitle}}
+                </p>
+            </div>
+        </div>
+
+        <details>
+            <summary><span>광고 집행 신청하기</span></summary>
+
+            <div class="input_form">
+                <span class="title">\{{channelName}}\{{#ifvalue channelType value="OP"}}을\{{else}}를\{{/ifvalue}} 신청하세요</span>
+                <div lass="input_form_wrap">
+                    <form>
+                        <fieldset>
+                            <div class="info_form">
+                                <ul>
+                                    <li class="on"><!-- 기본 입력 li에 on class 추가 -->
+                                        <span class="input_title">상호</span>
+                                        <div class="input_wrap">
+                                            <input type="text" class="contents_input" value="\{{contPlcName}}" readonly>
+                                        </div>
+                                    </li>
+                                    <li class="on"><!-- 기본 입력 li에 on class 추가 -->
+                                        <span class="input_title">신청일</span>
+                                        <div class="input_wrap">
+                                            <input type="text" class="contents_input" value="\{{yyyymmddHan applyDate}}" readonly>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="btn adApplyNodataBtn"
+                                     data-channeltype="\{{channelType}}"
+                                >
+                                    <button>신청하기</button>
+                                </div>
+                                <div class="done" style="display:none">
+                                    <p>
+                                        <em>요청되었습니다.</em><br>
+                                        담당자가 직접 연락드릴예정입니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </details>
+    </div>
+</script>
+
+

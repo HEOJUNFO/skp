@@ -1,0 +1,165 @@
+<!-- //시럽프렌즈 리포트 -->
+<script id="syrupFriendsAllAreaTemplate" type="text/x-handlebars-template">
+    <div class="syrup_friends_top">
+        <div class="title">시럽프렌즈 리포트</div>
+        <div class="info_summary_color">
+            <div class="info_top">
+                <span class="period">\{{yymmddHan midInfo.startDate}} ~ \{{yymmddHan midInfo.endDate}}</span>
+                <span class="txt"><em>\{{midInfo.name}}</em></span>
+            </div>
+            <table>
+                <colgroup>
+                    <col width="53%">
+                    <col width="47%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th>누적 적립 고객수</th>
+                    <th>누적 적립 건수</th>
+                </tr>
+                <tr>
+                    <td>\{{comma midInfo.totalCustomer}}</td>
+                    <td>\{{comma midInfo.totalPointCount}}</td>
+                </tr>
+                <tr>
+                    <th>누적 쿠폰 발급수</th>
+                    <th>누적 쿠폰 사용수</th>
+                </tr>
+                <tr>
+                    <td>\{{comma midInfo.totalIssuedCount}}</td>
+                    <td>\{{comma midInfo.totalUsedCount}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="record_wrap">
+        <div class="record_wrap_top">
+            <p>
+                <em>최근</em> 고객님의<br>
+                시럽프렌즈 실적이에요.
+            </p>
+        </div>
+        <div class="record">
+            <!-- 쿠폰 -->
+            <div class="info_summary">
+                <div class="info_top">
+                    <span class="period">\{{yymmHan salesInfo.reportDate}}</span>
+                    <span class="txt">쿠폰</span>
+                </div>
+                <table>
+                    <colgroup>
+                        <col width="57.2%">
+                        <col width="42.8%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>발급수</th>
+                        <th>사용건수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>\{{comma salesInfo.couponInfo.statSumInfo.issuedCount}}</td>
+                        <td>\{{comma salesInfo.couponInfo.statSumInfo.usedCount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="detail">
+                    <table>
+                        <colgroup>
+                            <col width="35%">
+                            <col width="27%">
+                            <col width="24%">
+                            <col width="14%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>쿠폰명</th>
+                            <th>발급수</th>
+                            <th>사용수</th>
+                            <th>사용율</th>
+                        </tr>
+                        </thead>
+                        <tbody id="couponInfoStatListView">
+                        <!--
+                                                <tr id="SFCouponMoreTR">
+                                                    <td colspan="4">
+                                                        <div class="more">
+                                                            <a href="#" class="SFCouponMore"><span>더보기</span></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                        -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="SFCouponMoreView" style="display:none;">
+                    <div class="more">
+                        <a href="#" class="SFCouponMoreBtn"><span>더보기</span></a>
+                    </div>
+                </div>
+            <!-- // 쿠폰 -->
+        </div>
+        <div class="record">
+            <!-- 월간 적립포인트 -->
+            <div class="info_summary">
+                <div class="info_top">
+                    <span class="period">\{{yymmHan salesInfo.reportDate}}</span>
+                    <span class="txt">신규고객</span>
+                </div>
+                <span class="value" style="top:1.825rem">\{{comma salesInfo.newCustomerInfo.statSumInfo.newCustomerCount}}</span>
+            </div>
+            <div class="chart">
+                <div class="chart_title">
+                    <span>월간 신규 고객수</span>
+                    <span class="right">3개월 추이</span>
+                </div>
+                <div class="chart_container line">
+                    <canvas id="canvas_savepoint_line"></canvas><!-- 차트 -->
+                </div>
+            </div>
+            <!-- // 월간 적립포인트 -->
+        </div>
+        <div class="record">
+            <!-- 월간 적립고객수 -->
+            <div class="info_summary">
+                <div class="info_top">
+                    <span class="period">\{{yymmHan salesInfo.reportDate}}</span>
+                    <span class="txt">적립고객</span>
+                </div>
+                <span class="value" style="top:1.825rem">\{{comma salesInfo.issuedCustomerInfo.statSumInfo.issuedCustomerCount}}</span>
+            </div>
+            <div class="chart">
+                <div class="chart_title">
+                    <span>월간 적립 고객수</span>
+                    <span class="right">3개월 추이</span>
+                </div>
+                <div class="chart_container line">
+                    <canvas id="canvas_saveclient_line"></canvas><!-- 차트 -->
+                </div>
+            </div>
+            <!-- // 월간 적립고객수 -->
+        </div>
+        <div class="record">
+            <p class="msg">
+                이용안내<br>
+                SK플래닛은 시럽프렌즈 상품 제휴 사업자입니다.<br>
+                시럽프렌즈 이용시 발생하는포인트, 쿠폰의 적립 및 사용 등
+                거래에는 일체 책임을 지지 않습니다.
+            </p>
+        </div>
+    </div>
+</script>
+
+<script id="syrupFriendsCounponStatListTemplate" type="text/x-handlebars-template">
+\{{#each statInfo.statList}}
+<tr class="coupontStatRowView">
+    <td><span class="coupon_name">\{{couponName}}</span></td>
+    <td>\{{comma issuedCount}}</td>
+    <td>\{{comma usedCount}}</td>
+    <td>\{{calcPercent usedCount issuedCount}}<span class="percent">%</span></td>
+</tr>
+\{{/each}}
+
+</script>

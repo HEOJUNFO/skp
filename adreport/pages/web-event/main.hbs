@@ -1,0 +1,282 @@
+---
+layout: default-event.hbs
+title: Play AR
+jsfile:
+- pages/web-event/main
+---
+
+<div class="wrap">
+<!-- hidden -->
+<input type="hidden" id="resultCode">
+<input type="hidden" id="locationSettingYn">
+<input type="hidden" id="arAttendConditionCodeYn">
+<input type="hidden" id="pid" value="">
+<input type="hidden" id="isPasswordInput" value="false">
+<input type="hidden" id="kakaoShareTitle">
+<input type="hidden" id="kakaoShareThumbnailUrl">
+<input type="hidden" id="kakaoShareContents">
+<input type="hidden" id="contractStatus">
+<input type="hidden" id="attendCodeMisMatchMessage" value="">
+<input type="hidden" id="attendHourMisMessage" value="">
+<input type="hidden" id="locationMessageNotAttend" value="">
+<input type="hidden" id="locationMessageAttend" value="">
+<input type="hidden" id="locationMessagePopupYn" value="N">
+<input type="hidden" id="attendCodeWrongCnt" value="0">
+<input type="hidden" id="smsAuthCode" value="">
+
+
+<!-- // hidden -->
+       
+		<!-- header 영역  -->
+		<header class="moweb_header">
+			{{!-- <a href="#">&lt;</a> --}}
+			<div><span id="eventHeaderTitle"></span></div>
+		</header>
+		<!-- //header 영역 -->
+
+		<section>
+            {{!-- <input type="button" name="nftBtn" value="nft화면이동"/> --}}
+			<div class="event_wrap">
+                {{!-- <input type="button" value="경품입력 화면 팝업" id="giveAwayTestBtn"/> --}}
+				<!-- 기본 구성 -->
+                <!-- AR BG IMAGE 시작 -->
+				<div class="event_img">
+					<img id="arBgImage" src="" alt="">
+				</div>
+				<!-- AR BG IMAGE 끝 -->
+                <!-- AR 참여하기 버튼 시작 -->
+                <div class="event_btn start" id="arAttendBtnDiv">
+					<a href="#" id="attendBtn"></a>
+				</div>
+                <!-- AR 참여하기 버튼 끝 -->
+				<!-- // 기본 구성 -->
+
+				<!-- 확장  컴포넌트 -->
+				<div class="expand" id="expand" style="background:#fff;">
+                    <script id="eventHtmlTemplate" type="text/x-handlebars-template">
+                    \{{#each this}}
+                        <!-- 이미지 시작 -->
+                        \{{#ifvalue this.htmlType value='IMAGE'}}
+                            <div class="event_img">
+						        <img src="\{{this.htmlImageUrl}}" alt="">
+					        </div>
+                        \{{/ifvalue}}
+                        <!-- 이미지 끝 -->
+
+                        <!-- 버튼 시작 -->
+                        \{{#ifvalue this.htmlType value='BUTTON'}}
+                            <!-- 이동버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='NORMAL'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="\{{this.htmlButtonTargetUrl}}" class="putPvLogBtn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    "
+                                    data-log-num="1" data-log-page-id="/main" data-log-order="\{{this.htmlTypeSort}}" data-log-type="\{{htmlButtonType}}"
+                                    >
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 이동버튼 끝 -->
+
+                            <!-- 당첨확인버튼 시작 -->
+                            \{{#ifvalue this.htmlButtonType value='CONFIRM'}}
+                            <div class="event_btn" style="
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                        ">
+                                <a href="javascript:void(0)" name="historyBtn" class="putPvLogBtn" style="
+                                                                        \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#ff6315;\{{/ifvalue}}  
+                                                                        \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                            \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                                background: \{{this.htmlButtonColorHex}};
+                                                                            \{{/ifvalue}}
+                                                                            \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                                background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                            \{{/ifvalue}}
+                                                                        \{{/ifvalue}}
+
+                                                                        
+                                                                        \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                            color: \{{this.htmlButtonTextColorHex}};
+                                                                        \{{/ifvalue}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                            color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                            \{{/ifvalue}}
+                                                                        \{{/ifvalue}}
+                                "
+                                data-log-num="1" data-log-page-id="/main" data-log-order="\{{this.htmlTypeSort}}" data-log-type="\{{htmlButtonType}}"
+                                >
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 당첨확인버튼 끝  -->
+
+                            <!-- NFT보관함버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='NFTREPO'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="#" name="nftHistoryBtn" class="putPvLogBtn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    "
+                                    data-log-num="1" data-log-page-id="/main" data-log-order="\{{this.htmlTypeSort}}" data-log-type="\{{htmlButtonType}}"
+                                    >
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- NFT보관함버튼 끝 -->
+
+                            <!-- 쿠폰 보관함버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='CPREPO'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="#" name="couponHistoryBtn" class="putPvLogBtn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    "
+                                    data-log-num="1" data-log-page-id="/main" data-log-order="\{{this.htmlTypeSort}}" data-log-type="\{{htmlButtonType}}"
+                                    >
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 쿠폰 보관함버튼 끝 -->
+
+                        \{{/ifvalue}}
+                        <!-- 버튼 끝 -->
+                        
+                        <!-- 카카오톡 공유하기 버튼 시작 -->
+                         \{{#ifvalue this.htmlType value='SHARE'}}
+                            <div class="share putPvLogBtn" style="background:#fff;" data-log-num="2" data-log-page-id="/main">
+                                <a id="shareImg">
+                                    {{!-- 카카오톡 공유하기 --}}
+                                    <img src="\{{this.htmlShareButtonImageUrl}}" alt="카카오톡 공유하기">
+                                </a>
+                            </div>
+                        \{{/ifvalue}}
+                        <!-- 카카오톡 공유하기 버튼 끝 -->
+                    \{{/each}}
+                    </script>
+				</div>
+                <!-- // 확장  컴포넌트 -->
+                <!-- footer -->
+                {{> event-footer }}
+                <!-- //footer -->
+
+            </div>
+				
+		</section>
+        <!-- 공통 팝업 -->
+        {{> common-popup }}
+        <!-- //공통 팝업 -->
+
+	</div>

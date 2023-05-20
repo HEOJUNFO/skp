@@ -1,0 +1,11 @@
+[SS-20222][DTWS-13][DTWS-22] 서베이고 모바일 수정 
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch feature/SS-20222
+# Your branch is up to date with 'origin/feature/SS-20222'.
+#
+# Changes to be committed:
+#	modified:   adreport/resources/js/pages/web-event/event-common.js
+#	modified:   adreport/resources/js/pages/web-event/survey-go/survey-go.js
+#

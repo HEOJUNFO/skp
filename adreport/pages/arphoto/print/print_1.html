@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="window.close()"><b>&#x2190;</b></span>
+            <span id="title">사진 출력 이벤트 안내</span>
+        </div>
+
+        <div id="content-1" class="container">
+            <div class="content">
+                <div class="scrollable-image">
+                    <img id="descImg" src="" alt="">
+                </div>
+            </div>
+            <div class="footer" style="position: fixed; bottom: 0; width: 100%;">
+                <button id="btnZoomIn" class="btn">키오스크 위치 크게보기</button>
+                <button id="btnGoSelectPhoto" class="btn">사진 출력하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        location.href = location.origin + location.pathname + "#3";        
+        
+        function resize(){
+            let main = document.querySelector("#content-1");
+            let content = document.querySelector("#content-1 .content");
+            let scrollabe = document.querySelector("#content-1 .scrollable-image");
+            let mainHeight = $(main).outerHeight();
+            let footer = document.querySelector("#content-1 .footer");
+            let footerHeight = $(footer).outerHeight(true);
+
+            content.style.maxHeight = (mainHeight - footerHeight) + 'px';
+        }
+
+        setInterval(function(){
+            resize();
+        }, 1000);
+        
+        resize();
+        document.querySelector("#descImg").src = topPath + descFolderPath + descFileName;
+        document.querySelector("#btnZoomIn").addEventListener("click", function() {
+            location.href = topPath + descMapFolderPath + descMapFileName;
+        });
+
+        document.querySelector("#btnGoSelectPhoto").addEventListener("click", function() {
+            location.href = "print_2.html";
+        });
+    </script>
+</body>
+</html>

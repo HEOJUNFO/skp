@@ -1,0 +1,484 @@
+@charset "utf-8";
+  
+@font-face{font-family:'Roboto Bold';src:local(ⓐ), url('../font/Roboto-Bold.woff') format("woff"), url('../font/Roboto-Bold.ttf') format("truetype");}
+
+/* SK Planet - Base 1.0 */
+html,body,form,div,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,fieldset,th,td,button{margin:0;padding:0;border:0;font-size:100%;font:inherit;color:#464646;}
+body{-webkit-text-size-adjust:none;}
+input,textarea,select,button{font:inherit;vertical-align:middle;padding:0;}
+input[type="button"],input[type="text"],input[type="image"],input[type="submit"],textarea{-webkit-appearance:none;border-radius:0;}
+input[type="checkbox"]{-webkit-appearance:checkbox;}
+input[type="radio"]{-webkit-appearance:radio;}
+textarea{resize:none;}
+table{width:100%;border-collapse:collapse;border-spacing:0;}
+ol,ul{list-style:none;}
+img,fieldset,iframe{border:none;}
+address,cite,code,dfn,em,var,th,strong{font-style:normal;font-weight:normal;}
+a{text-decoration:none;}
+article,aside,dialog,figure,footer,header,hgroup,nav,section{display:block;}
+
+/* Syrup Wallet */
+html, body{font-size:calc((100vw/360)*16);}
+body{font-family:'droid sans','AppleSDGothicNeo', Apple SD Gothic Neo, arial, '돋움', dotum, helvetica, sans-serif!important;color:#464646;background:#fff;}
+.wrap{position:relative;width:100%;min-height:100vh;overflow:hidden;}
+header{position:relative;width:100%;}
+header:after{position:absolute;top:0;left:0;content:"native";width:100%;height:100%;color:#fff;font-size:1.875rem;background:rgba(0, 255,0, 0.3);}
+section{float:left;width:100%;position:relative;clear:both;}
+section:after{content:"";height:0;display:block;visibility:hidden;clear:both;}
+button{margin:0;padding:0;border:0;cursor:pointer;font-family:inherit;line-height:inherit;text-indent:-1000em;white-space:nowrap;overflow:hidden;}
+caption, legend{display:none;}
+#layer img{width: 6.5%;vertical-align: top;}
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-results-button, input[type="search"]::-webkit-search-results-decoration{display:none;}
+img{width:100%;vertical-align:top;}
+input[type="text"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder,input[type="number"]::-webkit-input-placeholder,input[type="password"]::-webkit-input-placeholder,input[type="email"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder{font-size:1rem;font-weight:normal;color:#bbb;}
+a, label, button, input, table, select, details, summary{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input{-webkit-appearance:none;}
+button, input:focus, summary{outline:none;}
+details summary{list-style:none;}
+details summary::-webkit-details-marker{display:none;}
+
+
+body.white{background:#fff;}
+body.landscape{background:rgba(0,0,0,0.7);}
+body.dim{position:relative;height:100vh;}
+body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0, 0, 0, 0.7);z-index:108;}
+
+.moweb_header{position:fixed;top:0;left:0;width:100%;height:3.4375rem;line-height:3.4375rem;background:rgba(255,255,255,1);z-index:5;}
+.moweb_header:after{content:"";position:relative;background:none;}
+.moweb_header a{float:left;display:block;width:2.6875rem;height:100%;background:url("../img/bg_header_arrow.png?v={version}") 1rem 50% no-repeat;background-size:0.625rem auto;-webkit-box-sizing:border-box;box-sizing:border-box;text-indent:-1000em;overflow:hidden;}
+.moweb_header span{float:left;display:block;width:85%;height:3.4375rem;line-height:3.4375rem;color:#000;font-size:1.1875rem;letter-spacing:-0.02em;overflow:hidden;white-space:nowrap;word-wrap:normal;-webkit-box-sizing:border-box;box-sizing:border-box;text-overflow:ellipsis;}
+
+.moweb_header + section{padding-top:3.4375rem;}
+
+.event_btn{padding:1.875rem 1.5rem;}
+.event_btn a{display:block;margin-bottom:0.625rem;width:100%;height:3.25rem;line-height:3.25rem;font-size:1rem;font-weight:bold;text-align:center;border-radius:3.25rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.event_btn a:last-child{margin-bottom:0;}
+.event_btn a.border{border:1px solid #fff;}
+
+.share{padding:1.875rem 1.5rem;background:#fff;}
+.share a{display:block;width:100%;height:3.25rem;line-height:3.25rem;font-size:1rem;font-weight:bold;text-align:center;color:#444;border-radius:3.25rem;background:#d2d2d2;-webkit-box-sizing:border-box;box-sizing:border-box;}
+
+
+.expand .event_btn{padding:1.25rem 1.5rem;}
+.expand .share{padding:0}
+.expand .share a{height:auto;line-height:initial;}
+
+
+.footer{padding:1.875rem;background:#f6f6f7;}
+.footer .logo{margin-bottom:1.25rem;text-align:center;}
+.footer .logo img{width:3.75rem}
+.footer .link{margin-bottom:1.25rem;text-align:center;font-size:0;letter-spacing:0;word-spacing:0;}
+.footer .link a{display:inline-block;margin-right:1rem;line-height:1.125rem;font-size:0.75rem;letter-spacing:-0.025rem;color:#707070;text-decoration:underline;}
+.footer .link a:last-of-type{margin-right:0;}
+.footer .txt{line-height:1.125rem;font-size:0.75rem;letter-spacing:-0.025rem;color:#999;text-align:center;}
+
+.dimmed_bg_lightdark{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.6;z-index:6;}
+
+.layer_popup_agree{position:fixed;bottom:0;left:0;width:100%;z-index:-1;-webkit-transform: translateY(100%);visibility:hidden;}
+.layer_popup_agree.ani{visibility:visible;-webkit-animation:zp_popup_up 200ms ease-in;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;z-index:110;}
+.layer_popup_agree.ani_back{visibility:visible;-webkit-animation:zp_popup_down 200ms ease-in;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;z-index:110;}
+.layer_popup_agree.on{visibility:visible;z-index:110;-webkit-transform:translateY(0);}
+
+.layer_popup_agree .popup_contents{position:relative;padding:1.125rem 1.5rem 1.875rem 1.5rem;background:#fff;border-top-left-radius:0.625rem;border-top-right-radius:0.625rem;}
+.layer_popup_agree .popup_contents .title{display:block;line-height:1.625rem;font-size:1.125rem;font-weight:bold;letter-spacing:-0.01875rem;color:#222;}
+.layer_popup_agree .popup_contents .close{position:absolute;top:0.9375rem;right:0.6875rem;display:block;width:2.125rem;height:2.125rem;background:#fff url("../img/bg_popup_close.png?v={version}") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow:hidden;}
+.layer_popup_agree .popup_contents ul{margin-top:2.5rem;}
+.layer_popup_agree .popup_contents ul li{margin-bottom:0.75rem;}
+.layer_popup_agree .popup_contents ul li:last-of-type{margin-bottom:0;}
+.layer_popup_agree .popup_contents ul li a{display:block;line-height:1.125rem;font-size:0.875rem;letter-spacing:-0.058125rem;color:#555;background:url("../img/bg_popup_arrow.png?v={version}") right -0.25rem top -0.125rem no-repeat;background-size:1.25rem auto;}
+.layer_popup_agree .popup_contents ul li a span{display:block;width:92%;word-break:keep-all;}
+.layer_popup_agree .popup_contents ul li a em{font-size:0.75rem;letter-spacing:-0.025rem;color:#ff6315;}
+.layer_popup_agree .popup_contents p{margin-top:0.8125rem;line-height:1.125rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#707070;word-break:keep-all;}
+.layer_popup_agree .btn{width:100%;height:auto;}
+.layer_popup_agree .btn button{width:100%;line-height:4rem;height:4rem;font-size:1rem;text-align:center;color:#fff;background:#ff6315;text-indent:0;}
+.layer_popup_agree .btn button.grey{background:#f2f2f2;color:#bbb;}
+
+
+
+.info_form ul li .title{position:absolute;top:0;left:0;display:block;width:70%;line-height:1.1875rem;color:#D5D5D5;z-index:3;}
+.info_form ul li .title.moved{top:0!important;font-size:0.8125rem;line-height:1rem;-webkit-animation:move_title 200ms ease-in-out;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;-webkit-transform-style:preserve-3d;-webkit-backface-visibility:hidden;}
+
+@-webkit-keyframes move_title{
+	0% 	{top:1.4375rem;font-size:0.9375rem;}
+	100% {top:0;font-size:0.8125rem;}
+}	
+.info_form{overflow:hidden;}
+.info_form input::-webkit-input-placeholder{font-weight:normal;}
+.info_form ul{position:relative;}
+.info_form ul li{position:relative;margin-bottom:2.8125rem;width:100%;height:3.5rem;border-bottom:1px solid #ededed;-webkit-box-sizing:border-box;box-sizing:border-box;background:#fff;}
+.info_form ul li.error{border-color:#ff3e00;}
+.info_form ul li.on{border-color:#1f1f1f;}
+.info_form ul li.hidden{display:none;}
+.info_form ul li.multi{border:0;}
+.info_form ul li.readonly{border-color:#ededed;}
+
+.info_form ul li .title{position:absolute;top:0;left:0;display:block;width:70%;line-height:1.1875rem;color:#999;z-index:3;}
+.info_form ul li .title a{display:block;margin-top:1.4375rem;color:#999;letter-spacing:-0.03125rem;text-align:left;font-size:1rem;}
+.info_form ul li .title.moved_fix{-webkit-animation:initial;top:0;font-size:0.8125rem;line-height:1rem;}
+.info_form ul li .title.moved_fix.hidden{display:none;}
+.info_form ul li .title.moved_fix a, .info_form ul li .title.moved a{margin-top:0;cursor:default;letter-spacing:-0.03375rem;font-size:0.8125rem;}
+.info_form ul li .title.moved_fix a span, .info_form ul li .title.moved a span{display:none;}
+.info_form ul li.on .title{margin-top:0;margin-bottom:0.375rem;line-height:1rem;height:1rem;}
+.info_form ul li.error .title{color:#ff3e00;}
+.info_form ul li.error .title a{color:#ff3e00;}
+.info_form input.contents_input{display:none;padding:0.5rem 0 0;width:11%;line-height:1.1875rem;font-size:1rem;font-weight:bold;color:#222;border:0;-webkit-appearance:none;-moz-appearance:none;appearance:none;}
+.info_form ul li.on input.contents_input{display:block;}
+.info_form ul li .title.moved_fix.hidden + div input.contents_input{display:block;width:100%;}
+.info_form ul li .title.moved_fix.hidden + div input.contents_input::-webkit-input-placeholder{color:#999;}
+
+.info_form .auth_number{position:absolute;top:1rem;left:0;width:100%;height:1.875rem;}
+.info_form .auth_number input{float:left;width:100%;}
+
+.info_form .ntf_addr{position:absolute;top:1rem;left:0;display:flex;flex-direction:row;justify-content:space-between;width:100%;height:1.875rem;}
+.info_form .ntf_addr input{width:100%;}
+.info_form .ntf_addr a{display:block;margin-left:0.625rem;padding-top:0.75rem;font-size:0.75rem;line-height:0.875rem;text-decoration-line:underline;color:#444445;white-space:nowrap;}
+.info_form .ntf_addr a.modify{display:inline-table;margin-top:0.1875rem;padding:0 0.6875rem;line-height:1.75rem;font-size:0.75rem;color:#444445;border:1px solid #D2D2D2;border-radius:1.875rem;text-decoration:initial;}
+.info_form .ntf_addr a.modify.ing{color:#FF6315;border-color:#FF6315;}
+
+.info_form ul li .msg{position:absolute;bottom:-1.25rem;left:0;display:block;width:100%;line-height:0.9375rem;font-size:0.6875rem;letter-spacing:-0.03125rem;color:#bbb;text-align:right;}
+.info_form ul li .msg em{color:#007aff;}
+.info_form ul li .error_msg{position:absolute;top:3.75rem;left:0;display:none;width:100%;line-height:0.9375rem;font-size:0.6875rem;letter-spacing:-0.03125rem;color:#ff3e00;text-align:right;word-break:keep-all;}
+.info_form ul li.error .error_msg{display:block;}
+.info_form ul li.error input{display:block;}
+
+
+.info_form .name_wrap{position:absolute;top:1rem;left:0;width:100%;height:1.875rem;}
+.info_form .name_wrap input{float:left;margin-top:0;width:8.5rem;}
+
+.info_form .company_wrap{position:absolute;top:1rem;left:0;width:100%;height:1.875rem;}
+.info_form .company_wrap input{float:left;margin-top:0;width:8.5rem;}
+.info_form .company_wrap .request{position:absolute;top:1rem;right:0;min-width:4.8125rem;height:1.875rem;padding:0 0.75rem;line-height:1.875rem;font-size:0.75rem;color:#444445;background:#fff;border:1px solid #d9d9df;-webkit-box-sizing:border-box;box-sizing:border-box;border-radius:0.9375rem;text-indent:0;text-align:center;-webkit-transform:translateY(-50%);}
+.info_form .company_wrap .request.on{font-weight:bold;color:#3496f4;border-color:#82bcfb;}
+.info_form .company_wrap .request.disable{font-weight:bold;color:#bbb;border-color:#f2f2f2;background:#f2f2f2;}
+
+.info_form .company_wrap .change, .info_form .addr_wrap .change{position:absolute;top:0;right:0;display:inline-block;width:4.5625rem;height:1.875rem;line-height:1.875rem;border:1px solid #d9d9df;border-radius:1.875rem;text-align:center;color:#444445;font-size:0.8125rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+
+.info_form .zipcode_wrap{position:absolute;top:1rem;left:0;width:100%;}
+.info_form .zipcode_wrap input{width:75%;text-align:left;}
+.info_form ul li.on .zipcode_wrap input{display:inline-block!important;}
+.info_form .zipcode_wrap a{position:absolute;top:0;right:0;display:inline-block;width:5.5625rem;height:1.875rem;line-height:1.875rem;border:1px solid #d9d9df;border-radius:1.875rem;text-align:center;color:#444445;font-size:0.8125rem;}
+.info_form ul li.on .zipcode_wrap a{display:inline-block;}
+.info_form  .zipcode_wrap input:read-only{color:#222;}
+
+.info_form .addr_wrap{position:absolute;top:1rem;left:0;width:100%;}
+.info_form  ul li.on .addr_wrap input.contents_input{padding-right:28%;width:72%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;letter-spacing:-0.033125rem;}
+.info_form  ul li.on .addr_wrap input.contents_input:only-child{padding-right:0;width:100%;}
+
+
+.layer_popup{position:fixed;top:50%;left:5.56%;display:flex;flex-direction:column;width:88.88%;min-height:14.3125rem;padding:1.5rem 1.5rem 1.9375rem;background:#fff;border-radius:0.625rem;z-index:7;-webkit-transform:translateY(-50%);-webkit-box-sizing:border-box;box-sizing:border-box;justify-content:space-between;}
+.layer_popup *{font-family:-apple-system, Pretendard, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;}
+.layer_popup .popup_contents{position:relative;}
+.layer_popup .popup_contents .pop_title{display:block;margin-bottom:1rem;line-height:1.625rem;font-size:1.125rem;font-weight:bold;letter-spacing:-0.025rem;color:#111;}
+.layer_popup .popup_contents p{margin-bottom:3.125rem;line-height:1.25rem;font-size:0.875rem;letter-spacing:-0.025rem;color:#111;word-break:keep-all;}
+.layer_popup .popup_contents p.bottom{margin-top:-1.5rem;}
+.layer_popup .popup_contents p.bottom a{color:#464646;}
+.layer_popup .popup_contents .info_form{margin:0 0.0625rem 0;}
+.layer_popup .popup_contents p + .info_form{margin-top:-2rem;}
+.layer_popup .popup_contents .info_form ul li{border-color:#D5D5D5;}
+.layer_popup .popup_contents .info_form ul li .title a{color:#D5D5D5;letter-spacing:-.025rem;font-size:1rem;}
+.layer_popup .popup_contents .info_form ul li .title.moved_fix a, .layer_popup .popup_contents .info_form ul li .title.moved a{margin-top:0;cursor:default;letter-spacing:-0.03375rem;font-size:0.8125rem;}
+.layer_popup .popup_contents .info_form ul li.error{border-color:#FF0000;}
+.layer_popup .popup_contents .info_form ul li .error_msg{top:4.0625rem;}
+.layer_popup .popup_contents .info_form ul li.on{border-color:#492CE9;}
+.layer_popup .popup_contents .info_form ul li.error .title a{color:#FF0000;}
+.layer_popup .popup_contents .info_form input.contents_input{display:none;padding:0.5rem 0 0;width:11%;line-height:1.1875rem;font-weight:normal;font-size:1rem;letter-spacing:-.025rem;color:#111;border:0;-webkit-appearance:none;-moz-appearance:none;appearance:none;}
+.layer_popup .popup_contents .info_form ul li.on input.contents_input{display:block;}
+.layer_popup .popup_contents .info_form .auth_number{position:absolute;top:1rem;left:0;width:100%;height:1.875rem;}
+.layer_popup .popup_contents .info_form .auth_number input{float:left;width:100%;}
+.layer_popup .popup_contents .info_form ul li.error input{display:block;}
+.layer_popup .popup_contents .info_form ul li .title.moved_fix.hidden{background:#f00;}
+.layer_popup .popup_contents .info_form ul li .title.moved_fix.hidden + div input.contents_input{display:block;width:100%;}
+.layer_popup .popup_contents .info_form ul li .title.moved_fix.hidden + div input.contents_input::-webkit-input-placeholder{color:#d5d5d5;}
+.layer_popup .btn{flex-shrink:0;display:flex;flex-direction:row;justify-content:center;width:100%;padding:1.25rem 0 0;height:auto;}
+.layer_popup .btn button{margin:0 0.25rem;width:41.25%;line-height:2.8125rem;height:2.9375rem;font-size:1.125rem;text-align:center;color:#fff;background:#492CE9;text-indent:0;border-radius:2.9375rem;letter-spacing:-0.03125rem;}
+.layer_popup .btn button.grey{background:#A39FB9;border-color:#A39FB9;}
+.layer_popup .btn button.used{margin-bottom:0!important;background:#492CE9;border-color:#492CE9;}
+.layer_popup .btn.full{display:block;padding:0 1rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.layer_popup .btn.full button{margin:0 0 0.75rem;width:100%;}
+.layer_popup .btn.full .inquiry{margin-top:0.5rem;font-size:0.75rem;line-height:1.125rem;text-align:center;letter-spacing:-0.025rem;color:#999;}
+
+
+.win_popup{position:fixed;top:50%;left:10%;width:80%;padding:2.5rem 0 0;border-radius:0.625rem;z-index:7;-webkit-transform:translateY(-50%);-webkit-box-sizing:border-box;box-sizing:border-box;}
+.win_popup img{border-top-left-radius:0.625rem;border-top-right-radius:0.625rem;}
+
+.win_popup .scan_img{position:absolute;top:55%;left:50%;display:block;width:50.6%;border:4px solid #fff;-webkit-transform:translate(-50%,-50%);}
+.win_popup .scan_img img{border-radius:0;}
+.win_popup .nft_img{position:absolute;top:32.4%;left:0;display:block;width:100%;}
+.win_popup .nft_img img{border-radius:0;}
+.win_popup .btn{background:#fff;border-bottom-left-radius:0.625rem;border-bottom-right-radius:0.625rem;}
+.win_popup .btn a{display:block;line-height:3.75rem;font-size:0.9375rem;font-weight:600;letter-spacing:-0.0125rem;text-align:center;color:#777;border-bottom:1px solid #ececec;}
+.win_popup .btn a:last-of-type{border:0;}
+.win_popup .btn a.continue{font-weight:bold;color:#111;}
+.win_popup .close{position:absolute;top:0;right:0;display:block;width:2rem;height:2rem;background:url("../img/bg_popup_close_white.png") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow: hidden;}
+
+.bridge_popup{position:fixed;top:50%;left:5.56%;width:88.88%;padding:0;z-index:7;-webkit-transform:translateY(-50%);-webkit-box-sizing:border-box;box-sizing:border-box;}
+.bridge_popup .img, .bridge_popup .video{text-align:center;}
+.bridge_popup img{width:100%;border-radius:0.375rem;}
+.bridge_popup video{width:100%;}
+
+.bridge_popup .img.vertical img{width:78%;}
+.bridge_popup .video.vertical .video-container{width:78%;}
+.bridge_popup .btn{padding-top:1.125rem;text-align:center;}
+.bridge_popup .btn a{display:inline-block;padding:0 2.3125rem;line-height:2.5rem;height:2.5rem;font-size:0.9375rem;font-weight:600;letter-spacing:-0.0125rem;text-align:center;color:#fff;border:1px solid #fff;border-radius:2.5rem;opacity:0.7;-webkit-box-sizing:border-box;box-sizing:border-box;}
+
+
+@-webkit-keyframes zp_popup_up {
+	0%{-webkit-transform:translateY(100%);visibility:visible;}
+	100%{-webkit-transform:translateY(0);}
+}
+
+@-webkit-keyframes zp_popup_down {
+	0%{-webkit-transform:translateY(0);}
+	100%{-webkit-transform:translateY(100%);z-index:-1;visibility:hidden;}
+}
+
+
+.win_history{position:relative;padding-top:5rem;}
+.win_history .close{position:absolute;top:1rem;right:1rem;display:block;width:2.125rem;height:2.125rem;background:#fff url("../img/bg_popup_close.png?v={version}") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow:hidden;}
+.win_history .top{padding:0 1.5rem;}
+.win_history .top .win_title{display:block;margin-bottom:2.5rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+.win_history .top p{margin-top:-1.5625rem;line-height:1.125rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#707070;}
+.win_history .top .btn{margin:1.25rem 0 3.75rem;}
+.win_history .top .btn a{display:block;width:100%;height:3.25rem;line-height:3.25rem;font-size:1rem;color:#ff6315;border-radius:0.3125rem;border:1px solid #ff6315;text-align:center;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.win_history .search_result{padding-bottom:3.75rem;}
+.win_history .search_result .title{display:block;padding-left:1.5rem;line-height:1.1875rem;font-size:0.9375rem;font-weight:bold;letter-spacing:-0.03125rem;color:#464646;}
+.win_history .search_result ul li{display:flex;padding:0 1.5rem;height:4.375rem;border-bottom:1px solid #ededed;}
+.win_history .search_result ul li .date{display:inline-block;margin-right:0.5rem;line-height:4.375rem;font-size:0.8125rem;letter-spacing:-0.03125rem;color:#707070;}
+.win_history .search_result ul li .txt{display:inline-block;margin-right:0.5rem;line-height:4.375rem;font-size:0.9375rem;letter-spacing:-0.03125rem;color:#464646;font-weight:600;max-width:50%;overflow:hidden;white-space:nowrap;word-wrap:normal;-webkit-box-sizing:border-box;box-sizing:border-box;text-overflow:ellipsis;}
+.win_history .search_result ul li a{display:inline-block;margin-top:1.25rem;margin-left:auto;height:1.875rem;line-height:1.875rem;padding:0 1rem;font-size:0.75rem;color:#ff6315;border-radius:1.875rem;border:1px solid #ff6315;white-space:nowrap;}
+.win_history .search_result ul li a.done{border-color:#d2d2d2;color:#999;}
+.win_history .search_result .empty{padding-top:2.5rem;padding-bottom:1.5rem;}
+.win_history .search_result .empty p{padding-top:4.125rem;text-align:center;line-height:1.5rem;font-size:1rem;letter-spacing:-0.03125rem;color:#464646;background:url("../img/bg_info_noti.png?v={version}") 50% 0 no-repeat;background-size:3.125rem auto;}
+
+.win_history .agree_wrap .terms .win_title{display:block;margin-bottom:0.75rem;line-height:1.1875rem;font-weight:normal;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#555;}
+.win_history .agree_wrap .terms .win_title em{color:#ff3e00;}
+.win_history .agree_wrap .terms table{width:100%;table-layout:fixed;border-spacing:0;border-collapse:collapse;}
+.win_history .agree_wrap .terms table th, .win_history .agree_wrap .terms table td{padding:0.625rem 0.625rem;font-size:0.75rem;letter-spacing:-0.03125rem;line-height:1rem;border:1px solid #e4e4e4;color:#666;}
+.win_history .agree_wrap .terms table th{background:#f6f6f7;color:#222;}
+.win_history .agree_wrap .terms table td{text-align:center;}
+.win_history .agree_wrap .terms table td:nth-child(3){text-align:left;}
+.win_history .agree_wrap .terms table td em{line-height:1.25rem;font-size:0.875rem;font-weight:bold;letter-spacing:-0.03625rem;color:#666;word-break:keep-all;}
+.win_history .agree_wrap .terms p.bottom{margin-top:0.75rem;margin-bottom:1.5rem;line-height:1.1875rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#ff3e00;}
+
+.win_info{position:fixed;top:0;left:0;right:0;bottom:0;padding-top:5rem;background:#fff;z-index:5;overflow-y:auto;}
+.win_info .close{position:absolute;top:1rem;right:1rem;display:block;width:2.125rem;height:2.125rem;background:#fff url("../img/bg_popup_close.png?v={version}") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow:hidden;z-index:6;}
+.win_info .top{padding:0 1.5rem;}
+.win_info .top .win_title{display:block;margin-bottom:2.5rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+.win_info .top p{margin-top:-1.5625rem;margin-bottom:1.25rem;line-height:1.125rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#707070;}
+.win_info .top p.bottom{margin-top:1.25rem;margin-bottom:1.5rem;line-height:1.1875rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#ff3e00;}
+.win_info .top p.bottom em{display:block;color:#999;margin-top:-1rem;margin-bottom:0.5rem;}
+.win_info .info_form ul li{margin-bottom:1.25rem;}
+.win_info .terms{margin-top:1.25rem;}
+.win_info .terms .win_title{display:block;margin-bottom:0.75rem;line-height:1.1875rem;font-weight:normal;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#555;}
+.win_info .terms .win_title em{color:#ff3e00;}
+.win_info .btn{padding:0 0 2.5rem;}
+.win_info .btn button{width:100%;line-height:3.25rem;border-radius:0.3125rem;color:#fff;font-size:1rem;background:#ff5700;text-indent:0;}
+
+.win_info .delivery_info table{margin-bottom:1.25rem;width:100%;table-layout:fixed;border-spacing:0;border-collapse:collapse;}
+.win_info .delivery_info table th, .win_info .delivery_info table td{padding:0.625rem 0.625rem;font-size:0.75rem;letter-spacing:-0.03125rem;line-height:1rem;border:1px solid #e4e4e4;color:#666;}
+.win_info .delivery_info table th{background:#f6f6f7;color:#222;}
+.win_info .delivery_info .view a{display:inline-block;line-height:1.1875rem;font-size:0.8125rem;font-weight:bold;letter-spacing: -0.43px;color:#999;text-decoration:underline;}
+
+.win_info .nft_info .nft_info_desc{padding:0 0 0 1rem;}
+.win_info .nft_info .nft_info_desc ol li{font-size:0.9375rem;line-height:1.375rem;letter-spacing:-0.03125rem;color:#707070;word-break:keep-all;}
+.win_info .nft_info .nft_info_desc ol li::marker{content:counter(list-item)") ";}
+.win_info .nft_info .nft_info_desc .nft_download{margin:0.75rem 0;}
+.win_info .nft_info .nft_info_desc .nft_download span{margin-left:-0.5rem;font-size:0.9375rem;font-weight:700;line-height:1.375rem;letter-spacing:-0.03125rem;color:#222;}
+.win_info .nft_info .nft_info_desc .nft_download ol li{color:#222;}
+.win_info .nft_info .nft_info_desc p{margin:0 0 0 -1rem;font-size:0.9375rem;line-height:1.375rem;letter-spacing:-0.03125rem;color:#FF3E00;}
+.win_info .nft_info .btn{padding:2.5rem 2.75rem;}
+.win_info .nft_info .btn button{margin-bottom:0.75rem;width:100%;line-height:2.5rem;height:2.5rem;font-size:0.9375rem;text-align:center;color:#fff;background:#ff6315;text-indent:0;border:1px solid #ff6315;border-radius:1.25rem;}
+.win_info .nft_info .btn button.grey{background:#fff;color:#959595;border-color:#ccc;}
+.win_info .nft_info .btn span{display:block;margin-top:0.5rem;font-size:0.75rem;line-height:1.125rem;text-align:center;letter-spacing:-0.025rem;color:#999;}
+
+.win_info .desc{margin:1.25rem 0 2.5rem;font-size:0.8125rem;line-height:1.125rem;letter-spacing:-0.026875rem;color:#999;word-break:keep-all;}
+
+.landscape_wrap{position:relative;width:100vw;height:100vh;}
+.landscape_wrap p{position:absolute;top:50%;left:0;display:block;padding-top:5rem;width:100%;line-height:1.875rem;font-size:1.625rem;font-weight:500;text-align:center;color:#fff;background:url("../img/bg_landscape.png") 50% 0 no-repeat;background-size:3.375rem auto;-webkit-transform:translateY(-50%);}
+
+.loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.6;z-index:6;}
+.loading img{position:absolute;top:50%;left:50%;width:4.5rem;-webkit-transform:translate(-50%,-50%);z-index:8;}
+.loading2 img{width:3.5625rem;}
+.loading3 img{width:5.5625rem;}
+
+.terms_detail{padding:3.125rem 1.5rem;}
+.terms_detail h1{margin-bottom:2rem;line-height:1.875rem;font-size:1.25rem;font-weight:bold;color:#222;}
+.terms_detail .terms_content{line-height:1.3125rem;font-size:0.9375rem;letter-spacing:-0.03125rem;color:#464646;}
+.terms_detail .terms_content .strong{margin-top:1.3125rem;font-weight:bold;word-break:keep-all;}
+
+.service_wrap{position:relative;width:100%;height:calc(100vh - 3.4375rem);}
+.service_wrap .service{position:absolute;top:45%;-webkit-transform:translateY(-50%);width:100%;text-align:center;padding-top:4.125rem;background:url("../img/bg_info_noti.png?v={version}") 50% 0 no-repeat;background-size:3.125rem auto;}
+.service_wrap .service p{line-height:1.625rem;font-size:1.125rem;font-weight:bold;letter-spacing:-0.035rem;text-align:center;color:#464646;}
+.service_wrap .service p.sub_txt{margin-top:0.375rem;line-height:1.5rem;font-size:1rem;font-weight:normal;letter-spacing:-0.0375rem;color:#707070;}
+.service_wrap .service p.sub_txt a{color:#ff6315;}
+
+.nft_win_history{position:relative;padding-top:1.5625rem;}
+.nft_win_history .close{position:absolute;top:1rem;right:1rem;display:block;width:2.125rem;height:2.125rem;background:#fff url("../img/bg_popup_close.png?v={version}") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow:hidden;}
+.nft_win_history .top{padding:0 1.5rem;}
+.nft_win_history .top .win_title{display:block;margin-bottom:2rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+.nft_win_history .top .win_title_sub{display:block;margin-top:0.1875rem;line-height:1.875rem;font-size:1.625rem;font-family:"Roboto Bold";color:#222;}
+.nft_win_history .top p{margin-top:-1.5625rem;line-height:1.125rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#707070;}
+.nft_win_history .top p em{color:#FF6315;}
+.nft_win_history .top .win_title p{margin-top:1rem;line-height:1.1875rem;font-size:0.9375rem;font-weight:normal;word-break:keep-all;letter-spacing:-0.008125rem;}
+.nft_win_history .top .btn{margin:0.75rem 0 3.75rem;}
+.nft_win_history .top .btn a{display:block;width:100%;height:3.25rem;line-height:3.25rem;font-size:1rem;color:#FF5601;border-radius:0.3125rem;border:1px solid #FF5601;text-align:center;-webkit-box-sizing:border-box;box-sizing:border-box;font-weight:bold;}
+.nft_win_history .search_result{padding-bottom:3.75rem;}
+.nft_win_history .search_result .title{display:block;padding-left:1.5rem;line-height:1.1875rem;font-size:0.9375rem;font-weight:bold;letter-spacing:-0.03125rem;color:#464646;}
+.nft_win_history .search_result ul li{border-bottom:1px solid #ededed;}
+.nft_win_history .search_result ul li div{display:flex;padding:0 1.5rem;}
+.nft_win_history .search_result ul li .date{display:inline-block;margin-right:0.5rem;line-height:4.375rem;font-size:0.8125rem;letter-spacing:-0.03125rem;color:#707070;}
+.nft_win_history .search_result ul li .txt{display:inline-block;margin-right:0.5rem;line-height:4.375rem;font-size:0.9375rem;letter-spacing:-0.03125rem;color:#464646;font-weight:600;max-width:50%;overflow:hidden;white-space:nowrap;word-wrap:normal;-webkit-box-sizing:border-box;box-sizing:border-box;text-overflow:ellipsis;}
+.nft_win_history .search_result ul li a{display:inline-block;margin-top:1.25rem;margin-left:auto;height:1.875rem;line-height:1.875rem;padding:0 1rem;font-size:0.75rem;color:#FF5601;border-radius:1.875rem;border:1px solid #FF5601;white-space:nowrap;}
+.nft_win_history .search_result ul li a.done{border-color:#d2d2d2;color:#707070;}
+.nft_win_history .search_result ul li a.done2{border-color:#FF5601;background:#FF5601;color:#fff;}
+.nft_win_history .search_result ul li .win_btn{margin:-0.3125rem 0 1.375rem;padding:0 3.9375rem;}
+.nft_win_history .search_result ul li .win_btn a{display:block;margin:0;line-height:2.5rem;width:100%;height:2.5rem;text-align:center;font-size:0.875rem;background:#FF5601;color:#fff;border-radius:0.375rem;}
+.nft_win_history .search_result .empty{padding-top:2.5rem;padding-bottom:1.5rem;}
+.nft_win_history .search_result .empty p{padding-top:4.125rem;text-align:center;line-height:1.5rem;font-size:1rem;letter-spacing:-0.03125rem;color:#464646;background:url("../img/bg_info_noti.png?v={version}") 50% 0 no-repeat;background-size:3.125rem auto;}
+
+.nft_win_history .agree_wrap .terms .win_title{display:block;margin-bottom:0.75rem;line-height:1.1875rem;font-weight:normal;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#555;}
+.nft_win_history .agree_wrap .terms .win_title em{color:#ff3e00;}
+.nft_win_history .agree_wrap .terms table{width:100%;table-layout:fixed;border-spacing:0;border-collapse:collapse;}
+.nft_win_history .agree_wrap .terms table th, .win_history .agree_wrap .terms table td{padding:0.625rem 0.625rem;font-size:0.75rem;letter-spacing:-0.03125rem;line-height:1rem;border:1px solid #e4e4e4;color:#666;}
+.nft_win_history .agree_wrap .terms table th{background:#f6f6f7;color:#222;}
+.nft_win_history .agree_wrap .terms table td{text-align:center;}
+.nft_win_history .agree_wrap .terms table td:nth-child(3){text-align:left;}
+.nft_win_history .agree_wrap .terms table td em{line-height:1.25rem;font-size:0.875rem;font-weight:bold;letter-spacing:-0.03625rem;color:#666;word-break:keep-all;}
+.nft_win_history .agree_wrap .terms p.bottom{margin-top:0.75rem;margin-bottom:1.5rem;line-height:1.1875rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#ff3e00;}
+.nft_win_history .info_form ul li{margin-bottom:1.5rem;}
+
+
+.nft_locker .my_wallet{padding:0 1.5rem;}
+.nft_locker .my_wallet .locker_title{display:block;margin-bottom:2.5rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+.nft_locker .my_wallet .btn{margin:1.25rem 0 2.5rem;}
+.nft_locker .my_wallet .btn a{display:block;width:100%;height:3.25rem;line-height:3.25rem;font-size:1rem;color:#FF5601;border-radius:0.3125rem;border:1px solid #FF5601;font-weight:bold;text-align:center;-webkit-box-sizing:border-box;box-sizing:border-box;}
+
+.nft_locker{padding-top:1.5625rem;padding-bottom:3.75rem;}
+.nft_locker .empty{padding-top:7.6875rem;padding-bottom:6.6875rem;}
+.nft_locker .empty p{padding-top:4.125rem;font-weight:bold;line-height:1.5625rem;font-size:1.125rem;letter-spacing:-0.03125rem;color:#464646;background:url("../img/bg_info_noti.png?v={version}") 50% 0 no-repeat;background-size:3.125rem auto;text-align:center;}
+.nft_locker .event{padding:0 1.5rem;}
+.nft_locker .event .event_title{display:block;margin-bottom:0.75rem;font-weight:bold;font-size:0.9375rem;line-height:1.375rem;letter-spacing:-0.029375rem;color:#222;}
+.nft_locker .event .event_swiper{position:relative;border-radius:0.625rem;overflow:hidden;}
+.nft_locker .event .event_swiper a{display:block;}
+.nft_locker .event .swiper-pagination{position:static;margin: 0.75rem 0 0;font-size:0;}
+.nft_locker .event .swiper-pagination .swiper-pagination-bullet{margin:0 3px;width:5px;height:5px;background:#D6D6D6;border-radius:5px;vertical-align:top;opacity:1;}
+.nft_locker .event .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{background:#ff6315!important;}
+
+.nft_locker .agree_wrap{margin-top:-0.5625rem;}
+.nft_locker .agree_wrap .terms .win_title{display:block;margin-bottom:0.75rem;line-height:1.1875rem;font-weight:normal;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#555;}
+.nft_locker .agree_wrap .terms .win_title em{color:#ff3e00;}
+.nft_locker .agree_wrap .terms table{width:100%;table-layout:fixed;border-spacing:0;border-collapse:collapse;}
+.nft_locker .agree_wrap .terms table th, .nft_locker .agree_wrap .terms table td{padding:0.625rem 0.625rem;font-size:0.75rem;letter-spacing:-0.03125rem;line-height:1rem;border:1px solid #e4e4e4;color:#666;}
+.nft_locker .agree_wrap .terms table th{background:#f6f6f7;color:#222;}
+.nft_locker .agree_wrap .terms table td{text-align:center;}
+.nft_locker .agree_wrap .terms table td:nth-child(3){text-align:left;}
+.nft_locker .agree_wrap .terms table td em{line-height:1.25rem;font-size:0.875rem;font-weight:bold;letter-spacing:-0.03625rem;color:#666;word-break:keep-all;}
+.nft_locker .agree_wrap .terms p.bottom{margin-top:0.75rem;margin-bottom:1.5rem;line-height:1.1875rem;font-size:0.8125rem;letter-spacing:-0.026875rem;color:#ff3e00;}
+
+.nft_locker .my_collection{position:relative;padding:0 0 2.5625rem;}
+.nft_locker .my_collection .more{position:absolute;top:0;right:0;display:block;line-height:1.875rem;margin-right:0.75rem;padding-right:1.25rem;font-size:0.9375rem;letter-spacing:-0.03125rem;color:#464646;background:url("../img/bg_more.png") right 30% no-repeat;background-size:1.25rem auto;}
+.nft_locker .my_collection .collection_title{display:block;margin-bottom:1rem;padding-left:1.5rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+.nft_locker .my_collection .swiper-container{padding:0 1.5rem;overflow:visible;}
+.nft_locker .my_collection .swiper-slide{width:26.66%!important;margin-right:2.22%;}
+.nft_locker .my_collection .swiper-slide a{display:block;border-radius:0.3125rem;}
+.nft_locker .my_collection .swiper-slide a img{border-radius:0.3125rem;}
+
+.nft_locker .my_collection_list{position:relative;padding:0 0 2.5625rem;}
+.nft_locker .my_collection_list .collection_title{display:block;margin-bottom:1rem;padding-left:1.5rem;line-height:1.875rem;font-size:1.3125rem;font-weight:bold;color:#222;}
+
+.nft_locker .my_collection_list .list{display:flex;flex-direction:row;flex-wrap:wrap;padding:0 1.5rem;}
+.nft_locker .my_collection_list .list li{margin-bottom:0.75rem;width:31.626%!important;margin-right:2.56%;}
+.nft_locker .my_collection_list .list li.dim{opacity:.2;}
+.nft_locker .my_collection_list .list li:nth-child(3n){margin-right:0;}
+.nft_locker .my_collection_list .list li a{display:block;border-radius:0.3125rem;}
+.nft_locker .my_collection_list .list li a img{border-radius:0.3125rem;}
+.nft_locker .my_collection_list + .event{margin-top:-0.75rem;}
+
+.nft_locker .transfer_result{position:fixed;top:0;left:0;bottom:0;right:0;z-index:100;display:flex;flex-direction:column;justify-content:center;background:rgba(0, 0, 0, 0.7);}
+.nft_locker .transfer_result p{padding-top:4.5rem;font-size:1.25rem;line-height:1.875rem;text-align:center;color:#FFF;background-image:url("../img/icon_popup_complete.gif");background-position:50% -30%;background-repeat:no-repeat;background-size:5.25rem auto;word-break:keep-all;}
+.nft_locker .transfer_result p.error{font-size:1.375rem;letter-spacing:-0.03125rem;background-image:url("../img/icon_info_noti.png");background-size:3.75rem auto;background-position:50% 0;}
+.nft_locker .transfer_result p.error span{display:block;margin-top:0.25rem;font-size:1rem;line-height:1.375rem;letter-spacing:-0.03125rem;color:#EDEDED;}
+.nft_locker .transfer_result .close{position:absolute;top:1rem;right:1.125rem;display:block;width:2.125rem;height:2.125rem;background:url("../img/pop_close.png") 50% 0 no-repeat;background-size:100% auto;z-index:101;text-indent:-1000em;overflow:hidden;}
+
+.nft_detail{padding:2.5rem 1.5rem;}
+.nft_detail .img_wrap{margin:0 auto 1.5rem;width:10rem;border-radius:0.3125rem;}
+.nft_detail .img_wrap img{border-radius:0.3125rem;}
+.nft_detail .detail_info .title{display:block;margin-bottom:0.5625rem;font-weight:700;font-size:1.3125rem;line-height:1.875rem;color:#222;}
+.nft_detail .detail_info .detail{padding-top:1rem;padding-bottom:0.625rem;border-top:1px solid #EDEDED;}
+.nft_detail .detail_info .detail > span{display:block;margin-bottom:0.875rem;font-weight:600;font-size:0.8125rem;line-height:1rem;letter-spacing:-0.03125rem;color:#707070;}
+.nft_detail .detail_info .detail dl{overflow:hidden;}
+.nft_detail .detail_info .detail dl dt{float:left;margin-bottom:0.375rem;width:20%;font-size:0.8125rem;line-height:1.125rem;letter-spacing:-0.026875rem;color:#707070;}
+.nft_detail .detail_info .detail dl dd{float:left;margin-bottom:0.375rem;width:80%;font-size:0.9375rem;line-height:1.125rem;letter-spacing:-0.03125rem;color:#464646;}
+.nft_detail .detail_info .detail ul li{margin-bottom:0.75rem;}
+.nft_detail .detail_info .detail ul li span{display:block;margin-bottom:0.25rem;font-weight:600;font-size:0.9375rem;line-height:1.125rem;letter-spacing:-0.03125rem;color:#464646;}
+.nft_detail .detail_info .detail ul li p{font-size:0.8125rem;line-height:1rem;letter-spacing:-0.026875rem;color: #707070;}
+.nft_detail .detail_info .win{padding-top:1rem;padding-bottom:1.5rem;border-top:1px solid #EDEDED;}
+.nft_detail .detail_info .win .win_token{text-align:center;}
+.nft_detail .detail_info .win .win_token span{display:block;margin-bottom:0.625rem;font-weight:600;font-size:0.8125rem;line-height:1rem;letter-spacing:-0.03125rem;color:#707070;text-align:left;}
+.nft_detail .detail_info .win .win_token .barcode{margin-bottom:.5rem;text-align:center;height:4.5rem;}
+.nft_detail .detail_info .win .win_token .barcode img{width:auto;height:100%;}
+.nft_detail .detail_info .win .win_token p{margin:0.625rem 0 0.75rem;text-align:center;font-weight:500;font-size:1.25rem;line-height:1.5rem;letter-spacing:-0.03125rem;color:#464646;}
+.nft_detail .detail_info .win .win_token a{
+	display:inline-block;padding:0 5.7813rem;line-height:2.5rem;font-size:0.875rem;color:#fff;text-align:center;background:#FF5601;border-radius:0.375rem;
+}
+.nft_detail .detail_info .win .win_date{display:flex;flex-direction:row;}
+.nft_detail .detail_info .win .win_date span{display:block;font-weight:600;font-size:0.8125rem;line-height:1.25rem;letter-spacing:-0.03125rem;color:#707070;}
+.nft_detail .detail_info .win .win_date .date{margin-left:0.75rem;font-size:0.9375rem;line-height:1.25rem;letter-spacing:-0.03125rem;color:#464646;}
+.nft_detail .detail_info .win > p{margin-top:1rem;font-size:0.8125rem;line-height:1rem;text-align:center;letter-spacing:-0.0269rem;color:#999;}
+
+
+/* start : 휴대폰 인증 - 서베이고 */
+
+/* common ok module */
+.cmm_ok_module{position:relative;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex; -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;padding:0 2.4rem 3rem 2.4rem;}
+.cmm_ok_module button, .cmm_ok_module a {display:block;width:100%;height:3.75rem;margin-left:0.5rem;padding:0;border-radius:3.75rem;line-height:3.75rem;text-align:center;font-size:1.25rem;letter-spacing:-0.03125rem;color:#fff;background-color:#492CE9!important;}
+.cmm_ok_module .bg_item_alt {background-color:#A39FB9;}
+.cmm_ok_module button:first-of-type, .cmm_ok_module a:first-of-type {margin-left:0;}
+.cmm_ok_module button:disabled, .cmm_ok_module a.disabled {cursor:default;background-color:#A39FB9;}
+.cmm_ok_module.mini_mode button, .cmm_ok_module.mini_mode a {width:auto;min-width:8.25rem;height:3rem;border-radius:3rem;line-height:3rem;font-size:1.125rem;}
+.cmm_ok_module.mini_mode button:disabled, .cmm_ok_module.mini_mode a.disabled {background-color:#A39FB9!important;}
+.cmm_ok_module.mini_mode .mid_size {min-width:15rem;}
+
+/* modal popup */
+.skp_modal_popup{position:fixed;left:0;top:0;right:0;bottom:0;padding:0 1.25rem;z-index:100002;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;align-items:center;-webkit-align-items:center;justify-content:center;-webkit-justify-content:center;-webkit-box-pack:center;-moz-box-pack:center;-ms-box-pack:center;-webkit-box-align:center;-moz-box-align:center;-ms-box-align:center;}
+.skp_modal_popup *{font-family:-apple-system, Pretendard, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;}
+.skp_modal_popup .skp_dimmed_layer{position:fixed;left:0;top:0;right:0;bottom:0;z-index:100000;}  
+.skp_modal_inner{position:relative;z-index:100003;width:100%;border-radius:0.75rem;box-shadow:0 0.625rem 0.625rem rgba(0,0,0,0.1);background-color:#fff;}
+.skp_modal_inner.no_shadow{box-shadow:none;}
+.skp_modal_inner .cmm_ok_module{padding:0 2.5rem 2.5rem 2.5rem;}
+.skp_modal_inner .cmm_ok_module.mini_mode{padding:1.25rem 1.5rem 1.875rem 1.5rem;}
+.skp_modal_popup .pop_closed{position:absolute;right:1rem;top:1.25rem;z-index:10;overflow:hidden;width:2rem;height:2rem;text-indent:-1000rem;background:url('../img/btn_pop_close.png') no-repeat;background-size:2rem;}
+
+/* certification */
+.skp_modal_popup .cert_box .pop_closed{right:0.875rem;top:0.875rem;}
+.skp_modal_popup .cert_box h1{padding:1.5rem 1.5rem 0.375rem 1.5rem;font-size:1.125rem;line-height:1.625rem;letter-spacing:-0.025rem;font-weight:700;color:#111;}
+
+/* form box */
+.skp_modal_popup input, .skp_modal_popup button{outline:transparent;padding:0;-webkit-appearance:none;border:none;font:inherit;background-color:transparent;}
+.skp_modal_popup button{text-indent:0;}
+
+.frm_box{margin:0 1.5rem;padding-top:0.125rem;}
+.frm_box .row{position:relative;}
+.frm_box .row.inactive{visibility:hidden;}
+.frm_box .hide{position:absolute;left:-624.9rem;overflow:hidden;width:0;height:0;}
+.frm_box .inp_st{width:100%;height:3.75rem;padding-right:6.25rem;border-bottom:1px solid #D5D5D5;color:#111;font-size:1.125rem;line-height:1.5rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.frm_box .inp_st:focus{border-bottom-color:#492CE9;}
+.frm_box .inp_st::-webkit-input-placeholder{font-size:1rem;color:#d5d5d5;}
+.frm_box .inp_st.err{border-bottom-color:#FF0000;}
+.frm_box .btn_cert{position:absolute;right:0;top:0;bottom:0;width:5rem;height:2.0625rem;margin:auto;border:1px solid #D5D5D5;border-radius:2.0625rem;font-size:0.875rem;line-height:1.9375rem;text-align:center;color:#111;}
+.frm_box .btn_cert.active{border-color:#492CE9;color:#492CE9;}
+.frm_box .count{position:absolute;right:0;top:0;bottom:0;height:1.0625rem;margin:auto;color:#492CE9;font-size:0.875rem;line-height:1.0625rem;letter-spacing:-0.025rem;}
+.frm_box .count.disabled{color:#D5D5D5;}
+.frm_box .msg_txt {visibility:hidden;margin:0.625rem 0 1.0625rem 0;font-size:0.75rem;line-height:1.0625rem;text-align:right;color:#FF0000;}
+.frm_box .msg_txt.active{visibility:visible;}
+.cert_box .tip_txt_box{visibility:hidden;}
+.cert_box .tip_txt_box p{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;min-height:3.2rem;text-align:center;font-size:0.75rem;line-height:1rem;color:#FF0000;}
+.cert_box .tip_txt_box.active{visibility:visible;}
+
+/* end : 휴대폰 인증 - 서베이고 */
+
+@media only screen and (min-width: 430px) {
+	html {
+		font-size: 19px;
+	}
+}

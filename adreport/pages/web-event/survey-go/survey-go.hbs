@@ -1,0 +1,645 @@
+---
+layout: default-survey.hbs
+title: 서베이고
+jsfile:
+- pages/web-event/survey-go/survey-go
+---
+
+<!-- 첫 화면 (로딩 화면)은 실제 페이지 로딩 시간과는 무관하게 무조건 2초 후에 다음 페이지로 이동하도록 개발 반영 부탁 드립니다. (디자인 측 요청) -->
+<div class="skp_loading">
+    <img src="../../../resources/img/img_loading.gif" class="img_block" alt="로딩 이미지 영역">
+    <h1 class="txt02">즐거운 서베이 시작해요</h1>
+    <h2>survey GO</h2>
+</div>
+
+<div class="skp_wrap mainArea" style="display: none;">
+    <!-- skip navigation -->
+    <div class="skip_nav">
+        <ul>
+            <li><a href="#skp_container" id="scrollTop">본문 콘텐츠 영역으로 바로가기</a></li>
+        </ul>
+    </div>
+    <!--// skip navigation -->
+    <hr>
+
+    <!-- head progress -->
+    <header class="head_progress">
+        <div class="prog_bar_box">
+            <label for="ing">설문진행 상황</label>
+            <progress id="ing" max="100" value="10">10%</progress>
+            <img src="../../../resources/img/ico_3d_giftbox.gif" class="deco_ico nomalDecoIco" alt="장식 아이콘 이미지 영역">
+            <img src="../../../resources/img/ico_3d_fin.png" class="deco_ico lastDecoIco" alt="장식 아이콘 이미지 영역" style="display: none;"> <!-- 완료 시 장식 아이콘 -->
+        </div>
+    </header>
+    <!--// head progress -->
+    <hr>
+
+    <!-- container -->
+    <div id="skp_container" class="skp_container subpage_type">
+
+    </div>
+    <!--// container -->
+    <hr>
+
+    <!-- foot -->
+    <footer class="skp_foot" id="foot_area">
+
+    </footer>
+    <!--// foot -->
+
+    <div class="toast_popup customNormalToast" style="display: none;">
+        <p class="toast-text"></p>
+    </div>
+
+    <div class="toast_popup customAndAlertToast" style="display: none;">
+        <p><img src="../../../resources/img/ico_3d_hand.png" class="deco_ico" alt="핸드 아이콘 이미지">3문항 남았어요!</p>
+    </div>
+
+    <!-- complex toast popup -->
+    <div class="comp_toast_wrap" style="display:none;">
+        <div class="comp_toast_popup">
+            <div class="pop_result_box">
+                <img src="../../../resources/img/img_3d_clap.gif" class="img_block answerResultTrue" alt="결과 이미지">
+                <h1 class="answerResultTrue">정답입니다!</h1>
+
+                <img src="../../../resources/img/img_3d_fail.gif" class="img_block answerResultFalse" alt="결과 이미지">
+                <h1 class="answerResultFalse">틀렸습니다!</h1>
+                <p class="g_txt answerResultFalse answerRetryTxt">다시 시도해보세요.</p>
+            </div>
+        </div>
+    </div>
+    <!--// complex toast popup -->
+
+    <!-- modal popup -->
+    <!-- 이미지 스와이프 리스트 모달 팝업 -->
+    <div class="skp_modal_popup subjectPopupImgList-area" style="display: none;">
+        <div class="skp_dimmed_layer"></div>
+        <div class="skp_modal_inner">
+            <button type="button" id="btn_pop_closed" class="pop_closed modalPopup-close popupImgClose">모달 팝업 닫기</button>
+            <div class="sw_gal_wrap">
+                <div class="swiper sw_img_gal">
+                    <div class="swiper-wrapper subjectPopupImg-area">
+                        <div class="swiper-slide"><img src="" class="img-block" alt="이미지 정보 영역"></div>
+                        <div class="swiper-slide"><img src="" class="img-block" alt="이미지 정보 영역"></div>
+                        <div class="swiper-slide"><img src="" class="img-block" alt="이미지 정보 영역"></div>
+                        <div class="swiper-slide"><img src="" class="img-block" alt="이미지 정보 영역"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->
+
+    <!-- modal popup -->
+    <!-- 힌트 / 정답설명 / 오답설명 모달팝업 -->
+    <div class="skp_modal_popup hintPopup-area" style="display: none;">
+        <div class="skp_modal_inner">
+            <button type="button" id="btn_pop_closed" class="pop_closed modalPopup-close hintClose">모달 팝업 닫기</button>
+            <div class="pop_img_type_box hint_type">
+                <img src="" class="img_block hintImg" alt="힌트 이미지 영역">
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->
+
+    <!-- modal popup -->
+    <!-- 정답설명 모달팝업 -->
+    <div class="skp_modal_popup quizAnswerYPopup-area" style="display: none;">
+        <div class="skp_dimmed_layer"></div>
+        <div class="skp_modal_inner">
+            <div class="pop_result_tit_box">
+                <h1><img src="../../../resources/img/ico_3d_clap.png" class="ico" alt="아이콘 이미지">정답입니다!</h1>
+            </div>
+            <div class="pop_img_type_box">
+                <img src="" class="img_block answerYImage" alt="메시지 영역">
+            </div>
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_pop_confirm" class="modalPopup-close">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->
+
+    <!-- modal popup -->
+    <!-- 오답설명 모달팝업 -->
+    <div class="skp_modal_popup quizAnswerNPopup-area" style="display: none;">
+        <div class="skp_dimmed_layer"></div>
+        <div class="skp_modal_inner">
+            <div class="pop_result_tit_box">
+                <h1><img src="../../../resources/img/ico_3d_fail.png" class="ico" alt="아이콘 이미지">틀렸습니다! <span class="customQuizRetryTitle">다시 시도해보세요!</span></h1>
+            </div>
+            <div class="pop_img_type_box">
+                <img src="" class="img_block answerNImage" alt="메시지 영역">
+            </div>
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_pop_confirm" class="modalPopup-close">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->
+
+    <!-- full overlay page -->
+    <!-- 성연령별 체크 화면 -->
+    <div class="full_overlay_page attendTarget-area" style="display: none;">
+        <div class="inner_content normal_block">
+            <button type="button" class="pop_closed attendTargetClose">전체 창 종료버튼</button>
+            <dl class="skp_rdo_chk_list">
+                <dt>
+                    <strong class="inner_block">잠깐만요!<img src="../../../resources/img/ico_3d_hand.png" class="ico" alt="아이콘 이미지"></strong>
+                    <strong class="inner_block">설문 대상인지 확인할게요.</strong>
+                </dt>
+                <dd>
+                    <!-- radio &amp; checkbox box -->
+                    <div class="rdo_chk_box">
+                        <h2>성별을 선택해 주세요.</h2>
+                        <div class="row_grd">
+                            <div class="item">
+                                <input type="radio" id="male" class="frm_chk st07 gender" name="sex" value="M" checked>
+                                <label for="male">남성</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="female" class="frm_chk st07 gender" name="sex" value="F">
+                                <label for="female">여성</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// radio &amp; checkbox box -->
+
+                    <!-- radio &amp; checkbox box -->
+                    <div class="rdo_chk_box">
+                        <h2>연령대를 선택해 주세요.</h2>
+                        <div class="row_grd">
+                            <div class="item">
+                                <input type="radio" id="age01" class="frm_chk st07 attendAge" name="age" value="1" checked>
+                                <label for="age01">20대 미만</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="age02" class="frm_chk st07 attendAge" name="age" value="2">
+                                <label for="age02">20대</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="age03" class="frm_chk st07 attendAge" name="age" value="3">
+                                <label for="age03">30대</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="age04" class="frm_chk st07 attendAge" name="age" value="4">
+                                <label for="age04">40대</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="age05" class="frm_chk st07 attendAge" name="age" value="5">
+                                <label for="age05">50대</label>
+                            </div>
+                            <div class="item">
+                                <input type="radio" id="age06" class="frm_chk st07 attendAge" name="age" value="6">
+                                <label for="age06">60대 이상</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// radio &amp; checkbox box -->
+                </dd>
+            </dl>
+        </div>
+        <div class="inner_footer guide_effect">
+            <div class="cmm_ok_module">
+                <button type="button" class="attendTargetCheck">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 경품추첨 요청 화면 -->
+    <div class="full_overlay_page surveyPrize-area" style="display: none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -gift"><img src="../../../resources/img/img_3d_giftbox.gif" alt="일러스트 이미지 영역"></span>
+                <h1>경품 추첨이 남았어요!</h1>
+                <p class="g_txt">설문이 완료되었어요!</p>
+            </div>
+        </div>
+        <div class="inner_footer">
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_overlay_gift" class="surveyPrize">경품 추첨</button>
+            </div>
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 경품추첨중 -->
+    <div class="full_overlay_page surveyPrizeIng-area" style="display:none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -gift"><img src="../../../resources/img/img_3d_giftbox.gif" alt="일러스트 이미지 영역"></span><!-- 23.02.13 html 수정 -->
+                <h1 class="f_size_down">경품 추첨중 입니다!</h1><!-- 2023.01.11 : 폰트 사이즈 조정 클래스(f_size_down) 추가 -->
+                <p class="g_txt">잠시만 기다려 주세요.</p>
+            </div>
+        </div>
+        <div class="inner_footer">
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 차후 분석형에 사용될 퍼블리싱  -->
+    <div class="full_overlay_page" style="display: none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -find"><img src="../../../resources/img/img_3d_find.gif" class="img_loading" alt="일러스트 이미지 영역"></span><!-- 23.02.13 html 수정 -->
+                <h1 class="f_size_down">캐릭터타입을 분석중입니다.</h1><!-- 2023.01.11 : 폰트 사이즈 조정 클래스(f_size_down) 추가 -->
+                <p class="g_txt">잠시만 기다려 주세요.</p><!-- 2023.01.11 : 추가된 문구로 인해 p 태그 적용 -->
+            </div>
+        </div>
+        <div class="inner_footer">
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 퀴즈형 설문완료 -->
+    <div class="full_overlay_page surveyQuizComplete-area" style="display: none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -clap"><img src="../../../resources/img/img_3d_clap.gif" alt="일러스트 이미지 영역"></span>
+                <h1 class="quizText">
+                    5개 모두 맞췄어요!
+                    <!-- 5개 중 4개 정답! -->
+                    <!-- 아쉽지만 다음에 다시<br>도전해 보세요! -->
+                </h1>
+                <p class="g_txt">설문에 참여해 주셔서 감사합니다.</p>
+            </div>
+        </div>
+        <div class="inner_footer">
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_overlay_confirm" class="surveyComplete">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 퀴즈형 경품추첨 -->
+    <div class="full_overlay_page surveyQuizPrize-area" style="display: none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -gift"><img src="../../../resources/img/img_3d_giftbox.gif" alt="일러스트 이미지 영역"></span>
+                <h1 class="quizText">5개 모두 맞췄어요!</h1>
+                <p class="g_txt other_st">경품추첨이 남았어요!</p>
+            </div>
+        </div>
+        <div class="inner_footer">
+            <div class="foot_txt_box">
+                <p class="g_txt">설문에 참여해 주셔서 감사합니다.</p>
+            </div>
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_overlay_gift" class="surveyPrize">경품 추첨</button>
+            </div>
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- full overlay page -->
+    <!-- 설문완료 화면 -->
+    <div class="full_overlay_page surveyComplete-area" style="display: none;">
+        <div class="inner_content">
+            <div class="msg_img_box">
+                <span class="img_block -clap"><img src="../../../resources/img/img_3d_clap.gif" alt="일러스트 이미지 영역"></span>
+                <h1>설문이 완료되었어요!</h1>
+                <p class="g_txt">설문에 참여해 주셔서 감사합니다.</p>
+            </div>
+        </div>
+        <div class="inner_footer">
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_overlay_confirm" class="surveyComplete">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// full overlay page -->
+
+    <!-- modal popup -->
+    <!-- 당첨 팝업 -->
+    <div class="skp_modal_popup prizePopup-area" style="display: none;">
+        <div class="skp_dimmed_layer"></div>
+        <div class="skp_modal_inner">
+            <div class="pop_img_type_box">
+                <img src="" class="img_block winningImageUrl" alt="경품 관련 메시지 영역">
+            </div>
+            <div class="cmm_ok_module">
+                <button type="button" id="btn_pop_confirm" class="prizePopupBtn">확인</button>
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->
+
+</div>
+
+{{> survey-popup}}
+
+<script id="subjectTemplate" type="text/x-handlebars-template">
+    <div class="content subject-area" data-survey-subject-id="\{{surveySubjectId}}" data-answer-result="N">
+        \{{#ifvalue imgVideoYn value='Y'}}
+        \{{#ifvalue imgVideoRegType value='IMG'}}
+        <div class="skp_img_grp subjectPopupImgList-show">
+            <span class="img_block">
+                \{{#if popupImageInfo}}
+                <button type="button" class="btn_more">이미지 더보기</button>
+                \{{/if}}
+                <img src="\{{contentUrl}}" alt="이미지 영역">
+            </span>
+        </div>
+        \{{/ifvalue}}
+
+        \{{#ifvalue imgVideoRegType value='VIDEO'}}
+        <div class="video_player_box">
+            <iframe id="youtube_sample_iframe"
+              width="100%"
+              src="\{{contentUrl}}"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen>
+            </iframe>
+        </div>
+        \{{/ifvalue}}
+        \{{/ifvalue}}
+        <div class="skp_tit_grp">
+            <h1>\{{subjectTitle}}</h1>
+            \{{#if subjectSubText}}
+            <p class="g_txt">\{{subjectSubText}}</p>
+            \{{/if}}
+        </div>
+
+        \{{#ifvalue subjectExampleType value='CHOICE'}}
+        <!-- 객관식 -->
+            \{{#ifvalue exampleChoiceType value='WIDTH'}}
+            <!-- 가로형 -->
+            <ul class="g_list grd_col_type">
+                \{{#each exampleInfo}}
+                <li>
+                    <input type="\{{#ifvalue ../multipleAnswerYn value='Y'}}checkbox\{{else}}radio\{{/ifvalue}}"
+                            id="choice\{{indexToOrderNoId @index}}" name="mc_group"
+                            class="frm_chk \{{#ifvalue ../multipleAnswerYn value='Y'}}st01\{{/ifvalue}} exampleInput"
+                            value="\{{sort}}">
+                    <label for="choice\{{indexToOrderNoId @index}}"><span>\{{exampleTitle}}</span></label>
+                </li>
+                \{{/each}}
+
+                \{{#ifvalue etcOpinionReceiveYn value='Y'}}
+                <li class="one_col_item">
+                    <input type="checkbox" id="frm_chk_etc" name="\{{surveySubjectId}}-etc" class="frm_chk st02">
+                    <label for="frm_chk_etc"><span>기타</span></label>
+                    <div class="expanded_edit_box customTextareaDiv">
+                        <!-- TODO : textarea에서 입력 완료 후에는 done 클래스 추가 (다시 해당 영역에 터치하여 native keyboard layout 노출 시 반대로 클래스 제거) -->
+                        <textarea cols="90" rows="1" id="textfield" placeholder="내용을 입력해 주세요." class="done etcOpinionReceive customTextareaInput" maxlength="5000"></textarea>
+                        <div class="count"><em>0</em> / 5,000</div>
+                    </div>
+                </li>
+                \{{/ifvalue}}
+            </ul>
+            \{{/ifvalue}}
+
+
+            \{{#ifvalue exampleChoiceType value='HEIGHT'}}
+            <!-- 세로형 -->
+            <ul class="g_list">
+                \{{#each exampleInfo}}
+                <li>
+                    <input type="\{{#ifvalue ../multipleAnswerYn value='Y'}}checkbox\{{else}}radio\{{/ifvalue}}"
+                        id="choice\{{indexToOrderNoId @index}}" name="mc_group"
+                        class="frm_chk \{{#ifvalue ../multipleAnswerYn value='Y'}}st01\{{/ifvalue}} exampleInput"
+                        value="\{{sort}}">
+                    <label for="choice\{{indexToOrderNoId @index}}"><span>\{{exampleTitle}}</span></label>
+                </li>
+                \{{/each}}
+
+                \{{#ifvalue etcOpinionReceiveYn value='Y'}}
+                <li>
+                    <input type="radio" id="frm_chk_etc" name="\{{surveySubjectId}}-etc" class="frm_chk st02">
+                    <label for="frm_chk_etc"><span>기타</span></label>
+                    <div class="expanded_edit_box customTextareaDiv">
+                        <!-- TODO : textarea에서 입력 완료 후에는 done 클래스 추가 (다시 해당 영역에 터치하여 native keyboard layout 노출 시 반대로 클래스 제거) -->
+                        <textarea cols="90" rows="1" id="textfield" placeholder="내용을 입력해 주세요." class="done etcOpinionReceive customTextareaInput" maxlength="5000"></textarea>
+                        <div class="count"><em>0</em> / 5,000</div>
+                    </div>
+                </li>
+                \{{/ifvalue}}
+            </ul>
+            \{{/ifvalue}}
+
+            \{{#ifvalue exampleChoiceType value='IMG'}}
+            <!-- 이미지형 -->
+
+            <ul class="g_list grd_photo_type">
+                \{{#each exampleInfo}}
+                <li>
+                    <input type="\{{#ifvalue ../multipleAnswerYn value='Y'}}checkbox\{{else}}radio\{{/ifvalue}}"
+                        id="choice\{{indexToOrderNoId @index}}" name="mc_group"
+                        class="frm_chk st03 exampleInput"
+                        value="\{{sort}}">
+                    <label for="choice\{{indexToOrderNoId @index}}">
+                    <span class="img_block"><img src="\{{exampleImgUrl}}" alt="썸네일 이미지 영역"></span>
+                    <span>\{{exampleTitle}}</span>
+                    </label>
+                </li>
+                \{{/each}}
+            </ul>
+            \{{/ifvalue}}
+
+            \{{#ifvalue exampleChoiceType value='SCALE'}}
+            <!-- 척도형 -->
+            <div class="point_box_grp">
+                <!-- box port -->
+                <div class="point_box_port">
+                    <h2>\{{scaleText}}</h2>
+
+                    \{{#ifvalue scaleViewType value='STAR'}}
+                    <!-- 별점 -->
+                    <div class="rating_box">
+                        <form name="rating" method="post" action="">
+                            <fieldset>
+                                <legend>별점 평가</legend>
+                                <input type="radio" name="rating" value="5" id="rate01" class="scaleRadio"><label for="rate01">⭐</label>
+                                <input type="radio" name="rating" value="4" id="rate02" class="scaleRadio"><label for="rate02">⭐</label>
+                                <input type="radio" name="rating" value="3" id="rate03" class="scaleRadio"><label for="rate03">⭐</label>
+                                <input type="radio" name="rating" value="2" id="rate04" class="scaleRadio"><label for="rate04">⭐</label>
+                                <input type="radio" name="rating" value="1" id="rate05" class="scaleRadio"><label for="rate05">⭐</label>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    \{{else}}
+                    <div class="box-inner">
+                        \{{#each exampleInfo}}
+                        \{{#ifvalue ../scaleViewType value='EXPRESSION'}}
+                        <!-- 표정 -->
+                        \{{#if @first}}
+                        <div class="item">
+                            <input type="radio" id="worst01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                            <label for="worst01">
+                            <span class="img_block"><img src="../../../resources/img/ico_standard01.png" alt="매우 별로를 표현하는 아이콘 이미지"></span>
+                            <span>\{{exampleTitle}}</span>
+                            </label>
+                        </div>
+                        \{{/if}}
+
+                        \{{#ifvalue ../exampleCount value=3}}
+                            \{{#ifvalue @index value=1}}
+                            <div class="item">
+                                <input type="radio" id="not_bad01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="not_bad01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard03.png" alt="보통을 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+                        \{{/ifvalue}}
+
+                        \{{#ifvalue ../exampleCount value=4}}
+                            \{{#ifvalue @index value=1}}
+                            <div class="item">
+                                <input type="radio" id="bad01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="bad01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard02.png" alt="별로를 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue @index value=2}}
+                            <div class="item">
+                                <input type="radio" id="good01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="good01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard04.png" alt="좋음을 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+                        \{{/ifvalue}}
+
+                        \{{#ifvalue ../exampleCount value=5}}
+                            \{{#ifvalue @index value=1}}
+                            <div class="item">
+                                <input type="radio" id="bad01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="bad01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard02.png" alt="별로를 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue @index value=2}}
+                            <div class="item">
+                                <input type="radio" id="not_bad01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="not_bad01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard03.png" alt="보통을 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue @index value=3}}
+                            <div class="item">
+                                <input type="radio" id="good01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                                <label for="good01">
+                                <span class="img_block"><img src="../../../resources/img/ico_standard04.png" alt="좋음을 표현하는 아이콘 이미지"></span>
+                                <span>\{{exampleTitle}}</span>
+                                </label>
+                            </div>
+                            \{{/ifvalue}}
+                        \{{/ifvalue}}
+
+                        \{{#if @last}}
+                        <div class="item">
+                            <input type="radio" id="very_good01" name="points01_group" class="frm_chk st04 scaleRadio" value="\{{sort}}">
+                            <label for="very_good01">
+                            <span class="img_block"><img src="../../../resources/img/ico_standard05.png" alt="매우 좋음을 표현하는 아이콘 이미지"></span>
+                            <span>\{{exampleTitle}}</span>
+                            </label>
+                        </div>
+                        \{{/if}}
+                        \{{/ifvalue}}
+
+                        \{{#ifvalue ../scaleViewType value='BASIC'}}
+                        <!-- 기본 - 이 부분은 ID  를 변경함. -->
+                        <div class="item">
+                            <input type="radio" id="worst04-\{{@index}}" name="points04_group" class="frm_chk st05 scaleRadio" value="\{{sort}}">
+                            <label for="worst04-\{{@index}}">
+                            <span>\{{exampleTitle}}</span>
+                            </label>
+                        </div>
+                        \{{/ifvalue}}
+
+                        \{{/each}}
+                    </div>
+
+                    \{{/ifvalue}}
+                </dev>
+            </div>
+
+            \{{/ifvalue}}
+
+            \{{#ifvalue exampleChoiceType value='OX'}}
+            <!-- OX형 -->
+
+            <div class="ox_choose_box">
+                <div class="item">
+                    <button type="button" class="btn_o btn_ox" data-sort="1">O</button>
+                </div>
+                <div class="item">
+                    <button type="button" class="btn_x btn_ox" data-sort="2">X</button>
+                </div>
+            </div>
+
+
+            \{{/ifvalue}}
+
+
+        \{{else}}
+        <!-- 주관식 -->
+
+        <div class="sol_exp_edit_box \{{#ifvalue customEventLogicalType value='QUIZ'}}no_count_type\{{/ifvalue}} customTextareaDiv">
+            <!-- TODO : textarea에서 입력 완료 후에는 done 클래스 추가 (다시 해당 영역에 터치하여 native keyboard layout 노출 시 반대로 클래스 제거) -->
+            <textarea cols="90" rows="1" id="textfield" placeholder="답을 입력해주세요." class="done questionAnswer customTextareaInput" maxlength="5000"></textarea>
+
+            \{{#ifvalue customEventLogicalType value='SURVEY'}}
+            <div class="count"><em>0</em> / 5,000</div>
+            \{{/ifvalue}}
+        </div>
+
+
+        \{{/ifvalue}}
+    </div>
+</script>
+
+<script id="footerTemplate" type="text/x-handlebars-template">
+
+    \{{#ifvalue customEventLogicalType value='QUIZ'}}
+
+    \{{#if hintImgYn}}
+    <div class="sp_btn_module">
+        <button type="button" class="hintBtn"><img src="../../../resources/img/ico_3d_hand02.png" class="ico" alt="아이콘 이미지">힌트예요!</button>
+    </div>
+    \{{/if}}
+
+    \{{else}}
+
+    \{{#ifvalue multipleAnswerYn value='Y'}}
+    <p class="tiny_msg">복수선택 가능(최대 \{{multipleAnswerCount}}개)</p>
+    \{{/ifvalue}}
+
+\{{/ifvalue}}
+
+
+    <div class="cmm_ok_module">
+        <button type="button" id="btn_ok_next" disabled>
+        \{{#ifvalue customIsLast value=true}}완료\{{else}}\{{#ifvalue customEventLogicalType value='QUIZ'}}정답 확인\{{else}}다음\{{/ifvalue}}\{{/ifvalue}}
+        </button>
+    </div>
+</script>
+
+<script id="subjectPopupImgTemplate" type="text/x-handlebars-template">
+    \{{#each this}}
+    <div class="swiper-slide"><img src="\{{popupImgUrl}}" class="img-block" alt="이미지 정보 영역"></div>
+    \{{/each}}
+</script>
+

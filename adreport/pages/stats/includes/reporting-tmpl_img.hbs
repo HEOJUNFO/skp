@@ -1,0 +1,20 @@
+<script id="imgTemplate" type="text/x-handlebars-template">
+    <div class="leaflet_img">
+        <div class="img_wrap">
+            <a href="javascript:void(0)">
+                \{{#ifvalue ./channelType value='OP'}}
+                <img src="\{{imgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-mobilead-default@3x.png'">
+                \{{/ifvalue}}
+                \{{#ifvalue ./channelType value='BLE'}}
+                <img src="\{{imgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-locationad-default@3x.png'">
+                \{{/ifvalue}}
+                \{{#ifvalue ./channelType value='SP'}}
+                <img src="\{{imgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-pushad-default@3x.png'">
+                \{{/ifvalue}}
+                \{{#ifvalue ./channelType value='DFP'}}
+                <img src="\{{imgUrl}}" onerror="this.src='https://dt-static.syrup.co.kr/img_smb/img-d-aad-default@3x.png'">
+                \{{/ifvalue}}
+            </a>
+        </div>
+    </div>
+</script>

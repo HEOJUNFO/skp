@@ -1,0 +1,81 @@
+
+<script id="sumStatTemplate" type="text/x-handlebars-template">
+    <div class="info_summary_color">
+        <div class="info_top">
+            <span class="period">\{{yymmddHan contractInfo.realServiceEndDate}}</span>
+            <span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+
+        </div>
+        <table>
+            <colgroup>
+                \{{#ifvalue contractInfo.channelType value='OP'}}
+                <col width="29%">
+                <col width="29%">
+                <col width="29%">
+                <col width="13%">
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='BLE'}}
+                <col width="29%">
+                <col width="13%">
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='SP'}}
+                <col width="29%">
+                <col width="29%">
+                <col width="13%">
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='DFP'}}
+                <col width="29%">
+                <col width="13%">
+                \{{/ifvalue}}
+            </colgroup>
+            <thead>
+            <tr>
+                \{{#ifvalue contractInfo.channelType value='OP'}}
+                <th>발송</th>
+                <th>수신</th>
+                <th>확인</th>
+                <th>버튼</th>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='BLE'}}
+                <th>PUSH 발송</th>
+                <th>고객확인수</th>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='SP'}}
+                <th>발송</th>
+                <th>수신</th>
+                <th>확인</th>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='DFP'}}
+                <th>노출</th>
+                <th>확인</th>
+                \{{/ifvalue}}
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                \{{#ifvalue contractInfo.channelType value='OP'}}
+                <td>\{{comma sumStats.sendCount}}</td>
+                <td>\{{comma sumStats.receiveCount}}</td>
+                <td>\{{comma sumStats.checkCount}}</td>
+                <td>\{{comma sumStats.buttonCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='BLE'}}
+                <td>\{{comma sumStats.receiveCount}}</td>
+                <td>\{{comma sumStats.checkCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='SP'}}
+                <td>\{{comma sumStats.sendCount}}</td>
+                <td>\{{comma sumStats.receiveCount}}</td>
+                <td>\{{comma sumStats.checkCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue contractInfo.channelType value='DFP'}}
+                <td>\{{comma sumStats.displayCount}}</td>
+                <td>\{{comma sumStats.checkCount}}</td>
+                \{{/ifvalue}}
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>

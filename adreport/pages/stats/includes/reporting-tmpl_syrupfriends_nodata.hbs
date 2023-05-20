@@ -1,0 +1,66 @@
+<script id="syrupFriendsNodataTemplate" type="text/x-handlebars-template">
+    <div class="leaflet syrup_friends">
+        <div class="leaflet_report">
+            <span class="title">시럽프렌즈 리포트</span>
+        </div>
+        <div class="no_report">
+            <div>
+							<span>
+								현재 시럽프렌즈<br>
+								제휴사가 아닙니다.
+							</span>
+                <p>
+                    매장에서 상품 구매한 고객에게 포인트적립, 쿠폰발송, 마케팅정보 발송이 필요하다면 지금 신청하세요.
+                </p>
+                <div class="btn">
+                    <a href="https://pointda.ceos.kr/" target="_blank">시럽프렌즈란?</a>
+                </div>
+            </div>
+        </div>
+
+        <details>
+            <summary><span>신청하기</span></summary>
+
+            <div class="input_form">
+                <span class="title">시럽프렌즈를 신청하세요</span>
+                <div class="input_form_wrap">
+                    <form>
+                        <fieldset>
+                            <div class="info_form">
+                                <ul>
+                                    <li class="on"><!-- 기본 입력 li에 on class 추가 -->
+                                        <span class="input_title">상호</span>
+                                        <div class="input_wrap">
+                                            <input type="text" class="contents_input" value="\{{contPlcName}}" readonly>
+                                        </div>
+                                    </li>
+                                    <li class="on"><!-- 기본 입력 li에 on class 추가 -->
+                                        <span class="input_title">신청일</span>
+                                        <div class="input_wrap">
+                                            <input type="text" class="contents_input" value="\{{yyyymmddHan applyDate}}" readonly>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="btn adApplySFNodataBtn">
+                                    <button>신청하기</button>
+                                </div>
+                                <div class="done" style="display:none">
+                                    <p>
+                                        <em>요청되었습니다.</em><br>
+                                        담당자가 직접 연락드릴예정입니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <p class="msg">
+                    이용안내<br>
+                    SK플래닛은 시럽프렌즈 상품 제휴 사업자입니다.<br>
+                    시럽프렌즈 이용시 발생하는포인트, 쿠폰의 적립 및 사용 등
+                    거래에는 일체 책임을 지지 않습니다.
+                </p>
+            </div>
+        </details>
+    </div>
+</script>

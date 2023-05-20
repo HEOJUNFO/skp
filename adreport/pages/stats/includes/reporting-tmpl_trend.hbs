@@ -1,0 +1,61 @@
+
+<script id="trendTemplate" type="text/x-handlebars-template">
+    <div class="ad_report">
+        <div class="report_group">
+            <div class="report">
+                <div class="report_top">
+                    <span class="report_group_title">\{{solutionName}} 트렌드 리포트</span>
+                    <p>\{{adreportContPlcName}} \{{solutionName}}을 확인한 <em>고객 분석결과</em>를 알려드려요.</p>
+                </div>
+                <div class="report_wrap">
+                    <!-- 성별 -->
+                    <div class="chart" style="display:none">
+                        <div class="chart_container doughnut">
+                            <canvas class="canvas_gender_doughnut"></canvas><!-- 차트 -->
+                            <div class="legend legend_gender_doughnut"></div><!-- 범례 -->
+                        </div>
+                    </div>
+                    <!-- //성별 -->
+
+                    <div class="space high" style="padding:2rem 0 2rem; display:none;"><hr></div>
+
+                    <!-- 연령별 -->
+                    <div class="chart" style="display:none">
+                        <div class="chart_container doughnut">
+                            <canvas class="canvas_age_doughnut"></canvas><!-- 차트 -->
+                            <div class="legend legend_age legend_age_doughnut"></div><!-- 범례 -->
+                        </div>
+                    </div>
+                    <!-- //연령별 -->
+
+                    <div class="space high2" style="display:none"><hr></div>
+
+                    <!-- 거주지별 -->
+                    <div class="chart" style="display:none">
+                        <div class="chart_title">
+                            <span>거주지별</span>
+                        </div>
+                        <div class="chart_container bar">
+                            <canvas class="canvas_residence_bar"></canvas><!-- 차트 -->
+                        </div>
+                    </div>
+                    <!-- //거주지별 -->
+
+                    <div class="space" style="display:none"><hr></div>
+
+                    <!-- 관심상품별 -->
+                    <div class="chart" style="display:none">
+                        <div class="chart_title">
+                            <span>관심상품별</span>
+                        </div>
+                        <div class="chart_container bar">
+                            <canvas class="canvas_product_bar"></canvas><!-- 차트 -->
+                        </div>
+                    </div>
+                    <!-- //관심상품별 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+

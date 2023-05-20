@@ -1,0 +1,468 @@
+---
+layout: default-event.hbs
+title: Play AR
+jsfile:
+- pages/web-event/main_old
+---
+
+<div class="wrap">
+<!-- hidden -->
+<input type="hidden" id="resultCode">
+<input type="hidden" id="locationSettingYn">
+<input type="hidden" id="arAttendConditionCodeYn">
+<input type="hidden" id="pid" value="">
+<input type="hidden" id="isPasswordInput" value="false">
+<input type="hidden" id="kakaoShareTitle">
+<input type="hidden" id="kakaoShareThumbnailUrl">
+<input type="hidden" id="kakaoShareContents">
+<input type="hidden" id="contractStatus">
+<input type="hidden" id="attendCodeMisMatchMessage" value="">
+<input type="hidden" id="attendHourMisMessage" value="">
+<input type="hidden" id="locationMessageNotAttend" value="">
+<input type="hidden" id="locationMessageAttend" value="">
+<input type="hidden" id="locationMessagePopupYn" value="N">
+<input type="hidden" id="attendCodeWrongCnt" value="0">
+
+
+<!-- // hidden -->
+       
+		<!-- header 영역  -->
+		<header class="moweb_header">
+			{{!-- <a href="#">&lt;</a> --}}
+			<div><span id="eventHeaderTitle"></span></div>
+		</header>
+		<!-- //header 영역 -->
+
+		<section>
+            {{!-- <input type="button" name="nftBtn" value="nft화면이동"/> --}}
+			<div class="event_wrap">
+                {{!-- <input type="button" value="경품입력 화면 팝업" id="giveAwayTestBtn"/> --}}
+				<!-- 기본 구성 -->
+                <!-- AR BG IMAGE 시작 -->
+				<div class="event_img">
+					<img id="arBgImage" src="" alt="">
+				</div>
+				<!-- AR BG IMAGE 끝 -->
+                <!-- AR 참여하기 버튼 시작 -->
+                <div class="event_btn start" id="arAttendBtnDiv">
+					<a href="#" id="attendBtn"></a>
+				</div>
+                <!-- AR 참여하기 버튼 끝 -->
+				<!-- // 기본 구성 -->
+
+				<!-- 확장  컴포넌트 -->
+				<div class="expand" id="expand" style="background:#fff;">
+                    <script id="eventHtmlTemplate" type="text/x-handlebars-template">
+                    \{{#each this}}
+                        <!-- 이미지 시작 -->
+                        \{{#ifvalue this.htmlType value='IMAGE'}}
+                            <div class="event_img">
+						        <img src="\{{this.htmlImageUrl}}" alt="">
+					        </div>
+                        \{{/ifvalue}}
+                        <!-- 이미지 끝 -->
+
+                        <!-- 버튼 시작 -->
+                        \{{#ifvalue this.htmlType value='BUTTON'}}
+                            <!-- 이동버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='NORMAL'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="\{{this.htmlButtonTargetUrl}}" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    ">  
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 이동버튼 끝 -->
+
+                            <!-- 당첨확인버튼 시작 -->
+                            \{{#ifvalue this.htmlButtonType value='CONFIRM'}}
+                            <div class="event_btn" style="
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                        ">
+                                <a href="javascript:void(0)" name="historyBtn"  style="
+                                                                        \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#ff6315;\{{/ifvalue}}  
+                                                                        \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                            \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                                background: \{{this.htmlButtonColorHex}};
+                                                                            \{{/ifvalue}}
+                                                                            \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                                background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                            \{{/ifvalue}}
+                                                                        \{{/ifvalue}}
+
+                                                                        
+                                                                        \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                            color: \{{this.htmlButtonTextColorHex}};
+                                                                        \{{/ifvalue}}
+                                                                        \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                            color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                            \{{/ifvalue}}
+                                                                        \{{/ifvalue}}
+                                ">
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 당첨확인버튼 끝  -->
+
+                            <!-- NFT보관함버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='NFTREPO'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="#" name="nftHistoryBtn"  style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    ">  
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- NFT보관함버튼 끝 -->
+
+                            <!-- 쿠폰 보관함버튼 시작-->
+                            \{{#ifvalue this.htmlButtonType value='CPREPO'}}
+                            <div class="event_btn" style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='BASIC'}}background:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonBgColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonBgColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonBgColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonBgColorRed}}, \{{this.htmlButtonBgColorGreen}}, \{{this.htmlButtonBgColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+                                                        ">
+                                <a href="#" name="couponHistoryBtn"  style="
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='BASIC'}} background:#405569;\{{/ifvalue}}  
+                                                            
+                                                            \{{#ifvalue this.htmlButtonColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='HEX'}}
+                                                                    background: \{{this.htmlButtonColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonColorInputType value='RGB'}}
+                                                                    background: rgb(\{{this.htmlButtonColorRed}}, \{{this.htmlButtonColorGreen}}, \{{this.htmlButtonColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                                            
+
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='BASIC'}} color:#FFFFFF;\{{/ifvalue}}
+                                                            
+                                                            \{{#ifvalue this.htmlButtonTextColorAssignType value='ASSIGN'}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='HEX'}}
+                                                                    color: \{{this.htmlButtonTextColorHex}};
+                                                                \{{/ifvalue}}
+                                                                \{{#ifvalue this.htmlButtonTextColorInputType value='RGB'}}
+                                                                    color: rgb(\{{this.htmlButtonTextColorRed}}, \{{this.htmlButtonTextColorGreen}}, \{{this.htmlButtonTextColorBlue}});
+                                                                \{{/ifvalue}}
+                                                            \{{/ifvalue}}
+                                    ">  
+                                                \{{this.htmlButtonText}}</a>
+                            </div>
+                            \{{/ifvalue}}
+                            <!-- 쿠폰 보관함버튼 끝 -->
+
+                        \{{/ifvalue}}
+                        <!-- 버튼 끝 -->
+                        
+                        <!-- 카카오톡 공유하기 버튼 시작 -->
+                         \{{#ifvalue this.htmlType value='SHARE'}}
+                            <div class="share" style="background:#fff;">
+                                <a id="shareImg">
+                                    {{!-- 카카오톡 공유하기 --}}
+                                    <img src="\{{this.htmlShareButtonImageUrl}}" alt="카카오톡 공유하기">
+                                </a>
+                            </div>
+                        \{{/ifvalue}}
+                        <!-- 카카오톡 공유하기 버튼 끝 -->
+                    \{{/each}}
+                    </script>
+				</div>
+                <!-- // 확장  컴포넌트 -->
+                <!-- footer -->
+                <div class="footer">
+                    <div class="logo">
+                        <img src="../resources/img/logo.png" alt="">
+                    </div>
+                    <div class="link">
+                        <a href="/web-event/event-terms.html">서비스이용약관</a>
+                        <a href="/web-event/event-privacy.html" style="font-weight: bold; color: #ff6315;">개인정보처리방침</a>
+                        <a href="https://www.skplanet.com/etc/legal02", target="_blank">위치기반서비스이용약관</a>
+                    </div>
+                    <div class="txt">
+                        고객이용문의 playar_cs@skplanet.com<br>
+                        COPYRIGHT © 2021 SK Planet. ALL RIGHT RESERVED
+                    </div>
+                </div>
+                <!-- //footer -->
+
+            </div>
+				
+        <!-- 동의 팝업  -->
+        {{!-- <div class="layer_popup_agree">
+            <div class="loan_pop_wrap">
+                <div class="popup_contents">
+                    <div class="loan_pop">
+                        <span class="title">이벤트 참여 정보보호 동의 설정</span>
+                        <a href="#" class="close" id="locationAgreePopupCloseBtn">닫기</a>
+
+                        <ul class="agree_list">
+                            <li>
+                                <a href="#"><span>위치정보사업 및 위치기반서비스 약관 동의 <em>(필수)</em></span></a>
+                            </li>
+                        </ul>
+
+                        <p>
+                            Web AR 참여 시 위치에 따른 이벤트 참여 가능 여부, AR
+                            오브젝트 노출, 경품 당첨을 위해 위치정보 약관 동의가 
+                            필요합니다.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button class="confirm" id="locationAgreePopupConfirmBtn">동의하고 AR참여</button>
+                </div>
+            </div>
+        </div> --}}
+        <!-- 동의 팝업  끝 -->
+		</section>
+
+        <!-- 참여번호 팝업 -->
+        <section id="attendCodePopupSection" style="display: none;">
+            <!-- 팝업  -->
+            <div class="layer_popup">
+                <div class="popup_contents">
+                    <div class="pfl_pop">
+                        <span class="pop_title">참여 번호 입력</span>
+
+                        <p>
+                            이벤트 지역에서 발급받은 참여 번호를<br>입력해 주세요.
+                        </p>
+
+                        <div class="info_form">
+                            <ul>
+                                <!-- 참여 번호 활성화 -->
+                                <li class="on">
+                                    <span class="title moved_fix"><a href="#">참여번호</a></span>
+                                    <div class="auth_number">			
+                                        <input type="password" class="contents_input" id="attendCode">
+                                    </div>
+                                    <span class="error_msg" id="errorMsg"></span><!-- 참여 번호가 정확하지 않습니다. 다시 입력해 주세요. -->
+                                </li>
+                                <!-- // 참여 번호 활성화 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn two">
+                    <button class="grey" id="attendCodeCancelBtn">취소</button>
+                    <button class="confirm" id="attendCodeValidateionBtn">확인</button>
+                </div>
+            </div>
+            <!-- // 팝업 -->
+            <!-- 딤드 배경 -->
+            <div class="dimmed_bg_lightdark"></div>
+            <!-- // 딤드 배경 -->
+        </section>
+        <!-- // 참여번호 팝업 -->
+
+        <!-- 기본 알림 팝업 -->
+        <section id="alertPopup" style="display: none;">
+            <!-- 팝업  -->
+            <div class="layer_popup">
+                <div class="popup_contents">
+                    <div class="pfl_pop">
+                        <span class="pop_title" id="alertPopupTitle"></span>
+
+                        <p id="alertPopupContents"></p>
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button class="confirm" id="alertPopupBtn">확인</button>
+                </div>
+            </div>
+
+            <!-- // 팝업 -->
+            <!-- 딤드 배경 -->
+            <div class="dimmed_bg_lightdark"></div>
+            <!-- // 딤드 배경 -->
+        </section>
+        <!-- // 기본 알림 팝업 -->
+
+        <!-- 업데이트 알림 팝업 -->
+        <section id="updateAlertPopup" style="display: none;">
+            <!-- 팝업  -->
+            <div class="layer_popup">
+                <div class="popup_contents">
+                    <div class="pfl_pop">
+                        <span class="pop_title" id="updateAlertPopupTitle"></span>
+
+                        <p id="updateAlertPopupContents"></p>
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button class="confirm" id="updateAlertPopupBtn">확인</button>
+                </div>
+            </div>
+
+            <!-- // 팝업 -->
+            <!-- 딤드 배경 -->
+            <div class="dimmed_bg_lightdark"></div>
+            <!-- // 딤드 배경 -->
+        </section>
+        <!-- // 업데이트 알림 팝업 -->
+
+        <!-- 에러 알림 팝업 -->
+        <section id="noEventResultAlertPopup" style="display: none;">
+            <!-- 팝업  -->
+            <div class="layer_popup">
+                <div class="popup_contents">
+                    <div class="pfl_pop">
+                        <span class="pop_title" id="noEventResultAlertPopupTitle"></span>
+
+                        <p id="noEventResultAlertPopupContents"></p>
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button class="confirm" id="noEventResultAlertPopupBtn">확인</button>
+                </div>
+            </div>
+            <!-- // 팝업 -->
+            <!-- 딤드 배경 -->
+            <div class="dimmed_bg_lightdark"></div>
+            <!-- // 딤드 배경 -->
+        </section>
+        <!-- // 에러 알림 팝업 -->
+        <!-- 서비스 종료 -->
+        <section id="serviceCloseSection" style="display: none;">
+			<div class="service_wrap">
+				<div class="service">
+					<p>서비스가 종료되었습니다.</p>
+                    <p class="sub_txt">
+                        당첨 및 경품수령 관련 문의는<br>
+                        <a href="#">playar_cs@skplanet.com</a>으로 문의해주세요
+                    </p>
+				</div>
+			</div>
+		</section>
+        <!-- // 서비스 종료 -->
+        <!-- 서비스 준비중 -->
+        <section id="servicePrepareSection" style="display: none;">
+			<div class="service_wrap">
+				<div class="service">
+					<p>서비스 준비중입니다</p>
+				</div>
+			</div>
+		</section>
+        <!-- // 서비스 준비중 -->
+        <!-- 참여코드 3번 에러 알림 팝업 -->
+        <section id="attendCodeWrongSection" style="display: none;">
+            <!-- 팝업  -->
+            <div class="layer_popup">
+                <div class="popup_contents">
+                    <div class="pfl_pop">
+                        <span class="pop_title">에러알림</span>
+
+                        <p>
+                            참여번호가 정확하지 않습니다. 확인 후 AR참여버튼을 다시 클릭해 주세요.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button class="confirm" id="attendCodeWrongSectionBtn">확인</button>
+                </div>
+            </div>
+            <!-- // 팝업 -->
+            <!-- 딤드 배경 -->
+            <div class="dimmed_bg_lightdark"></div>
+            <!-- // 딤드 배경 -->
+        </section>
+        <!-- // 참여코드 3번 에러 알림 팝업 -->
+	</div>

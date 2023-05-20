@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <meta http-equiv="PRAGMA" content="NO-CACHE">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{{path dirname 'adreport/resources'}}/img/favicon.ico">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- build:css(./) /resources/css/web-event.admin.style.min.css -->
+    <link data="a" rel="stylesheet" href="{{path dirname 'adreport/resources'}}/css/web_ar_admin.css">
+    <!-- endbuild -->
+</head>
+<body>
+{{!-- {{> search-loading}} --}}
+{{> body }}
+{{!--이 부분은 빌드 될때 js 스크립트, 현재 오류가 있지만 side effect이 많아 두벌로 유지 배포 할때 새로운 라이브러니는 여기에 추가 --}}
+<!-- build:js(./) /resources/js/web-event.admin.script.min.js -->
+<script src="{{path dirname 'components'}}/jquery/dist/jquery.js"></script>
+<script src="{{path dirname 'components'}}/jquery-ui/ui/jquery-ui.js"></script>
+<script src="{{path dirname 'components'}}/handlebars/handlebars.js"></script>
+<script src="{{path dirname 'components'}}/jquery-form/jquery.form.js"></script>
+<script src="{{path dirname 'common'}}/jstorage.js"></script>
+<script src="{{path dirname 'common'}}/jquery-json/jquery-json.js"></script>
+<script src="{{path dirname 'adreport/resources'}}/js/pages/web-event/event-common.js"></script>
+<script src="{{path dirname 'common'}}/util.js"></script>
+<!-- endbuild -->
+{{#each jsfile}}
+    <script src="{{path ../dirname 'adreport/resources/'}}/js/{{.}}.js"></script>
+{{/each}}
+</body>
+</html>

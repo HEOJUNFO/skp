@@ -1,0 +1,276 @@
+﻿<!-- 기본 알림 팝업 -->
+<section id="alertPopup" class="commonPopup" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title commonPopupTitle" id="alertPopupTitle"></span>
+
+                <p class="commonPopupContent" id="alertPopupContents"></p>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button class="grey commonPopupCancel">취소</button>
+            <button class="confirm commonPopupOk">확인</button>
+        </div>
+    </div>
+
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section>
+<!-- // 기본 알림 팝업 -->
+
+<!-- 기본 알림 팝업 -->
+<section id="alertPopup2" class="commonPopup" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title commonPopupTitle" id="alertPopupTitle2"></span>
+
+                <p class="commonPopupContent" id="alertPopupContents2"></p>
+            </div>
+        </div>
+
+        <div class="btn">
+            {{!-- <button class="grey commonPopupCancel">취소</button> --}}
+            <button class="confirm commonPopupOk">확인</button>
+        </div>
+    </div>
+
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section>
+<!-- // 기본 알림 팝업 -->
+
+
+<!-- 참여번호 팝업 -->
+<section id="attendCodePopupSection" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title">참여 번호 입력</span>
+
+                <p>
+                    이벤트 지역에서 발급받은 참여 번호를<br>입력해 주세요.
+                </p>
+
+                <div class="info_form">
+                    <ul>
+                        <!-- 참여 번호 활성화 -->
+                        <li class="on">
+                            <span class="title moved_fix"><a href="#">참여번호</a></span>
+                            <div class="auth_number">			
+                                <input type="password" class="contents_input" id="attendCode">
+                            </div>
+                            <span class="error_msg" id="errorMsg"></span><!-- 참여 번호가 정확하지 않습니다. 다시 입력해 주세요. -->
+                        </li>
+                        <!-- // 참여 번호 활성화 -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn two">
+            <button class="grey" id="attendCodeCancelBtn">취소</button>
+            <button class="confirm" id="attendCodeValidateionBtn">확인</button>
+        </div>
+    </div>
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section>
+<!-- // 참여번호 팝업 -->
+
+<!-- 서비스 종료 -->
+<section id="serviceCloseSection" style="display: none;">
+    <div class="service_wrap">
+        <div class="service">
+            <p>서비스가 종료되었습니다.</p>
+            <p class="sub_txt">
+                당첨 및 경품수령 관련 문의는<br>
+                <a href="#">playar_cs@skplanet.com</a>으로 문의해주세요
+            </p>
+        </div>
+    </div>
+</section>
+<!-- // 서비스 종료 -->
+
+ <!-- 서비스 준비중 -->
+<section id="servicePrepareSection" style="display: none;">
+    <div class="service_wrap">
+        <div class="service">
+            <p>서비스 준비중입니다</p>
+        </div>
+    </div>
+</section>
+<!-- // 서비스 준비중 -->
+
+<!-- 참여코드 3번 에러 알림 팝업 -->
+{{!-- <section id="attendCodeWrongSection" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title">에러알림</span>
+
+                <p>
+                    참여번호가 정확하지 않습니다. 확인 후 AR참여버튼을 다시 클릭해 주세요.
+                </p>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button class="confirm" id="attendCodeWrongSectionBtn">확인</button>
+        </div>
+    </div>
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section> --}}
+<!-- // 참여코드 3번 에러 알림 팝업 -->
+
+<section id="modal" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title" id="modalTitle"></span>
+
+                <p id="modalContents"></p>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button class="confirm" id="modalBtn">확인</button>
+        </div>
+    </div>
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section>
+
+{{!-- <section id="smsSendConfirmPopup" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title">당첨이력조회</span>
+
+                <p>
+                    당첨시 등록한 당첨조회 비밀번호가 맞지 않습니다. 지금 등록하신 전화번호로 임시비밀번호를 전송할까요?
+                </p>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button class="grey">취소</button>
+            <button class="confirm">확인</button>
+        </div>
+    </div>
+
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section> --}}
+
+{{!-- <section id="smsSendSuccessPopup" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title">당첨이력조회</span>
+
+                <p>
+                    
+                </p>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button class="grey">취소</button>
+            <button class="confirm">확인</button>
+        </div>
+    </div>
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section> --}}
+
+<!-- 쿠폰 사용 알림 팝업 -->
+<section id="couponUsePopup" style="display: none;">
+    <!-- 팝업  -->
+    <div class="layer_popup">
+        <div class="popup_contents">
+            <div class="pfl_pop">
+                <span class="pop_title">잠깐만요</span>
+
+                <p>
+                    직원 확인용 버튼입니다. <br>
+                    확인 버튼을 누르시면 다시 사용할 수 없습니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="btn full">
+            <button class="grey">취소</button>
+            <button class="confirm" id="couponUsePopupConfirmBtn" style="display: none;">쿠폰 사용 확인</button>
+            <button class="used" id="couponUsePopupUsedBtn" style="display: none;">사용 완료</button>
+        </div>
+    </div>
+
+    <!-- // 팝업 -->
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+</section>
+<!-- // 쿠폰 사용 알림 팝업 -->
+
+<section id="smsAuthPopupSection" style="display: none;">
+    <!-- div.skp_moda_popup 서베이고 휴대폰 인증과 html 동일 -->
+    <!-- modal popup -->
+    <div class="skp_modal_popup">
+        <div class="skp_dimmed_layer"></div>
+        <div class="skp_modal_inner no_shadow">
+            <div class="cert_box">
+                <button type="button" class="pop_closed">모달 팝업 닫기</button>
+                <span id="l_smsPopupTitme"></span>
+                <div class="frm_box">
+                    <div class="row">
+                        <label for="hp" class="hide">휴대폰 입력 필드</label>
+                        <input type="tel" id="mdn" class="inp_st" maxlength="11" value="" placeholder="'-'없이 숫자만 입력">
+                        <button type="button" id="sendSmsBtn" class="btn_cert">인증요청</button><!-- TODO : 핸드폰 번호 11자 모두 입력 시 active 클래스 적용 -->
+                    </div>
+                    <div class="row inactive" id="smsAuthRow">
+                        <label for="cert_num" class="hide">인증번호 입력 필드</label>
+                        <input type="tel" id="checkPhoneNumber" class="inp_st" maxlength="6" placeholder="인증번호입력"><!-- TODO : 에러 표시할 경우 err 클래스 추가 -->
+                        <span class="count" id="smsLimitMinute"></span>
+                    </div>
+                    <p class="msg_txt" id="smsAuthErroCountMent"></p><!-- TODO : 에러 표시할 경우 active 클래스 추가 -->
+                </div>
+                <div class="tip_txt_box"><!-- TODO : 메시지 표기할 경우 active 클래스 추가 -->
+                    <p></p>
+                </div>
+            </div>
+            <div class="cmm_ok_module mini_mode">
+                <button type="button" class="mid_size" id="confirmSmsCodeBtn" disabled>본인인증 완료</button>
+            </div>
+        </div>
+    </div>
+    <!--// modal popup -->  
+
+    <!-- 딤드 배경 -->
+    <div class="dimmed_bg_lightdark"></div>
+    <!-- // 딤드 배경 -->
+  </section>

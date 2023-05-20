@@ -1,0 +1,281 @@
+﻿<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="no">
+        <meta name="apple-mobile-web-app-capable" content="no">
+
+        <script type="text/javascript" src="js/frame.js"></script>
+        <script type="text/javascript" src="js/checkBrowser.js"></script>
+        <script type="text/javascript" src="js/playArApi.js"></script>
+        <script type="text/javascript" src="js/firework.js"></script>
+        
+        <script src="https://kit.fontawesome.com/7de141b858.js" crossorigin="anonymous"></script>
+        <link href="./css/fireworks.css" rel="stylesheet">
+
+        <link href="./css/frame.css" rel="stylesheet">
+        <link href="./css/icons.css" rel="stylesheet">
+
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+        <script>
+            var value   = 0;
+            var oldCnt  = 0;
+            var interval = setInterval(()=>
+            {
+                value += 0.7;
+                document.getElementById('loadingBar').value = value;
+
+                var cnt = value/20%3;
+
+                if(cnt != oldCnt)
+                {
+                    document.getElementById('loadingBarMent').innerHTML = "AR 준비중";
+
+                    for(var i = 0; i < cnt; i++)
+                    {
+                        document.getElementById('loadingBarMent').innerHTML += ".";
+                    }
+                }
+
+                if(value >= 100)
+                    clearInterval(interval);
+            }, 20);
+        </script>
+        
+    </head>
+
+
+
+    <body>
+        <div id="top-ui" style="width: 100%; height:8vh; align-items: center; justify-content: center; background-color: white;">
+            <div style="width: 100%; height:100%; display: flex;">
+                <div class="icon-box del-cookie">
+                </div>
+                <div class="icon-box" style="z-index:0;">
+                    <div id="btn-flip" class="icon-flip">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                </div>
+                <div id="btn-exit" class="icon-box" style="display: flex; align-items: center;">
+                    <div class="icon-exit"><i class="fa-solid fa-xmark"></i></div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="main" style="display: none;">
+           
+            <div class="aria" style="width: 1px; min-width: 100%; height:1px; position: relative; margin: auto;">
+                <img id="capture-img" alt="test.png" style="width: 100%; height: 100%; display: none;">
+                <div class="block-capture" style="display: none;"></div>
+
+                <div id="bkg-eventer" style="display: none;"> </div>
+            </div>
+    
+            <div id="bottom-ui">
+                <div id="ar-ui" class="ui-container">                    
+                    <div id="skin-list" class="item-container" style="display: none;">
+                    </div>
+
+                    <div id="model-list" class="item-container" style="display: none;">
+                    </div>
+                    
+                    <div class="ar-controller">
+                        <div id="btn-skin" class="icon-box">
+                            <div class="icon-group">
+                                <div class="icon-group-content">
+                                    <i class="fa-regular fa-image content"><p>프레임</p></i>
+                                    <i class="fa-solid fa-angle-down check hide"></i>
+                                    
+                                </div>
+                                <div class="tut icon-tutorial-skin">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="35" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                        <circle cx="50" cy="50" r="30" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                    </svg>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div id="btn-camera" class="icon-box">
+                            <div class="icon-inner">
+                                <i class="fa-regular fa-circle" style="font-size: 5.1rem;"></i>
+                            </div>
+                        </div>
+
+                        <div id="btn-model" class="icon-box">
+                            <div class="icon-group">
+                                <div class="icon-group-content">
+                                    <i class="fa-regular fa-user content"><p>캐릭터</p></i>
+                                    <i class="fa-solid fa-angle-down check hide"></i>
+                                    
+                                </div>
+                                <div class="tut icon-tutorial-skin">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="35" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                        <circle cx="50" cy="50" r="30" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                    </svg>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div id="capture-ui" class="ui-container" style="display:none; background-color: white;">
+
+                    <div id="btn-share" style="flex:3;margin: 10px;" class="icon-box">
+                        <div class="icon-inner">
+                            <div style="color:white; display: flex;justify-content : center;align-items : center;text-align: center;border-radius: 7em;height: 45%;background-color: rgb(103,95,207);">
+                                사진 공유 하기
+                            </div>
+                        </div>    
+                    </div>                    
+
+                    <div id="btn-download" style="flex:1;margin: 10px;" class="icon-box">
+                        <div class="icon-inner">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+                    </div>
+
+                    <div id="btn-back" style="flex:1;margin: 10px;" class="icon-box">
+                        <div class="icon-inner">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="block-rot" style="display: none; z-index: 99999;"> 
+            <img src="https://dt-static.syrup.co.kr/busanexpo/img/etc/roterror.png" style="height:50vh;">
+        </div>
+
+        <div id="tutorial" class="tutorial" style="z-index: 99;"> 
+            <div class="tutorial-inner">
+                <img style="height: 40%;" src="https://dt-static.syrup.co.kr/busanexpo/img/etc/bogi.png">
+                <p>반가워요!</p>
+                <p>마음에 드는 <span style="color:#FFC040">사진프레임</span>과</p>
+                <p><span style="color:#FFC040">캐릭터</span>를 선택해서</p>
+                <p>촬영을 시작해볼까요?</p>
+            </div>
+        </div>
+
+        <div id="loading-page" style="z-index: 9999;">
+            <div class="tutorial-inner">
+                <p>부기가 나타날 때까지<br>잠시만 기다려주세요</p>
+                <progress value="0" max="100" id="loadingBar"></progress>
+                <p id="loadingBarMent">AR 준비중</p>
+            </div>
+            <div id="loadingSpriteAni"></div>
+        </div>
+
+        
+        <div class="ios-popup popup" style="display: none;"> 
+            <div class="inner">
+                <div class="content">
+                    <div>
+
+                    </div>
+                </div>
+                <div class="bottom" style="justify-content: center; display: flex; align-items: center;" onclick="document.querySelector('.ios-popup').style.display = 'none'">
+                    <a >닫기</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="agree-popup popup" style="display: none;"> 
+            <div onclick="history.back()" style="z-index: -1; height: 100%; width: 100%; position: absolute;"></div>
+
+            <div class="inner" style="width:85%; background-color: #E1EAFC; position: relative;">
+                <i class="fa-solid fa-xmark" onclick="history.back()" style="z-index:9999; padding: 10px; right: 0px; position: absolute; font-size: 1.5rem;"></i>
+
+                <div class="content" style="padding: 10px; box-sizing: border-box; position: relative;">
+                    <img style="width: 100%; padding-top: 5px;" src="https://dt-static.syrup.co.kr/busanexpo/img/etc/event_logo.png">
+                    <div class="evt-text" style="display: block;">
+                        <p style="margin:0px; font-size: 1.0em;">인증샷을 <b>해시태그</b>와 함께 <b>인스타그램</b>에</p>
+                        <p style="margin-top:1px; font-size: 1.0em;">업로드하면 <b>우유 크림 도넛</b>을 드려요!</p>
+                        <p style="margin:0px; font-size: 0.8em">*아이폰 이미지의 저장의 경우</p>
+                        <p style="margin:0px; font-size: 0.8em">웹 보안 정책에 따라 '파일'에 저장됩니다.*</p>
+                    </div>
+                    <img style="width: 100%; padding-top: 6px;" src="https://dt-static.syrup.co.kr/busanexpo/img/etc/agree_event3.png">
+
+                    <canvas id="canvas"></canvas>
+                </div>
+
+                <div class="content" style="padding-bottom:5%; padding-left: 5%; padding-right: 5%; box-sizing: border-box;">
+                    <input id="instagram-id" placeholder="인스타그램ID를 입력해주세요.">
+                </div>
+
+                <div class="agree-content">
+                    <div style="display:table-row; padding-bottom: 5px;">
+                        <span style="display:table-cell; vertical-align:middle;">
+                            <input id="check-agree" type="checkbox" style="zoom:1.5; margin: 0px; margin-right: 5px;" id="b">
+                        </span>
+                        <label for="b" style="display:table-cell; text-align: left; margin:3px; font-size: 0.7em;">
+                            해당 사진은 부산엑스포 유튜브의 홍보 동영상 제작에 활용될 수 있음에 동의 합니다.
+                            <lavel style="text-decoration: underline;" onclick="document.querySelector('.terms-popup').style.display = ''; setDepth('terms');">자세히보기</lavel>
+                        </label>
+                    </div>                    
+
+                    <div style="display:table-row;">
+                        <span style="display:table-cell; vertical-align:middle;">
+                            <input id="check-pass" type="checkbox" style="zoom:1.5; margin: 0px; margin-right: 5px;" id="b">
+                        </span>
+                        <label for="b" style="display:table-cell; text-align: left; margin:3px; font-size: 0.7em;">
+                            동의후 일주일간 보지 않기
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bottom">
+                    <div id="btn-agree">
+                        동의하고 해시태그 복사
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="terms-popup popup" style="background-color: transparent; display: none;"> 
+            <div onclick="history.back()" style="z-index: -1; height: 100%; width: 100%; position: absolute;"></div>
+            <div class="inner" style="background-color: white; padding: 5%; position: relative;">
+                <i class="fa-solid fa-xmark" onclick="history.back()" style="padding: 0px;right: 0px;/* position: absolute; */font-size: 1.5rem;float: right;"></i>
+                <div>
+                    <p>(필수) 개인정보 수집이용동의<br>SK플래닛(주) 귀중</p>
+                </div>
+
+                <table style="width: 100%;">
+                    <tr>
+                      <th scope="col">개인정보 수집<br>이용목적</td>
+                      <th scope="col">개인정보 수집<br>항목</td>
+                      <th scope="col">보유, 이용기간</td>
+                    </tr>
+                    <tr>
+                      <td>이벤트 참여자<br> 확인, 경품 지급 안내<br>홍보 동영상 제작 활용</td>
+                      <td>인스타그램ID<br>사진</td>
+                      <td>이벤트 종료 후<br> 60일까지 보관후 지체없이 파기</td>
+                    </tr>
+                </table>
+
+                <p>*고객님은 동의 거부 권리가 있으며, 동의 거부시 <br>이벤트 참여가 불가합니다.</p>
+            </div>
+        </div>
+
+        <div class="confirm hide">
+            <div onclick="history.back()" ></div>
+            <div>
+                <div id="confirmMessage" style="word-break: keep-all;"></div>
+                <div>
+                    <input id="confirmYes" type="button" value="확인" />
+                    <input id="confirmNo" type="button" value="닫기" />
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

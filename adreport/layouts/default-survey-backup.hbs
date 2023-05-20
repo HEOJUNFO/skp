@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css" />
+    <link data="a" rel="stylesheet" href="{{path dirname 'adreport/resources'}}/css/common.css">
+    <link data="a" rel="stylesheet" href="{{path dirname 'adreport/resources'}}/css/surveygo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+
+    {{#each cssfile}}
+        <link data="a" rel="stylesheet" href="{{path ../dirname 'adreport/resources'}}/css/{{.}}.css">
+    {{/each}}
+
+</head>
+<body onunload="alert('방문해 주셔서 감사합니다.nn좋은 하루 되세요.');">
+
+{{> body }}
+
+{{!--외부 JS 라이브러리 Start--}}
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+{{!--외부 JS 라이브러리 End --}}
+{{!--이 부분은 빌드 될때 js 스크립트, 현재 오류가 있지만 side effect이 많아 두벌로 유지 배포 할때 새로운 라이브러니는 여기에 추가 --}}
+<!-- build:js(./) /resources/js/web-event.event.script.min.js -->
+<script src="{{path dirname 'components'}}/jquery/dist/jquery.js"></script>
+<script src="{{path dirname 'components'}}/jquery-ui/ui/jquery-ui.js"></script>
+<script src="{{path dirname 'components'}}/handlebars/handlebars.js"></script>
+<script src="{{path dirname 'components'}}/jquery-form/jquery.form.js"></script>
+<script src="{{path dirname 'common'}}/jstorage.js"></script>
+<script src="{{path dirname 'common'}}/jquery-json/jquery-json.js"></script>
+<script src="{{path dirname 'adreport/resources'}}/js/pages/web-event/event-common.js"></script>
+{{!-- <script src="{{path dirname 'adreport/resources'}}/js/pages/web-event/swiper.4.5.0.min.js"></script> --}}
+<script src="{{path dirname 'adreport/resources'}}/js/pages/web-event/jquery-barcode.js"></script>
+
+<script src="{{path dirname 'common'}}/util.js"></script>
+<!-- endbuild -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+{{!-- <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script> --}}
+<!--<script src="https://unpkg.com/autosize@5.0.2/dist/autosize.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{path dirname 'adreport/resources'}}/js/pages/web-event/autosize.min.js"></script>
+
+{{#each jsfile}}
+    <script src="{{path ../dirname 'adreport/resources/'}}/js/{{.}}.js"></script>
+{{/each}}
+
+
+</body>
+</html>
+

@@ -1,0 +1,110 @@
+
+<script id="monthStatTemplate" type="text/x-handlebars-template">
+    <!-- 6개월 실적 -->
+    <div class="record_wrap">
+        <div class="record_wrap_top">
+            <p>
+                <em>최근 6개월</em> 고객님의<br>
+                <span>
+                    \{{#ifvalue contractInfo.channelType value='OP'}}모바일전단\{{/ifvalue}}
+                    \{{#ifvalue contractInfo.channelType value='BLE'}}위치광고\{{/ifvalue}}
+                    \{{#ifvalue contractInfo.channelType value='SP'}}푸시광고\{{/ifvalue}}
+                    \{{#ifvalue contractInfo.channelType value='DFP'}}배너광고\{{/ifvalue}}
+                </span> 실적이에요.
+            </p>
+        </div>
+        <div class="record monthStatRowArea" data-page="\{{dayStats.page}}" data-size="\{{dayStats.size}}" data-total-cnt="\{{dayStats.totalCnt}}" data-channel-type="\{{contractInfo.channelType}}" data-marketing-id="\{{contractInfo.marketingId}}"
+        data-cont-plc-name="\{{contractInfo.contPlcName}}">
+
+        </div>
+    </div>
+    <!-- // 6개월 실적 -->
+</script>
+
+<script id="monthStatRowTemplate" type="text/x-handlebars-template">
+    <!-- 월별 실적 -->
+    \{{#each list}}
+    <div class="info_summary monthStatRow">
+        <div class="info_top">
+            <span class="period">\{{yymmddHan date}}</span>
+            <span class="txt"><em>\{{adreportMarketingTitle}}</em></span>
+        </div>
+        <table>
+            <colgroup>
+                \{{#ifvalue ../channelType value='OP'}}
+                <col width="22%">
+                <col width="22%">
+                <col width="22%">
+                <col width="21%">
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='BLE'}}
+                <col width="22%">
+                <col width="21%">
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='SP'}}
+                <col width="22%">
+                <col width="22%">
+                <col width="21%">
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='DFP'}}
+                <col width="22%">
+                <col width="21%">
+                \{{/ifvalue}}
+                <col width="13%">
+            </colgroup>
+            <thead>
+            <tr>
+                \{{#ifvalue ../channelType value='OP'}}
+                <th>발송</th>
+                <th>수신</th>
+                <th>확인</th>
+                <th>버튼</th>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='BLE'}}
+                <th>PUSH 발송</th>
+                <th>고객확인수</th>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='SP'}}
+                <th>발송</th>
+                <th>수신</th>
+                <th>확인</th>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='DFP'}}
+                <th>노출</th>
+                <th>확인</th>
+                \{{/ifvalue}}
+                <th>CTR</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                \{{#ifvalue ../channelType value='OP'}}
+                <td>\{{comma sendCount}}</td>
+                <td>\{{comma receiveCount}}</td>
+                <td>\{{comma checkCount}}</td>
+                <td>\{{comma buttonCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='BLE'}}
+                <td>\{{comma receiveCount}}</td>
+                <td>\{{comma checkCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='SP'}}
+                <td>\{{comma sendCount}}</td>
+                <td>\{{comma receiveCount}}</td>
+                <td>\{{comma checkCount}}</td>
+                \{{/ifvalue}}
+                \{{#ifvalue ../channelType value='DFP'}}
+                <td>\{{comma displayCount}}</td>
+                <td>\{{comma checkCount}}</td>
+                \{{/ifvalue}}
+                <td>\{{ctr}}<span class="percent">%</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    \{{/each}}
+    <!-- // 월별 실적  -->
+    <div class="more monthMore">
+        <a href="#" class="monthMoreClick"><span>더보기</span></a>
+    </div>
+</script>

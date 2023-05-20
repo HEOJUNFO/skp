@@ -1,0 +1,147 @@
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script> 
+<script>
+
+$(function() { 
+
+    $("#cf1").on("click",function(){
+
+        var url = "https://go.selpic.co.kr/skapi/kiosk/"+$("#rid").val(); 
+        //키오스크 상태 확인 
+        // GET https://go.selpic.co.kr/skapi/kiosk/{키오스크 코드}
+
+        $.ajax({
+            type: "GET", 
+            url: url,
+            dataType:"JSON",
+            success:function(data)
+            {     
+                alert(data.msg);
+            },
+            error:function(error)
+            {
+                alert("network error."); 
+                return;
+            }  
+        });
+
+    })
+
+    $("#cf3").on("click",function(){
+
+        var url = "https://go.selpic.co.kr/skapi/order/"+$("#key").val();
+        // 인화 상태 확인 
+        // GET https://go.selpic.co.kr/skapi/order/{회원 키}
+
+        $.ajax({
+            type: "GET", 
+            url: url,
+            dataType:"JSON",
+            success:function(data)
+            {     
+                alert(JSON.stringify(data));
+            },
+            error:function(error)
+            {
+                alert("network error."); 
+                return;
+            }  
+        });
+
+    })
+
+    $("#cf2").on("click",function(){
+
+        var url = "https://go.selpic.co.kr/skapi/upload";
+        // 인화 업로드 
+        var form = $('#uploadForm')[0]; 
+        var formData = new FormData(form);
+
+        formData.append("robot_id",$("#rid").val());   //키오스크 아이디
+        formData.append("user_id",$("#key").val());     //회원 키
+        formData.append("file",$("#file")[0].files[0]);  // 이미지 확장지 jpg 필수 
+
+        console.log(formData);
+
+
+        $.ajax({
+            url:url,
+            type: "POST",
+            enctype:'multipart/form-data',            
+            contentType: 'multipart/form-data',  
+            dataType: 'json',     
+            mimeType: 'multipart/form-data',
+            processData	: false,
+            contentType	: false,
+            crossDomain: true,
+            data		: formData, 
+            url: url, 
+            success:function(data)
+            {     
+                console.log(data);
+            },
+            error:function(error)
+            { 
+                alert("network error."); 
+                return;
+            }  
+        });
+
+        
+
+    })
+
+
+});
+</script> 
+
+
+
+<form method="POST" enctype="multipart/form-data" id="uploadForm">
+member key: <input name="key" id="key" value="cultureconTestKey" placeholder="member uniq key"> <br />
+<!--  회원고유키(영문숫자만 100자 이내)  -->
+kiosk id : <input name="rid" id="rid" value="H1500044" placeholder="kiosk id "> <br /> 
+<!--  키오스크 아이디(SOC제공)  -->
+image upload : <input type="file" name="file" id="file" placeholder="jpg only"> <br /> 
+<!--  이미지 업로드 CORS 적용되어 있음  -->
+<hr />
+<input type="button" id="cf1" value="check kiosk"> <br /> 
+<!-- 키오스크 상태 설정
+    status : 
+        error 상태에 문제가 있음.
+        normal 인화 가능상태
+        end 기기종료
+        check 기기 상태측정중 
+        
+
+
+    msg : 상태알림
+
+-->
+
+<input type="button" id="cf2" value="upload"> <br /> 
+<!-- 인화업로드 규격 
+        세로사이즈 :  1814;
+        가로사이즈 : 1218; 
+        이미지 확장자 : jpg
+
+
+    
+    -->
+
+<input type="button" id="cf3" value="photo history"> <br /> 
+
+<!--    
+인화상태 
+regdate : 인화날짜
+status : 인화상태 
+    S: 완료
+    P: 인쇄중
+    W: 업로드
+    F: 실패
+
+[{"regdate":"2023-04-15 01:57:36","status":"S"},{"regdate":"2023-04-15 01:53:13","status":"S"},{"regdate":"2023-04-14 21:01:57","status":"S"},{"regdate":"2023-04-14 21:01:56","status":"S"},{"regdate":"2023-04-14 21:01:55","status":"S"},{"regdate":"2023-04-14 18:36:28","status":"S"},{"regdate":"2023-04-14 18:36:26","status":"S"},{"regdate":"2023-04-14 18:31:10","status":"S"},{"regdate":"2023-04-14 18:31:09","status":"S"},{"regdate":"2023-04-14 18:31:06","status":"S"}]
+
+
+-->
+</form>

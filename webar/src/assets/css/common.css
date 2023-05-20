@@ -1,0 +1,186 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article,
+aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu,
+nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu,
+nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input:focus {
+    outline: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    background: transparent;
+    border: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+#app button {
+    text-indent: 0;
+}
+
+body {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+.event-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.aframe-inspector-opened .event-wrapper {
+    max-width: none;
+}
+
+.frame {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.frame-top,
+.frame-bottom {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    /*max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);*/
+    background: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.frame-top {
+    flex: 1 0 auto;
+    /*height: 32vw;*/
+    height: 50%;
+    top: 0;
+}
+.frame-bottom {
+    flex: 1 0 auto;
+    /*height: 16vw;*/
+    height: 50%;
+    background-position: bottom;
+    bottom: 0;
+}
+
+.aframe-inspector-opened .frame-top,
+.aframe-inspector-opened .frame-bottom {
+    display: none;
+}
+
+.disable-click .frame-top,
+.disable-click .frame-bottom {
+    pointer-events: auto;
+}
+
+.a-dialog {
+    opacity: 1;
+}
+
+/* 브릿지 용 */
+.bridge_3d {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bridge_3d.scanning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bridge_3d.scanning .a-canvas{
+    flex: 1 0 auto;
+    height: 1280px;
+    width: 1770px;
+    position: static;
+}
+
+
+/* 샘플용 */
+button.sample-button-set-json {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid skyblue;
+    background-color: #fff;
+    color: skyblue;
+    padding: 5px;
+}
+
+button.sample-button-set-json:active {
+    transform: scale(0.99);
+}

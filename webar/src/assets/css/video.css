@@ -1,0 +1,217 @@
+/* ==========================================================================
+   #Custom HTML5 Video Player
+   ========================================================================== */
+
+   :root {
+	--youtube-red: #FE0900;
+  }
+
+  .video-container {
+	width: 100%;
+	border-radius: 0.375rem;
+	margin: 0 auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  }
+  
+  video {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.375rem;
+  }
+  
+  .video-controls {
+	right: 0;
+	left: 0;
+    padding:0 0.75rem 0.75rem 0.875rem;
+	position: absolute;
+	bottom: 0;
+	transition: all 0.2s ease;
+	
+  }
+  
+  .video-controls.hide {
+	opacity: 0;
+	pointer-events: none;
+  }
+  
+  .bottom-controls {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+  }
+  
+  .left-controls {
+	display: flex;
+	align-items: center;
+	color: #fff;
+  }
+  
+  .volume-controls {
+	display: flex;
+	align-items: center;
+  }
+  
+  .volume-controls input {
+	width: 100px;
+	opacity: 1;
+	transition: all 0.4s ease;
+  }
+  
+  .volume-controls:hover input, .volume-controls input:focus {
+	width: 100px;
+	opacity: 1;
+  }
+  
+  button {
+	cursor: pointer;
+	position: relative;
+	margin-right: 0;
+	font-size: 12px;
+	padding: 0;
+	border: none;
+	outline: none;
+	background-color: transparent;
+  }
+  
+  button * {
+	pointer-events: none;
+  }
+  
+  button::before {
+	content: attr(data-title);
+	position: absolute;
+	display: none;
+	right: 0;
+	top: -50px;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	font-weight: bold;
+	padding: 4px 6px;
+	word-break: keep-all;
+	white-space: pre;
+  }
+  
+  button:hover::before {
+	display: inline-block;
+  }
+  
+  .playback-animation {
+	pointer-events: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -40px;
+	margin-top: -40px;
+	width: 80px;
+	height: 80px;
+	border-radius: 80px;
+	//background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+  }
+  
+  input[type=range] {
+      display:none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	height: 8.4px;
+	background: transparent;
+	cursor: pointer;
+  }
+  
+  input[type=range]:focus {
+	outline: none;
+  }
+  
+  input[type=range]::-webkit-slider-runnable-track {
+	width: 100%;
+	cursor: pointer;
+	border-radius: 1.3px;
+	-webkit-appearance: none;
+	transition: all 0.4s ease;
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+	height: 16px;
+	width: 16px;
+	border-radius: 16px;
+	background: var(--youtube-red);
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-left: -1px;
+  }
+  
+  input[type=range]:focus::-webkit-slider-runnable-track {
+	background: transparent;
+  }
+  
+  input[type=range].volume {
+	height: 5px;
+	background-color: #fff;
+  }
+  
+  input[type=range].volume::-webkit-slider-runnable-track {
+	background-color: transparent;
+  }
+  
+  input[type=range].volume::-webkit-slider-thumb {
+	margin-left: 0;
+	height: 14px;
+	width: 14px;
+	background: #fff;
+  }
+  
+  input[type=range]::-moz-range-track {
+	width: 100%;
+	height: 8.4px;
+	cursor: pointer;
+	border: 1px solid transparent;
+	background: transparent;
+	border-radius: 1.3px;
+  }
+  
+  input[type=range]::-moz-range-thumb {
+	height: 14px;
+	width: 14px;
+	border-radius: 50px;
+	border: 1px solid var(--youtube-red);
+	background: var(--youtube-red);
+	cursor: pointer;
+	margin-top: 5px;
+  }
+  
+  input[type=range]:focus::-moz-range-track {
+	outline: none;
+  }
+  
+  input[type=range].volume::-moz-range-thumb {
+	border: 1px solid #fff;
+	background: #fff;
+  }
+  
+  .hidden {
+	display: none;
+  }
+  
+
+  .time {
+      display: block;
+      line-height:1.625rem;
+      margin-top:1rem;
+      color: #fff;
+      font-size: 0.875rem;
+  }
+
+  .video_wrap{position:relative;background:#000;border-radius:0.375rem;}
+  .video_wrap video{vertical-align:top;}
+  .volume-button{text-indent:0;}
+  .volumn-btn use{display:block;width:1.625rem;height:1.625rem;}
+  .volumn-btn .mute{display:block;width:1.625rem;height:1.625rem;background-image:url("../img/icon-volume-mute.png");background-position:0 0;background-repeat:no-repeat;background-size:1.625rem auto;text-indent:-1000em;overflow:hidden;}
+  .volumn-btn .high{display:block;width:1.625rem;height:1.625rem;background-image:url("../img/icon-volume.png");background-position:0 0;background-repeat:no-repeat;background-size:1.625rem auto;text-indent:-1000em;overflow:hidden;}
+
+  .volumn-btn use.hidden{display:none;}

@@ -1,0 +1,131 @@
+---
+layout: default-admin.hbs
+title: 참여 코드 사용확인 페이지
+jsfile:
+- pages/web-event/outer/attend-code-history
+---
+<!-- skip navigation -->
+<div class="skip_navigation">
+    <a href="#container" class="skip_anchor">본문 바로가기</a>
+</div>
+<!-- //skip navigation -->
+
+<!-- gnb -->
+<div id="gnb" class="gnb">
+    <div class="gnb_wrap">
+        <div class="logo">
+            <a href="#">
+                <span>참여코드 사용 확인</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- //gnb -->
+
+<!-- container_wrap -->
+<div class="container_wrap">
+    <!-- container -->	
+    <div id="container" class="container">
+        <!-- content wrap -->
+        <div class="content_wrap">
+            <div class="content">
+                <div class="statistics">
+                    <div class="content_top">
+                        {{!-- <h1 class="title">이벤트통계 <span>이벤트ID <em id="eventIdEm"></em></span></h1> --}}
+                    </div>
+
+                    <div class="statistics_wrap">
+                        <div class="statistics_wrap_sub">
+                            <!-- 조회 조건 -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box">
+                                    <h2>조회조건</h2>
+                                    <!-- 기간 설정 -->
+                                    <div class="period_ctrl_box">
+                                        <div class="row">
+                                            <div class="item">
+                                                <div class="period">
+                                                    <div class="input_box">
+                                                        <span class="period_title">참여코드</span>
+                                                        <div class="input_period">
+                                                            <label for="search_bottrain">기간설정</label>
+                                                            <div class="input_wrap start_date" style="width:150px;">
+                                                                <input type="text" class="period_date" id="attendCode" title="참여코드" style="width:80px;">
+                                                                <!-- 캘린더 -->
+                                                                <div class="popup_calendar hidden"><!-- 숨김시 hidden class 추가-->
+                                                                    
+                                                                </div>
+                                                                <!-- // 캘린더 -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn" id="searchBtn">검색</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--// 기간 설정 -->
+                                </div>
+                            </div>
+                            <!-- // 조회 조건 -->
+
+                            <!-- 접속 통계 -->
+                            <div class="sta_wrap">
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="attendCodeHistoryView" >
+                                    <script id="attendCodeHistoryTemplate" type="text/x-handlebars-template">
+                                    <table id="attendCodeHistoryTable">
+                                        <colgroup>
+                                            <col width="5%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">순서</th>
+                                                <th scope="col">사용코드</th>
+                                                <th scope="col">상품명</th>
+                                                <th scope="col">당첨시간</th>
+                                                <th scope="col">경품정보 입력 여부</th>
+                                                <th scope="col">이름</th>
+                                                <th scope="col">핸드폰번호(뒤4자리)</th>
+                                                <th scope="col">경품정보 입력 시간</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            \{{#each this}}
+                                            <tr>
+                                                <td>\{{ rowNum }}</td>
+                                                <td>\{{ attendCode }}</td>
+                                                <td>\{{ productName }}</td>
+                                                <td>\{{ logCreatedDate }}</td>
+                                                <td>\{{ status }}</td>
+                                                <td>\{{ name }}</td>
+                                                <td>\{{ phoneNumber }}</td>
+                                                <td>\{{ createdDate }}</td>
+                                            </tr>
+                                            \{{/each}}
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //접속 통계 -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //content wrap -->
+    </div>
+    <!-- // container -->	
+</div>	
+<!-- // container_wrap -->

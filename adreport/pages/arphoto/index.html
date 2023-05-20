@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no," />
+        <link href="./css/intro.css" rel="stylesheet">
+
+        <script type="text/javascript" src="js/checkBrowser.js"></script>
+        <script type="text/javascript" src="js/playArApi.js"></script>
+        <script>
+            function copyClipBoard(){
+
+                let tagList = [
+                    "#2030세계박람회",
+                    "#AR소망포카",
+                ];
+                copy(tagList.join('\n'));
+                showSnackBar();
+            }
+
+            function showSnackBar() {
+                var x = document.getElementById("snackbar");
+                x.className = "show";
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }
+
+            function copy(copyText) {                
+                var tmpTextarea = document.createElement('textarea');
+                tmpTextarea.value = copyText;
+                
+                document.body.appendChild(tmpTextarea);
+                tmpTextarea.select();
+                tmpTextarea.setSelectionRange(0, 9999);  // 셀렉트 범위 설정
+                
+                document.execCommand('copy');
+                document.body.removeChild(tmpTextarea);                            
+            }
+
+            function openFramePage() {
+                reqLog('tap.btn_0');
+                var url = window.location.href;
+                var link = url.slice(0,url.lastIndexOf("/")) + "/frame.html";
+                window.open(link);
+            }
+
+            function openPrintPage() {
+                var url = window.location.href;
+                var link = url.slice(0,url.lastIndexOf("/")) + "/print/print_1.html";
+                window.open(link);
+            }
+            checkBrower(true);
+        </script>
+                
+        <!-- 변수명 모아 넣기 스크립트 -->
+        <script src="./js/cdnPathconvert.js"></script>
+        <script>
+            window.addEventListener('DOMContentLoaded', function(){
+
+                document.querySelector("#introImg1").src = topPath + introFolderPath + introFileName1;
+                document.querySelector("#introImg2").src = topPath + introFolderPath + introFileName2;
+                document.querySelector("#introImg3").src = topPath + introFolderPath + introFileName3;
+                console.log(document.querySelector("#introImg1").src);
+                console.log(document.querySelector("#introImg2").src);
+                console.log(document.querySelector("#introImg3").src);
+            });
+        </script>
+    </head>
+  
+    <body style="margin: 0px;">    
+        <div style="position: relative;">
+            <img id="introImg1" src="" style="width: 100%;">
+            <button style="position: absolute; bottom: 10%; left:10%; width: 80%; height: 5%; opacity: 0;" onclick="openFramePage()"></button>
+            <button style="position: absolute; bottom: 3%; left:10%; width: 80%; height: 5%; opacity: 0;" onclick="openPrintPage()"></button>
+        </div>
+        <img id="introImg2" src="" style="width: 100%;" class="relativePath">
+        <img id="introImg3" src="" style="width: 100%;">
+
+        <div id="snackbar">해시태그가 복사되었습니다.</div>
+    </body>
+</html>

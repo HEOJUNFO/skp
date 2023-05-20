@@ -1,0 +1,7 @@
+#app .jsoneditor-text {
+    height: 1000px;
+}
+
+#app div.jsoneditor-contextmenu ul li button {
+    text-indent: 0;
+}

@@ -1,0 +1,268 @@
+
+			<!-- 최근 집행광고 summary -->
+			<div class="ad_summary">
+				<div class="ad_summarys">
+					<div class="ad_summary_wrap swiper-container">
+						<div class="ad_summary_list swiper-wrapper">
+
+                        <script id="listTemplate" type="text/x-handlebars-template">
+                        \{{#each list}}
+                            \{{#ifvalue contractInfo.channelType value="OP"}}
+                            <!--모바일전단-->
+							<div class="ad_summary_detail swiper-slide"
+                                 data-solution-code="\{{contractInfo.solutionCode}}"
+                                 data-marketing-id="\{{contractInfo.marketingId}}"
+                                 data-channel-type="\{{contractInfo.channelType}}"
+                                 data-advertiser-mid="\{{contractInfo.advertiserMid}}"
+                                 data-cont-plc-name="\{{contractInfo.contPlcName}}"
+                            >
+								<div class="ad_summary_top">
+									<p>
+										안녕하세요,<br>
+                                        <span>\{{contractInfo.contPlcName}}</span> <em>\{{getSolutionName contractInfo.solutionCode}} 실적</em>을 확인하세요.
+									</p>
+								</div>
+								
+								<div class="type1">
+									<a href="#" class="goDetailBtn">
+										<div class="img_wrap"><img src="\{{contractInfo.adreportImgUrl}}"></div>
+										<div class="ad_info">
+											<div class="info_top">
+												<span class="period">\{{yymmHan contractInfo.realServiceEndDate}}</span>
+												<span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+											</div>
+											<table>
+												 <colgroup>
+													<col width="28%">
+													<col width="28%">
+													<col width="28%">
+													<col width="16%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th>발송</th>
+														<th>수신</th>
+														<th>확인</th>
+														<th>버튼</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td style="font-size:13px;">\{{comma sumStats.sendCount}}</td>
+                                                        <td style="font-size:13px;">\{{comma sumStats.receiveCount}}</td>
+                                                        <td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+                                                        <td style="font-size:13px;">\{{comma sumStats.buttonCount}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="more">
+											<span>자세히 보기</span>
+										</div>
+									</a>
+								</div>
+							</div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue contractInfo.channelType value="BLE"}}
+							<!--위치광고-->
+							<div class="ad_summary_detail swiper-slide"
+                                 data-solution-code="\{{contractInfo.solutionCode}}"
+                                 data-marketing-id="\{{contractInfo.marketingId}}"
+                                 data-channel-type="\{{contractInfo.channelType}}"
+                                 data-advertiser-mid="\{{contractInfo.advertiserMid}}"
+                                 data-cont-plc-name="\{{contractInfo.contPlcName}}"
+                            >
+								<div class="ad_summary_top">
+									<p>
+                                        안녕하세요,<br>
+                                        <span>\{{contractInfo.contPlcName}}</span> <em>\{{getSolutionName contractInfo.solutionCode}} 실적</em>을 확인하세요.
+									</p>
+								</div>
+								
+								<div class="type1">
+                                    <a href="#" class="goDetailBtn">
+                                        <div class="img_wrap"><img src="\{{contractInfo.adreportImgUrl}}"></div>
+										<div class="ad_info">
+											<div class="info_top">
+                                                <span class="period">\{{yymmHan contractInfo.realServiceEndDate}}</span>
+                                                <span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+											</div>
+											<table>
+												 <colgroup>
+													<col width="38%">
+													<col width="62%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th>수신</th>
+														<th>확인</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+                                                        <td style="font-size:13px;">\{{comma sumStats.receiveCount}}</td>
+														<td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="more">
+											<span>자세히 보기</span>
+										</div>
+									</a>
+								</div>
+							</div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue contractInfo.channelType value="SP"}}
+                            <!--푸시광고-->
+                            <div class="ad_summary_detail swiper-slide"
+                                 data-solution-code="\{{contractInfo.solutionCode}}"
+                                 data-marketing-id="\{{contractInfo.marketingId}}"
+                                 data-channel-type="\{{contractInfo.channelType}}"
+                                 data-advertiser-mid="\{{contractInfo.advertiserMid}}"
+                                 data-cont-plc-name="\{{contractInfo.contPlcName}}"
+                            >
+                            <div class="ad_summary_top">
+									<p>
+                                        안녕하세요,<br>
+                                        <span>\{{contractInfo.contPlcName}}</span> <em>\{{getSolutionName contractInfo.solutionCode}} 실적</em>을 확인하세요.
+									</p>
+								</div>
+								
+								<div class="type2">
+                                    <a href="#" class="goDetailBtn">
+                                        <div class="img_wrap"><img src="\{{contractInfo.adreportImgUrl}}"></div>
+										<div class="ad_info">
+											<div class="info_top">
+                                                <span class="period">\{{yymmHan contractInfo.realServiceEndDate}}</span>
+                                                <span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+											</div>
+											<table>
+                                                <tbody>
+													<tr>
+														<th>발송</th><td style="font-size:13px;">\{{comma sumStats.sendCount}}</td>
+													</tr>
+													<tr>
+														<th>수신</th><td style="font-size:13px;">\{{comma sumStats.receiveCount}}</td>
+													</tr>
+													<tr>
+														<th>확인</th><td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="more">
+											<span>자세히 보기</span>
+										</div>
+									</a>
+								</div>
+							</div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue contractInfo.channelType value="DFP"}}
+                            <!--배너광고-->
+                            <div class="ad_summary_detail swiper-slide"
+                                 data-solution-code="\{{contractInfo.solutionCode}}"
+                                 data-marketing-id="\{{contractInfo.marketingId}}"
+                                 data-channel-type="\{{contractInfo.channelType}}"
+                                 data-advertiser-mid="\{{contractInfo.advertiserMid}}"
+                                 data-cont-plc-name="\{{contractInfo.contPlcName}}"
+                            >
+                            <div class="ad_summary_top">
+									<p>
+                                        안녕하세요,<br>
+                                        <span>\{{contractInfo.contPlcName}}</span> <em>\{{getSolutionName contractInfo.solutionCode}} 실적</em>을 확인하세요.
+									</p>
+								</div>
+									
+								<div class="type3">
+                                    <a href="#" class="goDetailBtn">
+                                        <div class="img_wrap"><img src="\{{contractInfo.adreportImgUrl}}"></div>
+										<div class="ad_info">
+											<div class="info_top">
+                                                <span class="period">\{{yymmHan contractInfo.realServiceEndDate}}</span>
+                                                <span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+											</div>
+											<table>
+												<tbody>
+                                                <tr>
+														<th>노출</th><td style="font-size:13px;">\{{comma sumStats.displayCount}}</td>
+													</tr>
+													<tr>
+														<th>확인</th><td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="more">
+											<span>자세히 보기</span>
+										</div>
+									</a>
+								</div>
+							</div>
+                            \{{/ifvalue}}
+
+                            \{{#ifvalue contractInfo.channelType value="SF"}}
+                            <!--시럽프렌즈-->
+                            <div class="ad_summary_detail swiper-slide"
+                                 data-solution-code="\{{contractInfo.solutionCode}}"
+                                 data-marketing-id="\{{contractInfo.marketingId}}"
+                                 data-channel-type="\{{contractInfo.channelType}}"
+                                 data-advertiser-mid="\{{contractInfo.advertiserMid}}"
+                                 data-cont-plc-name="\{{contractInfo.contPlcName}}"
+                            >
+                            <div class="ad_summary_top">
+									<p>
+                                        안녕하세요,<br>
+                                        <span>\{{contractInfo.contPlcName}}</span> <em>\{{getSolutionName contractInfo.solutionCode}} 실적</em>을 확인하세요.
+									</p>
+								</div>
+									
+								<div class="type4">
+                                    <a href="#" class="goDetailBtn">
+										<div class="ad_info">
+											<div class="info_top">
+                                                <span class="period">\{{yymmHan contractInfo.realServiceEndDate}}</span>
+                                                <span class="txt"><em>\{{contractInfo.adreportMarketingTitle}}</em></span>
+											</div>
+											<table>
+												 <colgroup>
+													<col width="50%">
+													<col width="50%">
+												</colgroup>
+												<thead>
+													<tr>
+														<th>누적적립고객수</th>
+														<th>누적작립건수</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+
+														<td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+														<td style="font-size:13px;">\{{comma sumStats.checkCount}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="more">
+											<span>자세히 보기</span>
+										</div>
+									</a>
+								</div>
+							</div>
+                            \{{/ifvalue}}
+
+                        \{{/each}}
+                        </script>
+
+                        </div>
+
+						<div class="swiper-pagination pagination"></div>
+
+					</div>
+				</div>
+			</div>
+			<!-- //최근 집행광고 summary -->

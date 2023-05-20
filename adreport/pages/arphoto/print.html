@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="./css/print.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="./js/checkBrowser.js"></script>
+    <script type="text/javascript" src="./js/print.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="./js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="history.back()" ><b>&#x2190;</b></span>
+            <span id="title">사진 출력 이벤트 안내</span>
+        </div>
+
+        <div id="content-1" class="container" style="display: none;">
+            <div class="content">
+                <div class="scrollable-image">
+                    <img id="descImg" src="" alt="">
+                </div>
+            </div>
+            <div class="footer">
+                <button id="btnZoomIn" class="btn">키오스크 위치 크게보기</button>
+                <button id="btnGoSelectPhoto" class="btn">사진 출력하기</button>
+            </div>
+        </div>
+        <div id="content-2" class="container" style="display: none;">
+            <div class="content">
+                <p id="selectPhotoDesc">사진을 선택해주세요</p>
+                <img id="previewImage" src="">
+            </div>
+            <div class="footer">
+                <button id="btnGoSelectPrint" class="btn"> 위 사진으로 출력하기</button>
+                <button id="btnRetryAr" class="btn">AR다시찍기</button>
+                <button id="btnChangePhoto" class="btn">파일 보관함에서 불러오기</button>
+                <input type="file" id="inputImage" accept="image/*" style="display:none;">
+            </div>
+        </div>
+        <div id="content-3" class="container" style="display: none;">
+            <div class="content">
+                <p>키오스크 화면에 보이는<br>기기번호를 입력해주세요<br> </p>
+                <input id="kiosk-id" type="number" maxlength="4" class="idInput" placeholder="기기번호 입력">
+            </div>
+            <div class="footer">
+                <button id="btnStartPrint"class="btn">확인</button>
+            </div>
+        </div>
+        <div id="content-4" class="container" style="display: none;">
+            <div class="content loading">
+                <h3 style="font-size: 1.1em;">사진 출력이 요청되었습니다.</h3>
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <span class="loading-text">준비중</span>
+                </div>
+            </div>
+            <div class="content success" style="display: none;">
+                <h3 style="font-size: 1.5em;">출력완료</h3>
+                <h3>출력 디바이스에서 반드시 사진을<br>수령하세요</h3>
+            </div>
+            <div class="content fail" style="display: none;">
+                <h class="big-red-exclamation">!</h>
+                <h3>디바이스(통신) 오류로 출력이<br>불가능합니다.</h3>
+                <h3>주변의 현장안내 직원에게<br>문의해주세요.</h3>
+            </div>
+            <div class="footer" style="display: none;">
+                <button id="btnClose"class="btn">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

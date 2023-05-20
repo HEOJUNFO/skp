@@ -1,0 +1,176 @@
+﻿---
+layout: default-event.hbs
+title: 시럽 이벤트
+jsfile:
+- pages/web-event/event-law
+cssfile:
+---
+<div class="wrap">
+    <section>
+        <section id="lawSection">
+			<script id="lawResultTemplate" type="text/x-handlebars-template">
+			\{{{ this }}}
+        {{!-- <div class="terms_detail">
+
+            <h1>Play AR서비스이용약관</h1>
+
+            <p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 1조 (목적)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif"><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">본</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">약관은</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676"> SK</span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">플래닛</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676">(</span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">주</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676">)(</span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">이하</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676"> &quot;</span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">회사</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676">&quot;)</span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">이</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">운영하는</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676"> Play AR </span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">서비스와</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">관련하여</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">이용자와</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">회사의</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">제반</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">권리</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676"> &middot; </span></span></span></span><span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">의무</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">및</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">관련</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">절차</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">등을</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">규정하는</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">데</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">목적이</span></span></span> <span lang="KO" style="font-size:10.5pt"><span style="line-height:107%"><span style="color:#767676">있습니다</span></span></span><span lang="EN-US" style="font-size:10.5pt"><span style="line-height:107%"><span style="font-family:Helvetica"><span style="color:#767676">.</span></span></span></span></span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 2조 (용어의 정의)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">본 약관에서 &ldquo;이용자&rdquo;라 함은 회사의 Play AR 서비스에 접속하여 본 약관에 따라 회사가 제공하는 서비스를 이용하는 고객을 말하며, 회사가 제공하는 Play AR 서비스는 별도의 회원가입 절차가 필요하지 않습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 3조 (약관개정)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사는 관계 법령을 위배하지 않는 범위에서 본 약관을 수시로 개정할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. 회사가 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 그 적용일자 7일 이전부터 Play AR 서비스 페이지에 공지합니다. 다만, 이용자에게 불리한 내용으로 약관을 개정하는 경우에는 적용일로부터 30일전까지 공지합니다. </span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3. 회사가 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 이용한 Play AR 서비스에 대해서만 적용되고 그 이전에 이미 이용한 Play AR 서비스에 대해서는 개정 전의 약관조항이 그대로 적용됩니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 4조 (이용자에 대한 통지)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">회사가 이용자에 대한 통지를 하는 경우 회사가 알고 있는 연락처로 통지합니다. 다만, 이용자 전체에 대한 통지의 경우 7일 이상 회사의 Play AR 서비스 페이지에 공지함으로써 통지에 갈음합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 5조 (Play AR 서비스 페이지)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사는 이용자에 대한 참여형 AR서비스를 제공하기 위해 Play AR 웹페이지를 운영하며, 본 약관은 이용자가 Play AR 웹페이지에서 제공하는 서비스(이하 &ldquo;AR서비스&rdquo;)를 이용하는데 필요한 사항을 규정합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. AR서비스를 이용할 수 있는 이용자는 모바일링크 혹은 기타 채널에 노출된 배너 및 검색을 통해 AR서비스에 접속한 자 입니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3. 회사는 회사가 정한 일부 제한 규칙에 따라 이용자에게 서비스 이용을 제한할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1) AR서비스를 이용하기 위해 이용자의 위치정보가 필요한 경우 회사가 요구하는 위치 접근권한 허용을 하지 않은 경우</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2) AR서비스를 이용하기 위한 모바일단말기 및 브라우저의 최소 사양에 부합하지 않은 경우</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3) AR서비스 참여시 회사가 부당한 이용 및 참여라고 판단하는 경우</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">4. 회사는 AR서비스 운영과 관련하여 관계 법령과 이 약관이 금지하거나 미풍양속을 거스르는 행위를 하지 않으며, 이 약관이 정하는 바에 따라 지속적이고 안정적으로 서비스를 제공하고자 최선을 다합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 6조 (Play AR 서비스 내용 및 변경)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사는 Play AR 서비스를 통하여 다음과 같은 업무를 수행합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1) AR서비스를 이용한 광고계약 체결 및 광고형 AR서비스 제공</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2) AR서비스 이용자에 대한 AR서비스 관련 정보(이용방법, 경품배송, 수령의 방법 등)의 제공</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3) 기타 회사가 정하는 업무</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. 회사는 AR서비스 페이지를 통한 AR 서비스의 컨텐츠, 경품, 참여방법 등 기술적 사양 및 광고주의 요청, 품질 등에 대한 변경 등이 있을 때에는 AR서비스의 내용을 변경할 수 있습니다. </span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3. 전 항의 규정을 근거로 하여 회사가 제공하는 AR서비스의 내용을 변경하고자 할 때에는 변경된 내용과 변경일자를 구체적으로 밝혀 현재의 내용을 게시한 곳에 그 제공일자 이전 7일전부터 공지합니다. 단 변동내용을 구체적으로 공지하기가 어려울 때에는 변경 7일전 그 취지와 공지할 수 없는 사유를 현재의 서비스를 게시한 곳에 공지합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 7조 (AR서비스의 중단)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사는 컴퓨터 등 정보통신설비의 점검, 보수, 교체 및 고장, 통신의 두절 등의 사유가 발생했을 때에는 AR 서비스 제공을 일시적으로 중단할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. 본 조 제 1항의 사유로 회사가 AR서비스를 중단하고자 할 때에는 AR서비스 페이지에 서비스중단을 게시하는 방법으로 이용자에게 서비스 중단 사실을 알립니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3. 회사의 고의 또는 과실로 AR서비스가 중단되었거나 시스템이 장애를 일으켜 이용자가 손해를 보았다면, 회사는 이용자의 손해를 시스템상 로그로 확인할 수 있고, 통상적으로 예상할 수 있는 범위내에서 손해를 배상합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 8조 (AR서비스의 참여)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">이용자는 다음 각 호의 절차에 따라 AR서비스 페이지를 통하여 AR서비스에 참여할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1) 회사 및 광고주가 제공하는 AR서비스 배너, URL, 바로가기 링크 클릭 등을 통해 AR서비스에 진입</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2) AR서비스에서 이용자의 현재 위치정보를 요구하는 경우 AR서비스에 대한 위치 접근권한을 허용한 경우</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3) 광고주가 요구하는 특정지역에서 AR서비스에 참여하는 경우. 광고주가 요구하는 특정지역에서 AR서비스에 참여하지 않는 경우 AR서비스 참여가 불가능합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 9조 (AR서비스 경품의 정의 및 처리방침)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1) 이용자는 AR서비스 참여를 통해 경품에 당첨되고, 경품 배송을 위한 개인정보를 입력한 경우 경품 수령이 가능합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2) 제공되는 경품 종류 및 수량은 AR서비스 참여 전 안내페이지에 공지되며 해당 경품은 회사의 사정에 따라 다른 상품으로 대체될 수 있으며, 그럴 경우 안내페이지에 변경사항을 공지합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3) 이용자에게 제공되는 경품은 모바일쿠폰 및 기타 광고주가 지정한 배송상품, 현장수령 상품 등으로 구성됩니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">4) 경품을 수령 받은 이용자는 해당 경품을 재판매 할 수 없으며 이에 대한 책임은 회사가 지지 않습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">5) 수령 받은 경품에 대한 제조물책임, 하자담보책임 및 사용 중 고장, 하자 등에 대해서는 회사는 책임 지지 않으며, 경품 제조사 혹은 경품 판매처(교환처)에 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">6) 수령 받은 경품이 이용자의 책임 있는 사유로 멸실되거나 훼손된 경우, 사용하거나 일부 소비하여 상품가치가 감소한 경우, 같은 성능을 지닌 상품으로 반품하거나 교환을 요청할 수 없습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 10조 (경품의 배송)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">배송이 필요한 경품의 경우 경품에 대한 배송수단, 수단별 배송비용 부담자, 수단별 배송기간등을 경품 당첨자에게 알립니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 11조 (이용자의 의무)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">AR서비스 이용자는 AR서비스와 관련해서 다음 각 호의 행위를 해서는 안되고, 해당되는 경우 회사는 경품 지급을 거부할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1) AR서비스 이용 관련 부정한 참여(메크로의 활용 등) 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2) AR서비스에 개제된 내용을 무단으로 복사, 변경, 삭제 등 훼손하는 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3) 회사가 허용한 정보 이외의 다른 정보(컴퓨터프로그램 및 광고 등)등을 송신하거나 게시하는 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">4) 회사와 제 3자의 지적 재산권(저작권을 포함하며 이에 한정하지 않음)을 침해하는 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">5) 회사와 제 3자의 명예를 손상하거나 그 업무를 방해하는 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">6) 외설 또는 폭력적인 정보(메시지&bull;화상&bull;음성 등), 기타 공공의 질서와 선량한 풍속을 거스르는 정보를 공개하거나 게시하는 행위</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 12조 (AR서비스의 연결과 회사의 책임)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">AR서비스에서 다른 웹 사이트가 각종 링크(링크의 대상에는 문자, 그림 및 동영상 등이 포함됨)등의 방식으로 연결되었을 때, 회사는 이용자와 해당 웹 사이트간 일체의 거래에 대해 어떠한 책임도 지지 않습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 13조 (AR서비스 저작권의 귀속 및 이용제한)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사가 작성한 저작물에 대한 저작권과 기타 지적 재산권은 회사에 귀속합니다. 단, 이용자가 게시한 게시물의 저작권은 해당 게시물의 저작자에게 귀속됩니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. 이용자는 AR서비스를 이용하여 얻은 정보를 회사의 승낙없이 복제, 송신, 출판, 배포, 방송해서는 안 되며, 영리 목적으로 이용하거나 제 3자에게 이용하게 해서도 안됩니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">3. 이용자의 게시물은 서비스 및 관련 프로모션, 검색 결과 등에 노출될 수 있으며, 해당 노출을 위해 필요한 범위 내에서 일부 수정&bull;복제&bull;편집되어 서비스의 같은 영역 또는 다른 영역에 전송되거나 게시될 수 있습니다. 이때 회사는 저작권법 규정을 지키며, 이용자는 언제든지 고객센터나 서비스 내 관리 기능을 통해 해당 게시물에 대해 삭제 등의 조치를 할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">4. 이용자의 게시물이 &ldquo;정보통신망 이용촉진 및 정보보호 등에 관한 법률&rdquo; 및 &ldquo;저작권법&rdquo; 등 관계 법령에 위반되는 내용을 포함하고 있다면, 회사는 관계 법령이 정한 절차에 따라 해당 게시물의 게시 중단 및 삭제 등을 하거나 이용자에게 요청할 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">제 14조 (AR서비스 이용 관련 분쟁해결)</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">1. 회사는 AR서비스 이용과 관련하여 이용자가 제출한 불만사항과 의견을 최대한 신속하게 처리합니다. 다만, 신속한 처리가 어려울 경우 이용자에게 그 사유와 처리일정을 신속히 통보해 드립니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">2. 회사와 이용자간 발생한 분쟁과 관련하여 이용자의 피해구제신청이 있을 때 회사는 공정거래위원회 또는 시도지사가 의뢰하는 분쟁조정기관의 조정을 따를 수 있습니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px">&nbsp;</p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">부칙</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">본 약관은 2022년 1월 15일부터 시행합니다.</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">&nbsp;&nbsp;</span></span></span></p>
+
+<p style="text-align:justify; margin-bottom:11px">&nbsp;</p>
+
+<p style="text-align:justify; margin-bottom:11px">&nbsp;</p>
+
+<p style="text-align:justify; margin-bottom:11px"><span style="font-size:10pt"><span style="line-height:107%"><span style="font-family:&quot;맑은 고딕&quot;,sans-serif">&nbsp;</span></span></span></p>
+
+        </div> --}}
+        </script>
+
+        <section id="historySection" style="margin-left: 30px;">
+				<script id="lawHistoryTemplate" type="text/x-handlebars-template">
+						\{{#each this}}
+							<p style="text-align:justify">
+								<span style="font-size:10pt">
+									<span style="line-height:107%">
+										<span style="font-family:&quot;맑은 고딕&quot;,sans-serif">
+                                            <a style="color:blue;" onclick="$.callLawDetail('\{{this.idx}}');">\{{this.title}}</a>
+										</span>
+									</span>
+								</span>
+							</p>
+						\{{/each}}
+					</script>
+			</section>
+
+    </section>
+    <!-- 공통 팝업 -->
+    {{> common-popup }}
+    <!-- //공통 팝업 -->
+</div>

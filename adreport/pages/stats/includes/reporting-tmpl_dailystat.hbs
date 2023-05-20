@@ -1,0 +1,102 @@
+
+<script id="dailyStatTemplate" type="text/x-handlebars-template">
+    <details open>
+        <summary><span>일별 실적 보기</span></summary>
+        <div class="info_summary">
+            <div class="detail">
+                <table>
+                    <colgroup>
+                        \{{#ifvalue contractInfo.channelType value='OP'}}
+                        <col width="35%">
+                        <col width="27%">
+                        <col width="24%">
+                        <col width="24%">
+                        <col width="24%">
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='BLE'}}
+                        <col width="40%">
+                        <col width="35%">
+                        <col width="25%">
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='SP'}}
+                        <col width="35%">
+                        <col width="27%">
+                        <col width="24%">
+                        <col width="24%">
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='DFP'}}
+                        <col width="40%">
+                        <col width="35%">
+                        <col width="25%">
+                        \{{/ifvalue}}
+                        <!--<col width="14%">-->
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>일자</th>
+                        \{{#ifvalue contractInfo.channelType value='OP'}}
+                        <th>발송</th>
+                        <th>수신</th>
+                        <th>확인</th>
+                        <th>버튼</th>
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='BLE'}}
+                        <th>PUSH 발송</th>
+                        <th>고객확인수</th>
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='SP'}}
+                        <th>발송</th>
+                        <th>수신</th>
+                        <th>확인</th>
+                        \{{/ifvalue}}
+                        \{{#ifvalue contractInfo.channelType value='DFP'}}
+                        <th>노출</th>
+                        <th>확인</th>
+                        \{{/ifvalue}}
+                        <!--<th>CTR</th>-->
+                    </tr>
+                    </thead>
+                    <tbody class="dailyStatRowArea" data-page="\{{dayStats.page}}" data-size="\{{dayStats.size}}" data-total-cnt="\{{dayStats.totalCnt}}" data-channel-type="\{{contractInfo.channelType}}" data-marketing-id="\{{contractInfo.marketingId}}">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </details>
+</script>
+
+<script id="dailyStatRowTemplate" type="text/x-handlebars-template">
+
+    \{{#each list}}
+    <tr class="dailyStatRow">
+        <td><span class="date">\{{yyyymmdd date}}</span></td>
+        \{{#ifvalue ../channelType value='OP'}}
+        <td>\{{comma sendCount}}</td>
+        <td>\{{comma receiveCount}}</td>
+        <td>\{{comma checkCount}}</td>
+        <td>\{{comma buttonCount}}</td>
+        \{{/ifvalue}}
+        \{{#ifvalue ../channelType value='BLE'}}
+        <td>\{{comma receiveCount}}</td>
+        <td>\{{comma checkCount}}</td>
+        \{{/ifvalue}}
+        \{{#ifvalue ../channelType value='SP'}}
+        <td>\{{comma sendCount}}</td>
+        <td>\{{comma receiveCount}}</td>
+        <td>\{{comma checkCount}}</td>
+        \{{/ifvalue}}
+        \{{#ifvalue ../channelType value='DFP'}}
+        <td>\{{comma displayCount}}</td>
+        <td>\{{comma checkCount}}</td>
+        \{{/ifvalue}}
+        <!--<td>\{{ctr}}<span class="percent">%</span></td>-->
+    </tr>
+    \{{/each}}
+    <tr class="dailyMore">
+        <td colspan="6">
+            <div class="more">
+                <a href="#" class="dailyMoreClick"><span>일별 실적 더보기</span></a>
+            </div>
+        </td>
+    </tr>
+</script>

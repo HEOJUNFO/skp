@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/checkBrowser.js"></script>
+    <title>아래방향 화살표 버튼을 통한 사파리 이동</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            height: 100vh;
+        }
+        
+        p.arrow-btn {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            display: inline-block;
+            padding: 10px 14px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            transition: background-color 0.3s;
+        }
+    </style>
+    <script src="./js/cdnPathconvert.js"></script>
+    <script>
+        window.onload = function(){ 
+            let name = getBrowserName();
+            if(name != "kakao"){
+                var url = window.location.href;
+                var link = url.slice(0,url.lastIndexOf("/")) + "/index.html";
+
+                window.location.href = link;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', function(){
+            document.querySelector("#transferDesc").src = topPath + kakaoTransferFolderPath + kakaoTransferFileName;
+        });
+    </script>
+</head>
+<body>
+    <div style="position: relative;">
+        <img id="transferDesc" src="./img/etc/kakaoTransfer2.png" style="width: 100%;">
+    </div>
+    <!-- <p href="#" class="arrow-btn" onclick="openSafari()">
+        ▼
+    </p> -->
+</body>
+</html>

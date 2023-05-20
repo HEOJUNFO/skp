@@ -1,0 +1,150 @@
+﻿---
+layout: default-event.hbs
+title: 시럽 이벤트 당첨이력 조회 
+jsfile:
+- pages/web-event/event-winning-history
+---
+<div class="wrap">
+<input type="hidden" id="resultCode">
+<input type="hidden" id="locationSettingYn">
+<input type="hidden" id="arAttendConditionCodeYn">
+<input type="hidden" id="pid">
+<input type="hidden" id="isPasswordInput">
+<input type="hidden" id="giveAwayId">
+<input type="hidden" id="winningPasswordYn">
+    <!-- header 영역  -->
+    <header class="moweb_header">
+        {{!-- <a href="javascript:history.back();">&lt;</a>
+        <div><span id="eventHeaderTitle"></span></div> --}}
+        <header class="moweb_header">
+        <a href="javascript:history.back();">&lt;</a>
+        <div><span></span></div>
+    </header>
+    </header>
+    <!-- //header 영역 -->
+    <section>
+        <!-- 당첨 이력 조회 -->
+                <div class="nft_win_history">
+                        {{!-- <a href="#" class="close">닫기</a> --}}
+                    <div class="history_wrap">
+                        <div class="top">
+                            <span class="win_title">당첨 이력조회</span>
+                            <div class="info_form">
+                                <ul>
+                                    <!-- 전화번호 입력 활성화 -->
+                                    <li id="phoneNumberLi" style="display: none;">
+                                        <span class="title"><a href="javascript:void(0);" id="searchTypeMent"></a></span>
+                                        <div class="auth_number">			
+                                            <input type="text" class="contents_input" maxlength="13" id="phoneNumber">
+                                        </div>
+                                    </li>
+                                    {{!-- <li id="smsCodeLi" style="display: none">
+                                        <span class="title"><a href="javascript:void(0);">인증코드입력</a></span>
+                                        <div class="auth_number">
+                                            <input type="text" class="contents_input" maxlength="6" id="smsCode">
+                                        </div>
+                                    </li> --}}
+                                    <!-- // 전화번호 입력 활성화 -->
+
+                                </ul>
+                            </div>
+                            
+                            {{!-- <div class="agree_wrap">
+                                <!-- 동의 -->			
+                                <div class="terms">
+                                    <span class="win_title"><em>(필수)</em> 개인정보 수집이용동의 SK플래닛㈜ 귀중</span>
+
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:33.3%;">
+                                            <col style="width:33.3%;">
+                                            <col style="width:33.4%;">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>개인정보 수집,<br>이용 목적</th>
+                                                <th>개인정보수집 항목</th>
+                                                <th>보유, 이용기간</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>당첨 이력 조회</td>
+                                                <td>휴대전화번호</td>
+                                                <td><em>이벤트 종료 후 60일까지 보관 후 지체없이 파기</em></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="bottom">※ 고객님은 동의 거부 권리가 있으며, 동의 거부 시 당첨이력<br>조회가 불가합니다.</p>
+                                </div>		
+                                <!-- // 동의 -->
+                            </div> --}}
+
+                            <div class="btn">
+                                <a href="javascript:void(0);" id="searchWinningBtn" class="putPvLogBtn" data-log-num="1" data-log-page-id="/main/history" data-is-close="false"></a>
+                            </div>
+                            <div class="btn" style="display: none" id="authSmsBtnDiv">
+                                <a href="javascript:void(0);" id="authSmsBtn">인증하기</a>
+                            </div>
+                        </div>
+                        <!-- 당첨이력 없음 시작 -->
+                        <div class="search_result" id="noDataDiv" style="display: none;">
+                            <span class="title">조회결과</span>
+                            <div class="empty">
+                                <p>당첨 이력이 없습니다.</p>
+                            </div>
+                        </div>
+                        <!-- // 당첨이력 없음 끝 -->
+
+                        <!-- 당첨이력 았을때 시작 -->
+                        <div class="search_result" id="dataDiv" style="display: none;">
+                            <span class="title">조회결과</span>
+                            <script id="searchResultTemplate" type="text/x-handlebars-template">
+                            <ul id="dataUl">
+                            \{{#each this}}
+                                <li>
+                                    <div>
+                                        <span class="date">\{{this.createdDate}}</span>
+                                        <span class="txt">\{{this.productName}} \{{#ifvalue this.subscriptionYn value='N'}} 당첨 \{{/ifvalue}}</span> 
+                                                                        
+                                        \{{#ifvalue this.receiveStatusStr value='수령확인'}} <a id="btn1-@index" class="done2" value="\{{this.giveAwayId}}" data-give-away-id= "\{{this.giveAwayId}}">\{{this.receiveStatusStr}}</a> \{{/ifvalue}}
+                                        
+                                        \{{#ifvalue this.receiveStatusStr value='수령완료'}} <a class="done">\{{this.receiveStatusStr}}</a>\{{/ifvalue}}
+                                        \{{#ifvalue this.receiveStatusStr value='당첨성공'}} <a class="done">\{{this.receiveStatusStr}}</a>\{{/ifvalue}}
+                                        \{{#ifvalue this.receiveStatusStr value='당첨실패'}} <a class="done">\{{this.receiveStatusStr}}</a>\{{/ifvalue}}
+
+                                        \{{#ifvalue this.receiveStatusStr value='응모중'}} <a >\{{this.receiveStatusStr}}</a> \{{/ifvalue}}
+                                    </div>
+                                    <!-- NFT -->
+                                    \{{#ifvalue this.winningType value='NFT'}}
+                                        {{!-- \{{#ifvalue this.isSubscriptionWinningPresentation value=true}} --}}
+                                            <div class="win_btn">
+                                                <a href="javascript:void(0)" id="NFT">NFT 보관함 확인하기</a>
+                                            </div>
+                                        {{!-- \{{/ifvalue}} --}}
+                                    \{{/ifvalue}}
+                                    <!-- 쿠폰 -->
+                                    \{{#ifvalue this.winningType value='NFTCP'}}
+                                        {{!-- \{{#ifvalue this.isSubscriptionWinningPresentation value=true}} --}}
+                                            <div class="win_btn">
+                                                <a href="javascript:void(0)" id="NFTCP">쿠폰 보관함 확인하기</a>
+                                            </div>
+                                        {{!-- \{{/ifvalue}} --}}
+                                    \{{/ifvalue}}
+                                    
+                                </li>
+                            \{{/each}}
+                            </ul>
+                            </script>
+                        </div>
+                        <!--  // 당첨이력 았을때 끝 -->
+                    </div>
+                </div>
+                <!-- // 당첨 이력 조회 -->
+    </section>
+
+    <!-- 공통 팝업 -->
+    {{> common-popup }}
+    <!-- //공통 팝업 -->
+
+</div>

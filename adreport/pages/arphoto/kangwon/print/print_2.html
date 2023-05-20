@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="window.close()" ><b>&#x2190;</b></span>
+            <span id="title">사진 선택하기</span>
+        </div>
+
+        <div id="content-2" class="container" style="">
+            <div class="content">
+                <p id="selectPhotoDesc">사진을 선택해주세요</p>
+                <img id="previewImage" src="">
+            </div>
+            <div class="footer">
+                <button id="btnGoSelectPrint" class="btn"> 위 사진으로 출력하기</button>
+                <button id="btnRetryAr" class="btn">AR다시찍기</button>
+                <button id="btnChangePhoto" class="btn">파일 보관함에서 불러오기</button>
+                <input type="file" id="inputImage" accept="image/*" style="display:none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var checkPathName = getOpenerPath();
+        if( checkPathName == "/frame.html") {
+            document.querySelector("#selectPhotoDesc").style.display = "none";
+            document.querySelector("#previewImage").src = window.opener.getPreviewImage();
+            document.querySelector("#btnChangePhoto").style.display = "none";
+        }       
+        else{
+            document.querySelector("#previewImage").style.display = "none";
+        }
+        
+        document.querySelector("#btnGoSelectPrint").addEventListener("click", function() {
+            if(document.querySelector("#previewImage").style.display == ""){
+                saveImage();
+                location.href = "print_3.html";
+            }
+            else
+                alert("사진을 선택해주세요.");
+        });
+
+        document.querySelector("#btnChangePhoto").addEventListener("click", function() {
+            //document.querySelector('#inputImage').click();
+            location.href = 'https://free.selpic.co.kr/'
+
+        });
+
+        document.querySelector("#btnRetryAr").addEventListener("click", function() {
+            closePrint(true, true);
+        });
+
+        function closePrint(toggle,open = false){
+            var checkPathName = getOpenerPath();
+
+            if( checkPathName == "/frame.html") {
+                if(toggle == true)
+                    window.opener.toggleArSkin(true);
+
+                window.close();
+                return ;
+            }
+            
+            if( open == true ){
+                var url     = window.location.href;
+                var link    = "../frame.html";
+                window.open(link);
+            }
+        }
+
+        function getOpenerPath() {
+            // 다른 경로 포함되도 뒷 경로만 남기기 위한 슬라이스
+            if(window.opener == null) return null;
+
+            var url = window.opener.location.pathname;
+            var checkPathName = url.slice(url.lastIndexOf("/"));
+
+            return checkPathName;
+        }
+
+        function saveImage() {
+            // 이미지 태그 선택
+            const image = document.querySelector('#previewImage');
+
+            // 이미지를 Base64 문자열로 인코딩하여 가져오기
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            ctx.drawImage(image, 0, 0);
+            const dataURL = canvas.toDataURL("image/jpeg");
+
+            // 로컬 스토리지에 저장하기
+            localStorage.clear();
+            localStorage.setItem('printImage', dataURL);
+        }
+
+        document.querySelector("#inputImage").addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector("#previewImage").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                document.querySelector("#previewImage").style.display = "";
+                document.querySelector("#selectPhotoDesc").style.display = "none";
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>

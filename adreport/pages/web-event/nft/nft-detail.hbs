@@ -1,0 +1,104 @@
+---
+layout: default-event.hbs
+title: Play AR
+jsfile:
+- pages/web-event/nft/nft-detail
+---
+<div class="wrap">
+    <!-- header 영역  -->
+    <header class="moweb_header">
+        <a href="javascript:history.back()">&lt;</a>
+        <div><span id="title"></span></div>
+    </header>
+    <!-- //header 영역 -->
+    <section>
+        <!-- NFT 상세 -->
+        <div class="nft_detail" id="nftRepositoryDetailTemplateDiv" style="display: none;">
+            <script id="nftRepositoryDetailTemplate" type="text/x-handlebars-template">
+            
+            \{{#if (lte this.holderTranceStatus 0)}}
+            <div class="img_wrap"><img src="\{{ this.nftTokenInfo.arEventWinning.nftImgUrl }}" alt=""></div>
+            \{{/if}}
+            \{{#if (gte this.holderTranceStatus 1)}}
+            <div class="img_wrap"><img src="\{{ this.nftTokenInfo.arEventWinning.nftInactiveImgUrl }}" alt=""></div><!-- 비활성화 이미지 -->
+            \{{/if}}
+            
+            <div class="detail_info">
+
+                <span class="title">\{{ this.nftTokenInfo.arEventWinning.productName }}</span>
+                <div class="win">
+                    <div class="win_token">
+                        <span class="detail_title">당첨 토큰 ID</span>
+                        <p>\{{ this.nftTokenInfo.nftTokenId }} </p>
+                    </div>
+                    <div class="win_date">
+                        <span class="detail_title">당첨 일시</span>
+                        <span class="date">\{{ this.createdDate }}</span>
+                    </div>
+                    <p>지갑주소를 정상 등록한 경우 이벤트 상세에 고지한<br>이전 일에 일괄 소유권 이전 됩니다.</p>
+                </div>
+                \{{#if (isNotNull this.benefitInfo)}}
+                <div class="detail">
+                    <span>상세정보</span>
+                    <ul>
+                        \{{#each this.benefitInfo}}
+                        <li>
+                            <span>\{{ nftBenefitName }}</span>
+                            <p>\{{ nftBenefitDesc }}</p>
+                        </li>
+                        \{{/each}}
+                    </ul>
+                </div>
+                \{{/if}}
+            </div>
+            </script>
+        </div>
+        <!-- // NFT 상세 -->
+
+        <!-- 쿠폰 상세 -->
+        <div class="nft_detail" id="couponRepositoryDetailTemplateDiv" style="display: none;">
+            <script id="couponRepositoryDetailTemplate" type="text/x-handlebars-template">
+            \{{#ifvalue this.couponInfo.isUse value=false}}
+                <div class="img_wrap"><img src="\{{this.couponInfo.arEventNftCouponInfoEntity.arEventWinningEntity.nftImgUrl}}" alt="" ></div>
+            \{{/ifvalue}}
+            \{{#ifvalue this.couponInfo.isUse value=true}}
+                <div class="img_wrap"><img src="\{{this.couponInfo.arEventNftCouponInfoEntity.arEventWinningEntity.nftInactiveImgUrl}}" alt="" ></div>
+            \{{/ifvalue}}
+            
+            <div class="detail_info">
+                <span class="title">\{{ this.couponInfo.arEventNftCouponInfoEntity.arEventWinningEntity.productName }}</span>
+                <div class="win">
+                    <div class="win_token">
+                        <span class="detail_title">당첨 쿠폰 번호</span>
+                        <div class="barcode" style="">
+                            <div id="barcodeImg" style="margin: auto;"></div>
+                        </div>
+                        <p>\{{ this.couponInfo.arEventNftCouponInfoEntity.nftCouponId }}</p>
+                        <a href="javascript:void(0);" id="useCouponBtn" style="margin-top: 45px;">사용하기</a>
+                    </div>
+                </div>
+                \{{#if (isNotNull this.benefitInfo)}}
+                <div class="detail">
+                    <span>상세정보</span>
+                    <ul>
+                        \{{#each this.benefitInfo}}
+                        <li>
+                            <span>\{{ nftBenefitName }}</span>
+                            <p>\{{ nftBenefitDesc }}</p>
+                        </li>
+                        \{{/each}}
+                    </ul>
+                </div>
+                \{{/if}}
+            </div>
+            </script>
+        </div>
+        <!-- // 쿠폰 상세 -->
+
+    </section>
+
+    <!-- 공통 팝업 -->
+    {{> common-popup }}
+    <!-- //공통 팝업 -->
+    
+</div>

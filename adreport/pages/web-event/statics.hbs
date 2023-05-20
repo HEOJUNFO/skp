@@ -1,0 +1,474 @@
+---
+layout: default-admin.hbs
+title: 이벤트 통계 페이지
+jsfile:
+- pages/web-event/event-statics
+---
+<!-- skip navigation -->
+<div class="skip_navigation">
+    <a href="#container" class="skip_anchor">본문 바로가기</a>
+</div>
+<!-- //skip navigation -->
+
+<!-- gnb -->
+<div id="gnb" class="gnb">
+    <div class="gnb_wrap">
+        <div class="logo">
+            <a href="#">
+                <span>Web AR Admin</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- //gnb -->
+
+<!-- container_wrap -->
+<div class="container_wrap">
+    <!-- container -->	
+    <div id="container" class="container">
+        <!-- content wrap -->
+        <div class="content_wrap">
+            <div class="content">
+                <div class="statistics">
+                    <div class="content_top">
+                        <h1 class="title">이벤트통계 <span>이벤트ID <em id="eventIdEm"></em></span></h1>
+                    </div>
+                    
+                    <div class="statistics_wrap">
+                        <div class="statistics_wrap_sub">
+                            <!-- 조회 조건 -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box">
+                                    <h2>조회조건</h2>
+                                    <!-- 기간 설정 -->
+                                    <div class="period_ctrl_box">
+                                        <div class="row">
+                                            <div class="item">
+                                                <div class="period">
+                                                    <div class="input_box">
+                                                        <span class="period_title">조회일</span>
+                                                        <div class="input_period">
+                                                            <label for="search_bottrain">기간설정</label>
+                                                            <div class="input_wrap start_date">
+                                                                <input type="text" class="period_date" id="datepicker" maxlength="8" title="조회일">
+                                                                <!-- 캘린더 -->
+                                                                <div class="popup_calendar hidden"><!-- 숨김시 hidden class 추가-->
+                                                                    
+                                                                </div>
+                                                                <!-- // 캘린더 -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn" id="searchBtn">검색</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--// 기간 설정 -->
+                                </div>
+                            </div>
+                            <!-- // 조회 조건 -->
+
+                            <!-- 접속 통계 -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box" id="connectionTitleDiv" style="display: none;">
+                                    <h2>접속 통계(전체)</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="connectionTableView" style="display: none;">
+                                    <script id="connectionStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="connectionTable" >
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">페이지접속 누적/기준일</th>
+                                                {{!-- <th scope="col">AR참여(참여번호) 누적/기준일</th> --}}
+                                                <th scope="col">AR호출<br>누적/기준일</th>
+                                                <th scope="col">AR호출성공<br>누적/기준일</th>
+                                                <th scope="col">AR호출실패<br>누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>\{{pageConnection}}</td>
+                                                <td>\{{arCall}}</td>
+                                                <td>\{{arCallSuccess}}</td>
+                                                <td>\{{arCallFail}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                                <div class="tb_col_view" id="connectionSurveyTableView" style="display:none;">
+                                    <script id="connectionSurveyStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="connectionSurveyTable">
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="20%">
+                                            {{!-- <col width="20%"> --}}
+                                            {{!-- <col width="20%"> --}}
+                                            <col width="20%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">페이지접속 누적/기준일</th>
+                                                <th scope="col">서베이참여<br>누적/기준일</th>
+                                                {{!-- <th scope="col">서베이참여성공<br>누적/기준일</th> --}}
+                                                {{!-- <th scope="col">서베이참여실패<br>누적/기준일</th> --}}
+                                                <th scope="col">서베이제출완료<br>누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>\{{pageConnection}}</td>
+                                                <td>\{{arCall}}</td>
+                                                {{!-- <td>\{{arCallSuccess}}</td>
+                                                <td>\{{arCallFail}}</td> --}}
+                                                <td>\{{surveySuccessSubmit}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //접속 통계 -->
+
+                            <!-- //접속 통계 - 목표달성 수 기준 -->
+                            <div class="sta_wrap" id="connectionTargetDiv" style="display: none">
+                                <div class="sta_tit_box">
+                                    <h2>접속 통계(목표달성수 기준 - 성별)</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="connectionTargetTableView" style="display: none;">
+                                    <script id="connectionStaticsTargetGenderTemplate" type="text/x-handlebars-template">
+                                    <table id="connectionTargetTable">
+                                        <colgroup>
+                                            <col width="33%">
+                                            <col width="33%">
+                                            <col width="33%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">성별기준</th>
+                                                <th scope="col">서베이참여<br>누적/기준일</th>
+                                                <th scope="col">서베이제출완료<br>누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            \{{#each this.maleValueInfo}}
+                                                <td>\{{this}}</td>
+                                            \{{/each}}
+                                            </tr>
+                                            <tr>
+                                            \{{#each this.feMaleValueInfo}}
+                                                <td>\{{this}}</td>
+                                            \{{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                            </div>
+                            <!-- //접속 통계 - 목표달성 수 기준 -->
+
+                            <!-- //접속 통계 - 목표달성 수 기준 - 연령병 -->
+                            <div class="sta_wrap" id="connectionTargetAgeDiv" style="display: none">
+                                <div class="sta_tit_box">
+                                    <h2>접속 통계(목표달성수 기준 - 연령별)</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="connectionTargetAgeTableView" style="display: none;">
+                                    <script id="connectionStaticsTargetAgeTemplate" type="text/x-handlebars-template">
+                                    <table id="connectionTargetAgeTable">
+                                        <colgroup>
+                                            <col width="33%">
+                                            <col width="33%">
+                                            <col width="33%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">연령기준</th>
+                                                <th scope="col">서베이참여<br>누적/기준일</th>
+                                                <th scope="col">서베이제출완료<br>누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            \{{#each this.ageInfo}}
+                                            <tr>
+                                                \{{#each this}}
+                                                    <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                            \{{/each}}
+
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                            </div>
+                            <!-- //접속 통계 - 목표달성 수 기준 -->
+
+
+                            <!-- 실적 통계 (당첨) -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box" id="performanceTitleDiv" style="display: none;">
+                                    <h2>실적 통계(당첨)</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="performanceStaticsTableView">
+                                    <script id="performanceStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="performanceStaticsTable">
+                                        <colgroup>
+                                            {{!-- <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="17%"> --}}
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">당첨구분</th>
+                                                \{{#each this.tableTitleInfo}}
+                                                    <th style="word-spacing: 100vw;">\{{this}}</th>
+                                                \{{/each}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="col">추첨완료기준</td>
+                                                \{{#each this.tableValueInfo}}
+                                                    <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                            <tr>
+                                                <td scope="col">정보입력기준</td>
+                                                \{{#each this.tableValueInfo2}}
+                                                    <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //실적 통계 -->
+
+                            <!-- 실적 통계 (응모) -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box" id="subscriptionPerformanceTitleDiv" style="display: none;">
+                                    <h2>실적 통계(응모)</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="subscriptionPerformanceTableView">
+                                    <script id="subscriptionPerformanceStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="subscriptionPerformanceStaticsTable">
+                                        <colgroup>
+                                            {{!-- <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="17%"> --}}
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">응모구분</th>
+                                                \{{#each this.tableTitleInfo}}
+                                                    <th style="word-spacing: 100vw;">\{{this}}</th>
+                                                \{{/each}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="col">추첨완료</td>
+                                                \{{#each this.tableValueInfo}}
+                                                    <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                            {{!-- <tr>
+                                                <td scope="col">당첨정보입력기준</td>
+                                                \{{#each this.tableValueInfo2}}
+                                                    <td>\{{this @index}}</td>
+                                                \{{/each}}
+                                            </tr> --}}
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //실적 통계(응모) -->
+
+                            <!-- NFT 보관함 통계 -->
+                            <div class="sta_wrap"  id="nftRepositoryDiv" style="display: none;">
+                                <div class="sta_tit_box" id="nftRepositortyTitleDiv" style="display: none;">
+                                    <h2>NFT 보관함통계</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="nftRepositortyTableView">
+                                    <script id="nftRepositortyTemplate" type="text/x-handlebars-template">
+                                    <table id="nftRepositortyTable">
+                                        <colgroup>
+                                            {{!-- <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="16.6%">
+                                            <col width="17%"> --}}
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">당첨구분</th>
+                                                \{{#each this.tableTitleInfo}}
+                                                    <th style="word-spacing: 100vw;">\{{this}}</th>
+                                                \{{/each}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="col">지갑정보입력</td>
+                                                \{{#each this.tableValueInfo}}
+                                                    <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                            {{!-- <tr>
+                                                <td scope="col">소유권이전완료</td>
+                                                \{{#each this.tableValueInfo2}}
+                                                    <td>\{{this @index}}</td>
+                                                \{{/each}}
+                                            </tr> --}}
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //NFT 보관함 통계 -->
+
+                            <!-- 시간별 통계 -->
+                            <div class="sta_wrap">
+                                <div class="sta_tit_box" id="hourlyTitleDiv" style="display: none;">
+                                    <h2>시간별 통계</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="hourlyStaticsTableView">
+                                    <script id="hourlyStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="hourlyStaticsTable">
+                                        <colgroup>
+
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">시간</th>
+                                                 \{{#each this.tableTitleInfo}}
+                                                    \{{#if (lte @index 3)}}
+                                                        <th>\{{this}}</th>
+                                                    \{{/if}}
+                                                    \{{#if (gte @index 4)}}
+                                                        <th style="word-spacing: 100vw;">\{{this}}</th>
+                                                    \{{/if}}
+                                                \{{/each}}
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            \{{#each this.tableValueInfo}}
+                                            <tr>
+                                                <td>
+                                                    \{{#ifvalue @index value=0}}00시~01시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=1}}01시~02시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=2}}02시~03시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=3}}03시~04시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=4}}04시~05시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=5}}05시~06시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=6}}06시~07시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=7}}07시~08시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=8}}08시~09시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=9}}09시~10시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=10}}10시~11시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=11}}11시~12시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=12}}12시~13시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=13}}13시~14시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=14}}14시~15시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=15}}15시~16시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=16}}16시~17시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=17}}17시~18시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=18}}18시~19시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=19}}19시~20시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=20}}20시~21시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=21}}21시~22시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=22}}22시~23시\{{/ifvalue}}
+                                                    \{{#ifvalue @index value=23}}23시~24시\{{/ifvalue}}
+                                                </td>
+                                                \{{#each this}}
+                                                <td>\{{this}}</td>
+                                                \{{/each}}
+                                            </tr>
+                                            \{{/each}}
+                                        </tbody>
+                                         <tfoot>
+                                                <tr>
+                                                    <th scope="row">합계</th>
+                                                     \{{#each this.tableSumInfo}}
+                                                    <th>\{{this}}</th>
+                                                    \{{/each}}
+                                                </tr>
+                                            </tfoot>
+                                    </table>
+                                    </script>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //시간별 통계 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //content wrap -->
+    </div>
+    <!-- // container -->	
+
+    <!-- 기본 알림 팝업 -->
+    <section id="progrssSection" style="display: none;">
+        <!-- 팝업  -->
+        <div class="layer_popup">
+            <div class="popup_contents">
+                {{!-- <div class="pfl_pop">
+                    <span class="pop_title" id="alertPopupTitle"></span>
+
+                    <p id="alertPopupContents"></p>
+                </div> --}}
+                <img src="{{path dirname 'adreport/resources'}}/img/loading.gif">
+            </div>
+
+            {{!-- <div class="btn">
+                <button class="confirm" id="alertPopupBtn">확인</button>
+            </div> --}}
+        </div>
+
+        <!-- // 팝업 -->
+        <!-- 딤드 배경 -->
+        <div class="dimmed_bg_lightdark"></div>
+        <!-- // 딤드 배경 -->
+    </section>
+    <!-- // 기본 알림 팝업 -->
+
+</div>	
+<!-- // container_wrap -->
