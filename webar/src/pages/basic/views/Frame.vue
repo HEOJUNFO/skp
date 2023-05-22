@@ -1,6 +1,5 @@
 <template>
     <container ref="containerEl">
-      <!-- video -->
       <camera @loadeddata="loadVideo" @reject:video="rejectVideo"/>
       <tutorial-popup v-if="tutorialPopup" @close="tutorialPopup = false"></tutorial-popup>
       <template v-if="loadedVideo">
@@ -50,8 +49,6 @@
       const loadedVideo = ref(false);
       const isRequestOrientationPermission = ref(false);
       const tutorialPopup = ref(false);
-    
-      // ref
       const completeModalEl = ref(null);
       const containerEl = ref(null);
     
