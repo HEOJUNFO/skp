@@ -740,6 +740,110 @@ export const jsonData = {
         },
       ],
     },
+    offsetActionObjectFrame: {
+      eventId: "dnd111", // 이벤트ID
+      eventTitle: "test", // 이벤트명
+      eventLogicalType: "Frame", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
+      arBgImage: "", // AR 백그라운드 이미지 URL
+      arSkinImage: "", // AR 스킨 이미지 URL
+      arObjectInfo: [
+        {
+          arEventObjectId: "dnd222", // *인덱스 번호
+          objectSettingType: "CUBE", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/images/object_sphere_img.png", // *리소스 url 값
+          objectSizeX: "0.5", // *오브젝트 크기
+          objectSizeY: "0.5", // *오브젝트 크기
+          objectSizeZ: "0.5", // *오브젝트 크기
+          objectPositionX: "0.0", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "1.3", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-1.7", // *좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "ROTATION", // *NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "OBJCHANGE", // *NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "Y", // *반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
+          objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          // "objectChangeSettingType": "GIF", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
+          // "objectChangeSettingUrl": "https://dt-static.syrup.co.kr/webar/images/object_gif_2.gif", // *리소스 url 값
+          objectChangeSizeX: "", // *체인지 오브젝트 크기
+          objectChangeSizeY: "", // *체인지 오브젝트 크기
+          objectChangeSizeZ: "", // *체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // *스템프: 리소스 url 값
+          missionActiveThumbnailUrl: "", // *스탬프: 리소스 url 값
+          bridgeForceExposureTimeType: "N",
+          bridgeForceExposureTimeSecond: 0,
+          bridgeType: "", // *브릿지 : 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "", // *브릿지 : 리소스 url 값
+          bridgeExposureTimeSecond: "", // *playtime 숫자 값
+          bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
+          bridgeObjectSizeX: "",
+          bridgeObjectSizeY: "",
+          bridgeObjectSizeZ: "",
+        },
+        {
+          arEventObjectId: "dnd222", // *인덱스 번호
+          objectSettingType: "CUBE", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/images/object_sphere_img.png", // *리소스 url 값
+          objectSizeX: "0.5", // *오브젝트 크기
+          objectSizeY: "0.5", // *오브젝트 크기
+          objectSizeZ: "0.5", // *오브젝트 크기
+          objectPositionX: "0.0", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "1.3", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-1.7", // *좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "ROTATION", // *NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "OBJCHANGE", // *NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "Y", // *반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
+          objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
+          objectChangeSizeX: "", // *체인지 오브젝트 크기
+          objectChangeSizeY: "", // *체인지 오브젝트 크기
+          objectChangeSizeZ: "", // *체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // *스템프: 리소스 url 값
+          missionActiveThumbnailUrl: "", // *스탬프: 리소스 url 값
+          bridgeForceExposureTimeType: "N",
+          bridgeForceExposureTimeSecond: 0,
+          bridgeType: "", // *브릿지 : 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "", // *브릿지 : 리소스 url 값
+          bridgeExposureTimeSecond: "", // *playtime 숫자 값
+          bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
+          bridgeObjectSizeX: "",
+          bridgeObjectSizeY: "",
+          bridgeObjectSizeZ: "",
+        },
+      ],
+      arEventLogicalInfo: {
+        arEventLogicalId: "", //인덱스 번호
+        panPositionType: "", //상단 : TOP, 하단 : BOTTOM, 좌측 : LEFT, 우측 : RIGHT
+        panMissionNumber: "", // 숫자 값
+        bridgeForceExposureTimeType: "N",
+        bridgeForceExposureTimeSecond: 0,
+        bridgeType: "", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+        bridgeUrl: "", //	리소스 url 값
+        bridgeExposureTimeType: "", // 설정함 : Y, 설정안함 : N
+        bridgeExposureTimeSecond: "", // 숫자 값
+        bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
+        // add by jinylee
+        nftWalletImgUrl: "https://dt-static.syrup.co.kr/webar/images/object_img_3.png", //DnD 타겟 Image Url( ex. 지갑이미지)
+        nftWalletPositionX: "0.0", //DnD 타겟 3D 좌표 X
+        nftWalletPositionY: "-0.5", //DnD 타겟 3D 좌표 Y
+        nftWalletPositionZ: "-1.0", //DnD 타겟 3D 좌표 Z
+        nftWalletSizeX: "0.2", //DnD 타겟 3D width
+        nftWalletSizeY: "0.2", //DnD 타겟 3D height
+      },
+      arScanningImageInfo: [
+        {
+          sortNumber: "", //	순서 숫자 값
+          scanningImageUrl: "", //	리소스 url 값
+          scanningSoundType: "", //	선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          scanningSoundFile: "", //	파일 값
+          activeThumbnailUrl: "", //	리소스 url 값
+          inactiveThumbnailUrl: "", //	리소스 url 값
+        },
+      ],
+    },
     actionObjectBasic: null,
     actionObjectMission: null,
     actionObjectBridge: null,
@@ -747,6 +851,7 @@ export const jsonData = {
     resultData: null,
     // add drag and drop
     actionObjectDragNDrop: null,
+    actionObjectFrame : null,
     storageNames: [
       "skWebArActionObjectBasic",
       "skWebArActionObjectMission",
@@ -755,6 +860,7 @@ export const jsonData = {
       "skWebArResultData",
       // add drag and drop
       "skWebArActionObjectDragNDrop",
+      "skWebArActionObjectFrame",
     ],
   }),
   mutations: {
@@ -773,6 +879,9 @@ export const jsonData = {
     // add drag and drop
     ["SET_ACTION_OBJECT_DRAGNDROP"](state, payload) {
       state.actionObjectDragNDrop = payload;
+    },
+    ["SET_ACTION_OBJECT_FRAME"](state, payload) {
+      state.actionObjectFrame = payload;
     },
     //
     ["SET_IMAGE_SCANNING_MISSION"](state, payload) {
@@ -808,6 +917,9 @@ export const jsonData = {
     actionObjectDragNDrop(state) {
       return state.actionObjectDragNDrop;
     },
+    actionObjectFrame(state) {
+      return state.actionObjectFrame;
+    }
   },
   actions: {
     resetAllData({ dispatch }) {
@@ -819,6 +931,7 @@ export const jsonData = {
       dispatch("resetImageResultData");
       // add drag and drop
       dispatch("resetActionObjectDragNDrop");
+      dispatch("resetActionObjectFrame");
     },
     resetActionObjectBasic({ state, commit }) {
       commit("SET_ACTION_OBJECT_BASIC", _.cloneDeep(state.offsetActionObjectBasic));
@@ -838,6 +951,9 @@ export const jsonData = {
     //add drag and drop
     resetActionObjectDragNDrop({ state, commit }) {
       commit("SET_ACTION_OBJECT_DRAGNDROP", _.cloneDeep(state.offsetActionObjectDragNDrop));
+    },
+    resetActionObjectFrame({ state, commit }) {
+      commit("SET_ACTION_OBJECT_FRAME", _.cloneDeep(state.offsetActionObjectFrame));
     },
 
     setActionObjectBasic({ state, commit }) {
@@ -870,6 +986,11 @@ export const jsonData = {
       const storeData = localStorage.getItem(state.storageNames[5]);
       //수정필요
       const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetActionObjectDragNDrop);
+      commit("eventData/SET_EVENT_DATA", data, { root: true });
+    },
+    setActionObjectFrame({ state, commit }) {
+      const storeData = localStorage.getItem(state.storageNames[6]);
+      const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetActionObjectFrame);
       commit("eventData/SET_EVENT_DATA", data, { root: true });
     },
   },

@@ -22,7 +22,7 @@
   </template>
   
   <script>
-  import {onMounted, ref} from "vue";
+  import {onMounted, ref, watch} from "vue";
   import {useStore} from "vuex";
   
   import Container from "@/components/common/Container";
@@ -74,6 +74,7 @@
         loadingState,
         startLoading,
         startCounting,
+        completeLoading
       } = useLoading()
   
       // drag start event handler
@@ -134,6 +135,15 @@
         alert('동작 및 방향 접근을 허용하지 않으셨습니다. \r이벤트 페이지로 돌아갑니다.')
         dispatch('url/redirectToMain')
       }
+
+      watch(loadingState, () => {
+      if(loadingState.value === 'COUNTING') {
+        setTimeout(() => {
+          completeLoading()
+          tutorialPopup.value = true;
+        }, 5000)
+      }
+    })
     
       onMounted(async () => {
         await getEventData();

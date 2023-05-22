@@ -1,8 +1,11 @@
 <template>
     <div class="tutorial-popup"  @click="$emit('close')">
-      <h2>튜토리얼</h2>
-      <p>여기에는 튜토리얼에 관한 설명이 표시됩니다.</p>
-      <button @click="close">닫기</button>
+      <div class="tutorial-inner">
+        <p>반가워요!</p>
+        <p>마음에 드는 <span style="color:#FFC040">사진프레임</span>과</p>
+        <p><span style="color:#FFC040">캐릭터</span>를 선택해서</p>
+        <p>지금부터 사진 촬영을 시작해볼까요?</p>
+      </div>
     </div>
 </template>
   
@@ -32,22 +35,19 @@
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
   }
-  
-  .tutorial-popup h2 {
-    font-size: 2em;
-  }
+
+  .tutorial-inner{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    text-align: center;
+    margin-bottom: 1;
+    top: 60vh;
+}
   
   .tutorial-popup p {
+    color: #fff;
     margin-bottom: 1em;
   }
   
-  .tutorial-popup button {
-    padding: 1em 2em;
-    font-size: 1em;
-    color: #fff;
-    background-color: #ff7f00;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   </style>
