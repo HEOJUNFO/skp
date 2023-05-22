@@ -6,7 +6,6 @@
   export default {
     name: "Basic",
     setup() {
-        console.log('sfsdfsdffsdfsfs')
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
       }

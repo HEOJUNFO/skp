@@ -2,6 +2,7 @@
     <container ref="containerEl">
       <!-- video -->
       <camera @loadeddata="loadVideo" @reject:video="rejectVideo"/>
+      <tutorial-popup v-if="tutorialPopup" @close="tutorialPopup = false"></tutorial-popup>
       <template v-if="loadedVideo">
         <event-drag-n-drop-object
             v-if="arObjectInfoList"
@@ -27,6 +28,7 @@
   import Container from "@/components/common/Container";
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
+  import TutorialPopup from "@/components/common/TutorialPopup";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
@@ -38,7 +40,8 @@
     components: {
       Camera,
       EventDragNDropObject,
-      Container
+      Container,
+      TutorialPopup
     },
     setup() {
       const store = useStore();
@@ -46,121 +49,101 @@
       const templateType = ref(null);
       const loadedVideo = ref(false);
       const isRequestOrientationPermission = ref(false);
-  
+      const tutorialPopup = ref(false);
+    
       // ref
       const completeModalEl = ref(null);
       const containerEl = ref(null);
-  
+    
       const {
         getEventData
       } = useEventData({dispatch});
-  
+    
       const {
         arObjectInfoList,
         arAssetInfoList,
         arDropTargetInfo,
         setArObjectInfoListFromStore,
       } = useArObjectInfo();
-  
+    
       const {
         eventResult,
       } = useResultData({getters, dispatch});
-  
+    
       const {
         loadingState,
         startLoading,
         startCounting,
       } = useLoading()
   
-  
       // drag start event handler
-      const dragStart = (data) => { // vue-event
+      const dragStart = (data) => {
         console.log("nft dragStart : ", data)
-        // 오브젝트 클릭 중지
-        // containerEl.value.setClick(false);
       }
-  
+    
       // drag start event handler
-      const dragEnd = ({type, itemID, position}) => { // vue-event
+      const dragEnd = ({type, itemID, position}) => {
         console.log("nft dragEnd : type=%s,itemId=%s,pos=%s", type, itemID, position)
-        // 오브젝트 클릭 중지
       }
-  
-      /*
-      * loading
-      *
-      * video / a-frame 로드의 프로세스를 관리
-      * video 허용 > 기기 움직임 허용 > count > 시작 순으로 진행
-      *
-      * */
-      // 비디오(카메라) 로드 완료
+    
+      // video load complete
       const loadVideo = () => {
         loadedVideo.value = true;
       }
-  
-      // 비디오(카메라) 허용 거부
+    
+      // video access rejection
       const rejectVideo = () => {
         alert('카메라 사용을 허용하지 않으셨습니다. \r이벤트 페이지로 돌아갑니다.')
         dispatch('url/redirectToMain')
       }
-  
-      // Ar로드 완료
+    
+      // AR load complete
       const loadScene = () => {
-        // iOS 13부터는 사용자의 움직임에 대한 허용을 해주어야 한다.
-        // not iOS
-        // Browser doesn't support or doesn't require permission to DeviceOrientationEvent API.
         if (typeof DeviceOrientationEvent === 'undefined' || !DeviceOrientationEvent.requestPermission) {
           startCounting();
           return;
         }
-  
-        // iOS 13이상 - requestPermission를 통해서 허용 여부 확인
-        // 허용하지 않은 상태이면 promise가 reject된다.
+    
         DeviceOrientationEvent.requestPermission()
             .then((result) => {
-              // 이미 허용
               if (result === 'granted') {
                 startCounting();
               }
             })
       }
-  
-      // iOS 13이상
-      // a-scene에서 움직임 허용 확인 함수 호출
+    
+      // requesting orientation permission
       const rquestOrientationPermission = () => {
-        // a-dialog-deny-button
         isRequestOrientationPermission.value = true;
       }
-  
-      // a-scene에서 움직임 사용
+    
+      // allow orientation
       const allowOrientationPermission = () => {
-  
+    
         if (!isRequestOrientationPermission.value) {
-          // a-frame에서 제공하는 팝업 레이아웃 거절 버튼 이벤트
           document.querySelector('.a-dialog-deny-button').addEventListener('click', rejectOrientationPermission)
         }
-  
+    
         if (isRequestOrientationPermission.value) {
           startCounting();
         }
       }
-  
-      // a-scene에서 움직임 사용 거부
+    
+      // reject orientation
       const rejectOrientationPermission = () => {
         alert('동작 및 방향 접근을 허용하지 않으셨습니다. \r이벤트 페이지로 돌아갑니다.')
         dispatch('url/redirectToMain')
       }
-  
+    
       onMounted(async () => {
         await getEventData();
-        // 템플릿 타입
         templateType.value = getters['eventData/templateType'];
-        // 3d 객체 정보목록
         setArObjectInfoListFromStore();
-  
+    
         startLoading();
+       
       });
-  
+    
       return {
         arObjectInfoList,
         arAssetInfoList,
@@ -180,11 +163,11 @@
         rquestOrientationPermission,
         allowOrientationPermission,
         rejectOrientationPermission,
+        tutorialPopup
       }
     }
   }
   </script>
   
   <style scoped>
-  
   </style>
