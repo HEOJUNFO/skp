@@ -40,6 +40,10 @@ export default function useEventData() {
                 // nft
                 await dispatch("jsonData/setActionObjectDragNDrop");
             }
+            if (parent.location.hash.indexOf("frame") > -1) {
+                // nft
+                await dispatch("jsonData/setActionObjectDragNDrop");
+            }
         }
     };
 

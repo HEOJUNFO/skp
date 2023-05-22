@@ -9,6 +9,7 @@ import DragNDrop from "@/veiws/DragNDrop";
 import JsonEditor from "@/veiws/JsonEditor";
 import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
+import Frame from "@/veiws/Frame"
 
 export const routes = [
     {path: '/', component: Landing, name: 'Landing'},
@@ -19,6 +20,7 @@ export const routes = [
     {path: '/is-mission', component: IsMission, name: 'Scanning Mission'},
     {path: '/drag-n-drop', component: DragNDrop, name: 'Drag And Drop'},
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
+    {path: '/frame', component: Frame, name: 'Frame'},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
 
