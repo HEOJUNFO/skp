@@ -11,6 +11,7 @@ export default {
   emits: ['loadeddata', 'loadedmetadata', 'reject:video'],
   setup(props, {emit}) {
     const video = ref(null);
+    let flipped = false;
     // meta data load
     const loadedmetadata = () => {
       emit('loadedmetadata');
@@ -19,6 +20,11 @@ export default {
     const loadeddata = () => {
       emit('loadeddata');
     }
+    const flipCamera = () => {
+      flipped = !flipped;
+      video.value.style.transform = flipped ? 'scaleX(-1)' : 'scaleX(1)';
+    };
+
 
     onMounted(async () => {
       try {
@@ -33,6 +39,7 @@ export default {
       video,
       loadedmetadata,
       loadeddata,
+      flipCamera
     }
   }
 }

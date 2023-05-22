@@ -1,6 +1,9 @@
 <template>
     <container ref="containerEl">
-      <camera @loadeddata="loadVideo" @reject:video="rejectVideo"/>
+      <div class="top-bar">
+        <button @click="cameraRef.flipCamera">좌우반전</button>
+      </div>
+      <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
       <tutorial-popup v-if="tutorialPopup" @close="tutorialPopup = false"></tutorial-popup>
       <template v-if="loadedVideo">
         <event-drag-n-drop-object
@@ -36,7 +39,7 @@
   import useEventHandlers from "@/composables/useEventHandlers";
   
   export default {
-    name: "DragNDrop",
+    name: "Frame",
     components: {
       Camera,
       EventDragNDropObject,
@@ -51,6 +54,7 @@
       const tutorialPopup = ref(false);
       const completeModalEl = ref(null);
       const containerEl = ref(null);
+      const cameraRef = ref(null);
     
       const {
         getEventData
@@ -126,10 +130,25 @@
         allowOrientationPermission,
         rejectOrientationPermission,
         tutorialPopup,
+        cameraRef,
       }
     }
   }
   </script>
   
   <style scoped>
+     .top-bar {
+      z-index: 1;
+    position: absolute;
+    top: 10;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    color: #fff;
+  }
+  
   </style>

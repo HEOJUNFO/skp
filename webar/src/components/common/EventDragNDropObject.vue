@@ -47,6 +47,11 @@
       </a-camera>
     </a-entity>
   </a-scene>
+   <div class="bottom-bar">
+        <button>프레임</button>
+        <button>촬영</button>
+        <button>캐릭터</button>
+      </div>
 </template>
 
 <script>
@@ -54,7 +59,6 @@
 import {toRefs} from "vue";
 import DragObject from "@/components/common/DragObject"
 import ArAsset from "@/components/common/ArAsset";
-
 
 export default {
   name: "EventDragNDropObject",
@@ -76,7 +80,6 @@ export default {
 
     // 아이템 드래그 시작
     const dragStart = ({type, itemID}) => {
-      console.log("nftobject dragstart: %s, %s", type, itemID);
       let camera = document.querySelector('a-camera');
       if (camera) {
         camera.setAttribute("look-controls-enabled", "false");
@@ -86,10 +89,8 @@ export default {
     };
 
     // 아이템 드랍
-    const dragEnd = ({type, itemID, position}) => {
-      console.log("nftobject dragend: %s, %s, %s, %s ", type, itemID, position.x, position.y);
+    const dragEnd = ({itemID, position}) => {
       let walletBBox = walletClientBBox();
-      console.log("wallet bbox : ", walletBBox);
 
       let camera = document.querySelector('a-camera');
       if(camera){
@@ -101,7 +102,6 @@ export default {
           position.x >= walletBBox.x1 && position.x <=walletBBox.x2 &&
           position.y >= walletBBox.y1 && position.y <=walletBBox.y2
       ){
-        console.log("Intersect with wallet!!!!!");
 		playSound();
         emit('animationcomplete', {itemID})
       }else{
@@ -148,11 +148,9 @@ export default {
     function walletClientBBox() {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      console.log("w:%s,h:%s", width, height);
       // postion entire coordinate of initial is (-1~+1,-1~+1)
       let px = width / 2.0; // client pixel per 1 x position
       let py = height / 2.0; // client pixel per 1 y position
-      console.log("screen pixel for position coordinate : %s,%s", px, py);
       let wx = 0.0;   // wallet position x
       let wy = 0.0 // wallet position y
       let ww = 0.1;  // wallet width of position
@@ -166,12 +164,10 @@ export default {
         ww = geo.width;
         wh = geo.height;
       }
-      console.log("wallet position, size : cx=%s,cy=%s,w=%s,h=%s", wx, wy, ww, wh);
       let dx1 = 1.0 + (wx - ww);  // left distance from left
       let dy1 = 1.0 - (wy + wh);  // upper distance from top
       let dx2 = 1.0 + (wx + ww);  // right distance from left
       let dy2 = 1.0 - (wy - wh);  // lower distance from top
-      console.log("wallet distance from screen zero : x1=%s, y1=%s, x2=%s, y2=%s", dx1, dy1, dx2, dy2);
       // left-top(x1,y1), right-bottom (x2,y2)
       return {x1: dx1 * px, y1: dy1 * py, x2: dx2 * px, y2: dy2 * py};
     }
@@ -199,4 +195,16 @@ export default {
 </script>
 
 <style scoped>
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    color: #fff;
+  }
 </style>
