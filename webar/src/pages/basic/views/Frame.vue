@@ -1,6 +1,7 @@
 <template>
-    <container ref="containerEl">
+    <container ref="containerEl" :style="getAspectRatioStyle">
       <div class="top-bar">
+        <button @click="toggleAspectRatio">비율 전환</button>
         <button @click="cameraRef.flipCamera">좌우반전</button>
       </div>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
@@ -20,6 +21,11 @@
             @animationcomplete="animationComplete"
         />
       </template>
+      <div class="bottom-bar">
+        <button>프레임</button>
+        <button>촬영</button>
+        <button>캐릭터</button>
+      </div>
     </container>
   </template>
   
@@ -151,4 +157,16 @@
     color: #fff;
   }
   
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    color: #fff;
+  }
   </style>

@@ -4,7 +4,7 @@
   
   <script>
   export default {
-    name: "Basic",
+    name: "Frame",
     setup() {
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH

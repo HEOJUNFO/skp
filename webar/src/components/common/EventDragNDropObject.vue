@@ -47,11 +47,6 @@
       </a-camera>
     </a-entity>
   </a-scene>
-   <div class="bottom-bar">
-        <button>프레임</button>
-        <button>촬영</button>
-        <button>캐릭터</button>
-      </div>
 </template>
 
 <script>
@@ -195,16 +190,5 @@ export default {
 </script>
 
 <style scoped>
-  .bottom-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
+ 
 </style>
