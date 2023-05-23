@@ -1,9 +1,4 @@
 <template>
-   <div class="top-bar">
-        <button @click="containerEl.toggleAspectRatio">비율 전환</button>
-        <button @click="cameraRef.flipCamera">좌우반전</button>
-        <button @click="openExitModal">나가기</button>
-      </div>
     <container ref="containerEl" >
       <div v-if="isNaverBrowser" class="browser-change-modal">
         <p>네이버 브라우저에서는 일부 기능이 작동하지 않을 수 있습니다.</p>
@@ -32,16 +27,7 @@
             @animationcomplete="animationComplete"
         />
       </template>
-
     </container>
-    <div class="bottom-bar" :style="getTopStyle">
-        <button v-if="isBottomButtonVisible" @click="toggleFrameBar">프레임</button>
-        <button v-if="isBottomButtonVisible" @click=" containerEl.capture">촬영</button>
-        <button v-if="isBottomButtonVisible" @click="toggleFrameBar">AR 이펙트</button>
-      
-      <frame-bar :isVisible="isFrameBarVisible" :tabs="tabs" :images="images" @hide="isFrameBarVisible = false"></frame-bar>
-    
-    </div>
   </template>
   
   <script>
@@ -53,7 +39,6 @@
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
   import TutorialPopup from "@/components/common/TutorialPopup";
-  import FrameBar from "@/components/common/FrameBar";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
@@ -68,7 +53,6 @@
       EventDragNDropObject,
       Container,
       TutorialPopup,
-      FrameBar
     },
     setup() {
       const router = useRouter();
@@ -81,8 +65,6 @@
       const containerEl = ref(null);
       const cameraRef = ref(null);
       const exitModalVisible = ref(false);
-      const isFrameBarVisible = ref(false);
-      const isBottomButtonVisible = ref(true);
 
     const tabs = ref([
       { id: 1, name: '프레임' },
@@ -96,19 +78,6 @@
       { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
       { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
     ]);
-
-    const toggleFrameBar = () => {
-      isFrameBarVisible.value = !isFrameBarVisible.value
-      isBottomButtonVisible.value = !isBottomButtonVisible.value
-    };
-
-    const getTopStyle = computed(() => {
-      const topValue = isFrameBarVisible.value ? '-10vh' : '4vh'
-
-      return {
-         top: topValue
-      };
-    });
 
       const isNaverBrowser = computed(() => {
       return /NAVER/.test(navigator.userAgent);
@@ -124,9 +93,7 @@
     const BrowserChange = () => {
       window.open('https://www.google.com/chrome/');
     }
-   
-
-
+  
       const {
         getEventData
       } = useEventData({dispatch});
@@ -163,6 +130,48 @@
         loadedVideo.value = true;
       }
 
+      window.toggleAspectRatio = function() {
+        containerEl.value.toggleAspectRatio();
+      }
+
+      window.flipCamera = function() {
+        cameraRef.value.flipCamera();
+      }
+
+      window.openExitModal = function() {
+        openExitModal();
+      }
+
+      window.capture = function() {
+        console.log('capture')
+    capture();
+      }
+
+      const capture = () => {
+      // video canvas create
+      const video = document.querySelector('.event-wrapper video');
+      const canvas = document.createElement("canvas");
+      video.pause();
+      let v_width = video.clientWidth*2;
+      let v_height = video.clientHeight*2;
+      
+      canvas.width = v_width;
+      canvas.height = v_height;
+      let element = video,
+          style = window.getComputedStyle(element),
+          top = style.getPropertyValue('top');
+      canvas.getContext('2d').drawImage(video, 0, parseFloat(top), v_width, v_height);
+      let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
+      canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
+      const link = document.createElement("a");
+      const imageUrl = canvas.toDataURL("image/png");
+      link.href = imageUrl;
+      link.download = 'capture.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
       const openExitModal = () => {
       exitModalVisible.value = true;
     };
@@ -184,11 +193,7 @@
       }
     })
 
-    watch(isFrameBarVisible, () => {
-      if(isFrameBarVisible.value === false){
-        isBottomButtonVisible.value = true;
-      }
-    })
+   
 
     watch(images, (newImages) => {
   const selectedImage = newImages.find(image => image.select === true);
@@ -234,45 +239,15 @@
         isNaverBrowser,
         browserChangeModalVisible,
         closeBrowserChangeModal,
-        isFrameBarVisible,
         tabs,
         images,
-        toggleFrameBar,
-        isBottomButtonVisible,
-        getTopStyle
-
+        capture
       }
     }
   }
   </script>
   
   <style scoped>
-     .top-bar {
-      z-index: 1;
-    position: absolute;
-    top: 10;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
-  
-  .bottom-bar {
-    position: relative;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
 
   .exit-modal {
   position: fixed;
