@@ -28,7 +28,7 @@
 
 import {computed, ref, watch} from "vue";
 import {useStore} from "vuex";
-import html2canvas from "html2canvas";
+//import html2canvas from "html2canvas";
 
 import useLoading from "@/composables/useLoading";
 import uesOrientation from "@/composables/uesOrientation";
@@ -94,22 +94,7 @@ export default {
       }
     })
 
-    const capture = async () => {
-      const element = document.querySelector('.event-wrapper');
-      const canvas = await html2canvas(element);
-    const imageUrl = canvas.toDataURL("image/png");
-
-    // 캡처한 이미지를 다운로드하려면 아래 코드를 사용하세요:
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = 'capture.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-  
-  }
-
+   
     return {
       url,
       disableClick,
@@ -118,8 +103,7 @@ export default {
       setClick,
       aspectRatio,
       toggleAspectRatio,
-      getAspectRatioStyle,
-      capture
+      getAspectRatioStyle
     }
   }
 }
