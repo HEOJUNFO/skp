@@ -32,12 +32,16 @@
             @animationcomplete="animationComplete"
         />
       </template>
+
     </container>
-    <div class="bottom-bar">
-        <button>프레임</button>
-        <button>촬영</button>
-        <button>AR 이펙트</button>
-      </div>
+    <div class="bottom-bar" :style="getTopStyle">
+        <button v-if="isBottomButtonVisible" @click="toggleFrameBar">프레임</button>
+        <button v-if="isBottomButtonVisible" @click=" containerEl.capture">촬영</button>
+        <button v-if="isBottomButtonVisible" @click="toggleFrameBar">AR 이펙트</button>
+      
+      <frame-bar :isVisible="isFrameBarVisible" :tabs="tabs" :images="images" @hide="isFrameBarVisible = false"></frame-bar>
+    
+    </div>
   </template>
   
   <script>
@@ -49,6 +53,7 @@
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
   import TutorialPopup from "@/components/common/TutorialPopup";
+  import FrameBar from "@/components/common/FrameBar";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
@@ -62,7 +67,8 @@
       Camera,
       EventDragNDropObject,
       Container,
-      TutorialPopup
+      TutorialPopup,
+      FrameBar
     },
     setup() {
       const router = useRouter();
@@ -75,6 +81,34 @@
       const containerEl = ref(null);
       const cameraRef = ref(null);
       const exitModalVisible = ref(false);
+      const isFrameBarVisible = ref(false);
+      const isBottomButtonVisible = ref(true);
+
+    const tabs = ref([
+      { id: 1, name: '프레임' },
+      { id: 2, name: 'AR 이펙트' },
+      { id: 3, name: 'AR 필터' },
+    ]);
+
+    const images = ref([
+      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1' },
+      { id: 2, tabId:1,src: '/path/to/image2', name: 'Image 2' },
+      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3' },
+      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4' },
+    ]);
+
+    const toggleFrameBar = () => {
+      isFrameBarVisible.value = !isFrameBarVisible.value
+      isBottomButtonVisible.value = !isBottomButtonVisible.value
+    };
+
+    const getTopStyle = computed(() => {
+      const topValue = isFrameBarVisible.value ? '-10vh' : '4vh'
+
+      return {
+         top: topValue
+      };
+    });
 
       const isNaverBrowser = computed(() => {
       return /NAVER/.test(navigator.userAgent);
@@ -149,6 +183,12 @@
         }, 5000)
       }
     })
+
+    watch(isFrameBarVisible, () => {
+      if(isFrameBarVisible.value === false){
+        isBottomButtonVisible.value = true;
+      }
+    })
     
       onMounted(async () => {
         await getEventData();
@@ -186,7 +226,14 @@
         exit,
         isNaverBrowser,
         browserChangeModalVisible,
-        closeBrowserChangeModal
+        closeBrowserChangeModal,
+        isFrameBarVisible,
+        tabs,
+        images,
+        toggleFrameBar,
+        isBottomButtonVisible,
+        getTopStyle
+
       }
     }
   }
@@ -209,10 +256,9 @@
   
   .bottom-bar {
     position: relative;
-    top: 4vh;
     left: 0;
     width: 100%;
-    height: 100%; /* Add this line */
+    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
