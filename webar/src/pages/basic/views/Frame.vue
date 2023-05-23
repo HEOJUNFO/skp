@@ -66,19 +66,7 @@
       const cameraRef = ref(null);
       const exitModalVisible = ref(false);
 
-    const tabs = ref([
-      { id: 1, name: '프레임' },
-      { id: 2, name: 'AR 이펙트' },
-      { id: 3, name: 'AR 필터' },
-    ]);
     
-    const images = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
-      { id: 2, tabId:1,src: '/path/to/image2', name: 'Image 2' ,select: false},
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
-    ]);
-
       const isNaverBrowser = computed(() => {
       return /NAVER/.test(navigator.userAgent);
     });
@@ -189,15 +177,6 @@
       }
     })
 
-   
-
-    watch(images, (newImages) => {
-  const selectedImage = newImages.find(image => image.select === true);
-  if(selectedImage) {
-    console.log(selectedImage.src);
-  }
-}, { deep: true })
-    
       onMounted(async () => {
         await getEventData();
         templateType.value = getters['eventData/templateType'];
@@ -234,8 +213,6 @@
         isNaverBrowser,
         browserChangeModalVisible,
         closeBrowserChangeModal,
-        tabs,
-        images,
         capture
       }
     }
