@@ -60,13 +60,13 @@ import {ref, computed, watch} from "vue";
     
     const images = ref([
       { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
-      { id: 2, tabId:1,src: '/path/to/image2', name: 'Image 2' ,select: false},
+      { id: 2, tabId:1, src: '/path/to/image2', name: 'Image 2' ,select: false},
       { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
       { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/image1', name: 'Model 1',select: true },
-      { id: 6, tabId:2,src: '/path/to/image2', name: 'Model 2' ,select: false},
-      { id: 7, tabId:2, src: '/path/to/image3', name: 'Model 3',select: false },
-      { id: 8, tabId:2, src: '/path/to/image4', name: 'Model 4', select:false },
+      { id: 5, tabId:2, src: '/path/to/model1', name: 'Model 1',select: false },
+      { id: 6, tabId:2, src: '/path/to/model2', name: 'Model 2' ,select: false},
+      { id: 7, tabId:2, src: '/path/to/model3', name: 'Model 3',select: false },
+      { id: 8, tabId:2, src: '/path/to/model4', name: 'Model 4', select:false },
     ]);
 
 
@@ -107,6 +107,7 @@ import {ref, computed, watch} from "vue";
 
     const selectTab = (tabId) => {
       selectedTab.value = tabId;
+    
     }
 
     const getImagesForSelectedTab = () => {
@@ -122,8 +123,9 @@ import {ref, computed, watch} from "vue";
     }
 
     watch(images, (newImages) => {
-  const selectedImage = newImages.find(image => image.select === true);
+  const selectedImage = newImages.find(image => image.select === true && image.tabId === selectedTab.value);
   if(selectedImage) {
+    console.log(selectedImage.id);
     console.log(selectedImage.src);
   }
 }, { deep: true })
@@ -160,81 +162,62 @@ import {ref, computed, watch} from "vue";
   background: #f9f9f9;
 }
   
-    .top-bar {
-    z-index: 1;
-    position: absolute;
-    top: 10;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
-
-  .bottom-bar-1 {
-    z-index: 1;
-    position: absolute;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
-
-  .bottom-bar-2 {
-    z-index: 1;
-    position: absolute;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    color: #fff;
-  }
-
-  .tab-container {
+.top-bar, .bottom-bar-1, .bottom-bar-2 {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
   display: flex;
-  justify-content: center; /* Change this from 'space-between' */
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  color: #fff;
+}
+
+.bottom-bar-1, .bottom-bar-2 {
+  bottom: -40px;
+}
+
+.bottom-bar-2{
+  flex-direction: column;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center; 
   width: 100%;
   margin-bottom: 20px;
 }
   
-  .image-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    width: 100%;
-  }
-  
-  .image-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color : #000;
-  }
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
 
-  .button-container {
+.image-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color : #000;
+}
+
+.button-container {
   display: flex;
   justify-content: space-around;
   width: 100%;
 }
 
-.down-button, .capture-button {
-  margin-top: 20px;
-}
+
 
 .tab.selected {
   background-color: #ccc;
+}
+
+.tab {
+    margin: 0 35px;
 }
 
   </style>
