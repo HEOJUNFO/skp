@@ -89,12 +89,12 @@
       { id: 2, name: 'AR 이펙트' },
       { id: 3, name: 'AR 필터' },
     ]);
-
+    
     const images = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1' },
-      { id: 2, tabId:1,src: '/path/to/image2', name: 'Image 2' },
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3' },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4' },
+      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
+      { id: 2, tabId:1,src: '/path/to/image2', name: 'Image 2' ,select: false},
+      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
+      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
     ]);
 
     const toggleFrameBar = () => {
@@ -189,6 +189,13 @@
         isBottomButtonVisible.value = true;
       }
     })
+
+    watch(images, (newImages) => {
+  const selectedImage = newImages.find(image => image.select === true);
+  if(selectedImage) {
+    console.log(selectedImage.src);
+  }
+}, { deep: true })
     
       onMounted(async () => {
         await getEventData();

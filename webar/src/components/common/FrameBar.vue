@@ -9,7 +9,7 @@
       </div>
       <div class="image-container">
         <div class="image-view" v-for="image in getImagesForSelectedTab()" :key="image.id">
-          <img :src="image.src" />
+          <img :src="image.src" @click="selectImage(image.id)"/>
             <span>{{ image.name }}</span>
         </div>
       </div>
@@ -42,6 +42,13 @@
     },
     getImagesForSelectedTab() {
       return this.images.filter(image => image.tabId === this.selectedTab);
+    },
+    selectImage(imageId) {
+      this.images.forEach(image => {
+        if (image.tabId === this.selectedTab) {
+          image.select = (image.id === imageId);
+        }
+      });
     }
   }
   };
@@ -91,5 +98,4 @@
 .tab.selected {
   background-color: #ccc;
 }
-
-  </style>
+</style>
