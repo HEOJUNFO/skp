@@ -1,5 +1,5 @@
 <template>
-  <div class="event-wrapper" :class="{'disable-click' : disableClick }">
+  <div class="event-wrapper" :class="{'disable-click' : disableClick }" :style="getAspectRatioStyle">
     <slot></slot>
     <div class="frame-top" :style="{'backgroundImage': `url(${url})`}"></div>
     <div class="frame-bottom" :style="{'backgroundImage': `url(${url})`}"></div>
@@ -37,10 +37,10 @@ export default {
   setup() {
     const store = useStore();
     const {getters} = store;
-
     const url = computed(()=>getters['eventData/backgroundUri']);
     const orientation = ref('landscape')
     const disableClick = ref(false);
+    const aspectRatio = ref({width: 3, height: 4});
 
     const {
       loadingState,
@@ -54,6 +54,26 @@ export default {
     const setClick = (isClick) => {
       disableClick.value = !isClick;
     }
+
+    const toggleAspectRatio = () => {
+      if (aspectRatio.value.width === 3) {
+        aspectRatio.value.width = 1 // HTODO admin에서 설정한 가로세로 비율로 변경해야함;
+        aspectRatio.value.height = 2;
+      } else {
+        aspectRatio.value.width = 3;
+        aspectRatio.value.height = 4;
+      }
+    }
+
+    const getAspectRatioStyle = computed(() => {
+      const heightRatio = 100/aspectRatio.value.height * aspectRatio.value.width
+      console.log(heightRatio)
+
+      return {
+        height: `${heightRatio}%`,
+        width: `100%`
+      };
+    });
 
     // 가로 세로 체크
     const setOrientation = (str) => {
@@ -79,13 +99,19 @@ export default {
       disableClick,
       orientation,
       loadingState,
-
-      setClick
+      setClick,
+      aspectRatio,
+      toggleAspectRatio,
+      getAspectRatioStyle
     }
   }
 }
 </script>
 
 <style scoped>
-
+.event-wrapper {
+  position: relative; /* 상대적 위치 설정 */
+  top: 4vh;
+  /* 추가로 margin, padding 등을 설정하여 레이아웃을 조정할 수 있습니다 */
+}
 </style>

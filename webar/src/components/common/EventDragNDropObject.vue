@@ -25,7 +25,7 @@
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
     </a-assets>
 
-    <a-entity position="0 0 -2">
+    <a-entity position="0 1 0">
       <drag-object
           v-for="item in objectList"
           :key="`dragobject_${item.stayObject.itemID}`"
@@ -37,7 +37,7 @@
       />
     </a-entity>
 
-    <a-entity cursor="rayOrigin: mouse; fuse: false" position="0 0 -1">
+    <a-entity cursor="rayOrigin: mouse; fuse: false" position="0 0 0">
       <a-camera rotation-reader zoom="1" look-controls="reverseMouseDrag: true; touchEnabled: false;">
         <a-entity id="wallet" v-if="targetInfo"
                   v-bind:geometry="'primitive: plane; width: '+targetInfo.nftWalletSizeX+'; height: '+targetInfo.nftWalletSizeX"
@@ -141,8 +141,10 @@ export default {
 
     //function wallet client bbox
     function walletClientBBox() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      let canvas = document.querySelector('a-scene').canvas;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+  
       // postion entire coordinate of initial is (-1~+1,-1~+1)
       let px = width / 2.0; // client pixel per 1 x position
       let py = height / 2.0; // client pixel per 1 y position
