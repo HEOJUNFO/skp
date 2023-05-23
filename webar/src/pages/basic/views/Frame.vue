@@ -130,21 +130,16 @@
         loadedVideo.value = true;
       }
 
-      window.toggleAspectRatio = function() {
-        containerEl.value.toggleAspectRatio();
-      }
-
       window.flipCamera = function() {
         cameraRef.value.flipCamera();
       }
 
       window.openExitModal = function() {
-        openExitModal();
+        exitModalVisible.value = true;
       }
 
       window.capture = function() {
-        console.log('capture')
-    capture();
+        capture();
       }
 
       const capture = () => {
@@ -172,10 +167,6 @@
       document.body.removeChild(link);
     };
 
-      const openExitModal = () => {
-      exitModalVisible.value = true;
-    };
-
     const closeExitModal = () => {
       exitModalVisible.value = false;
     };
@@ -184,11 +175,16 @@
       router.back();
     };
 
+    const toggleBarVisibility = () => {
+  window.parent.toggleBarVisibility();
+};
+
       watch(loadingState, () => {
       if(loadingState.value === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
           tutorialPopup.value = true;
+          toggleBarVisibility();
         }, 5000)
       }
     })
@@ -233,7 +229,6 @@
         tutorialPopup,
         cameraRef,
         exitModalVisible,
-        openExitModal,
         closeExitModal,
         exit,
         isNaverBrowser,
