@@ -127,7 +127,7 @@
       }
 
       window.capture = function() {
-        capture();
+        return capture();
       }
 
       const capture = () => {
@@ -153,6 +153,9 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      return link.href;
+
     };
 
     const closeExitModal = () => {

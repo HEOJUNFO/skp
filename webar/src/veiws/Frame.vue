@@ -38,6 +38,7 @@
 
   <script>
 import {ref, computed, watch} from "vue";
+import { useRouter } from 'vue-router'
 
 
   export default {
@@ -46,11 +47,13 @@ import {ref, computed, watch} from "vue";
    
     },
     setup() {
+      const router = useRouter();
       const iframeRef = ref(null);
       const isSecondBarVisible = ref(false);
       const isBarVisible = ref(false);
       const aspectRatio = ref('3 / 4');
       const selectedTab = ref(1);
+ 
 
       const tabs = ref([
       { id: 1, name: '프레임' },
@@ -96,9 +99,12 @@ import {ref, computed, watch} from "vue";
       };
 
       const capture = () => {
+       let captureurl = '';
         if (iframeRef.value) {
-            iframeRef.value.contentWindow.capture();
+          captureurl = iframeRef.value.contentWindow.capture();
         }
+        console.log(captureurl)
+        router.push({ name: 'Print', params: { data: captureurl } })
       };
 
       const toggleBar = () => {
