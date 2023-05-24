@@ -1,17 +1,24 @@
 <template>
   <div class="frame" :style="frameStyle">
+    <div v-if="isCapturing" class="countdown">{{ countdown }}</div>
     <div class="top-bar" v-show="isBarVisible">
-        <button @click="toggleAspectRatio">비율 전환</button>
-        <button @click="flipCamera">좌우반전</button>
-        <button @click="openExitModal">나가기</button>
+        <button v-if="!isCapturing" @click="toggleAspectRatio">비율 전환</button>
+        <button v-if="timerButtonVisible && !isCapturing " @click="toggleTimer">
+          <span v-if="timerButtonVisible === 2">타이머3</span>
+          <span v-else-if="timerButtonVisible === 3">타이머5</span>
+          <span v-else-if="timerButtonVisible === 4">타이머7</span>
+          <span v-else-if="timerButtonVisible=== 1">타이머X</span>
+        </button>       
+        <button v-if="!isCapturing" @click="flipCamera">좌우반전</button>
+        <button v-if="!isCapturing" @click="openExitModal">나가기</button>
       </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/basic.html#/frame`" frameborder="0"></iframe>
     <div v-if="!isSecondBarVisible && isBarVisible" class="bottom-bar-1">
-      <button @click="toggleBar">프레임</button>
-      <button @click="capture">촬영</button>
+      <button v-if="!isCapturing" @click="toggleBar">아이템</button>
+      <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+      <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
   </div>
-  
-  <div v-if="isSecondBarVisible && isBarVisible" class="bottom-bar-2">
+  <div v-if="isSecondBarVisible && isBarVisible " class="bottom-bar-2">
     <div class="tab-container">
         <button class="tab" 
                 v-for="tab in tabs" 
@@ -27,27 +34,22 @@
      <img :src="image.src" @click="selectImage(image.id)"/>
      <span>{{ image.name }}</span>
   </div>
-</div>
+  </div>
       <div class="button-container">
         <button @click="toggleBar">나가기</button>
-        <button class="capture-button">촬영</button>
+        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+        <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
       </div>
     </div>
-    
-  
   </div>
-  
  </template>
 
-  <script>
+<script>
 import {ref, computed, watch} from "vue";
 import { useRouter } from 'vue-router'
 
   export default {
     name: "Frame",
-    components: {
-   
-    },
     setup() {
       const router = useRouter();
       const iframeRef = ref(null);
@@ -55,7 +57,12 @@ import { useRouter } from 'vue-router'
       const isBarVisible = ref(false);
       const aspectRatio = ref('3 / 4');
       const selectedTab = ref(1);
- 
+
+      const longPressTimer = ref(null);
+      const timerButtonVisible = ref(0);
+      const isCapturing = ref(false);
+      const countdown = ref(null);
+      const countdownInterval = ref(null);
 
       const tabs = ref([
       { id: 1, name: '프레임' },
@@ -100,13 +107,57 @@ import { useRouter } from 'vue-router'
         }
       };
 
+      const startLongPress = () => {
+        longPressTimer.value = setTimeout(() => {
+          timerButtonVisible.value = 1;
+        }, 1000);
+      }
+
+      const cancelLongPress = () => {
+        clearTimeout(longPressTimer.value);
+      }
+
+      const toggleTimer = () => {
+        timerButtonVisible.value = (timerButtonVisible.value + 1) % 5;
+        if(timerButtonVisible.value === 0) {
+          timerButtonVisible.value = 1;
+        }
+      }
+
       const capture = () => {
+        if (timerButtonVisible.value === 0) {
+        // No timer, just capture immediately
+        captureImage();
+      } else {
+        isCapturing.value = true;
+        countdown.value = [ 0, 0,3, 5, 7][timerButtonVisible.value];
+
+        countdownInterval.value = setInterval(() => {
+        countdown.value -= 1;
+        if (countdown.value <= 0) {
+          captureImage();
+          isCapturing.value = false;
+          clearInterval(countdownInterval.value);
+        }
+      }, 1000);
+      }
+    };
+
+      const stopCapture = () => {
+        isCapturing.value = false;
+        clearInterval(countdownInterval.value);
+      };
+
+      const captureImage = () => {
+      if(isCapturing.value === false && timerButtonVisible.value !== 0){
+        return;
+      }
        let captureurl = '';
         if (iframeRef.value) {
           captureurl = iframeRef.value.contentWindow.capture();
         }
-        console.log(captureurl)
         router.push({ name: 'Print', params: { data: captureurl } })
+      
       };
 
       const toggleBar = () => {
@@ -165,6 +216,14 @@ import { useRouter } from 'vue-router'
         , getImagesForSelectedTab
         , selectImage
         , selectedTab
+        , stopCapture
+        , captureImage
+        , isCapturing
+        , startLongPress
+        , cancelLongPress
+        , toggleTimer
+        , timerButtonVisible
+        , countdown
      
       }
     }
@@ -229,8 +288,6 @@ import { useRouter } from 'vue-router'
   width: 100%;
 }
 
-
-
 .tab.selected {
   background-color: #ccc;
 }
@@ -242,4 +299,15 @@ import { useRouter } from 'vue-router'
 .image-view.selected {
   border: 2px solid blue; 
 }
+
+.countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #fff;
+  z-index: 2;
+}
+
   </style>

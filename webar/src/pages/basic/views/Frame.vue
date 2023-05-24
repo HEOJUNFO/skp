@@ -146,15 +146,12 @@
       canvas.getContext('2d').drawImage(video, 0, parseFloat(top), v_width, v_height);
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
-      const link = document.createElement("a");
-      const imageUrl = canvas.toDataURL("image/png");
-      link.href = imageUrl;
-      link.download = 'capture.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
 
-      return link.href;
+      const imageUrl = canvas.toDataURL("image/png");
+ 
+   
+
+      return imageUrl;
 
     };
 
