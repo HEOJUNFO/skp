@@ -748,66 +748,66 @@ export const jsonData = {
       arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
       arObjectInfo: [
         {
-          arEventObjectId: "dnd222", // *인덱스 번호
-          objectSettingType: "CUBE", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/images/object_sphere_img.png", // *리소스 url 값
-          objectSizeX: "0.5", // *오브젝트 크기
-          objectSizeY: "0.5", // *오브젝트 크기
-          objectSizeZ: "0.5", // *오브젝트 크기
-          objectPositionX: "0.0", // *좌표값 (-2.0 ~ 2.0)
-          objectPositionY: "1.3", // *좌표값 (-2.0 ~ 2.0)
-          objectPositionZ: "-1.7", // *좌표값 (-2.0 ~ 2.0)
-          stayEffectType: "ROTATION", // *NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
-          clickEventType: "OBJCHANGE", // *NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
-          videoPlayRepeatType: "Y", // *반복함 : Y, 반복안함 : N
-          catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
-          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
-          objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          // "objectChangeSettingType": "GIF", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
-          // "objectChangeSettingUrl": "https://dt-static.syrup.co.kr/webar/images/object_gif_2.gif", // *리소스 url 값
-          objectChangeSizeX: "", // *체인지 오브젝트 크기
-          objectChangeSizeY: "", // *체인지 오브젝트 크기
-          objectChangeSizeZ: "", // *체인지 오브젝트 크기
-          missionInactiveThumbnailUrl: "", // *스템프: 리소스 url 값
-          missionActiveThumbnailUrl: "", // *스탬프: 리소스 url 값
+          arEventObjectId: "1", // 인덱스 번호
+          objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          // "objectSettingUrl": "https://dt-static.syrup.co.kr/webar/gltf/mei/scene.gltf", // 리소스 url 값
+          objectSettingUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf", // 리소스 url 값
+          objectSizeX: "0.5", // 오브젝트 크기
+          objectSizeY: "0.5", // 오브젝트 크기
+          objectSizeZ: "0.5", // 오브젝트 크기
+          objectPositionX: "0.2", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "-0.5", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "ROTATION", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "", // 반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // 선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_5.mp3", // 리소스 값
+          objectChangeSettingType: "", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "", // 리소스 url 값
+          objectChangeSizeX: "", // 체인지 오브젝트 크기
+          objectChangeSizeY: "", // 체인지 오브젝트 크기
+          objectChangeSizeZ: "", // 체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // 리소스 url 값
+          missionActiveThumbnailUrl: "", // 리소스 url 값
           bridgeForceExposureTimeType: "N",
           bridgeForceExposureTimeSecond: 0,
-          bridgeType: "", // *브릿지 : 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
-          bridgeUrl: "", // *브릿지 : 리소스 url 값
-          bridgeExposureTimeSecond: "", // *playtime 숫자 값
+          bridgeType: "", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "", // 리소스 url 값
+          bridgeExposureTimeSecond: "", // 숫자 값
           bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
           bridgeObjectSizeX: "",
           bridgeObjectSizeY: "",
           bridgeObjectSizeZ: "",
         },
         {
-          arEventObjectId: "dnd222", // *인덱스 번호
-          objectSettingType: "CUBE", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/images/object_sphere_img.png", // *리소스 url 값
-          objectSizeX: "0.5", // *오브젝트 크기
-          objectSizeY: "0.5", // *오브젝트 크기
-          objectSizeZ: "0.5", // *오브젝트 크기
-          objectPositionX: "0.0", // *좌표값 (-2.0 ~ 2.0)
-          objectPositionY: "1.3", // *좌표값 (-2.0 ~ 2.0)
-          objectPositionZ: "-1.7", // *좌표값 (-2.0 ~ 2.0)
-          stayEffectType: "ROTATION", // *NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
-          clickEventType: "OBJCHANGE", // *NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
-          videoPlayRepeatType: "Y", // *반복함 : Y, 반복안함 : N
-          catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
-          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
-          objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
-          objectChangeSizeX: "", // *체인지 오브젝트 크기
-          objectChangeSizeY: "", // *체인지 오브젝트 크기
-          objectChangeSizeZ: "", // *체인지 오브젝트 크기
-          missionInactiveThumbnailUrl: "", // *스템프: 리소스 url 값
-          missionActiveThumbnailUrl: "", // *스탬프: 리소스 url 값
+          arEventObjectId: "2", // 인덱스 번호
+          objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          // "objectSettingUrl": "https://dt-static.syrup.co.kr/webar/gltf/mei/scene.gltf", // 리소스 url 값
+          objectSettingUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf", // 리소스 url 값
+          objectSizeX: "0.5", // 오브젝트 크기
+          objectSizeY: "0.5", // 오브젝트 크기
+          objectSizeZ: "0.5", // 오브젝트 크기
+          objectPositionX: "0.2", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "-0.5", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "ROTATION", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "", // 반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // 선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_5.mp3", // 리소스 값
+          objectChangeSettingType: "", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "", // 리소스 url 값
+          objectChangeSizeX: "", // 체인지 오브젝트 크기
+          objectChangeSizeY: "", // 체인지 오브젝트 크기
+          objectChangeSizeZ: "", // 체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // 리소스 url 값
+          missionActiveThumbnailUrl: "", // 리소스 url 값
           bridgeForceExposureTimeType: "N",
           bridgeForceExposureTimeSecond: 0,
-          bridgeType: "", // *브릿지 : 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
-          bridgeUrl: "", // *브릿지 : 리소스 url 값
-          bridgeExposureTimeSecond: "", // *playtime 숫자 값
+          bridgeType: "", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "", // 리소스 url 값
+          bridgeExposureTimeSecond: "", // 숫자 값
           bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
           bridgeObjectSizeX: "",
           bridgeObjectSizeY: "",

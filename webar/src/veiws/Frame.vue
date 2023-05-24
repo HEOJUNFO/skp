@@ -20,11 +20,14 @@
                 @click="selectTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
-        <div class="image-view" v-for="image in getImagesForSelectedTab()" :key="image.id">
-          <img :src="image.src" @click="selectImage(image.id)"/>
-            <span>{{ image.name }}</span>
-        </div>
-      </div>
+        <div class="image-view" 
+        v-for="image in getImagesForSelectedTab()" 
+        :key="image.id"
+        :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
+     <img :src="image.src" @click="selectImage(image.id)"/>
+     <span>{{ image.name }}</span>
+  </div>
+</div>
       <div class="button-container">
         <button @click="toggleBar">나가기</button>
         <button class="capture-button">촬영</button>
@@ -39,7 +42,6 @@
   <script>
 import {ref, computed, watch} from "vue";
 import { useRouter } from 'vue-router'
-
 
   export default {
     name: "Frame",
@@ -66,10 +68,10 @@ import { useRouter } from 'vue-router'
       { id: 2, tabId:1, src: '/path/to/image2', name: 'Image 2' ,select: false},
       { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
       { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/model1', name: 'Model 1',select: false },
-      { id: 6, tabId:2, src: '/path/to/model2', name: 'Model 2' ,select: false},
-      { id: 7, tabId:2, src: '/path/to/model3', name: 'Model 3',select: false },
-      { id: 8, tabId:2, src: '/path/to/model4', name: 'Model 4', select:false },
+      { id: 5, tabId:2, modelId: 1, src: '/path/to/model1', name: 'Model 1',select: true },
+      { id: 6, tabId:2, modelId: 2,src: '/path/to/model2', name: 'Model 2' ,select: false},
+      { id: 7, tabId:2, modelId: 3,src: '/path/to/model3', name: 'Model 3',select: false },
+      { id: 8, tabId:2, modelId: 4,src: '/path/to/model4', name: 'Model 4', select:false },
     ]);
 
 
@@ -128,11 +130,21 @@ import { useRouter } from 'vue-router'
       });
     }
 
+    const selectedImage = computed(() => images.value.find(image => image.tabId === 2 && image.select === true));
+
+    watch(selectedImage, (newImage, oldImage) => {
+      if (newImage !== oldImage && newImage !== null) {
+        iframeRef.value.contentWindow.selectModel(newImage.modelId);
+      }
+    });
+ 
+
+
     watch(images, (newImages) => {
   const selectedImage = newImages.find(image => image.select === true && image.tabId === selectedTab.value);
   if(selectedImage) {
-    console.log(selectedImage.id);
-    console.log(selectedImage.src);
+    // console.log(selectedImage.id);
+    // console.log(selectedImage.src);
   }
 }, { deep: true })
 
@@ -153,6 +165,7 @@ import { useRouter } from 'vue-router'
         , getImagesForSelectedTab
         , selectImage
         , selectedTab
+     
       }
     }
   }
@@ -226,4 +239,7 @@ import { useRouter } from 'vue-router'
     margin: 0 35px;
 }
 
+.image-view.selected {
+  border: 2px solid blue; 
+}
   </style>

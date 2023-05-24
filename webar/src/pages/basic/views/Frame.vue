@@ -92,7 +92,7 @@
         arDropTargetInfo,
         setArObjectInfoListFromStore,
       } = useArObjectInfo();
-    
+
       const {
         eventResult,
       } = useResultData({getters, dispatch});

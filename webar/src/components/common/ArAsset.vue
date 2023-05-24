@@ -1,17 +1,17 @@
 <template>
   <img
-      v-if="!(assetType === 'VIDEO' || assetType === '3D')"
+      v-if="!(assetType === 'VIDEO' || assetType === '3D') && isObjectVisible" 
       ref="assetEl"
       v-bind="assetAttr"
   />
   <video
-      v-if="assetType === 'VIDEO'"
+      v-if="assetType === 'VIDEO' && isObjectVisible "
       ref="assetEl"
       v-bind="assetAttr"
       @ended="endedVideo"
   />
   <a-asset-item
-      v-if="assetType === '3D'"
+      v-if="assetType === '3D' && isObjectVisible "
       ref="assetEl"
       v-bind="assetAttr"
   />
@@ -24,12 +24,27 @@ import {useStore} from "vuex";
 
 export default {
   name: "ArAsset",
-  props: ['assetData'],
+  props: ['assetData','selectModel'],
   emits:['ended:video'],
   setup(props, {emit}) {
     const assetEl = ref(null);
-
+    const isObjectVisible = ref(false);
+ 
     const {assetData} = toRefs(props);
+    const {selectModel} = toRefs(props);
+
+
+    console.log(assetData.value)
+    console.log(selectModel.value)
+    watch(selectModel, (val) => {
+      console.log(val)
+      if(val === 1) {
+        console.log('true')
+        isObjectVisible.value = true;
+      } else {
+        isObjectVisible.value = false;
+      }
+    }, {deep:true})
     // asset 속성
     const assetAttr = computed(()=>getAssetAttrs(assetData.value));
     // asset타입
@@ -83,6 +98,8 @@ export default {
       playVideo,
       stopVideo,
       endedVideo,
+      isObjectVisible
+
     }
   }
 }

@@ -20,6 +20,7 @@
           v-for="item in assetList"
           :key="`asset_${item.itemID}`"
           :asset-data="item"
+          :select-model="selectModel"
           @ended:video="videocomplete"
       />
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
@@ -50,8 +51,7 @@
 </template>
 
 <script>
-// import {computed, toRefs} from "vue";
-import {toRefs} from "vue";
+import {toRefs,ref} from "vue";
 import DragObject from "@/components/common/DragObject"
 import ArAsset from "@/components/common/ArAsset";
 
@@ -72,6 +72,13 @@ export default {
   setup(props, {emit}) {
     //props
     const {objectList} = toRefs(props);
+ 
+    const selectModel = ref(null);
+    
+
+    window.selectModel = function(props) {
+      selectModel.value = props;
+    }
 
     // 아이템 드래그 시작
     const dragStart = ({type, itemID}) => {
@@ -186,6 +193,7 @@ export default {
       permissionGranted,
       permissionRejected,
       permissionRequested,
+      selectModel,
     }
   }
 }
