@@ -1,19 +1,20 @@
 <template>
   <img
-      v-if="!(assetType === 'VIDEO' || assetType === '3D') && isObjectVisible" 
+      v-if="!(assetType === 'VIDEO' || assetType === '3D')" 
       ref="assetEl"
       v-bind="assetAttr"
   />
   <video
-      v-if="assetType === 'VIDEO' && isObjectVisible "
+      v-if="assetType === 'VIDEO'  "
       ref="assetEl"
       v-bind="assetAttr"
       @ended="endedVideo"
   />
   <a-asset-item
-      v-if="assetType === '3D' && isObjectVisible "
+      v-if="assetType === '3D'"
       ref="assetEl"
       v-bind="assetAttr"
+      :visible="isVisible"
   />
 </template>
 
@@ -24,33 +25,24 @@ import {useStore} from "vuex";
 
 export default {
   name: "ArAsset",
-  props: ['assetData','selectModel'],
+  props: ['assetData','visible'],
   emits:['ended:video'],
   setup(props, {emit}) {
     const assetEl = ref(null);
-    const isObjectVisible = ref(false);
- 
+   
     const {assetData} = toRefs(props);
-    const {selectModel} = toRefs(props);
-
-
-    console.log(assetData.value)
-    console.log(selectModel.value)
-    watch(selectModel, (val) => {
-      console.log(val)
-      if(val === 1) {
-        console.log('true')
-        isObjectVisible.value = true;
-      } else {
-        isObjectVisible.value = false;
-      }
-    }, {deep:true})
+    const {visible} = toRefs(props);
+    console.log(assetData.value.itemID)
+ 
     // asset 속성
     const assetAttr = computed(()=>getAssetAttrs(assetData.value));
     // asset타입
     const assetType = ref(assetData.value.type);
     // object타입
     const objectType = ref(assetData.value.objectType)
+
+    const isVisible = ref(visible.value);
+    console.log(isVisible.value)
 
     const store = useStore();
     const {getters} = store;
@@ -98,8 +90,7 @@ export default {
       playVideo,
       stopVideo,
       endedVideo,
-      isObjectVisible
-
+      isVisible
     }
   }
 }

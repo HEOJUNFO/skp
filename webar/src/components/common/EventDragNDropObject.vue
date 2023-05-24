@@ -18,9 +18,9 @@
     <a-assets>
       <ar-asset
           v-for="item in assetList"
-          :key="`asset_${item.itemID}`"
+          :key="`asset_${item.itemID}_${selectModel}`"
           :asset-data="item"
-          :select-model="selectModel"
+          :visible="item.itemID === selectModel"
           @ended:video="videocomplete"
       />
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
@@ -73,11 +73,18 @@ export default {
     //props
     const {objectList} = toRefs(props);
  
-    const selectModel = ref(null);
+    const selectModel = ref('3');
+    
+ 
+
     
 
     window.selectModel = function(props) {
-      selectModel.value = props;
+      changeSelectModel(props);
+    }
+
+    const changeSelectModel = (value) => {
+      selectModel.value = value.toString();
     }
 
     // 아이템 드래그 시작
