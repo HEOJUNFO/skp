@@ -18,6 +18,7 @@
     "core-js": "^3.6.5",
     "html2canvas": "^1.4.1",
     "lodash": "^4.17.21",
+    "mind-ar": "^1.2.0",
     "mobile-device-detect": "^0.4.3",
     "three": "^0.131.3",
     "vue": "^3.0.0",

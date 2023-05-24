@@ -12,7 +12,7 @@ import axios from "@/plugins/axios";
 import VueFinalModal from "vue-final-modal"
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
+import 'mind-ar/dist/mindar-face-aframe.prod.js';
 import App from './App.vue'
 
 
