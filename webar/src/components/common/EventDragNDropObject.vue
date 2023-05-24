@@ -44,8 +44,13 @@
                   v-bind:position="targetInfo.nftWalletPositionX+' '+targetInfo.nftWalletPositionY+' '+targetInfo.nftWalletPositionZ"
                   material="color: white; shader: flat; src: #wallet-image">
         </a-entity>
+
+        <a-entity mindar-face-target="anchorIndex: 1">
+          <a-sphere color="green" radius="0.1"></a-sphere>
+        </a-entity>
       </a-camera>
     </a-entity>
+    
   </a-scene>
 </template>
 
