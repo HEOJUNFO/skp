@@ -4,6 +4,8 @@ import router from './router';
 import store from '@/store';
 
 import aframe from 'aframe';
+import 'mind-ar/dist/mindar-face-aframe.prod.js';
+
 import 'aframe-extras';
 import 'aframe-gif-shader';
 import registerClickDrag from 'aframe-click-drag-component';

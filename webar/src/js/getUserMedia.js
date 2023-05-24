@@ -75,7 +75,7 @@ export async function getUserMedia({videoEl}) {
     const constraints = {
       audio: false,
       video: {
-        facingMode: 'environment'
+        facingMode: 'user'
       }
     }
     // 재생
