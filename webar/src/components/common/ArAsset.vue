@@ -14,7 +14,6 @@
       v-if="assetType === '3D'"
       ref="assetEl"
       v-bind="assetAttr"
-      :visible="isVisible"
   />
 </template>
 
@@ -25,14 +24,12 @@ import {useStore} from "vuex";
 
 export default {
   name: "ArAsset",
-  props: ['assetData','visible'],
+  props: ['assetData'],
   emits:['ended:video'],
   setup(props, {emit}) {
     const assetEl = ref(null);
    
     const {assetData} = toRefs(props);
-    const {visible} = toRefs(props);
-    console.log(assetData.value.itemID)
  
     // asset 속성
     const assetAttr = computed(()=>getAssetAttrs(assetData.value));
@@ -40,9 +37,6 @@ export default {
     const assetType = ref(assetData.value.type);
     // object타입
     const objectType = ref(assetData.value.objectType)
-
-    const isVisible = ref(visible.value);
-    console.log(isVisible.value)
 
     const store = useStore();
     const {getters} = store;
@@ -90,7 +84,6 @@ export default {
       playVideo,
       stopVideo,
       endedVideo,
-      isVisible
     }
   }
 }

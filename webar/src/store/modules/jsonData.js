@@ -755,8 +755,8 @@ export const jsonData = {
           objectSizeX: "0.5", // 오브젝트 크기
           objectSizeY: "0.5", // 오브젝트 크기
           objectSizeZ: "0.5", // 오브젝트 크기
-          objectPositionX: "0.2", // 좌표값 (-2.0 ~ 2.0)
-          objectPositionY: "-0.5", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionX: "0", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "0.7", // 좌표값 (-2.0 ~ 2.0)
           objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
           stayEffectType: "ROTATION", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
           clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
@@ -783,13 +783,12 @@ export const jsonData = {
         {
           arEventObjectId: "2", // 인덱스 번호
           objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          // "objectSettingUrl": "https://dt-static.syrup.co.kr/webar/gltf/mei/scene.gltf", // 리소스 url 값
-          objectSettingUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf", // 리소스 url 값
-          objectSizeX: "0.5", // 오브젝트 크기
-          objectSizeY: "0.5", // 오브젝트 크기
-          objectSizeZ: "0.5", // 오브젝트 크기
-          objectPositionX: "0.2", // 좌표값 (-2.0 ~ 2.0)
-          objectPositionY: "-0.5", // 좌표값 (-2.0 ~ 2.0)
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/gltf/mei/scene.gltf", // 리소스 url 값
+          objectSizeX: "0.005", // 오브젝트 크기
+          objectSizeY: "0.005", // 오브젝트 크기
+          objectSizeZ: "0.005", // 오브젝트 크기
+          objectPositionX: "0", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "0.2", // 좌표값 (-2.0 ~ 2.0)
           objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
           stayEffectType: "ROTATION", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
           clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
@@ -812,6 +811,74 @@ export const jsonData = {
           bridgeObjectSizeX: "",
           bridgeObjectSizeY: "",
           bridgeObjectSizeZ: "",
+        },
+        {
+          arEventObjectId: "3", // 인덱스 번호
+          objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/gltf/pony_cartoon/scene.gltf", // 리소스 url 값
+          objectSizeX: "0.4", // 오브젝트 크기
+          objectSizeY: "0.4", // 오브젝트 크기
+          objectSizeZ: "0.4", // 오브젝트 크기
+          objectPositionX: "0", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "0.4", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "NONE", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "", // 반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // 선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_3.mp3", // 리소스 값
+          objectChangeSettingType: "", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "", // 리소스 url 값
+          objectChangeSizeX: "", // 체인지 오브젝트 크기
+          objectChangeSizeY: "", // 체인지 오브젝트 크기
+          objectChangeSizeZ: "", // 체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // 리소스 url 값
+          missionActiveThumbnailUrl: "", // 리소스 url 값
+          bridgeForceExposureTimeType: "Y",
+          bridgeForceExposureTimeSecond: 3,
+          bridgeType: "VIDEO", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4", // 리소스 url 값
+          bridgeExposureTimeSecond: "", // 숫자 값
+          bridgeDisplayDirectionType: "HEIGHT", // 가로 : WIDTH, 세로 : HEIGHT
+          bridgeObjectSizeX: 0.05,
+          bridgeObjectSizeY: 0.05,
+          bridgeObjectSizeZ: 0.05,
+          bridgeForce: true,
+          bridgeForceTimeSecond: 10,
+        },
+        {
+          arEventObjectId: "4", // 인덱스 번호
+          objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/gltf/viernes/scene.gltf", // 리소스 url 값
+          objectSizeX: "0.015", // 오브젝트 크기
+          objectSizeY: "0.015", // 오브젝트 크기
+          objectSizeZ: "0.015", // 오브젝트 크기
+          objectPositionX: "0", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "0.4", // 좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "NONE", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "", // 반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // 선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_3.mp3", // 리소스 값
+          objectChangeSettingType: "", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "", // 리소스 url 값
+          objectChangeSizeX: "", // 체인지 오브젝트 크기
+          objectChangeSizeY: "", // 체인지 오브젝트 크기
+          objectChangeSizeZ: "", // 체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // 리소스 url 값
+          missionActiveThumbnailUrl: "", // 리소스 url 값
+          bridgeForceExposureTimeType: "Y",
+          bridgeForceExposureTimeSecond: 3,
+          bridgeType: "VIDEO", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4", // 리소스 url 값
+          bridgeExposureTimeSecond: "", // 숫자 값
+          bridgeDisplayDirectionType: "HEIGHT", // 가로 : WIDTH, 세로 : HEIGHT
+          bridgeObjectSizeX: 0.05,
+          bridgeObjectSizeY: 0.05,
+          bridgeObjectSizeZ: 0.05,
+          bridgeForce: true,
+          bridgeForceTimeSecond: 10,
         },
       ],
       arEventLogicalInfo: {

@@ -20,7 +20,6 @@
           v-for="item in assetList"
           :key="`asset_${item.itemID}_${selectModel}`"
           :asset-data="item"
-          :visible="item.itemID === selectModel"
           @ended:video="videocomplete"
       />
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
@@ -31,6 +30,7 @@
           v-for="item in objectList"
           :key="`dragobject_${item.stayObject.itemID}`"
           :ar-data="item"
+          :visible="item.stayObject.itemID === selectModel"
           @dragstart:object="dragStart"
           @dragend:object="dragEnd"
           @animationcomplete:object="animationcomplete"
@@ -73,12 +73,8 @@ export default {
     //props
     const {objectList} = toRefs(props);
  
-    const selectModel = ref('3');
+    const selectModel = ref('1');
     
- 
-
-    
-
     window.selectModel = function(props) {
       changeSelectModel(props);
     }
