@@ -1,5 +1,6 @@
 <template>
   <a-scene
+      mindar-face
       embedded
       renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
       color-space="sRGB"
@@ -23,35 +24,41 @@
           @ended:video="videocomplete"
       />
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
-    </a-assets>
+    </a-assets>   
 
-    <a-entity position="0 1 0">
-      <drag-object
-          v-for="item in objectList"
-          :key="`dragobject_${item.stayObject.itemID}`"
-          :ar-data="item"
-          :visible="item.stayObject.itemID === selectModel"
-          @dragstart:object="dragStart"
-          @dragend:object="dragEnd"
-          @animationcomplete:object="animationcomplete"
-          @timeout:object="timeout"
-      />
-    </a-entity>
+    
 
     <a-entity cursor="rayOrigin: mouse; fuse: false" position="0 0 0">
-      <a-camera rotation-reader zoom="1" look-controls="reverseMouseDrag: true; touchEnabled: false;">
+      <a-camera position="0 0 0" rotation-reader zoom="1" look-controls="reverseMouseDrag: true; touchEnabled: false;">
         <a-entity id="wallet" v-if="targetInfo"
                   v-bind:geometry="'primitive: plane; width: '+targetInfo.nftWalletSizeX+'; height: '+targetInfo.nftWalletSizeX"
                   v-bind:position="targetInfo.nftWalletPositionX+' '+targetInfo.nftWalletPositionY+' '+targetInfo.nftWalletPositionZ"
                   material="color: white; shader: flat; src: #wallet-image">
         </a-entity>
 
-        <a-entity mindar-face-target="anchorIndex: 1">
-          <a-sphere color="green" radius="0.1"></a-sphere>
-        </a-entity>
+        <a-entity position="0 -1 0">
+          <drag-object
+              v-for="item in objectList"
+              :key="`dragobject_${item.stayObject.itemID}`"
+              :ar-data="item"
+              :visible="item.stayObject.itemID === selectModel"
+              @dragstart:object="dragStart"
+              @dragend:object="dragEnd"
+              @animationcomplete:object="animationcomplete"
+              @timeout:object="timeout"
+          />
+        </a-entity> 
       </a-camera>
     </a-entity>
+
+    <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;">
+      <a-entity mindar-face-target="anchorIndex: 1">
+        <a-sphere color="red" radius="0.1"></a-sphere>
+      </a-entity>
+    </a-camera>
+
     
+
   </a-scene>
 </template>
 
