@@ -1,11 +1,11 @@
 <template>
     <div class="tutorial-popup"  @click="$emit('close')">
       <div class="tutorial-inner">
-        <p>반가워요!</p>
-        <p>마음에 드는 <span style="color:#FFC040">사진프레임</span>과</p>
-        <p><span style="color:#FFC040">캐릭터</span>를 선택해서</p>
-        <p>지금부터 사진 촬영을 시작해볼까요?</p>
-      </div>
+      <p>반가워요!</p>
+      <p>마음에 드는 <span class="highlight">사진프레임</span>과</p>
+      <p><span class="highlight">캐릭터</span>를 선택해서</p>
+      <p>지금부터 사진 촬영을 시작해볼까요?</p>
+    </div>
     </div>
 </template>
   
@@ -14,7 +14,6 @@
     name: "TutorialPopup",
     methods: {
       close() {
-        console.log('sfsd')
         this.$emit('close');
       }
     }
@@ -23,7 +22,7 @@
   
   <style scoped>
   .tutorial-popup {
-    z-index: 1000;
+    z-index: 10000;
     position: fixed;
     top: 0;
     left: 0;
@@ -37,12 +36,8 @@
   }
 
   .tutorial-inner{
-    position: absolute;
-    width: 100%;
-    height: 70%;
     text-align: center;
-    margin-bottom: 1;
-    top: 60vh;
+  margin-bottom: 1em;
 }
   
   .tutorial-popup p {
@@ -50,4 +45,7 @@
     margin-bottom: 1em;
   }
   
+  .highlight {
+  color: #FFC040;
+}
   </style>

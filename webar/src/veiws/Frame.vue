@@ -71,10 +71,10 @@ import { useRouter } from 'vue-router'
     ]);
     
     const images = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
-      { id: 2, tabId:1, src: '/path/to/image2', name: 'Image 2' ,select: false},
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
+      { id: 1, tabId:1, frameId: 1,src: '/path/to/image1', name: 'Image 1',select: true },
+      { id: 2, tabId:1, frameId: 2,src: '/path/to/image2', name: 'Image 2' ,select: false},
+      { id: 3, tabId:1, frameId: 3,src: '/path/to/image3', name: 'Image 3',select: false },
+      { id: 4, tabId:1, frameId: 4,src: '/path/to/image4', name: 'Image 4', select:false },
       { id: 5, tabId:2, modelId: 1, src: '/path/to/model1', name: 'Model 1',select: true },
       { id: 6, tabId:2, modelId: 2,src: '/path/to/model2', name: 'Model 2' ,select: false},
       { id: 7, tabId:2, modelId: 3,src: '/path/to/model3', name: 'Model 3',select: false },
@@ -133,30 +133,28 @@ import { useRouter } from 'vue-router'
         countdown.value = [ 0, 0,3, 5, 7][timerButtonVisible.value];
 
         countdownInterval.value = setInterval(() => {
-        countdown.value -= 1;
-        if (countdown.value <= 0) {
-          captureImage();
-          isCapturing.value = false;
-          clearInterval(countdownInterval.value);
+            countdown.value -= 1;
+            if (countdown.value <= 0) {
+              captureImage();
+              stopCapture();
         }
       }, 1000);
       }
     };
 
       const stopCapture = () => {
-        isCapturing.value = false;
         clearInterval(countdownInterval.value);
+        isCapturing.value = false;
       };
 
       const captureImage = () => {
-      if(isCapturing.value === false && timerButtonVisible.value !== 0){
-        return;
-      }
-       let captureurl = '';
-        if (iframeRef.value) {
-          captureurl = iframeRef.value.contentWindow.capture();
-        }
-        router.push({ name: 'Print', params: { data: captureurl } })
+        if(isCapturing.value || timerButtonVisible.value === 0){
+                let captureurl = '';
+                if (iframeRef.value) {
+                    captureurl = iframeRef.value.contentWindow.capture();
+                }
+                router.push({ name: 'Print', params: { data: captureurl } });
+            }
       
       };
 
@@ -177,27 +175,27 @@ import { useRouter } from 'vue-router'
       images.value.forEach(image => {  // Use .value with ref
         if (image.tabId === selectedTab.value) {  // Use .value with ref
           image.select = (image.id === imageId);
+          console.log(images.value[0].select, images.value[1].select, images.value[2].select, images.value[3].select
+            , images.value[4].select, images.value[5].select, images.value[6].select, images.value[7].select)
         }
       });
     }
 
-    const selectedImage = computed(() => images.value.find(image => image.tabId === 2 && image.select === true));
+    const selectedModelImage = computed(() => images.value.find(image => image.tabId === 2 && image.select === true));
 
-    watch(selectedImage, (newImage, oldImage) => {
+    watch(selectedModelImage, (newImage, oldImage) => {
       if (newImage !== oldImage && newImage !== null) {
         iframeRef.value.contentWindow.selectModel(newImage.modelId);
       }
     });
- 
 
+    const selectedFrameImage = computed(() => images.value.find(image => image.tabId === 1 && image.select === true));
 
-    watch(images, (newImages) => {
-  const selectedImage = newImages.find(image => image.select === true && image.tabId === selectedTab.value);
-  if(selectedImage) {
-    // console.log(selectedImage.id);
-    // console.log(selectedImage.src);
-  }
-}, { deep: true })
+    watch(selectedFrameImage, (newImage, oldImage) => {
+      if (newImage !== oldImage && newImage !== null) {
+        iframeRef.value.contentWindow.selectFrame(newImage.frameId);
+      }
+    });
 
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
@@ -309,5 +307,4 @@ import { useRouter } from 'vue-router'
   color: #fff;
   z-index: 2;
 }
-
   </style>

@@ -95,6 +95,9 @@ export const eventData = {
     backgroundUri({ eventData }) {
       return eventData?.arSkinImage ?? "";
     },
+    backgroundUriList({ eventData }) {
+      return eventData?.arSkinImageList ?? [];
+    },
     templateType(state) {
       return state.eventData?.eventLogicalType;
     },

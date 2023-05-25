@@ -1,5 +1,5 @@
 <template>
-    <container ref="containerEl" >
+    <container  >
       <div v-if="isNaverBrowser" class="browser-change-modal">
         <p>네이버 브라우저에서는 일부 기능이 작동하지 않을 수 있습니다.</p>
         <p>다른 브라우저를 사용해주세요.</p>
@@ -11,7 +11,7 @@
         <button @click="closeExitModal">취소</button>
     </div>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
-      <tutorial-popup v-if="tutorialPopup" @close="tutorialPopup = false"></tutorial-popup>
+      <tutorial-popup v-if="tutorialPopup" @click="toggleBarVisibility" @close="tutorialPopup = false"></tutorial-popup>
       <template v-if="loadedVideo">
         <event-drag-n-drop-object
             v-if="arObjectInfoList"
@@ -31,7 +31,7 @@
   </template>
   
   <script>
-  import {onMounted, ref, watch, computed} from "vue";
+  import {onMounted, ref,computed} from "vue";
   import {useStore} from "vuex";
   import { useRouter } from 'vue-router'
   
@@ -61,27 +61,17 @@
       const templateType = ref(null);
       const loadedVideo = ref(false);
       const tutorialPopup = ref(false);
-      const completeModalEl = ref(null);
-      const containerEl = ref(null);
       const cameraRef = ref(null);
       const exitModalVisible = ref(false);
 
-    
-      const isNaverBrowser = computed(() => {
-      return /NAVER/.test(navigator.userAgent);
-    });
+      const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
+      const browserChangeModalVisible = ref(isNaverBrowser);
 
-    const browserChangeModalVisible = ref(isNaverBrowser.value);
+      const changeBrowser = () => {
+        window.open('https://www.google.com/chrome/');
+        browserChangeModalVisible.value = false;
+  };
 
-    const closeBrowserChangeModal = () => {
-      BrowserChange();
-      browserChangeModalVisible.value = false;
-    };
-
-    const BrowserChange = () => {
-      window.open('https://www.google.com/chrome/');
-    }
-  
       const {
         getEventData
       } = useEventData({dispatch});
@@ -148,11 +138,8 @@
       canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
 
       const imageUrl = canvas.toDataURL("image/png");
- 
-   
-
+      
       return imageUrl;
-
     };
 
     const closeExitModal = () => {
@@ -164,18 +151,8 @@
     };
 
     const toggleBarVisibility = () => {
-  window.parent.toggleBarVisibility();
-};
-
-      watch(loadingState, () => {
-      if(loadingState.value === 'COUNTING') {
-        setTimeout(() => {
-          completeLoading()
-          tutorialPopup.value = true;
-          toggleBarVisibility();
-        }, 5000)
-      }
-    })
+      window.parent.toggleBarVisibility();
+    };
 
       onMounted(async () => {
         await getEventData();
@@ -183,6 +160,12 @@
         setArObjectInfoListFromStore();
     
         startLoading();
+
+        setTimeout(() => {
+          completeLoading()
+          tutorialPopup.value = true;
+          
+        }, 5000)
        
       });
     
@@ -194,17 +177,11 @@
         templateType,
         loadedVideo,
         loadingState,
-        completeModalEl,
-        containerEl,
         dragStart,
         dragEnd,
-        startLoading,
         loadVideo,
         rejectVideo,
         loadScene,
-        rquestOrientationPermission,
-        allowOrientationPermission,
-        rejectOrientationPermission,
         tutorialPopup,
         cameraRef,
         exitModalVisible,
@@ -212,8 +189,12 @@
         exit,
         isNaverBrowser,
         browserChangeModalVisible,
-        closeBrowserChangeModal,
-        capture
+        changeBrowser,
+        capture,
+        toggleBarVisibility,
+        rquestOrientationPermission,
+        allowOrientationPermission,
+        rejectOrientationPermission,
       }
     }
   }
@@ -221,7 +202,7 @@
   
   <style scoped>
 
-  .exit-modal {
+.exit-modal, .browser-change-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -234,13 +215,13 @@
   z-index: 1000;
 }
 
-.exit-modal p {
+.exit-modal p, .browser-change-modal p {
   font-size: 1.5em;
   color: white;
   margin-bottom: 1em;
 }
 
-.exit-modal button {
+.exit-modal button, .browser-change-modal button {
   display: block;
   margin: 1em auto;
   padding: 1em 2em;
@@ -252,11 +233,11 @@
   cursor: pointer;
 }
 
-.exit-modal button:hover {
+.exit-modal button:hover, .browser-change-modal button:hover {
   background-color: #0056b3;
 }
 
-.exit-modal button:active {
+.exit-modal button:active, .browser-change-modal button:active {
   background-color: #004085;
 }
   </style>

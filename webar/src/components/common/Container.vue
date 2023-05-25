@@ -37,9 +37,19 @@ export default {
   setup() {
     const store = useStore();
     const {getters} = store;
-    const url = computed(()=>getters['eventData/backgroundUri']);
     const orientation = ref('landscape')
     const disableClick = ref(false);
+
+    const selectFrame = ref(1);
+    const url = computed(()=>getters['eventData/backgroundUriList'][selectFrame.value-1]);
+
+    window.selectFrame = function(props) {
+      changeSelectFrame(props);
+    }
+
+    const changeSelectFrame = (value) => {
+      selectFrame.value = value;
+    }
 
     const {
       loadingState,
