@@ -31,7 +31,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(1, 1, 1, 0.8);
     color: #fff;
   }
 

@@ -1,42 +1,72 @@
 <template>
   <div class="frame" :style="frameStyle">
     <div v-if="isCapturing" class="countdown">{{ countdown }}</div>
-    <div class="top-bar" v-show="isBarVisible">
-        <button v-if="!isCapturing" @click="toggleAspectRatio">비율 전환</button>
+    <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
+        <button v-if="!isCapturing" @click="toggleAspectRatio">
+          <span v-if="aspectRatio ===0">3:4</span>
+          <span v-else-if="aspectRatio ===1">1:1</span>
+          <span v-else-if="aspectRatio ===2">9:16</span>
+          <span v-else-if="aspectRatio ===3">FUll</span>
+          <span v-else-if="aspectRatio ===4">출력사이즈</span>
+        </button>
         <button v-if="timerButtonVisible && !isCapturing " @click="toggleTimer">
           <span v-if="timerButtonVisible === 2">타이머3</span>
           <span v-else-if="timerButtonVisible === 3">타이머5</span>
           <span v-else-if="timerButtonVisible === 4">타이머7</span>
           <span v-else-if="timerButtonVisible=== 1">타이머X</span>
         </button>       
-        <button v-if="!isCapturing" @click="flipCamera">좌우반전</button>
+        <button v-if="!isCapturing" @click="flipCamera">카메라전환</button>
         <button v-if="!isCapturing" @click="openExitModal">나가기</button>
       </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/basic.html#/frame`" frameborder="0"></iframe>
-    <div v-if="!isSecondBarVisible && isBarVisible" class="bottom-bar-1">
-      <button v-if="!isCapturing" @click="toggleBar">아이템</button>
+    <div v-if="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
+      <button v-if="!isCapturing" @click="frameToggleBar">프레임</button>
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
       <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
-  </div>
-  <div v-if="isSecondBarVisible && isBarVisible " class="bottom-bar-2">
-    <div class="tab-container">
+      <button v-if="!isCapturing" @click="effectToggleBar">이펙트</button>
+    </div>
+    <div v-if="isSecondFrameBarVisible && isBarVisible " class="bottom-bar-2" :style="barStyle">
+      <div class="tab-container">
         <button class="tab" 
-                v-for="tab in tabs" 
+                v-for="tab in frameTabs" 
                 :key="tab.id"
                 :class="{ selected: selectedTab === tab.id }"
                 @click="selectTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
         <div class="image-view" 
-        v-for="image in getImagesForSelectedTab()" 
+        v-for="image in getImagesForSelectedTab(frameImages)" 
         :key="image.id"
         :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
-     <img :src="image.src" @click="selectImage(image.id)"/>
-     <span>{{ image.name }}</span>
-  </div>
-  </div>
+        <img :src="image.src" @click="selectImage(frameImages,image.id)"/>
+        <span>{{ image.name }}</span>
+        </div>
+      </div>
       <div class="button-container">
-        <button @click="toggleBar">나가기</button>
+        <button @click="frameToggleBar">나가기</button>
+        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+        <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
+      </div>
+    </div>
+    <div v-if="isSecondEffectBarVisible && isBarVisible " class="bottom-bar-2" :style="barStyle">
+      <div class="tab-container">
+        <button class="tab" 
+                v-for="tab in effectTabs" 
+                :key="tab.id"
+                :class="{ selected: selectedTab === tab.id }"
+                @click="selectTab(tab.id)">{{ tab.name }}</button>
+      </div>
+      <div class="image-container">
+        <div class="image-view" 
+        v-for="image in getImagesForSelectedTab(effectImages)" 
+        :key="image.id"
+        :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
+        <img :src="image.src" @click="selectImage(effectImages,image.id)"/>
+        <span>{{ image.name }}</span>
+        </div>
+      </div>
+      <div class="button-container">
+        <button @click="effectToggleBar">나가기</button>
         <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
         <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
       </div>
@@ -53,9 +83,11 @@ import { useRouter } from 'vue-router'
     setup() {
       const router = useRouter();
       const iframeRef = ref(null);
-      const isSecondBarVisible = ref(false);
+      const isSecondFrameBarVisible = ref(false);
+      const isSecondEffectBarVisible = ref(false);
       const isBarVisible = ref(false);
-      const aspectRatio = ref('3 / 4');
+      const aspectRatio = ref(0);
+      const aspectRatioValue = ref('3 / 4');
       const selectedTab = ref(1);
 
       const longPressTimer = ref(null);
@@ -64,37 +96,67 @@ import { useRouter } from 'vue-router'
       const countdown = ref(null);
       const countdownInterval = ref(null);
 
-      const tabs = ref([
-      { id: 1, name: '프레임' },
-      { id: 2, name: '모델' },
-      { id: 3, name: 'AR 필터' },
+      const frameTabs = ref([
+      { id: 1, name: '축제1' },
+      { id: 2, name: '축제2' },
+      { id: 3, name: '축제3' },
     ]);
     
-    const images = ref([
-      { id: 1, tabId:1, frameId: 1,src: '/path/to/image1', name: 'Image 1',select: true },
-      { id: 2, tabId:1, frameId: 2,src: '/path/to/image2', name: 'Image 2' ,select: false},
-      { id: 3, tabId:1, frameId: 3,src: '/path/to/image3', name: 'Image 3',select: false },
-      { id: 4, tabId:1, frameId: 4,src: '/path/to/image4', name: 'Image 4', select:false },
-      { id: 5, tabId:2, modelId: 1, src: '/path/to/model1', name: 'Model 1',select: true },
-      { id: 6, tabId:2, modelId: 2,src: '/path/to/model2', name: 'Model 2' ,select: false},
-      { id: 7, tabId:2, modelId: 3,src: '/path/to/model3', name: 'Model 3',select: false },
-      { id: 8, tabId:2, modelId: 4,src: '/path/to/model4', name: 'Model 4', select:false },
+    const frameImages = ref([
+      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
+      { id: 2, tabId:1, src: '/path/to/image2', name: 'Image 2' ,select: false},
+      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
+      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
+      { id: 5, tabId:2, src: '/path/to/model1', name: 'Model 1',select: true },
+      { id: 6, tabId:2, src: '/path/to/model2', name: 'Model 2' ,select: false},
+      { id: 7, tabId:2, src: '/path/to/model3', name: 'Model 3',select: false },
+      { id: 8, tabId:2, src: '/path/to/model4', name: 'Model 4', select:false },
     ]);
 
+    const effectTabs = ref([
+      { id: 1, name: '모델' },
+      { id: 2, name: '이펙트' },
+      { id: 3, name: '필터' },
+    ]);
+    
+    const effectImages = ref([
+      { id: 1, tabId:1, src: '/path/to/image1', name: 'model 1',select: true },
+      { id: 2, tabId:1, src: '/path/to/image2', name: 'model 2' ,select: false},
+      { id: 3, tabId:1, src: '/path/to/image3', name: 'model 3',select: false },
+      { id: 4, tabId:1, src: '/path/to/image4', name: 'model 4', select:false },
+      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: true },
+      { id: 6, tabId:2, src: '/path/to/model2', name: 'effect 2' ,select: false},
+      { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
+      { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
+    ]);
+
+      const toggleAspectRatio = () => {
+        aspectRatio.value = (aspectRatio.value + 1) % 5
+        if(aspectRatio.value === 0){
+          aspectRatioValue.value = '3 / 4'
+        } else if(aspectRatio.value === 1){
+          aspectRatioValue.value = '1 / 1'
+        } else if(aspectRatio.value === 2){
+          aspectRatioValue.value = '9 / 16'
+        } else if(aspectRatio.value === 3){
+          aspectRatioValue.value = '1 / 2'
+        } else if(aspectRatio.value === 4){
+          aspectRatioValue.value = '2 / 3'
+        }
+        };
 
       const frameStyle = computed(() => ({
-      aspectRatio: aspectRatio.value
-   
+      aspectRatio: aspectRatioValue.value,
       }));
+
+      const barStyle = computed(() => ({
+        backgroundColor: aspectRatio.value ===3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+        }));
 
        window.toggleBarVisibility = function() {
       isBarVisible.value = !isBarVisible.value;
       };
 
-      const toggleAspectRatio = () => {
-        aspectRatio.value = aspectRatio.value === '3 / 4' ? '1 / 2' : '3 / 4';
-        };
-      
       const flipCamera = () => {
         if (iframeRef.value) {
             iframeRef.value.contentWindow.flipCamera();
@@ -153,13 +215,16 @@ import { useRouter } from 'vue-router'
                 if (iframeRef.value) {
                     captureurl = iframeRef.value.contentWindow.capture();
                 }
-                router.push({ name: 'Print', params: { data: captureurl } });
+                router.push({ name: 'Print Open Browser', params: { data: captureurl } });
             }
       
       };
 
-      const toggleBar = () => {
-      isSecondBarVisible.value = !isSecondBarVisible.value;
+      const frameToggleBar = () => {
+      isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
+    }
+    const effectToggleBar = () => {
+      isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
     }
 
     const selectTab = (tabId) => {
@@ -167,35 +232,47 @@ import { useRouter } from 'vue-router'
     
     }
 
-    const getImagesForSelectedTab = () => {
-      return images.value.filter(image => image.tabId === selectedTab.value);
+    const getImagesForSelectedTab = (images) => {
+
+  return images.filter(image => image.tabId === selectedTab.value);
+}
+
+const selectImage = (images, imageId) => {
+  images.forEach(image => {
+    if (image.tabId === selectedTab.value) {
+      image.select = (image.id === imageId);
     }
+  });
+}
+const frameTabIds = frameTabs.value.map(tab => tab.id);
 
-    const selectImage = (imageId) => {
-      images.value.forEach(image => {  // Use .value with ref
-        if (image.tabId === selectedTab.value) {  // Use .value with ref
-          image.select = (image.id === imageId);
-          console.log(images.value[0].select, images.value[1].select, images.value[2].select, images.value[3].select
-            , images.value[4].select, images.value[5].select, images.value[6].select, images.value[7].select)
-        }
-      });
-    }
-
-    const selectedModelImage = computed(() => images.value.find(image => image.tabId === 2 && image.select === true));
-
-    watch(selectedModelImage, (newImage, oldImage) => {
-      if (newImage !== oldImage && newImage !== null) {
-        iframeRef.value.contentWindow.selectModel(newImage.modelId);
-      }
-    });
-
-    const selectedFrameImage = computed(() => images.value.find(image => image.tabId === 1 && image.select === true));
+for (let tabId of frameTabIds) {
+    const selectedFrameImage = computed(() => 
+        frameImages.value.find(image => image.tabId === tabId && image.select === true)
+    );
 
     watch(selectedFrameImage, (newImage, oldImage) => {
-      if (newImage !== oldImage && newImage !== null) {
-        iframeRef.value.contentWindow.selectFrame(newImage.frameId);
-      }
+        if (newImage !== oldImage && newImage !== null) {
+          newImage.id = newImage.id % 4 === 0 ? 4 : newImage.id % 4
+            iframeRef.value.contentWindow.selectFrame(newImage.id);
+        }
     });
+}
+
+const effectTabIds = effectTabs.value.map(tab => tab.id);
+
+for (let tabId of effectTabIds) {
+    const selectedEffectImage = computed(() => 
+        effectImages.value.find(image => image.tabId === tabId && image.select === true)
+    );
+
+    watch(selectedEffectImage, (newImage, oldImage) => {
+        if (newImage !== oldImage && newImage !== null) {
+          newImage.id = newImage.id % 4 === 0 ? 4 : newImage.id % 4
+            iframeRef.value.contentWindow.selectModel(newImage.id);
+        }
+    });
+}
 
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
@@ -203,13 +280,18 @@ import { useRouter } from 'vue-router'
         , toggleAspectRatio
         , flipCamera
         , openExitModal
-        , isSecondBarVisible
-        , toggleBar
+        , isSecondFrameBarVisible
+        , isSecondEffectBarVisible
+        , frameToggleBar
+        , effectToggleBar
         , capture
         , isBarVisible
         , frameStyle
-        , tabs
-        , images
+        , barStyle
+        , frameTabs
+        , frameImages
+        , effectTabs
+        , effectImages
         , selectTab
         , getImagesForSelectedTab
         , selectImage
@@ -222,6 +304,7 @@ import { useRouter } from 'vue-router'
         , toggleTimer
         , timerButtonVisible
         , countdown
+        , aspectRatio
      
       }
     }
@@ -246,7 +329,6 @@ import { useRouter } from 'vue-router'
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  background-color: #fff;
   color: #fff;
 }
 

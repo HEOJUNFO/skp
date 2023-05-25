@@ -11,7 +11,8 @@ import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
 import Frame from "@/veiws/Frame"
 import Face from "@/veiws/Face"
-import Print from "@/veiws/Print"
+import Print from "@/veiws/PrintOpenBrowser"
+import PhotoStoreOpenBrowser from "@/veiws/PhotoStoreOpenBrowser"
 
 export const routes = [
     {path: '/', component: Landing, name: 'Landing'},
@@ -24,7 +25,8 @@ export const routes = [
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
     {path: '/frame', component: Frame, name: 'Frame'},
     {path: '/Face', component: Face, name: 'Face'},
-    {path: '/print/:data', component: Print, name: 'Print', props: true},
+    {path: '/print/:data', component: Print, name: 'Print Open Browser', props: true},
+    {path: '/photoStore/:data', component: PhotoStoreOpenBrowser, name: 'Photo Store Open Browser', props: true},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
 

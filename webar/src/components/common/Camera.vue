@@ -11,7 +11,8 @@ export default {
   emits: ['loadeddata', 'loadedmetadata', 'reject:video'],
   setup(props, {emit}) {
     const video = ref(null);
-    let flipped = false;
+  
+    let facingMode = "user";
     // meta data load
     const loadedmetadata = () => {
       emit('loadedmetadata');
@@ -20,9 +21,14 @@ export default {
     const loadeddata = () => {
       emit('loadeddata');
     }
-    const flipCamera = () => {
-      flipped = !flipped;
-      video.value.style.transform = flipped ? 'scaleX(-1)' : 'scaleX(1)';
+    const flipCamera = async () => {
+      facingMode = facingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
+
+      try {
+        await getUserMedia({videoEl: video.value, facingMode});
+      } catch (err) {
+        emit('reject:video')
+      }
     };
 
 
