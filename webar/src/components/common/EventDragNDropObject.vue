@@ -1,6 +1,5 @@
 <template>
   <a-scene
-      mindar-face
       embedded
       renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
       color-space="sRGB"
@@ -26,8 +25,6 @@
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
     </a-assets>   
 
-    
-
     <a-entity cursor="rayOrigin: mouse; fuse: false" position="0 0 0">
       <a-camera position="0 0 0" rotation-reader zoom="1" look-controls="reverseMouseDrag: true; touchEnabled: false;">
         <a-entity id="wallet" v-if="targetInfo"
@@ -49,15 +46,7 @@
           />
         </a-entity> 
       </a-camera>
-    </a-entity>
-
-    <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;">
-      <a-entity mindar-face-target="anchorIndex: 1">
-        <a-sphere color="red" radius="0.1"></a-sphere>
-      </a-entity>
-    </a-camera>
-
-    
+    </a-entity>   
 
   </a-scene>
 </template>

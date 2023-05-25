@@ -4,12 +4,14 @@ import Home from "@/pages/basic/views/Home";
 import Basic from "@/pages/basic/views/Basic";
 import Frame from "@/pages/basic/views/Frame"
 import DragNDrop from "@/pages/basic/views/DragNDrop";
+import Face from "@/pages/basic/views/Face";
 
 export const routes = [
     {path: "/", component: Home, name: "Home"},
     {path: "/basic", component: Basic, name: "Basic"},
     {path: "/frame", component: Frame, name: "Frame"},
     {path: "/drag-n-drop", component: DragNDrop, name: "DragNDrop"},
+    {path: "/Face", component: Face, name: "Face"},
 ]
 
 const router = createRouter({

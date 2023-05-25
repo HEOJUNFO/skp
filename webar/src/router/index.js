@@ -10,6 +10,7 @@ import JsonEditor from "@/veiws/JsonEditor";
 import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
 import Frame from "@/veiws/Frame"
+import Face from "@/veiws/Face"
 import Print from "@/veiws/Print"
 
 export const routes = [
@@ -22,6 +23,7 @@ export const routes = [
     {path: '/drag-n-drop', component: DragNDrop, name: 'Drag And Drop'},
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
     {path: '/frame', component: Frame, name: 'Frame'},
+    {path: '/Face', component: Face, name: 'Face'},
     {path: '/print/:data', component: Print, name: 'Print', props: true},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
