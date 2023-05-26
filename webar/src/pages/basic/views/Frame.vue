@@ -126,13 +126,14 @@
         exitModalVisible.value = true;
       }
 
-      window.capture = function() {
-        return capture();
+      window.capture = async function() {
+        return await capture();
       }
 
-      const capture = () => {
+      const capture = async () => {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
+    
       const canvas = document.createElement("canvas");
       video.pause();
       let v_width = video.clientWidth*2;
@@ -140,9 +141,11 @@
       
       canvas.width = v_width;
       canvas.height = v_height;
+
       let element = video,
           style = window.getComputedStyle(element),
           top = style.getPropertyValue('top');
+
       canvas.getContext('2d').drawImage(video, 0, parseFloat(top), v_width, v_height);
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
@@ -163,23 +166,20 @@
     const toggleBarVisibility = () => {
       window.parent.toggleBarVisibility();
        containerRef.value.topValue = 40;
-       console.log(containerRef.value.topValue);
     };
 
       onMounted(async () => {
         await getEventData();
         templateType.value = getters['eventData/templateType'];
         setArObjectInfoListFromStore();
-    
-        startLoading();
 
+        startLoading();
+      
         setTimeout(() => {
           completeLoading()
           tutorialPopup.value = true;
-         
-         
         }, 5000)
-       
+     
       });
     
       return {

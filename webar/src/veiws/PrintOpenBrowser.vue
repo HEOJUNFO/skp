@@ -10,7 +10,7 @@
         <button @click="copyToClipboard">해시태그복사</button>
         <div class="toast" v-show="showToast">해시태그가 클립보드에 복사되었습니다.</div>     
         <button @click="share">공유</button>
-        <button @click="saveImage, showSaveModal =true">저장</button>
+        <button @click="saveImage(), showSaveModal =true">저장</button>
       </div>
       <button class="box-button" @click="showModal = true">경품 추첨하기</button>
       <button class="box-button"  @click="print">사진 출력하기</button>
@@ -54,7 +54,6 @@
   export default {
     data() {
       return {
-
         title: 'Page Title',
         content: 'Page content...',
         hashtagContent: '#양양서프비치 #AR포토',
@@ -83,6 +82,7 @@
             link.download = 'capture.png';
             document.body.appendChild(link);
             link.click();
+            console.log(link)
             document.body.removeChild(link);
         },
         back(){

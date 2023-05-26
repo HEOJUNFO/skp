@@ -186,18 +186,18 @@ import { useRouter } from 'vue-router'
         }
       }
 
-      const capture = () => {
+      const capture = async () => {
         if (timerButtonVisible.value === 0) {
         // No timer, just capture immediately
-        captureImage();
+        await captureImage();
       } else {
         isCapturing.value = true;
         countdown.value = [ 0, 0,3, 5, 7][timerButtonVisible.value];
 
-        countdownInterval.value = setInterval(() => {
+        countdownInterval.value = setInterval(async() => {
             countdown.value -= 1;
             if (countdown.value <= 0) {
-              captureImage();
+              await captureImage();
               stopCapture();
         }
       }, 1000);
@@ -209,11 +209,11 @@ import { useRouter } from 'vue-router'
         isCapturing.value = false;
       };
 
-      const captureImage = () => {
+      const captureImage = async () => {
         if(isCapturing.value || timerButtonVisible.value === 0){
                 let captureurl = '';
                 if (iframeRef.value) {
-                    captureurl = iframeRef.value.contentWindow.capture();
+                    captureurl = await iframeRef.value.contentWindow.capture();
                 }
                 router.push({ name: 'Print Open Browser', params: { data: captureurl } });
             }
