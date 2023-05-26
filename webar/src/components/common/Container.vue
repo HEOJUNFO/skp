@@ -97,4 +97,8 @@ export default {
 </script>
 
 <style scoped>
+.frame-top {
+ top: 40px;
+}
+
 </style>
