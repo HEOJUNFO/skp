@@ -1,5 +1,5 @@
 <template>
-    <container  >
+    <container ref="containerRef" >
     <div v-if="isNaverBrowser" class="modal">
       <div class="modal-content2">
         <p>네이버 브라우저에서는 일부 기능이 작동하지 않을 수 있습니다.</p>
@@ -71,6 +71,7 @@
       const loadedVideo = ref(false);
       const tutorialPopup = ref(false);
       const cameraRef = ref(null);
+      const containerRef = ref(null);
       const exitModalVisible = ref(false);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
@@ -161,6 +162,8 @@
 
     const toggleBarVisibility = () => {
       window.parent.toggleBarVisibility();
+       containerRef.value.topValue = 40;
+       console.log(containerRef.value.topValue);
     };
 
       onMounted(async () => {
@@ -173,7 +176,8 @@
         setTimeout(() => {
           completeLoading()
           tutorialPopup.value = true;
-          
+         
+         
         }, 5000)
        
       });
@@ -193,6 +197,7 @@
         loadScene,
         tutorialPopup,
         cameraRef,
+        containerRef,
         exitModalVisible,
         closeExitModal,
         exit,

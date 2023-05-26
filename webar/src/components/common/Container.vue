@@ -1,7 +1,7 @@
 <template>
   <div class="event-wrapper" :class="{'disable-click' : disableClick }" >
     <slot></slot>
-    <div class="frame-top" :style="{'backgroundImage': `url(${url})`}"></div>
+    <div class="frame-top" :style="{'backgroundImage': `url(${url})`, 'top': `${topValue}px`}"></div>
     <div class="frame-bottom" :style="{'backgroundImage': `url(${url})`}"></div>
   </div>
   <!-- 로딩 카운터 -->
@@ -43,6 +43,8 @@ export default {
     const selectFrame = ref(1);
     const url = computed(()=>getters['eventData/backgroundUriList'][selectFrame.value-1]);
 
+    const topValue = ref(20);
+
     window.selectFrame = function(props) {
       changeSelectFrame(props);
     }
@@ -64,9 +66,6 @@ export default {
       disableClick.value = !isClick;
     }
 
-   
-    
-
     // 가로 세로 체크
     const setOrientation = (str) => {
       orientation.value = str;
@@ -82,6 +81,7 @@ export default {
       if(loadingState.value === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
+      
         }, 5000)
       }
     })
@@ -92,14 +92,12 @@ export default {
       orientation,
       loadingState,
       setClick,
+      topValue
     }
   }
 }
 </script>
 
 <style scoped>
-.frame-top {
- top: 20px;
-}
 
 </style>
