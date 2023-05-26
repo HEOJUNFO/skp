@@ -64,6 +64,7 @@ export default {
       disableClick.value = !isClick;
     }
 
+   
     
 
     // 가로 세로 체크
@@ -98,7 +99,7 @@ export default {
 
 <style scoped>
 .frame-top {
- top: 40px;
+ top: 20px;
 }
 
 </style>
