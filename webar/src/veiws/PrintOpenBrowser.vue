@@ -5,7 +5,8 @@
       <h1>{{ title }}</h1>
       <p>{{ content }}</p>
       <img :src="localImageUrl" class="image" alt="Image from URL" />
-      <p class="bold-underlined"><span >{{"필수 해시태그 : "}}</span>{{ hashtagContent }}</p>      <div class="buttons">
+      <p class="bold-underlined"><span >{{"필수 해시태그 : "}}</span>{{ hashtagContent }}</p>     
+      <div class="buttons">
         <button @click="copyToClipboard">해시태그복사</button>
         <div class="toast" v-show="showToast">해시태그가 클립보드에 복사되었습니다.</div>     
         <button @click="share">공유</button>
@@ -152,11 +153,13 @@
 
 .box-button {
   display: block;
-  margin-top: 10px;
-  width: 100%;
+  margin: 10px auto;
+  
+  width: 80%;
+  height: 40px;
   border: 1px solid #000; 
+  border-radius: 10px;
 }
-
 
 .toast {
   position: fixed;
@@ -241,6 +244,7 @@
 .bold-underlined {
   font-weight: bold;
   text-decoration: underline;
+  margin-top: 5px;
 }
 .back-button {
   position: absolute;

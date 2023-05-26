@@ -13,6 +13,7 @@ import Frame from "@/veiws/Frame"
 import Face from "@/veiws/Face"
 import Print from "@/veiws/PrintOpenBrowser"
 import PhotoStoreOpenBrowser from "@/veiws/PhotoStoreOpenBrowser"
+import Storage from "@/veiws/Storage"
 
 export const routes = [
     {path: '/', component: Landing, name: 'Landing'},
@@ -25,6 +26,7 @@ export const routes = [
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
     {path: '/frame', component: Frame, name: 'Frame'},
     {path: '/Face', component: Face, name: 'Face'},
+    {path: '/storage', component: Storage, name: 'Storage'},
     {path: '/print/:data', component: Print, name: 'Print Open Browser', props: true},
     {path: '/photoStore/:data', component: PhotoStoreOpenBrowser, name: 'Photo Store Open Browser', props: true},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},

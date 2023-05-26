@@ -748,6 +748,125 @@ export const jsonData = {
       arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
       arSkinImageList: ["https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png"
     ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png"], // AR 스킨 이미지 URL
+    
+    loadingImgYn: "N", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
+      loadingImgUrl: "", // 로딩 이미지 url	String
+
+      photoLogicalInfo: [{
+        tutorialYn: "",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
+        photoRatioSettingType:"",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
+        arFrameSettingYn: "",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoTabMenuAddSettingYn: "",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
+        tabMenuTitle: "",                 //	탭메뉴 제목	String	
+        arFilterSettingYn: "",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
+        arCharacterSettingYn: "",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
+        arStickerSettingYn: "",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
+        filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	
+        hashTagSettingYn: "",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
+        hashTagValue: "",	                // 	해시태그 값 	String	콤마 , 로 구분자
+        shareAgreePopupSettingYn: "",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
+        agreePopupText: "",	              // 	동의 팝업 문구	String	
+        agreePopupDetailLinkUrl: "",	    // 	자세히 보기 링크 url	String	
+        agreePopupInputText: "",	        // 	동의 입력창 기본 문구	String	
+        photoPrintSettingYn: "",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintButtonText: "",	        // 	사진 출력 버튼명	String	
+        photoGiveAwaySettingYn: "",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoGiveAwayButtonText: "",	    // 	경품 당첨 버튼명	String	
+        filmResultFooterImgSettingYn: "",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        filmResultFooterImgUrl: "",	      // 	하단 이미지 url	String	하단 이미지 url
+      }],
+      photoContentsInfo: [{
+
+        frameContentsInfo: [              // 프레임 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO2030",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO MUSIC",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 2,                      //	순서	int	
+          },
+
+        ],
+
+        tabContentsInfo: [                // 탭 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+        ],
+
+        filterContentsInfo: [             //  필터 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+        ],
+
+        characterContentsInfo: [          // 캐릭터 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong/models/King_V4.gltf",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong/models/Queen_V3.gltf",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+        ],
+
+        stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "가자강원도",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+        ],
+      }],
       arObjectInfo: [
         {
           arEventObjectId: "1", // 인덱스 번호

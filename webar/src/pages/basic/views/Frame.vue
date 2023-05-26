@@ -1,14 +1,23 @@
 <template>
     <container  >
-      <div v-if="isNaverBrowser" class="browser-change-modal">
+    <div v-if="isNaverBrowser" class="modal">
+      <div class="modal-content2">
         <p>네이버 브라우저에서는 일부 기능이 작동하지 않을 수 있습니다.</p>
         <p>다른 브라우저를 사용해주세요.</p>
-        <button @click="closeBrowserChangeModal">브라우저 변경하기</button>
+        <div class="button-container">
+          <button class="round-button" @click="closeBrowserChangeModal">브라우저 변경하기</button>
+        </div>     
+      </div>
     </div>
-      <div v-if="exitModalVisible" class="exit-modal">
-        <p>정말로 나가시겠습니까?</p>
-        <button @click="exit">나가기</button>
-        <button @click="closeExitModal">취소</button>
+    <div v-if="exitModalVisible" class="modal">
+      <div class="modal-content2">
+        <p>AR포토를 종료하고 메인페이지로</p>
+        <p>이동합니다.</p>
+        <div class="button-container">
+          <button class="round-button" @click="exit">나가기</button>
+          <button class="round-button" @click="closeExitModal">취소</button>
+        </div>     
+      </div>
     </div>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
       <tutorial-popup v-if="tutorialPopup" @click="toggleBarVisibility" @close="tutorialPopup = false"></tutorial-popup>
@@ -202,42 +211,50 @@
   
   <style scoped>
 
-.exit-modal, .browser-change-modal {
+.modal {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  z-index: 9999;
   left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content2 {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  background-color: #fff;
+  color : #000;
+}
+
+
+.round-button {
+  display: inline-block;
+  border-radius: 10px;
+  width: 30%;
+  height: 25px;
+  
+  border: 2px solid #000; 
+  background-color: #fff;
+  color: #000;
+  margin-top:  10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.exit-modal p, .browser-change-modal p {
-  font-size: 1.5em;
-  color: white;
-  margin-bottom: 1em;
-}
-
-.exit-modal button, .browser-change-modal button {
-  display: block;
-  margin: 1em auto;
-  padding: 1em 2em;
-  font-size: 1em;
-  color: white;
-  background-color: #007BFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.exit-modal button:hover, .browser-change-modal button:hover {
-  background-color: #0056b3;
-}
-
-.exit-modal button:active, .browser-change-modal button:active {
-  background-color: #004085;
 }
   </style>
