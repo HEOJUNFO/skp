@@ -18,7 +18,7 @@
         <button v-if="!isCapturing" @click="flipCamera">카메라전환</button>
         <button v-if="!isCapturing" @click="openExitModal">나가기</button>
       </div>
-    <iframe ref="iframeRef" :src="`${baseUrl}/basic.html#/frame`" frameborder="0"></iframe>
+    <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
     <div v-if="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">프레임</button>
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
@@ -140,8 +140,14 @@ import { useRouter } from 'vue-router'
           aspectRatioValue.value = '9 / 16'
         } else if(aspectRatio.value === 3){
           aspectRatioValue.value = '1 / 2'
+          if (iframeRef.value) {
+            iframeRef.value.contentWindow.containTopValueToggle();
+        }
         } else if(aspectRatio.value === 4){
-          aspectRatioValue.value = '2 / 3'
+          aspectRatioValue.value = '814 / 1218'
+          if (iframeRef.value) {
+            iframeRef.value.contentWindow.containTopValueToggle();
+        }
         }
         };
 

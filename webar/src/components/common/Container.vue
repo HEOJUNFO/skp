@@ -43,7 +43,7 @@ export default {
     const selectFrame = ref(1);
     const url = computed(()=>getters['eventData/backgroundUriList'][selectFrame.value-1]);
 
-    const topValue = ref(20);
+    const topValue = ref(0);
 
     window.selectFrame = function(props) {
       changeSelectFrame(props);
