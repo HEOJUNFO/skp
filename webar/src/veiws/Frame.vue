@@ -199,7 +199,9 @@ import { useRouter } from 'vue-router'
       } else {
         isCapturing.value = true;
         countdown.value = [ 0, 0,3, 5, 7][timerButtonVisible.value];
-
+        if (iframeRef.value) {
+            iframeRef.value.contentWindow.containTopValueToggle();
+        }
         countdownInterval.value = setInterval(async() => {
             countdown.value -= 1;
             if (countdown.value <= 0) {
@@ -213,6 +215,9 @@ import { useRouter } from 'vue-router'
       const stopCapture = () => {
         clearInterval(countdownInterval.value);
         isCapturing.value = false;
+        if (iframeRef.value) {
+            iframeRef.value.contentWindow.containTopValueToggle();
+        }
       };
 
       const captureImage = async () => {
