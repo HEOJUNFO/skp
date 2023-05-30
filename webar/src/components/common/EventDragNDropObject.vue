@@ -2,6 +2,7 @@
   <a-scene
       embedded
       gesture-detector
+      mindar-face
       renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
       color-space="sRGB"
       vr-mode-ui="enabled: false"
@@ -24,30 +25,42 @@
           @ended:video="videocomplete"
       />
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
+
+      <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
+      <a-asset-item id="earringModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
+   
     </a-assets>   
 
-    <a-entity cursor="rayOrigin: mouse; fuse: false" position="0 0 0">
-      <a-camera position="0 0 0" rotation-reader zoom="1" look-controls="reverseMouseDrag: true; touchEnabled: false;">
-        <a-entity id="wallet" v-if="targetInfo"
-                  v-bind:geometry="'primitive: plane; width: '+targetInfo.nftWalletSizeX+'; height: '+targetInfo.nftWalletSizeX"
-                  v-bind:position="targetInfo.nftWalletPositionX+' '+targetInfo.nftWalletPositionY+' '+targetInfo.nftWalletPositionZ"
-                  material="color: white; shader: flat; src: #wallet-image">
-        </a-entity>
+    <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity" visible="true"></a-gltf-model>
+    </a-entity>
+    
+    <a-entity mindar-face-target="anchorIndex: 127">
+        <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel" class="earring-entity" visible="true"></a-gltf-model>
+    </a-entity>
 
-        <a-entity position="0 -1 0">
-          <drag-object
-              v-for="item in objectList"
-              :key="`dragobject_${item.stayObject.itemID}`"
-              :ar-data="item"
-              :visible="item.stayObject.itemID === selectModel"
-              @dragstart:object="dragStart"
-              @dragend:object="dragEnd"
-              @animationcomplete:object="animationcomplete"
-              @timeout:object="timeout"
-          />
-        </a-entity> 
-      </a-camera>
-    </a-entity>   
+    <a-entity mindar-face-target="anchorIndex: 356">
+        <a-gltf-model rotation="0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel" class="earring-entity" visible="true"></a-gltf-model>
+    </a-entity>
+
+    <a-entity mindar-face-target="anchorIndex: 1">
+      <a-sphere color="red" radius="0.1"></a-sphere>
+    </a-entity>
+
+    <a-entity position="0 -1 0">
+      <drag-object
+          v-for="item in objectList"
+          :key="`dragobject_${item.stayObject.itemID}`"
+          :ar-data="item"
+          :visible="item.stayObject.itemID === selectModel"
+          @dragstart:object="dragStart"
+          @dragend:object="dragEnd"
+          @animationcomplete:object="animationcomplete"
+          @timeout:object="timeout"
+      />
+    </a-entity> 
+    
+    <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;"></a-camera>
 
   </a-scene>
 </template>
