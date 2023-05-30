@@ -15,8 +15,10 @@
           <span v-else-if="timerButtonVisible === 4">타이머7</span>
           <span v-else-if="timerButtonVisible=== 1">타이머X</span>
         </button>       
-        <button v-if="!isCapturing" @click="flipCamera">카메라전환</button>
-        <button v-if="!isCapturing" @click="openExitModal">나가기</button>
+        <button v-if="!isCapturing" @click="flipCamera" style="margin-left: 100px; margin-right: 100px;">카메라전환</button>
+        <button v-if="!isCapturing" @click="openExitModal" >
+          <img src="../assets/img/bg_popup_close.png" alt="X" style="width: 40px; height: 40px;"   />
+        </button>
       </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
     <div v-if="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
@@ -350,7 +352,7 @@ for (let tabId of effectTabIds) {
   color: #fff;
 }
 .top-bar {
-  padding: 10px;
+  padding: 0px;
 }
 .bottom-bar-1, .bottom-bar-2 {
   bottom: -40px;

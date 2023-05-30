@@ -33,7 +33,6 @@
             @allow:orientationpermission="allowOrientationPermission"
             @reject:orientationpermission="rejectOrientationPermission"
             @request:orientationpermission="rquestOrientationPermission"
-            @animationcomplete="animationComplete"
         />
       </template>
     </container>

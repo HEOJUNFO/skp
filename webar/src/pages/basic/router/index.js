@@ -4,7 +4,7 @@ import Home from "@/pages/basic/views/Home";
 import Basic from "@/pages/basic/views/Basic";
 import Frame from "@/pages/basic/views/FrameBasic"
 import DragNDrop from "@/pages/basic/views/DragNDrop";
-import Face from "@/pages/basic/views/Face";
+import Face from "@/pages/basic/views/FaceBasic";
 
 export const routes = [
     {path: "/", component: Home, name: "Home"},

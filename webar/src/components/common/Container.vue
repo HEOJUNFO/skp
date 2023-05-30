@@ -73,16 +73,6 @@ export default {
       disableClick.value = !isClick;
     }
 
-    // window.updateFrameImageSrc = function(frameImages) {
-    //   frameImages.value = frameImages.value.map(frame => {
-    //     if (frame.tabId === 1) {
-    //       const url = computed(() => store.getters['eventData/frameContentsInfoList'][frame.id-1]);
-    //       return {...frame, src: url.value.thumbnailUri};
-    //     }
-    //     return frame;
-    //   });
-    // }
-
     window.createFrameImages = function()
     {
       const frameImages = createFrameImages();
@@ -95,7 +85,7 @@ export default {
    const frameImages = url.value.map((item, index) => {
     let tabId = Math.floor(index / 4) + 1; // 4개의 item이 같은 tabId를 가집니다.
     let select = (tabId === 1 && index % 4 === 0);
-    console.log(index)
+
     return {
       id: index + 1,
       tabId: tabId,

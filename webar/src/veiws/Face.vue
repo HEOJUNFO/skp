@@ -1,5 +1,5 @@
 <template>
-    <iframe :src="`${baseUrl}/basic.html#/Face`" frameborder="0"></iframe>
+    <iframe :src="`${baseUrl}/ar.html#/Face`" frameborder="0"></iframe>
 <!--  <iframe :src="`${baseUrl}/nft.html`" frameborder="0"></iframe>-->
 </template>
 
