@@ -5,6 +5,7 @@
 <script>
 
 import {setAframe} from "@/js/SetAFrame";
+import {SetGesture} from "@/js/gesture";
 import '@/assets/css/common.css';
 import '@/assets/css/event.css';
 import '@/assets/css/video.css';
@@ -14,6 +15,7 @@ export default {
   name: 'App',
   setup() {
     setAframe();
+    SetGesture();
   }
 }
 </script>
