@@ -3,11 +3,13 @@
     <div v-if="isCapturing" class="countdown">{{ countdown }}</div>
     <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
         <button v-if="!isCapturing" @click="toggleAspectRatio">
-          <span v-if="aspectRatio ===0">3:4</span>
-          <span v-else-if="aspectRatio ===1">1:1</span>
-          <span v-else-if="aspectRatio ===2">9:16</span>
-          <span v-else-if="aspectRatio ===3">FUll</span>
-          <span v-else-if="aspectRatio ===4">출력사이즈</span>
+          <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >3:4</span>
+          <span v-else-if="aspectRatio ===1" style="font-size: 30px; font-weight: bold;">1:1</span>
+          <span v-else-if="aspectRatio ===2" style="font-size: 30px; font-weight: bold;">9:16</span>
+          <span v-else-if="aspectRatio ===3" style="font-size: 30px; font-weight: bold;">FUll</span>
+          <span v-else-if="aspectRatio ===4" >
+            <img src="../assets/icon/print-button.png" alt="전환" style="width: 30px; height: 30px;"   />
+          </span>
         </button>
         <button v-if="timerButtonVisible && !isCapturing " @click="toggleTimer">
           <span v-if="timerButtonVisible === 2">타이머3</span>
@@ -15,17 +17,27 @@
           <span v-else-if="timerButtonVisible === 4">타이머7</span>
           <span v-else-if="timerButtonVisible=== 1">타이머X</span>
         </button>       
-        <button v-if="!isCapturing" @click="flipCamera" style="margin-left: 100px; margin-right: 100px;">카메라전환</button>
+        <button v-if="!isCapturing" @click="flipCamera" style="margin-left: 100px; margin-right: 100px;">
+          <img src="../assets/icon/right-left-button.png" alt="전환" style="width: 30px; height: 30px;"   />
+        </button>
         <button v-if="!isCapturing" @click="openExitModal" >
-          <img src="../assets/img/bg_popup_close.png" alt="X" style="width: 40px; height: 40px;"   />
+          <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px;"   />
         </button>
       </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
     <div v-if="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
-      <button v-if="!isCapturing" @click="frameToggleBar">프레임</button>
-      <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+      <button v-if="!isCapturing" @click="frameToggleBar">
+        <img src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
+        <p style="font-size: 17.5px; font-weight: bold;">프레임</p>
+      </button>
+      <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
+        <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px;" />
+      </button>
       <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
-      <button v-if="!isCapturing" @click="effectToggleBar">이펙트</button>
+      <button v-if="!isCapturing" @click="effectToggleBar">
+        <img src="../assets/icon/star-button.png" alt="이펙트" style="width: 45px; height: 40px;" />
+        <p style="font-size: 17.5px; font-weight: bold;">이펙트</p>
+      </button>
     </div>
     <div v-if="isSecondFrameBarVisible && isBarVisible " class="bottom-bar-2" :style="barStyle">
       <div class="tab-container">
@@ -355,7 +367,7 @@ for (let tabId of effectTabIds) {
   padding: 0px;
 }
 .bottom-bar-1, .bottom-bar-2 {
-  bottom: -40px;
+  bottom: -70px;
   padding-top: 10px;
   padding-bottom: 10px;
   

@@ -103,6 +103,12 @@ export const eventData = {
     backgroundUriList({ eventData }) {
       return eventData?.arSkinImageList ?? [];
     },
+    loadingImgYn({ eventData }) {
+      return eventData?.loadingImgYn ?? "N";
+    },
+    loadingImgUrl({ eventData }) {
+      return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
+    },
 
     templateType(state) {
       return state.eventData?.eventLogicalType;

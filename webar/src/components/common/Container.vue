@@ -1,27 +1,19 @@
 <template>
   <div class="event-wrapper" :class="{'disable-click' : disableClick }" >
     <slot></slot>
-    <div class="frame-top" :style="{'backgroundImage': `url(${url})`, 'top': `${topValue}px`}"></div>
-    <div class="frame-bottom" :style="{'backgroundImage': `url(${url})`}"></div>
+    <div class="frame-top" :style="{'backgroundImage': `url(${frameUrl})`, 'top': `${topValue}px`}"></div>
+    <div class="frame-bottom" :style="{'backgroundImage': `url(${frameUrl})`}"></div>
   </div>
-  <!-- 로딩 카운터 -->
   <template v-if="loadingState !== 'COMPLETE'">
-    <!-- counter -->
-    <div class="loading loading2" v-if="loadingState === 'COUNTING'">
-      <img src="../../assets/img/AR_countdown.gif" alt="로딩 이미지">
-    </div>
-    <!-- // counter -->
     <!-- loading -->
-    <div class="loading loading2" v-if="loadingState === 'LOADING'">
-      <img src="../../assets/img/loading01_114x120.gif" alt="로딩 이미지">
+    <div class="loading loading2" >
+      <img :src="loadingUrl" alt="로딩 이미지">
     </div>
-    <!-- // loading -->
   </template>
   <!-- 가로모드 -->
   <div class="landscape_wrap" v-if="orientation !== 'portrait'">
     <p>가로모드 지원안함</p>
   </div>
-  <!-- // 가로모드 -->
 </template>
 
 <script>
@@ -41,14 +33,16 @@ export default {
     const disableClick = ref(false);
 
     const selectFrame = ref(1);
-    const url = computed(() => {
+    const frameUrl = computed(() => {
     const frameInfo = getters['eventData/frameContentsInfoList'][selectFrame.value-1];
     return frameInfo ? frameInfo.sourceUri : '';
     });
 
-    // const getUrl = computed(()=>getters['eventData/frameContentsInfoList'][selectFrame.value-1]);
+    const loadingUrl = computed(() => {
+  const url = store.getters['eventData/loadingImgUrl'];
+  return String(url);  
+});
 
-   
     const topValue = ref(0);
 
     window.selectFrame = function(props) {
@@ -56,7 +50,7 @@ export default {
     }
 
     const changeSelectFrame = (value) => {
-      console.log(value)
+      console.log(loadingUrl.value)
       selectFrame.value = value;
     }
 
@@ -83,14 +77,14 @@ export default {
   const url = computed(() => store.getters['eventData/frameContentsInfoList']);
 
    const frameImages = url.value.map((item, index) => {
-    let tabId = Math.floor(index / 4) + 1; // 4개의 item이 같은 tabId를 가집니다.
+    let tabId = Math.floor(index / 4) + 1; 
     let select = (tabId === 1 && index % 4 === 0);
 
     return {
       id: index + 1,
       tabId: tabId,
-      src: item.thumbnailUri, // item의 구조를 가정하였습니다.
-      name: item.fileName, // item의 구조를 가정하였습니다.
+      src: item.thumbnailUri, 
+      name: item.fileName, 
       select: select,
     };
     });
@@ -118,7 +112,8 @@ export default {
     })
 
     return {
-      url,
+      frameUrl,
+      loadingUrl,
       disableClick,
       orientation,
       loadingState,

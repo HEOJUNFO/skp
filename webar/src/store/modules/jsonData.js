@@ -750,7 +750,7 @@ export const jsonData = {
     ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png"], // AR 스킨 이미지 URL
     
     loadingImgYn: "N", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
-      loadingImgUrl: "", // 로딩 이미지 url	String
+    loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
 
       photoLogicalInfo: [{
         tutorialYn: "",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
