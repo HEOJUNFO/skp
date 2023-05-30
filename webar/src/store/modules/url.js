@@ -28,7 +28,6 @@ export const url = {
       // const url = `${state.eventWinningFormUrl}?${query}`;
       //sessionStorage 설정
       const eventWinningData = {eventId, arEventWinningId, arEventWinningButtonId, eventLogWinningId};
-      console.log("eventWinningData : "+JSON.stringify(eventWinningData))
       sessionStorage.setItem('eventWinningData', JSON.stringify(eventWinningData));
       const url = `${state.eventWinningFormUrl}`;
       parent.open(url, "_blank");

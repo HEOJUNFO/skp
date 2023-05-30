@@ -38,10 +38,16 @@ export default {
     return frameInfo ? frameInfo.sourceUri : '';
     });
 
+    const isLoadingImg = computed(() => {
+      const isLoading = store.getters['eventData/loadingImgYn'];
+      return isLoading === 'Y';
+    });
+
     const loadingUrl = computed(() => {
-  const url = store.getters['eventData/loadingImgUrl'];
-  return String(url);  
-});
+    const url = store.getters['eventData/loadingImgUrl'];
+     return String(url);  
+    });
+    
 
     const topValue = ref(0);
 
@@ -50,7 +56,7 @@ export default {
     }
 
     const changeSelectFrame = (value) => {
-      console.log(loadingUrl.value)
+      console.log(isLoadingImg.value)
       selectFrame.value = value;
     }
 
