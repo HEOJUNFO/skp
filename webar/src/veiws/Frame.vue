@@ -251,22 +251,22 @@ import { useRouter } from 'vue-router'
 }
 
 const selectImage = (images, imageId) => {
-  images.forEach(image => {
-    if (image.tabId === selectedTab.value) {
-      image.select = (image.id === imageId);
-    }
+ images.forEach(image => {
+    image.select = false;
   });
+
+  const selectedImage = images.find(image => image.id === imageId);
+  if (selectedImage) selectedImage.select = true;
 }
 const frameTabIds = frameTabs.value.map(tab => tab.id);
 
 for (let tabId of frameTabIds) {
     const selectedFrameImage = computed(() => 
-        frameImages.value.find(image => image.tabId === tabId && image.select === true)
+        frameImages.value.find(image => tabId && image.select === true)
     );
-    console.log(selectedFrameImage.value)
     watch(selectedFrameImage, (newImage, oldImage) => {
         if (newImage !== oldImage && newImage !== null) {
-          newImage.id = newImage.id % 4 === 0 ? 4 : newImage.id % 4
+           newImage.id = (newImage.tabId - 1) * 4 + (newImage.id % 4 === 0 ? 4 : newImage.id % 4);
             iframeRef.value.contentWindow.selectFrame(newImage.id);
         }
     });

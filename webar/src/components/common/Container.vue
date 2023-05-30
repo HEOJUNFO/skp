@@ -56,6 +56,7 @@ export default {
     }
 
     const changeSelectFrame = (value) => {
+      console.log(value)
       selectFrame.value = value;
     }
 
@@ -85,16 +86,16 @@ export default {
     window.createFrameImages = function()
     {
       const frameImages = createFrameImages();
-      console.log(frameImages)
       return frameImages
     }
+
   function createFrameImages() {
   const url = computed(() => store.getters['eventData/frameContentsInfoList']);
 
    const frameImages = url.value.map((item, index) => {
     let tabId = Math.floor(index / 4) + 1; // 4개의 item이 같은 tabId를 가집니다.
-    let select = (index % 4 === 0); // 각 tabId의 첫 번째 item이 select: true입니다.
-    console.log(item)
+    let select = (tabId === 1 && index % 4 === 0);
+    console.log(index)
     return {
       id: index + 1,
       tabId: tabId,

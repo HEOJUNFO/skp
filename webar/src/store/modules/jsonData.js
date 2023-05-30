@@ -812,6 +812,14 @@ export const jsonData = {
             photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 3,                      //	순서	int	
           },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO gogo",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 4,                      //	순서	int	
+          },
 
         ],
 
