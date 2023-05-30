@@ -3,14 +3,14 @@ import { createApp } from 'vue';
 import router from './router';
 import store from '@/store';
 
-import aframe from 'aframe';
+//import aframe from 'aframe';
 //import 'mind-ar/dist/mindar-face-aframe.prod.js';
 
 import 'aframe-extras';
-import 'aframe-gif-shader';
-import registerClickDrag from 'aframe-click-drag-component';
+// import 'aframe-gif-shader';
+// import registerClickDrag from 'aframe-click-drag-component';
 
-registerClickDrag(aframe);
+// registerClickDrag(aframe);
 
 import DKToast from 'vue-dk-toast';
 import axios from "@/plugins/axios";

@@ -5,7 +5,7 @@ import store from './store'
 
 import AFRAME from 'aframe'
 import 'aframe-extras'
-import 'aframe-gif-shader'
+// import 'aframe-gif-shader'
 import 'aframe-orbit-controls'
 import DKToast from 'vue-dk-toast';
 import axios from "@/plugins/axios";
