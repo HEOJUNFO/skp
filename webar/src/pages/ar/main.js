@@ -4,8 +4,10 @@ import router from './router'
 import store from '@/store'
 
 // html에서 import
-// import 'aframe'
+import 'mind-ar/dist/mindar-face.prod.js';
 import 'aframe-extras'
+import 'mind-ar/dist/mindar-face-aframe.prod.js';
+
 // import 'aframe-gif-shader'
 
 import axios from "@/plugins/axios";
