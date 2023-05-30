@@ -749,7 +749,7 @@ export const jsonData = {
       arSkinImageList: ["https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png"
     ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png"], // AR 스킨 이미지 URL
     
-    loadingImgYn: "N", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
+    loadingImgYn: "Y", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
 
       photoLogicalInfo: [{

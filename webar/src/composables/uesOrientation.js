@@ -4,33 +4,20 @@
 *
 * */
 
-export default function uesOrientation() {
+export default function useOrientation() {
   function checkOrientation(callback) {
     if(typeof callback !== 'function') {
-      throw new Error(`callback must be function!`)
+      throw new Error(`callback must be a function!`)
     }
-    // 가로 세로 모드 체크 - 미디어 쿼리 확인
-    const mql = window.matchMedia("(orientation: portrait)");
+    
+    // 현재 기기의 방향을 확인
+    let orientation = window.screen.orientation.type.includes('portrait') ? 'portrait' : 'landscape';
+    callback(orientation);
 
-    // If there are matches, we're in portrait
-    if(mql.matches) {
-      // Portrait orientation
-      callback('portrait')
-    } else {
-      // Landscape orientation
-      callback('landscape')
-    }
-
-    // Add a media query change listener
-    mql.addEventListener('change',(m) => {
-      if(m.matches) {
-        // Changed to portrait
-        callback('portrait');
-      }
-      else {
-        // Changed to landscape
-        callback('landscape');
-      }
+    // resize 이벤트 리스너를 추가하여 화면 크기가 변경될 때마다 방향을 확인
+    window.addEventListener('resize', () => {
+      orientation = window.screen.orientation.type.includes('portrait') ? 'portrait' : 'landscape';
+      callback(orientation);
     });
   }
 
