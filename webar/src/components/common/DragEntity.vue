@@ -3,7 +3,7 @@
     <a-sphere
         v-if="objectType === `SPHERE`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -11,7 +11,7 @@
     <a-cylinder
         v-else-if="objectType === `CYLINDER`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -19,7 +19,7 @@
     <a-box
         v-else-if="objectType === `CUBE`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -27,7 +27,7 @@
     <a-image
         v-else-if="objectType === `IMAGE`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -35,7 +35,7 @@
     <a-entity
         v-else-if="objectType === `GIF`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -44,7 +44,7 @@
         v-else-if="objectType === `VIDEO`"
         loop="false"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -53,7 +53,7 @@
     <a-gltf-model
         v-else-if="objectType === `3D`"
         v-bind="attrs"
-        click-drag
+        gesture-handler="locationBased: true"
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"

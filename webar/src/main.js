@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 
 import AFRAME from 'aframe'
+import { THREE } from 'aframe'
+
 import 'aframe-extras'
 // import 'aframe-gif-shader'
 import 'aframe-orbit-controls'
@@ -26,6 +28,7 @@ app.use(router)
   .use(store)
   .use(axios)
   .use(AFRAME)
+  .use(THREE)
   .use(VueLoading)
   .use(VueFinalModal())
   .use(DKToast, {

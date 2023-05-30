@@ -1,6 +1,7 @@
 <template>
   <a-scene
       embedded
+      gesture-detector
       renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
       color-space="sRGB"
       vr-mode-ui="enabled: false"
