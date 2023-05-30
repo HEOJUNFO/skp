@@ -746,8 +746,8 @@ export const jsonData = {
       eventLogicalType: "Frame", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
       arBgImage: "", // AR 백그라운드 이미지 URL
       arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
-      arSkinImageList: ["https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png"
-    ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png"], // AR 스킨 이미지 URL
+      arSkinImageList: ["https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png"
+    ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png"], // AR 스킨 이미지 URL
     
     loadingImgYn: "N", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
       loadingImgUrl: "", // 로딩 이미지 url	String
@@ -803,6 +803,14 @@ export const jsonData = {
             photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03.png",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 2,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO WISH",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 3,                      //	순서	int	
           },
 
         ],
@@ -968,38 +976,38 @@ export const jsonData = {
           bridgeForceTimeSecond: 10,
         },
         {
-          arEventObjectId: "4", // 인덱스 번호
-          objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/gltf/viernes/scene.gltf", // 리소스 url 값
-          objectSizeX: "0.015", // 오브젝트 크기
-          objectSizeY: "0.015", // 오브젝트 크기
-          objectSizeZ: "0.015", // 오브젝트 크기
-          objectPositionX: "0", // 좌표값 (-2.0 ~ 2.0)
-          objectPositionY: "0.4", // 좌표값 (-2.0 ~ 2.0)
-          objectPositionZ: "-2", // 좌표값 (-2.0 ~ 2.0)
-          stayEffectType: "NONE", // NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
-          clickEventType: "FADEOUT", // NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
-          videoPlayRepeatType: "", // 반복함 : Y, 반복안함 : N
-          catchSoundType: "URL", // 선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
-          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_3.mp3", // 리소스 값
-          objectChangeSettingType: "", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          objectChangeSettingUrl: "", // 리소스 url 값
-          objectChangeSizeX: "", // 체인지 오브젝트 크기
-          objectChangeSizeY: "", // 체인지 오브젝트 크기
-          objectChangeSizeZ: "", // 체인지 오브젝트 크기
-          missionInactiveThumbnailUrl: "", // 리소스 url 값
-          missionActiveThumbnailUrl: "", // 리소스 url 값
-          bridgeForceExposureTimeType: "Y",
-          bridgeForceExposureTimeSecond: 3,
-          bridgeType: "VIDEO", // 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
-          bridgeUrl: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4", // 리소스 url 값
-          bridgeExposureTimeSecond: "", // 숫자 값
-          bridgeDisplayDirectionType: "HEIGHT", // 가로 : WIDTH, 세로 : HEIGHT
-          bridgeObjectSizeX: 0.05,
-          bridgeObjectSizeY: 0.05,
-          bridgeObjectSizeZ: 0.05,
-          bridgeForce: true,
-          bridgeForceTimeSecond: 10,
+          arEventObjectId: "4", // *인덱스 번호
+          objectSettingType: "CUBE", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectSettingUrl: "https://dt-static.syrup.co.kr/webar/images/object_sphere_img.png", // *리소스 url 값
+          objectSizeX: "0.4", // *오브젝트 크기
+          objectSizeY: "0.2", // *오브젝트 크기
+          objectSizeZ: "0.4", // *오브젝트 크기
+          objectPositionX: "0", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionY: "1.2", // *좌표값 (-2.0 ~ 2.0)
+          objectPositionZ: "-1.7", // *좌표값 (-2.0 ~ 2.0)
+          stayEffectType: "ROTATION", // *NONE : NONE, Rotation : ROTATION, Heartbeat : HEARTBEAT
+          clickEventType: "OBJCHANGE", // *NONE : NONE, Fade-out : FADEOUT, Object change : OBJCHANGE
+          videoPlayRepeatType: "Y", // *반복함 : Y, 반복안함 : N
+          catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
+          catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
+          objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          // "objectChangeSettingType": "GIF", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
+          objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
+          // "objectChangeSettingUrl": "https://dt-static.syrup.co.kr/webar/images/object_gif_2.gif", // *리소스 url 값
+          objectChangeSizeX: "", // *체인지 오브젝트 크기
+          objectChangeSizeY: "", // *체인지 오브젝트 크기
+          objectChangeSizeZ: "", // *체인지 오브젝트 크기
+          missionInactiveThumbnailUrl: "", // *스템프: 리소스 url 값
+          missionActiveThumbnailUrl: "", // *스탬프: 리소스 url 값
+          bridgeForceExposureTimeType: "N",
+          bridgeForceExposureTimeSecond: 0,
+          bridgeType: "", // *브릿지 : 이미지 : IMAGE, GIF : GIF, VIDEO : VIDEO, 선택안함 : NONE
+          bridgeUrl: "", // *브릿지 : 리소스 url 값
+          bridgeExposureTimeSecond: "", // *playtime 숫자 값
+          bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
+          bridgeObjectSizeX: "",
+          bridgeObjectSizeY: "",
+          bridgeObjectSizeZ: "",
         },
       ],
       arEventLogicalInfo: {

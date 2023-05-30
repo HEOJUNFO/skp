@@ -35,6 +35,11 @@ export const eventData = {
       }
     },
     // asset 정보
+    frameContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      
+      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].frameContentsInfo.map(getContentsData) : [];
+    },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
       return Array.isArray(arObjectInfo) ? arObjectInfo.reduce(getAssetData, []) : [];
@@ -98,6 +103,7 @@ export const eventData = {
     backgroundUriList({ eventData }) {
       return eventData?.arSkinImageList ?? [];
     },
+
     templateType(state) {
       return state.eventData?.eventLogicalType;
     },
@@ -285,6 +291,18 @@ function getScanningStampData(item) {
     enableThumbnailUri: activeThumbnailUrl,
     disableThumbnailUri: inactiveThumbnailUrl,
   };
+}
+function getContentsData(item){
+  const { photoContentChoiceType, photoFileName , photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType,sort} = item;
+  return {
+    itemID: sort,
+    type: photoContentChoiceType,
+    thumbnailUri: photoThumbnailImgUrl,
+    sourceUri: photoOriginalFileUrl,
+    tabMenuType: photoContentTabMenuType,
+    fileName: photoFileName,
+  };
+    
 }
 // 브릿지 데이터 파싱
 function getBridgeData(item) {

@@ -77,10 +77,13 @@
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       const browserChangeModalVisible = ref(isNaverBrowser);
 
+      const photoContentsInfo = computed(()=>getters['eventData/frameContentsInfoList'][0]);
+      console.log(photoContentsInfo.value)
+   
       const changeBrowser = () => {
         window.open('https://www.google.com/chrome/');
         browserChangeModalVisible.value = false;
-  };
+      };
 
       const {
         getEventData
@@ -123,6 +126,7 @@
       }
 
       window.openExitModal = function() {
+        console.log(photoContentsInfo.value)
         exitModalVisible.value = true;
       }
 

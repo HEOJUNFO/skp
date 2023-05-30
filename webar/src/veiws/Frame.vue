@@ -38,7 +38,7 @@
         v-for="image in getImagesForSelectedTab(frameImages)" 
         :key="image.id"
         :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
-        <img :src="image.src" @click="selectImage(frameImages,image.id)"/>
+        <img :src="image.src" @click="selectImage(frameImages,image.id)" class="frame-image"/>
         <span>{{ image.name }}</span>
         </div>
       </div>
@@ -103,14 +103,10 @@ import { useRouter } from 'vue-router'
     ]);
     
     const frameImages = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'Image 1',select: true },
-      { id: 2, tabId:1, src: '/path/to/image2', name: 'Image 2' ,select: false},
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'Image 3',select: false },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'Image 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/model1', name: 'Model 1',select: true },
-      { id: 6, tabId:2, src: '/path/to/model2', name: 'Model 2' ,select: false},
-      { id: 7, tabId:2, src: '/path/to/model3', name: 'Model 3',select: false },
-      { id: 8, tabId:2, src: '/path/to/model4', name: 'Model 4', select:false },
+      { id: 1, tabId:1, src: '', name: '',select: true },
+      { id: 2, tabId:1, src: '', name: '' ,select: false},
+      { id: 3, tabId:1, src: '', name: '',select: false },
+      { id: 4, tabId:1, src: '', name: '', select:false },
     ]);
 
     const effectTabs = ref([
@@ -162,6 +158,7 @@ import { useRouter } from 'vue-router'
        window.toggleBarVisibility = function() {
       isBarVisible.value = !isBarVisible.value;
       };
+
 
       const flipCamera = () => {
         if (iframeRef.value) {
@@ -231,8 +228,13 @@ import { useRouter } from 'vue-router'
       
       };
 
-      const frameToggleBar = () => {
+    const frameToggleBar = () => {
       isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
+      if (iframeRef.value) {
+          frameImages.value = iframeRef.value.contentWindow.createFrameImages();
+          console.log(frameImages.value)
+        }
+       
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
@@ -261,7 +263,7 @@ for (let tabId of frameTabIds) {
     const selectedFrameImage = computed(() => 
         frameImages.value.find(image => image.tabId === tabId && image.select === true)
     );
-
+    console.log(selectedFrameImage.value)
     watch(selectedFrameImage, (newImage, oldImage) => {
         if (newImage !== oldImage && newImage !== null) {
           newImage.id = newImage.id % 4 === 0 ? 4 : newImage.id % 4
@@ -331,6 +333,12 @@ for (let tabId of effectTabIds) {
   height: auto;
   background: #f9f9f9;
 }
+
+.frame-image {
+  width: 100%;
+  height: 100%;
+  
+}
   
 .top-bar, .bottom-bar-1, .bottom-bar-2 {
   z-index: 1;
@@ -339,16 +347,21 @@ for (let tabId of effectTabIds) {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
   color: #fff;
 }
-
+.top-bar {
+  padding: 10px;
+}
 .bottom-bar-1, .bottom-bar-2 {
   bottom: -40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
 }
 
 .bottom-bar-2{
   flex-direction: column;
+  
 }
 
 .tab-container {
@@ -371,6 +384,13 @@ for (let tabId of effectTabIds) {
   flex-direction: column;
   align-items: center;
   color : #000;
+}
+
+.image-view > span {
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  overflow: hidden; /* 긴 텍스트가 상자를 넘어가지 않도록 함 */
+  max-width: 100%; /* 상자의 최대 너비에 맞춤 */
+  font-size: 0.9.5rem;
 }
 
 .button-container {
