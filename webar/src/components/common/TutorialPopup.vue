@@ -2,7 +2,7 @@
     <div class="tutorial-popup" >
       <div class="tutorial-inner">
         <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
-        <img :src="tutorial.image" alt="Tutorial Image" />
+        <img :src="tutorial.image" alt="튜토리얼가이드 이미지 필요!!" />
         <p>{{ tutorial.description }}</p>
       </div>
 
