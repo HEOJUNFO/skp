@@ -47,7 +47,7 @@
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
-    <a-entity position="0 -1 0">
+    <a-entity position="0 -1 -1">
       <drag-object
           v-for="item in objectList"
           :key="`dragobject_${item.stayObject.itemID}`"
