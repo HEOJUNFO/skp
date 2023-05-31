@@ -8,7 +8,7 @@ import 'mind-ar/dist/mindar-face.prod.js';
 import 'aframe-extras'
 import 'mind-ar/dist/mindar-face-aframe.prod.js';
 
-// import 'aframe-gif-shader'
+import 'aframe-gif-shader'
 
 import axios from "@/plugins/axios";
 import VueFinalModal from "vue-final-modal"
