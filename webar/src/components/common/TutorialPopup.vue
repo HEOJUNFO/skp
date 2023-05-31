@@ -1,29 +1,57 @@
 <template>
-    <div class="tutorial-popup"  @click="$emit('close')" >
+    <div class="tutorial-popup" >
       <div class="tutorial-inner">
-      <p>반가워요!</p>
-      <p>마음에 드는 <span class="highlight">사진프레임</span>과</p>
-      <p><span class="highlight">캐릭터</span>를 선택해서</p>
-      <p>지금부터 사진 촬영을 시작해볼까요?</p>
-    </div>
+        <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
+        <img :src="tutorial.image" alt="Tutorial Image" />
+        <p>{{ tutorial.description }}</p>
+      </div>
+
+      <div class="navigation">
+        <button @click="skip">건너뛰기</button>
+
+        <div class="dots">
+          <span v-for="(tutorial, index) in tutorials" :key="index" :class="{ 'active': currentIndex === index }"></span>
+        </div>
+
+        <button @click="next">다음</button>
+      </div>
+      <button class="close-button" @click="close">X</button>
+      </div>
     </div>
 </template>
   
   <script>
-
-
   export default {
     name: "TutorialPopup",
+    data() {
+    return {
+      tutorials: [
+        // 여기에 튜토리얼 이미지와 설명을 추가하십시오
+        { image: '/path/to/image1.jpg', description: 'tutorial 1' },
+        { image: '/path/to/image2.jpg', description: 'tutorial 2' },
+        { image: '/path/to/image3.jpg', description: 'tutorial 3' },
+        { image: '/path/to/image4.jpg', description: 'tutorial 4' },
+      ],
+      currentIndex: 0,
+    };
+  },
     methods: {
       close() {
         this.$emit('close');
+      },
+      next() {
+        console.log(this.currentIndex, this.tutorials.length - 1)
+      if (this.currentIndex < this.tutorials.length - 1) {
+        this.currentIndex++;
+      } else {
+        this.close();
       }
     },
-    
-    
+    skip() {
+      this.close();
+    },
     }
-
-
+  }
   </script>
   
   <style scoped>
@@ -37,21 +65,53 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(1, 1, 1, 0.8);
+    background-color: rgba(1, 1, 1, 0.6);
     color: #fff;
   }
 
   .tutorial-inner{
     text-align: center;
   margin-bottom: 1em;
+  background-color: #fff;
 }
   
-  .tutorial-popup p {
-    color: #fff;
-    margin-bottom: 1em;
-  }
-  
-  .highlight {
-  color: #FFC040;
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+}
+
+.dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: gray;
+  margin: 0 4px;
+}
+
+.dots span.active {
+  background-color: #000;
+}
+
+.close-button {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-size: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
 }
   </style>

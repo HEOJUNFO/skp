@@ -26,7 +26,7 @@
         </button>
       </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
-    <div v-if="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
+    <div v-show="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
         <img src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
         <p style="font-size: 17.5px; font-weight: bold;">프레임</p>

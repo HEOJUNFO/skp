@@ -20,7 +20,7 @@
       </div>
     </div>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
-      <tutorial-popup v-if="tutorialPopup" @click="toggleBarVisibility" @close="tutorialPopup = false"></tutorial-popup>
+      <tutorial-popup v-if="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-popup>
       <template v-if="loadedVideo">
         <event-drag-n-drop-object
             v-if="arObjectInfoList"
