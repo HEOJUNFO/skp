@@ -71,14 +71,11 @@
       }
     },
     methods: {
-        back(){
+        exit(){
             this.$router.go(-1)
         },
-        exit(){
-            this.$router.go(-2)
-        },
         copyToClipboard() {
-         navigator.clipboard.writeText(this.boxContent).then(() => {
+         navigator.clipboard.writeText(this.hashtagContent).then(() => {
            this.showToast = true;
            setTimeout(() => this.showToast = false, 2000);
          }).catch(err => {
@@ -86,18 +83,6 @@
               alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
           });
         },
-        share() {
-        if (navigator.share) {
-            navigator.share({
-                url: this.imageUrl
-            })
-            .then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing', error),
-            alert('공유기능을 지원하지 않는 브라우저입니다.'));
-        } else {
-            console.log('Share not supported on this browser');
-        }   
-       },
         openReCaptureModal() {
           this.showModal = false;
           this.showReCaptureModal = true;
@@ -125,12 +110,34 @@
         a.download = "download.jpg";
         a.click();
     };
+
+    const back = () => {
+        window.parent.toggleBarVisibility()
+        window.parent.reCapture()
+        showVModal.value = false;
+    }
+
+    const share = () => {
+        if (navigator.share) {
+            navigator.share({
+                url: imageurl.value
+            })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error),
+            alert('공유기능을 지원하지 않는 브라우저입니다.'));
+        } else {
+            console.log('Share not supported on this browser');
+        }
+    }
+
       return {
         print,
         openModal,
         showVModal,
         imageurl,
         saveImage,
+        back,
+        share,
       }
     }
   }

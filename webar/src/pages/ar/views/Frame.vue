@@ -138,8 +138,8 @@
         exitModalVisible.value = true;
       }
 
-      window.capture = async function() {
-       printModal.value.openModal(await capture());
+      window.capture =  function() {
+       printModal.value.openModal( capture());
        window.parent.toggleBarVisibility();
       }
 
@@ -150,7 +150,7 @@
           containerRef.value.topValue = 40;
         }}
 
-      const capture = async () => {
+      const capture =  () => {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
     
@@ -171,7 +171,7 @@
       canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
 
       imageUrl.value = canvas.toDataURL("image/png");
-      console.log(imageUrl.value)
+      
       return imageUrl.value;
       
     };

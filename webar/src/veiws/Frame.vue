@@ -172,6 +172,11 @@ import {ref, computed, watch} from "vue";
       isBarVisible.value = !isBarVisible.value;
       };
 
+      window.reCapture = function() {
+        aspectRatio.value = 4
+        toggleAspectRatio();
+      };
+
 
       const flipCamera = () => {
         if (iframeRef.value) {
@@ -230,13 +235,13 @@ import {ref, computed, watch} from "vue";
         }
       };
 
-      const captureImage = async () => {
+      const captureImage =  () => {
         if(isCapturing.value || timerButtonVisible.value === 0){
                 if (iframeRef.value) {
-                   await iframeRef.value.contentWindow.capture();
+                    iframeRef.value.contentWindow.capture();
                 }
             aspectRatioValue.value = '1 / 2.2'
-            }
+          }
       };
 
     const frameToggleBar = () => {
