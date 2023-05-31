@@ -1,10 +1,11 @@
 <template>
-    <div class="main-content">
+    <vue-final-modal v-model="showVModal"   >
+        <div class="main-content">
       <button class="back-button" @click="back">다시찍기</button>
       <button class="exit-button" @click="exit">나가기</button>
       <h1>{{ title }}</h1>
       <p>{{ content }}</p>
-      <img :src="localImageUrl" class="image" alt="Image from URL" />
+      <img :src="imageurl" class="image" alt="Image from URL" />
       <p class="bold-underlined"><span >{{"필수 해시태그 : "}}</span>{{ hashtagContent }}</p>     
       <div class="buttons">
         <button @click="copyToClipboard">해시태그복사</button>
@@ -46,18 +47,21 @@
       </div>
     </div>
   </div>
-</template>
+    </vue-final-modal>
+  </template>
   
   <script>
-  import { useRouter } from 'vue-router'
+  import {  ref } from "vue";
+    import { useRouter } from "vue-router";
 
+  
   export default {
-    data() {
+    name: "EventCompleteModal",
+  data() {
       return {
         title: 'Page Title',
         content: 'Page content...',
         hashtagContent: '#양양서프비치 #AR포토',
-        localImageUrl: '',
         showToast: false,
         showModal: false,
         modalImageUrl: 'path/to/image.jpg',
@@ -66,25 +70,7 @@
         showSaveModal: false,
       }
     },
-    props: {
-    imageUrl: {
-      type: String,
-      required: true,
-    },
-    bannerImageUrl: {
-      type: String,
-    },
-  },
     methods: {
-        saveImage() {
-            const link = document.createElement("a");
-            link.href = this.localImageUrl;
-            link.download = 'capture.png';
-            document.body.appendChild(link);
-            link.click();
-            console.log(link)
-            document.body.removeChild(link);
-        },
         back(){
             this.$router.go(-1)
         },
@@ -103,7 +89,7 @@
         share() {
         if (navigator.share) {
             navigator.share({
-                url: this.$route.params.data,
+                url: this.imageUrl
             })
             .then(() => console.log('Successful share'))
             .catch((error) => console.log('Error sharing', error),
@@ -118,17 +104,33 @@
        },
 
     },
-    created() {
-    this.localImageUrl = this.$route.params.data
-    },
     setup() {
+      const showVModal = ref(false);
+      const imageurl = ref('');
+
       const router = useRouter()
       const printImageUrl = router.currentRoute.value.params.data
       const print = () => {
         router.push({ name: 'Photo Store Open Browser', params: { data:printImageUrl } });
       }
+
+      const openModal = (imageUrl) => {
+        imageurl.value = imageUrl;
+      showVModal.value = true;
+    };
+
+    const saveImage = () => {
+        const a = document.createElement("a");
+        a.href = imageurl.value;
+        a.download = "download.jpg";
+        a.click();
+    };
       return {
-        print
+        print,
+        openModal,
+        showVModal,
+        imageurl,
+        saveImage,
       }
     }
   }
@@ -137,13 +139,18 @@
   <style scoped>
 .main-content {
   text-align: center;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+    position: absolute;
+  background-color: #fff;
 }
 
-.main-content .image {
-  max-width: 100%;  
-  height: auto;   
-  object-fit: cover;
+.image {
+  max-width: 100%;
+  height: auto;
 }
+
 .buttons {
   display: flex;
   margin-top: 10px;

@@ -1,7 +1,8 @@
 <template>
   <div class="frame" :style="frameStyle">
-    <div v-if="isCapturing" class="countdown">{{ countdown }}</div>
-    <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
+    <div v-if="isCapturing" class="countdown">{{ countdown }}
+    </div>
+      <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
         <button v-if="!isCapturing" @click="toggleAspectRatio">
           <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >3:4</span>
           <span v-else-if="aspectRatio ===1" style="font-size: 30px; font-weight: bold;">1:1</span>
@@ -90,12 +91,10 @@
 
 <script>
 import {ref, computed, watch} from "vue";
-import { useRouter } from 'vue-router'
 
   export default {
     name: "Frame",
     setup() {
-      const router = useRouter();
       const iframeRef = ref(null);
       const isSecondFrameBarVisible = ref(false);
       const isSecondEffectBarVisible = ref(false);
@@ -233,13 +232,11 @@ import { useRouter } from 'vue-router'
 
       const captureImage = async () => {
         if(isCapturing.value || timerButtonVisible.value === 0){
-                let captureurl = '';
                 if (iframeRef.value) {
-                    captureurl = await iframeRef.value.contentWindow.capture();
+                   await iframeRef.value.contentWindow.capture();
                 }
-                router.push({ name: 'Print Open Browser', params: { data: captureurl } });
+            aspectRatioValue.value = '1 / 2.2'
             }
-      
       };
 
     const frameToggleBar = () => {

@@ -36,6 +36,7 @@
         />
       </template>
     </container>
+    <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
   </template>
   
   <script>
@@ -47,21 +48,25 @@
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
   import TutorialPopup from "@/components/common/TutorialPopup";
+  import PrintOpenBrowserModal from "../../../components/modal/PrintOpenBrowserModal.vue";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
   import useResultData from "@/composables/useResultData";
   import useLoading from "@/composables/useLoading";
   import useEventHandlers from "@/composables/useEventHandlers";
+
+
   
   export default {
     name: "Frame",
     components: {
-      Camera,
-      EventDragNDropObject,
-      Container,
-      TutorialPopup,
-    },
+    Camera,
+    EventDragNDropObject,
+    Container,
+    TutorialPopup,
+    PrintOpenBrowserModal
+},
     setup() {
       const router = useRouter();
       const store = useStore();
@@ -72,6 +77,8 @@
       const cameraRef = ref(null);
       const containerRef = ref(null);
       const exitModalVisible = ref(false);
+      const printModal = ref(null);
+      const imageUrl = ref(null);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       const browserChangeModalVisible = ref(isNaverBrowser);
@@ -132,7 +139,8 @@
       }
 
       window.capture = async function() {
-        return await capture();
+       printModal.value.openModal(await capture());
+       window.parent.toggleBarVisibility();
       }
 
       window.containTopValueToggle = function() {
@@ -162,9 +170,10 @@
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
 
-      const imageUrl = canvas.toDataURL("image/png");
+      imageUrl.value = canvas.toDataURL("image/png");
+      console.log(imageUrl.value)
+      return imageUrl.value;
       
-      return imageUrl;
     };
 
     const closeExitModal = () => {
@@ -179,8 +188,6 @@
       window.parent.toggleBarVisibility();
        containerRef.value.topValue = 40;
     };
-
-    
 
       onMounted(async () => {
         await getEventData();
@@ -223,6 +230,8 @@
         rquestOrientationPermission,
         allowOrientationPermission,
         rejectOrientationPermission,
+        printModal,
+        imageUrl
       }
     }
   }
