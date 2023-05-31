@@ -76,6 +76,12 @@
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       const browserChangeModalVisible = ref(isNaverBrowser);
 
+      const tutorialYn = computed(() => {
+      const istutorial = store.getters['eventData/loadingImgYn'];
+      return istutorial === 'Y';
+      });
+      console.log(tutorialYn.value);
+
       const changeBrowser = () => {
         window.open('https://www.google.com/chrome/');
         browserChangeModalVisible.value = false;

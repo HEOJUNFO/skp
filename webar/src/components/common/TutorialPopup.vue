@@ -1,5 +1,5 @@
 <template>
-    <div class="tutorial-popup"  @click="$emit('close')">
+    <div class="tutorial-popup"  @click="$emit('close')" >
       <div class="tutorial-inner">
       <p>반가워요!</p>
       <p>마음에 드는 <span class="highlight">사진프레임</span>과</p>
@@ -10,14 +10,20 @@
 </template>
   
   <script>
+
+
   export default {
     name: "TutorialPopup",
     methods: {
       close() {
         this.$emit('close');
       }
+    },
+    
+    
     }
-  }
+
+
   </script>
   
   <style scoped>

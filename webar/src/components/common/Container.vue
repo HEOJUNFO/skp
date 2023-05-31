@@ -6,7 +6,7 @@
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
-    <div v-if="isLoadingImg" class="loading loading2" >
+    <div v-if="loadingYn" class="loading loading2" >
       <img :src="loadingUrl" alt="로딩 이미지">
     </div>
   </template>
@@ -38,7 +38,7 @@ export default {
     return frameInfo ? frameInfo.sourceUri : '';
     });
 
-    const isLoadingImg = computed(() => {
+    const loadingYn = computed(() => {
       const isLoading = store.getters['eventData/loadingImgYn'];
       return isLoading === 'Y';
     });
@@ -109,18 +109,18 @@ export default {
     checkOrientation(setOrientation);
 
     watch(loadingState, () => {
-      console.log(isLoadingImg.value)
+     
       if(loadingState.value === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
       
-        }, isLoadingImg.value? 5000:0)
+        }, loadingYn.value? 5000:0)
       }
     })
 
     return {
       frameUrl,
-      isLoadingImg,
+      loadingYn,
       loadingUrl,
       disableClick,
       orientation,
