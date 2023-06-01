@@ -47,7 +47,7 @@
   import Container from "@/components/common/Container";
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
-  import TutorialPopup from "@/components/common/TutorialPopup";
+  import TutorialPopup from "@/components/modal/TutorialModal";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";

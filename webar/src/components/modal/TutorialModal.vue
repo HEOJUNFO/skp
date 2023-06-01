@@ -22,7 +22,7 @@
   
   <script>
   export default {
-    name: "TutorialPopup",
+    name: "TutorialModal",
     data() {
     return {
       tutorials: [

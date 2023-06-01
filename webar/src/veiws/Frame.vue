@@ -2,6 +2,16 @@
   <div class="frame" :style="frameStyle">
     <div v-if="isCapturing" class="countdown">{{ countdown }}
     </div>
+    <div v-if="exitModalVisible" class="modal">
+      <div class="modal-content2">
+        <p>AR포토를 종료하고 메인페이지로</p>
+        <p>이동합니다.</p>
+        <div class="button-container">
+          <button class="round-button" @click="exit">나가기</button>
+          <button class="round-button" @click="closeExitModal">취소</button>
+        </div>     
+      </div>
+    </div>
       <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
         <button v-if="!isCapturing" @click="toggleAspectRatio">
           <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >3:4</span>
@@ -91,18 +101,20 @@
 
 <script>
 import {ref, computed, watch} from "vue";
+import {useRouter} from "vue-router";
 
   export default {
     name: "Frame",
     setup() {
+      const router = useRouter();
       const iframeRef = ref(null);
       const isSecondFrameBarVisible = ref(false);
       const isSecondEffectBarVisible = ref(false);
       const isBarVisible = ref(false);
+      const exitModalVisible = ref(false);
       const aspectRatio = ref(0);
       const aspectRatioValue = ref('3 / 4');
       const selectedTab = ref(1);
-
       const longPressTimer = ref(null);
       const timerButtonVisible = ref(0);
       const isCapturing = ref(false);
@@ -185,10 +197,17 @@ import {ref, computed, watch} from "vue";
       };
 
       const openExitModal = () => {
-        if (iframeRef.value) {
-            iframeRef.value.contentWindow.openExitModal();
-        }
+        exitModalVisible.value = true;
       };
+
+      const closeExitModal = () => {
+      exitModalVisible.value = false;
+    };
+
+    const exit = () => {
+      router.back();
+    };
+
 
       const startLongPress = () => {
         longPressTimer.value = setTimeout(() => {
@@ -334,7 +353,9 @@ for (let tabId of effectTabIds) {
         , timerButtonVisible
         , countdown
         , aspectRatio
-     
+        , exitModalVisible
+        , closeExitModal
+        , exit
       }
     }
   }
@@ -438,5 +459,50 @@ for (let tabId of effectTabIds) {
   font-size: 3em;
   color: #fff;
   z-index: 2;
+}
+
+.modal {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content2 {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  background-color: #fff;
+  color : #000;
+}
+
+
+.round-button {
+  display: inline-block;
+  border-radius: 10px;
+  width: 30%;
+  height: 30px;
+  
+  border: 2px solid #000; 
+  background-color: #fff;
+  color: #000;
+  margin-top:  5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
 }
   </style>

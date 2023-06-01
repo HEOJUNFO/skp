@@ -1,27 +1,9 @@
 <template>
     <container ref="containerRef" >
-    <div v-if="isNaverBrowser" class="modal">
-      <div class="modal-content2">
-        <p>네이버 브라우저에서는 일부 기능이 작동하지 않을 수 있습니다.</p>
-        <p>다른 브라우저를 사용해주세요.</p>
-        <div class="button-container">
-          <button class="round-button" @click="closeBrowserChangeModal">브라우저 변경하기</button>
-        </div>     
-      </div>
-    </div>
-    <div v-if="exitModalVisible" class="modal">
-      <div class="modal-content2">
-        <p>AR포토를 종료하고 메인페이지로</p>
-        <p>이동합니다.</p>
-        <div class="button-container">
-          <button class="round-button" @click="exit">나가기</button>
-          <button class="round-button" @click="closeExitModal">취소</button>
-        </div>     
-      </div>
-    </div>
+      <tutorial-modal v-if="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-modal>
+      <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
-      <tutorial-popup v-if="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-popup>
-      <template v-if="loadedVideo">
+        <template v-if="loadedVideo">
         <event-drag-n-drop-object
             v-if="arObjectInfoList"
             :object-list="arObjectInfoList"
@@ -42,13 +24,13 @@
   <script>
   import {onMounted, ref,computed} from "vue";
   import {useStore} from "vuex";
-  import { useRouter } from 'vue-router'
-  
+
   import Container from "@/components/common/Container";
   import EventDragNDropObject from "@/components/common/EventDragNDropObject";
   import Camera from "@/components/common/Camera";
-  import TutorialPopup from "@/components/common/TutorialPopup";
+  import TutorialModal from "@/components/modal/TutorialModal";
   import PrintOpenBrowserModal from "../../../components/modal/PrintOpenBrowserModal.vue";
+  import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
   
   import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
@@ -56,19 +38,17 @@
   import useLoading from "@/composables/useLoading";
   import useEventHandlers from "@/composables/useEventHandlers";
 
-
-  
   export default {
     name: "Frame",
     components: {
     Camera,
     EventDragNDropObject,
     Container,
-    TutorialPopup,
-    PrintOpenBrowserModal
+    TutorialModal,
+    PrintOpenBrowserModal,
+    BrowserCheckModal
 },
     setup() {
-      const router = useRouter();
       const store = useStore();
       const {dispatch, getters} = store;
       const templateType = ref(null);
@@ -76,23 +56,16 @@
       const tutorialPopup = ref(false);
       const cameraRef = ref(null);
       const containerRef = ref(null);
-      const exitModalVisible = ref(false);
       const printModal = ref(null);
       const imageUrl = ref(null);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
-      const browserChangeModalVisible = ref(isNaverBrowser);
-
+      
       const tutorialYn = computed(() => {
       const istutorial = store.getters['eventData/loadingImgYn'];
       return istutorial === 'Y';
       });
       console.log(tutorialYn.value);
-
-      const changeBrowser = () => {
-        window.open('https://www.google.com/chrome/');
-        browserChangeModalVisible.value = false;
-      };
 
       const {
         getEventData
@@ -134,10 +107,6 @@
         cameraRef.value.flipCamera();
       }
 
-      window.openExitModal = function() {
-        exitModalVisible.value = true;
-      }
-
       window.capture =  function() {
        printModal.value.openModal( capture());
        window.parent.toggleBarVisibility();
@@ -176,14 +145,6 @@
       
     };
 
-    const closeExitModal = () => {
-      exitModalVisible.value = false;
-    };
-
-    const exit = () => {
-      router.back();
-    };
-
     const toggleBarVisibility = () => {
       window.parent.toggleBarVisibility();
        containerRef.value.topValue = 40;
@@ -219,12 +180,7 @@
         tutorialPopup,
         cameraRef,
         containerRef,
-        exitModalVisible,
-        closeExitModal,
-        exit,
         isNaverBrowser,
-        browserChangeModalVisible,
-        changeBrowser,
         capture,
         toggleBarVisibility,
         rquestOrientationPermission,
@@ -238,49 +194,4 @@
   </script>
   
   <style scoped>
-
-.modal {
-  position: fixed;
-  z-index: 9999;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content2 {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0);
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  background-color: #fff;
-  color : #000;
-}
-
-
-.round-button {
-  display: inline-block;
-  border-radius: 10px;
-  width: 30%;
-  height: 30px;
-  
-  border: 2px solid #000; 
-  background-color: #fff;
-  color: #000;
-  margin-top:  5%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  justify-content: center;
-}
   </style>
