@@ -58,8 +58,6 @@
   .tutorial-popup {
     z-index: 10000;
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -105,8 +103,8 @@
   transform: translateX(-50%);
   background-color: black;
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 14%;
+  height: 10%;
   border-radius: 50%;
   border: none;
   font-size: 30px;

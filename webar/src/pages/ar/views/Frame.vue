@@ -242,8 +242,6 @@
 .modal {
   position: fixed;
   z-index: 9999;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -269,14 +267,14 @@
   display: inline-block;
   border-radius: 10px;
   width: 30%;
-  height: 25px;
+  height: 30px;
   
   border: 2px solid #000; 
   background-color: #fff;
   color: #000;
-  margin-top:  10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-top:  5%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .button-container {
