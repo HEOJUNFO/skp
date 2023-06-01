@@ -13,10 +13,10 @@
       </div>
     </div>
       <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
-        <button v-if="!isCapturing && !isArFrameSetting">
-          <span  style="font-size: 30px; font-weight: bold;" >4:6</span>
+        <button v-if="!isCapturing && !isPhotoRatioSetting">
+          <span  style="color: rgba(0, 0, 0, 0)" >4:6</span>
         </button>
-        <button v-if="!isCapturing && isArFrameSetting" @click="toggleAspectRatio">
+        <button v-if="!isCapturing && isPhotoRatioSetting" @click="toggleAspectRatio">
           <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >4:6</span>
           <span v-else-if="aspectRatio ===1" style="font-size: 30px; font-weight: bold;">1:1</span>
           <span v-else-if="aspectRatio ===2" style="font-size: 30px; font-weight: bold;">9:16</span>
@@ -41,8 +41,8 @@
        <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
     <div v-show="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
-        <img src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
-        <p style="font-size: 17.5px; font-weight: bold;">프레임</p>
+        <img v-if="arFrameSettingYn === 'Y'" src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
+        <p style="font-size: 17.5px; font-weight: bold;" :style="frameButtonStyle">프레임</p>
       </button>
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
         <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px;" />
@@ -103,6 +103,7 @@
  </template>
 
 <script>
+
 import {ref, computed, watch} from "vue";
 import {useRouter} from "vue-router";
 
@@ -116,14 +117,16 @@ import {useRouter} from "vue-router";
       const isBarVisible = ref(false);
       const exitModalVisible = ref(false);
       const aspectRatio = ref(0);
-      const aspectRatioValue = ref('4 / 6');
       const selectedTab = ref(1);
       const longPressTimer = ref(null);
       const timerButtonVisible = ref(0);
       const isCapturing = ref(false);
-      const isArFrameSetting = ref(true);
       const countdown = ref(null);
       const countdownInterval = ref(null);
+      const isPhotoRatioSettingType = ref(null);
+      const aspectRatioValue = ref('4 / 6');
+      const isPhotoRatioSetting = ref(false);
+      const arFrameSettingYn = ref('Y');
 
       const frameTabs = ref([
       { id: 1, name: '축제1' },
@@ -139,9 +142,9 @@ import {useRouter} from "vue-router";
     ]);
 
     const effectTabs = ref([
-      { id: 1, name: '모델' },
-      { id: 2, name: '이펙트' },
-      { id: 3, name: '필터' },
+      { id: 1, name: '캐릭터' },
+      { id: 2, name: '필터' },
+      { id: 3, name: '스티커' },
     ]);
     
     const effectImages = ref([
@@ -158,7 +161,7 @@ import {useRouter} from "vue-router";
       const toggleAspectRatio = () => {
         aspectRatio.value = (aspectRatio.value + 1) % 5
         if(aspectRatio.value === 0){
-          aspectRatioValue.value = '4 / 6'
+          aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
         } else if(aspectRatio.value === 1){
           aspectRatioValue.value = '1 / 1'
         } else if(aspectRatio.value === 2){
@@ -181,12 +184,21 @@ import {useRouter} from "vue-router";
         backgroundColor: aspectRatio.value ===3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
         }));
 
+      const frameButtonStyle = computed(() => ({
+         color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
+        }));
+
        window.toggleBarVisibility = function() {
-      isBarVisible.value = !isBarVisible.value;
+        if (iframeRef.value) {
+          isPhotoRatioSettingType.value = iframeRef.value.contentWindow.photoRatioSettingType()
+          arFrameSettingYn.value = iframeRef.value.contentWindow.arFrameSettingYn()
+        }
+        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
+        isBarVisible.value = !isBarVisible.value;
       };
 
       window.reCapture = function() {
-        aspectRatioValue.value = '4 / 6';
+        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
       };
 
 
@@ -275,10 +287,6 @@ import {useRouter} from "vue-router";
     }
 
     const selectTab = (tabId) => {
-      if (iframeRef.value) {
-            const test = iframeRef.value.contentWindow.photoRatioSettingType();
-            console.log(test)
-        }
       selectedTab.value = tabId;
     
     }
@@ -339,6 +347,7 @@ for (let tabId of effectTabIds) {
         , isBarVisible
         , frameStyle
         , barStyle
+        ,frameButtonStyle
         , frameTabs
         , frameImages
         , effectTabs
@@ -359,7 +368,8 @@ for (let tabId of effectTabIds) {
         , exitModalVisible
         , closeExitModal
         , exit
-        , isArFrameSetting
+        , isPhotoRatioSetting
+        , arFrameSettingYn
       }
     }
   }

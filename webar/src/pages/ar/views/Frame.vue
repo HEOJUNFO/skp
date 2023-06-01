@@ -66,15 +66,6 @@
       return istutorial === 'Y';
       });
 
-      window.photoRatioSettingType = function() {
-        const photoRatioSettingType = computed(() => {
-          const isPhotoRatioSettingType = getters['eventData/photoRatioSettingType'];
-          return isPhotoRatioSettingType;
-        });
-   
-        return photoRatioSettingType.value;
-      }
-      
       const {
         getEventData
       } = useEventData({dispatch});
@@ -126,6 +117,24 @@
         } else {
           containerRef.value.topValue = 40;
         }}
+      
+        window.photoRatioSettingType = function() {
+        const photoRatioSettingType = computed(() => {
+          const isPhotoRatioSettingType = getters['eventData/photoRatioSettingType'];
+          return isPhotoRatioSettingType;
+        });
+   
+        return photoRatioSettingType.value;
+      }
+
+      window.arFrameSettingYn = function() {
+        const arFrameSettingYn = computed(() => {
+          const isArFrameSettingYn = getters['eventData/arFrameSettingYn'];
+          return isArFrameSettingYn;
+        });
+   
+        return arFrameSettingYn.value;
+      }
 
       const capture =  () => {
       // video canvas create

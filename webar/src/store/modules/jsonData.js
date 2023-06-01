@@ -746,8 +746,6 @@ export const jsonData = {
       eventLogicalType: "Frame", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
       arBgImage: "", // AR 백그라운드 이미지 URL
       arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
-      arSkinImageList: ["https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png"
-    ,"https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png","https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png"], // AR 스킨 이미지 URL
     
     loadingImgYn: "Y", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
@@ -755,7 +753,7 @@ export const jsonData = {
       photoLogicalInfo: [{
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y

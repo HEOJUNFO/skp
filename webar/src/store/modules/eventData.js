@@ -113,7 +113,12 @@ export const eventData = {
       return eventData?.photoLogicalInfo[0].tutorialYn ?? "N";
     },
     photoRatioSettingType({ eventData }) {
-      return eventData?.photoLogicalInfo[0].photoRatioSettingType ?? "1";
+      return eventData?.photoLogicalInfo[0].photoRatioSettingType ?? "BASIC";
+    },
+
+    arFrameSettingYn({ eventData }) {
+      if(Array.isArray(eventData?.photoLogicalInfo))
+      return eventData?.photoLogicalInfo[0].arFrameSettingYn ?? "N";
     },
 
     templateType(state) {

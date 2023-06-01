@@ -63,7 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(1, 1, 1, 0.6);
+    background-color: gray;
     color: #fff;
   }
 
@@ -108,7 +108,6 @@
   border-radius: 50%;
   border: none;
   font-size: 30px;
-  line-height: 30px;
   text-align: center;
   cursor: pointer;
 }

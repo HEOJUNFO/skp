@@ -1,8 +1,8 @@
 <template>
   <div class="event-wrapper" :class="{'disable-click' : disableClick }" >
     <slot></slot>
-    <div class="frame-top" :style="{'backgroundImage': `url(${frameUrl})`, 'top': `${topValue}px`}"></div>
-    <div class="frame-bottom" :style="{'backgroundImage': `url(${frameUrl})`}"></div>
+    <div v-if="arFrameSettingYn" class="frame-top" :style="{'backgroundImage': `url(${frameUrl})`, 'top': `${topValue}px`}"></div>
+    <div v-if="arFrameSettingYn" class="frame-bottom" :style="{'backgroundImage': `url(${frameUrl})`}"></div>
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
@@ -46,6 +46,11 @@ export default {
     const loadingUrl = computed(() => {
     const url = store.getters['eventData/loadingImgUrl'];
      return String(url);  
+    });
+
+    const arFrameSettingYn = computed(() => {
+      const isArFrameSetting = store.getters['eventData/arFrameSettingYn'];
+      return isArFrameSetting === 'Y';
     });
     
 
@@ -127,11 +132,11 @@ export default {
       loadingState,
       setClick,
       topValue,
+      arFrameSettingYn,
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
