@@ -110,8 +110,10 @@ export const eventData = {
       return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
     },
     tutorialYn({ eventData }) {
-      console.log(eventData?.photoLogicalInfo.tutorialYn)
-      return eventData?.photoLogicalInfo.tutorialYn ?? "N";
+      return eventData?.photoLogicalInfo[0].tutorialYn ?? "N";
+    },
+    photoRatioSettingType({ eventData }) {
+      return eventData?.photoLogicalInfo[0].photoRatioSettingType ?? "1";
     },
 
     templateType(state) {

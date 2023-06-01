@@ -753,8 +753,8 @@ export const jsonData = {
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
 
       photoLogicalInfo: [{
-        tutorialYn: "",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
-        photoRatioSettingType:"",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
+        tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
+        photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
         arFrameSettingYn: "",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "",                 //	탭메뉴 제목	String	

@@ -13,12 +13,15 @@
       </div>
     </div>
       <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
-        <button v-if="!isCapturing" @click="toggleAspectRatio">
-          <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >3:4</span>
+        <button v-if="!isCapturing && !isArFrameSetting">
+          <span  style="font-size: 30px; font-weight: bold;" >4:6</span>
+        </button>
+        <button v-if="!isCapturing && isArFrameSetting" @click="toggleAspectRatio">
+          <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >4:6</span>
           <span v-else-if="aspectRatio ===1" style="font-size: 30px; font-weight: bold;">1:1</span>
           <span v-else-if="aspectRatio ===2" style="font-size: 30px; font-weight: bold;">9:16</span>
           <span v-else-if="aspectRatio ===3" style="font-size: 30px; font-weight: bold;">FUll</span>
-          <span v-else-if="aspectRatio ===4" >
+          <span v-show="aspectRatio ===4" >
             <img src="../assets/icon/print-button.png" alt="전환" style="width: 30px; height: 30px;"   />
           </span>
         </button>
@@ -113,11 +116,12 @@ import {useRouter} from "vue-router";
       const isBarVisible = ref(false);
       const exitModalVisible = ref(false);
       const aspectRatio = ref(0);
-      const aspectRatioValue = ref('3 / 4');
+      const aspectRatioValue = ref('4 / 6');
       const selectedTab = ref(1);
       const longPressTimer = ref(null);
       const timerButtonVisible = ref(0);
       const isCapturing = ref(false);
+      const isArFrameSetting = ref(true);
       const countdown = ref(null);
       const countdownInterval = ref(null);
 
@@ -154,7 +158,7 @@ import {useRouter} from "vue-router";
       const toggleAspectRatio = () => {
         aspectRatio.value = (aspectRatio.value + 1) % 5
         if(aspectRatio.value === 0){
-          aspectRatioValue.value = '3 / 4'
+          aspectRatioValue.value = '4 / 6'
         } else if(aspectRatio.value === 1){
           aspectRatioValue.value = '1 / 1'
         } else if(aspectRatio.value === 2){
@@ -166,11 +170,8 @@ import {useRouter} from "vue-router";
         }
         } else if(aspectRatio.value === 4){
           aspectRatioValue.value = '814 / 1218'
-          if (iframeRef.value) {
-            iframeRef.value.contentWindow.containTopValueToggle();
         }
-        }
-        };
+      };
 
       const frameStyle = computed(() => ({
       aspectRatio: aspectRatioValue.value,
@@ -185,8 +186,7 @@ import {useRouter} from "vue-router";
       };
 
       window.reCapture = function() {
-        aspectRatio.value = 4
-        toggleAspectRatio();
+        aspectRatioValue.value = '4 / 6';
       };
 
 
@@ -267,7 +267,6 @@ import {useRouter} from "vue-router";
       isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
       if (iframeRef.value) {
           frameImages.value = iframeRef.value.contentWindow.createFrameImages();
-          console.log(frameImages.value)
         }
        
     }
@@ -276,6 +275,10 @@ import {useRouter} from "vue-router";
     }
 
     const selectTab = (tabId) => {
+      if (iframeRef.value) {
+            const test = iframeRef.value.contentWindow.photoRatioSettingType();
+            console.log(test)
+        }
       selectedTab.value = tabId;
     
     }
@@ -356,6 +359,7 @@ for (let tabId of effectTabIds) {
         , exitModalVisible
         , closeExitModal
         , exit
+        , isArFrameSetting
       }
     }
   }
@@ -384,9 +388,7 @@ for (let tabId of effectTabIds) {
   align-items: center;
   color: #fff;
 }
-.top-bar {
-  padding: 0px;
-}
+
 .bottom-bar-1 {
   top: 100%;
   padding-top: 1%;

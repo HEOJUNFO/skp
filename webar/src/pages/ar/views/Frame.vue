@@ -62,11 +62,19 @@
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       
       const tutorialYn = computed(() => {
-      const istutorial = store.getters['eventData/loadingImgYn'];
+      const istutorial = getters['eventData/tutorialYn'];
       return istutorial === 'Y';
       });
-      console.log(tutorialYn.value);
 
+      window.photoRatioSettingType = function() {
+        const photoRatioSettingType = computed(() => {
+          const isPhotoRatioSettingType = getters['eventData/photoRatioSettingType'];
+          return isPhotoRatioSettingType;
+        });
+   
+        return photoRatioSettingType.value;
+      }
+      
       const {
         getEventData
       } = useEventData({dispatch});
@@ -159,7 +167,13 @@
       
         setTimeout(() => {
           completeLoading()
+          
+          if(tutorialYn.value){
           tutorialPopup.value = true;
+          }
+          else {
+            toggleBarVisibility();
+          }
         }, 5000)
      
       });
