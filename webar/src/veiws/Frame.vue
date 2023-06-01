@@ -25,7 +25,7 @@
           <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px;"   />
         </button>
       </div>
-    <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
+       <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
     <div v-show="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
         <img src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
@@ -207,20 +207,20 @@ import {ref, computed, watch} from "vue";
         }
       }
 
-      const capture = async () => {
+      const capture =  () => {
         if (timerButtonVisible.value === 0) {
         // No timer, just capture immediately
-        await captureImage();
+      captureImage();
       } else {
         isCapturing.value = true;
         countdown.value = [ 0, 0,3, 5, 7][timerButtonVisible.value];
         if (iframeRef.value) {
             iframeRef.value.contentWindow.containTopValueToggle();
         }
-        countdownInterval.value = setInterval(async() => {
+        countdownInterval.value = setInterval(() => {
             countdown.value -= 1;
             if (countdown.value <= 0) {
-              await captureImage();
+             captureImage();
               stopCapture();
         }
       }, 1000);
@@ -343,8 +343,6 @@ for (let tabId of effectTabIds) {
   <style scoped>
 .frame {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: auto;
   background: #f9f9f9;
@@ -368,11 +366,16 @@ for (let tabId of effectTabIds) {
 .top-bar {
   padding: 0px;
 }
-.bottom-bar-1, .bottom-bar-2 {
-  bottom: -70px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+.bottom-bar-1 {
+  top: 100%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   
+}
+.bottom-bar-2 {
+  top: 73%;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 .bottom-bar-2{
@@ -384,15 +387,15 @@ for (let tabId of effectTabIds) {
   display: flex;
   justify-content: center; 
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 2%;
 }
   
 .image-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 1%;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 4%;
 }
 
 .image-view {
@@ -420,7 +423,7 @@ for (let tabId of effectTabIds) {
 }
 
 .tab {
-    margin: 0 35px;
+    margin: 0 10%;
 }
 
 .image-view.selected {
