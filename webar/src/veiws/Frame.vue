@@ -320,20 +320,11 @@ const frameButtonStyle = computed(() => ({
       color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
     }));
 
-const frameTabIds = frameTabs.value.map(tab => tab.id);
 
-for (let tabId of frameTabIds) {
-    const selectedFrameImage = computed(() => 
-        frameImages.value.find(image => tabId && image.select === true)
-    );
-    watch(selectedFrameImage, (newImage, oldImage) => {
-
-        if (newImage !== oldImage && newImage !== null) {
-           newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
-            iframeRef.value.contentWindow.selectFrame(newImage.id);
-        }
-    });
-}
+watch(frameImages, () => {
+    let selectedItem = frameImages.value.find(image => image.select === true);
+    iframeRef.value.contentWindow.selectFrame(selectedItem.id);
+}, {deep: true});
 
 watch(effectImages, () => {
     let selectedItem = effectImages.value.find(image => image.select === true);
