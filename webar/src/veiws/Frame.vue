@@ -71,8 +71,13 @@
         </div>
       </div>
       <div class="button-container">
-        <button @click="frameToggleBar">나가기</button>
-        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+        <button @click="frameToggleBar">
+          <img src="../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;"   />
+        </button>
+        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
+          <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+        </button>
+        <button style="color: rgba(0, 0, 0, 0)" > 더미</button>
         <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
       </div>
     </div>
@@ -94,8 +99,13 @@
         </div>
       </div>
       <div class="button-container">
-        <button @click="effectToggleBar">나가기</button>
-        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">촬영</button>
+        <button @click="effectToggleBar">
+          <img src="../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;"   />
+        </button>
+        <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
+          <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+        </button>
+        <button style="color: rgba(0, 0, 0, 0)" > 더미</button>
         <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
       </div>
     </div>
@@ -442,7 +452,7 @@ const frameButtonStyle = computed(() => ({
 }
 
 .image-container::-webkit-scrollbar {
-    height: 1px;
+    height: 1%;
 }
 
 .image-view {
@@ -529,8 +539,7 @@ const frameButtonStyle = computed(() => ({
 
 .button-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
 }
 </style>

@@ -1,20 +1,23 @@
 <template>
     <vue-final-modal v-model="showVModal"   >
-        <div class="main-content">
-      <button class="back-button" @click="back">다시찍기</button>
-      <button class="exit-button" @click="exit">나가기</button>
-      <h1>{{ title }}</h1>
-      <p>{{ content }}</p>
+    <div class="main-content">
       <img :src="imageurl" class="image" alt="Image from URL" />
-      <p class="bold-underlined"><span >{{"필수 해시태그 : "}}</span>{{ hashtagContent }}</p>     
+      <button class="box-button"  @click="print">사진 출력하기</button>
       <div class="buttons">
-        <button @click="copyToClipboard">해시태그복사</button>
-        <div class="toast" v-show="showToast">해시태그가 클립보드에 복사되었습니다.</div>     
+        <button @click="back">뒤로</button>
         <button @click="share">공유</button>
         <button @click="saveImage(), showSaveModal =true">저장</button>
       </div>
+      <div class="box">
+        <h2>필수해시태그</h2>
+        <p v-html="formattedBoxContent"></p>
+       
+        <button class="copy-button" @click="copyToClipboard" >해시태그 복사하기</button>
+        <transition name="fade">
+          <div v-show="isCopyCilp" class="copy-alert" >해시태그가 클립보드에 복사되었습니다.</div>
+        </transition>      
+      </div> 
       <button class="box-button" @click="showModal = true">경품 추첨하기</button>
-      <button class="box-button"  @click="print">사진 출력하기</button>
       <img :src="bannerImageUrl" alt="Banner Image" />
     <div v-if="showModal" class="modal">
       <div class="modal-content">
@@ -62,7 +65,7 @@
         title: 'Page Title',
         content: 'Page content...',
         hashtagContent: '#양양서프비치 #AR포토',
-        showToast: false,
+        isCopyCilp: false,
         showModal: false,
         modalImageUrl: 'path/to/image.jpg',
         modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
@@ -76,8 +79,9 @@
         },
         copyToClipboard() {
          navigator.clipboard.writeText(this.hashtagContent).then(() => {
-           this.showToast = true;
-           setTimeout(() => this.showToast = false, 2000);
+           this.isCopyCilp = true;
+          
+           setTimeout(() => this.isCopyCilp = false, 2000);
          }).catch(err => {
               console.error('Could not copy text: ', err);
               alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
@@ -89,6 +93,21 @@
        },
 
     },
+    computed: {
+    formattedBoxContent() {
+      const hashtags = this.hashtagContent.split(' ');
+      let lineLength = 0;
+      return hashtags.map((hashtag, index) => {
+        lineLength += hashtag.length;
+        if (lineLength > 25 && index !== 0) {
+          lineLength = hashtag.length;
+          return `<br/><span class="hashtag">${hashtag}</span>`;
+        } else {
+          return `<span class="hashtag">${hashtag}</span>`;
+        }
+      }).join(' '); 
+    },
+  },
     setup() {
       const showVModal = ref(false);
       const imageurl = ref('');
@@ -154,15 +173,14 @@
 }
 
 .image {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
 }
 
 .buttons {
   display: flex;
-  margin-top: 10px;
   justify-content: space-around;
-  border: 1px solid #000;
+  width: 100%;
 }
 
 .box-button {
@@ -173,24 +191,6 @@
   height: 40px;
   border: 1px solid #000; 
   border-radius: 10px;
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 50px;
-  transform: translate(-50%, 0);
-  background-color: #000;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 20px;
-  opacity: 0.9;
-  animation: fadeOut 3s forwards;
-}
-
-@keyframes fadeOut {
-  from {opacity: 0.9;}
-  to {opacity: 0;}
 }
 
 .modal {
@@ -255,25 +255,50 @@
   background-color: #fff;
   color: #000;
 }
-.bold-underlined {
-  font-weight: bold;
-  text-decoration: underline;
-  margin-top: 5px;
-}
-.back-button {
-  position: absolute;
-  top: 5px;
-  left: 20px;
-}
-.exit-button {
-  position: absolute;
-  top: 5px;
-  right: 20px;
-}
 
 .button-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+
+.copy-button {
+    border: 2px solid #000;  
+  }
+  
+.box {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #000; 
+}
+  
+
+.hashtag {
+  display: inline-block; 
+}
+.box p {
+  word-wrap: break-word; 
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.copy-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 100;
+}
+
 </style>

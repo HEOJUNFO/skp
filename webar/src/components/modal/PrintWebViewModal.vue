@@ -12,7 +12,8 @@
         <h2>{{ boxTitle }}</h2>
         <p v-html="formattedBoxContent"></p>
         <button class="copy-button" @click="copyToClipboard" >{{ boxButton }}</button>
-        <div class="toast" v-show="showToast">해시태그가 클립보드에 복사되었습니다.</div>      </div>
+        <div class="toast" v-show="showToast">해시태그가 클립보드에 복사되었습니다.</div>      
+      </div>
       <button class="box-button" @click="showModal = true">경품 추첨하기</button>
       <button class="box-button">사진 출력하기</button>
       <img :src="bannerImageUrl" alt="Banner Image" />
@@ -126,6 +127,13 @@
   justify-content: space-around;
   border: 1px solid #000;
 }
+.box-button {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #000; 
+}
+
 
 .copy-button {
     border: 2px solid #000;  
@@ -139,12 +147,6 @@
   border: 1px solid #000; 
 }
   
-.box-button {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-  border: 1px solid #000; 
-}
 
 .hashtag {
   display: inline-block; 
