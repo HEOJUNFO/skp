@@ -110,15 +110,27 @@ export const eventData = {
       return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
     },
     tutorialYn({ eventData }) {
+      if(Array.isArray(eventData?.photoLogicalInfo))
       return eventData?.photoLogicalInfo[0].tutorialYn ?? "N";
     },
     photoRatioSettingType({ eventData }) {
-      return eventData?.photoLogicalInfo[0].photoRatioSettingType ?? "BASIC";
+      return getPhotoLogicalInfoProperty(eventData, 'photoRatioSettingType', 'BASIC');
     },
-
+    
     arFrameSettingYn({ eventData }) {
-      if(Array.isArray(eventData?.photoLogicalInfo))
-      return eventData?.photoLogicalInfo[0].arFrameSettingYn ?? "N";
+      return getPhotoLogicalInfoProperty(eventData, 'arFrameSettingYn', 'N');
+    },
+    
+    arFilterSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'arFilterSettingYn', 'N');
+    },
+    
+    arCharacterSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'arCharacterSettingYn', 'N');
+    },
+    
+    arStickerSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'arStickerSettingYn', 'N');
     },
 
     templateType(state) {
@@ -386,3 +398,9 @@ function getScanningBridgeData(item) {
     },
   ];
 }
+
+function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {
+  if (Array.isArray(eventData?.photoLogicalInfo))
+    return eventData?.photoLogicalInfo[0][propertyName] ?? defaultValue;
+}
+

@@ -126,6 +126,10 @@ import {useRouter} from "vue-router";
       const isPhotoRatioSettingType = ref(null);
       const aspectRatioValue = ref('4 / 6');
       const arFrameSettingYn = ref('Y');
+      const arFilterSettingYn = ref('Y');
+      const arCharacterSettingYn = ref('Y');
+      const arStickerSettingYn = ref('Y');
+      
 
       const frameTabs = ref([
       { id: 1, name: '축제1' },
@@ -140,11 +144,22 @@ import {useRouter} from "vue-router";
       { id: 4, tabId:1, src: '', name: '', select:false },
     ]);
 
-    const effectTabs = ref([
-      { id: 1, name: '캐릭터' },
-      { id: 2, name: '필터' },
-      { id: 3, name: '스티커' },
-    ]);
+    const effectTabs = ref([]);
+
+    const getEffectTabs = () => {
+      const tabs = [];
+      console.log('getEffectTabs')
+      if (arCharacterSettingYn.value === 'Y') {
+        tabs.push({ id: 1, name: '캐릭터' });
+      }
+      if (arFilterSettingYn.value === 'Y') {
+        tabs.push({ id: 2, name: '필터' });
+      }
+      if (arStickerSettingYn.value === 'Y') {
+        tabs.push({ id: 3, name: '스티커' });
+      }
+      return tabs;
+    }
     
     const effectImages = ref([
       { id: 1, tabId:1, src: '/path/to/image1', name: 'model 1',select: true },
@@ -156,8 +171,23 @@ import {useRouter} from "vue-router";
       { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
       { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
     ]);
+    window.toggleBarVisibility = function() {
+        if (iframeRef.value) {
+          isPhotoRatioSettingType.value = iframeRef.value.contentWindow.photoRatioSettingType()
+          arFrameSettingYn.value = iframeRef.value.contentWindow.arFrameSettingYn()
+          arFilterSettingYn.value = iframeRef.value.contentWindow.arFilterSettingYn()
+          arCharacterSettingYn.value = iframeRef.value.contentWindow.arCharacterSettingYn()
+          arStickerSettingYn.value = iframeRef.value.contentWindow.arStickerSettingYn()
+        }
+        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
+        isBarVisible.value = !isBarVisible.value;
+      };
 
-      const toggleAspectRatio = () => {
+    window.reCapture = function() {
+        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
+    };
+
+    const toggleAspectRatio = () => {
         aspectRatio.value = (aspectRatio.value + 1) % 5
         if(aspectRatio.value === 0){
           aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
@@ -174,32 +204,6 @@ import {useRouter} from "vue-router";
           aspectRatioValue.value = '814 / 1218'
         }
       };
-
-      const frameStyle = computed(() => ({
-      aspectRatio: aspectRatioValue.value,
-      }));
-
-      const barStyle = computed(() => ({
-        backgroundColor: aspectRatio.value ===3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-        }));
-
-      const frameButtonStyle = computed(() => ({
-         color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
-        }));
-
-       window.toggleBarVisibility = function() {
-        if (iframeRef.value) {
-          isPhotoRatioSettingType.value = iframeRef.value.contentWindow.photoRatioSettingType()
-          arFrameSettingYn.value = iframeRef.value.contentWindow.arFrameSettingYn()
-        }
-        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
-        isBarVisible.value = !isBarVisible.value;
-      };
-
-      window.reCapture = function() {
-        aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
-      };
-
 
       const flipCamera = () => {
         if (iframeRef.value) {
@@ -283,6 +287,8 @@ import {useRouter} from "vue-router";
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
+      effectTabs.value = getEffectTabs();
+
     }
 
     const selectTab = (tabId) => {
@@ -332,6 +338,18 @@ for (let tabId of effectTabIds) {
     });
 }
 
+const frameStyle = computed(() => ({
+      aspectRatio: aspectRatioValue.value,
+    }));
+
+const barStyle = computed(() => ({
+      backgroundColor: aspectRatio.value ===3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+    }));
+
+const frameButtonStyle = computed(() => ({
+      color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
+    }));
+
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
         , iframeRef
@@ -368,6 +386,9 @@ for (let tabId of effectTabIds) {
         , closeExitModal
         , exit
         , arFrameSettingYn
+        , arFilterSettingYn
+        , arCharacterSettingYn
+        , arStickerSettingYn
       }
     }
   }

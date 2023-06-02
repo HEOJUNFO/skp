@@ -103,41 +103,7 @@
       const loadVideo = () => {
         loadedVideo.value = true;
       }
-
-      window.flipCamera = function() {
-        cameraRef.value.flipCamera();
-      }
-
-      window.capture =  function() {
-       printModal.value.openModal( capture());
-       window.parent.toggleBarVisibility();
-      }
-
-      window.containTopValueToggle = function() {
-        if(containerRef.value.topValue === 40) {
-          containerRef.value.topValue = 0;
-        } else {
-          containerRef.value.topValue = 40;
-        }}
-      
-        window.photoRatioSettingType = function() {
-        const photoRatioSettingType = computed(() => {
-          const isPhotoRatioSettingType = getters['eventData/photoRatioSettingType'];
-          return isPhotoRatioSettingType;
-        });
-   
-        return photoRatioSettingType.value;
-      }
-
-      window.arFrameSettingYn = function() {
-        const arFrameSettingYn = computed(() => {
-          const isArFrameSettingYn = getters['eventData/arFrameSettingYn'];
-          return isArFrameSettingYn;
-        });
-   
-        return arFrameSettingYn.value;
-      }
-
+ 
       const capture =  () => {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
@@ -168,6 +134,38 @@
       window.parent.toggleBarVisibility();
        containerRef.value.topValue = 40;
     };
+
+    const createGetterFunction = (getterPath) => {
+      return function() {
+        const computedValue = computed(() => {
+        const isValue = getters[getterPath];
+          return isValue;
+        });
+        return computedValue.value;
+      }
+    }
+
+    window.photoRatioSettingType = createGetterFunction('eventData/photoRatioSettingType');
+    window.arFrameSettingYn = createGetterFunction('eventData/arFrameSettingYn');
+    window.arFilterSettingYn = createGetterFunction('eventData/arFilterSettingYn');
+    window.arCharacterSettingYn = createGetterFunction('eventData/arCharacterSettingYn');
+    window.arStickerSettingYn = createGetterFunction('eventData/arStickerSettingYn');
+
+    window.flipCamera = function() {
+        cameraRef.value.flipCamera();
+      }
+
+    window.capture =  function() {
+      printModal.value.openModal( capture());
+       window.parent.toggleBarVisibility();
+      }
+
+    window.containTopValueToggle = function() {
+      if(containerRef.value.topValue === 40) {
+        containerRef.value.topValue = 0;
+      } else {
+        containerRef.value.topValue = 40;
+    }}
 
       onMounted(async () => {
         await getEventData();
