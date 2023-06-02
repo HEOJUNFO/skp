@@ -140,8 +140,5 @@ export default {
 
 <style scoped>
 
-.event-wrapper {
-  overflow-x: hidden;
-}
 
 </style>

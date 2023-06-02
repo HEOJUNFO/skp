@@ -1,11 +1,17 @@
 /**
  * 재생중인 모든 스트림 정지
+ * @param videoEl
  * @param stream
  */
-function stopAllStream(stream) {
-  stream.getTracks().forEach(track => {
-    track.stop();
-  });
+function stopAllStream(videoEl, stream) {
+  if (stream) {
+    stream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+  if (videoEl) {
+    videoEl.srcObject = null;
+  }
 }
 
 /**
@@ -56,6 +62,7 @@ function isSupportUserMedia() {
  * @returns {Promise<void>}
  */
 export async function getUserMedia({videoEl}) {
+  
   // 비디오 엘리먼트 여부
   if(!videoEl || !(videoEl instanceof HTMLVideoElement)) {
     throw new Error('videoEl must be required');
@@ -89,9 +96,10 @@ export async function getUserMedia({videoEl}) {
 
       // NotReadableError(재생에러)인 경우에는 후방카메라 목록을 받은 후 한 번씩 재생하며 deviceId로 카메라 체크
       // 실행 중이던 stream중지
-      if (stream) {
-        stopAllStream(stream)
-      }
+     
+        stopAllStream(videoEl, stream);
+
+    
 
       // 카메라 마이크 리스트
       const devices = await navigator.mediaDevices.enumerateDevices();

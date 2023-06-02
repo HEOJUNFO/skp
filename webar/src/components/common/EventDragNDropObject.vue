@@ -1,6 +1,5 @@
 <template>
   <a-scene
-      embedded
       gesture-detector
       mindar-face
       renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
