@@ -63,11 +63,11 @@
       </div>
       <div class="image-container">
         <div class="image-view" 
-        v-for="image in getImagesForSelectedTab(frameImages)" 
-        :key="image.id"
-        :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
-        <img :src="image.src" @click="selectImage(frameImages,image.id)" class="frame-image"/>
-        <span>{{ image.name }}</span>
+          v-for="image in getImagesForSelectedTab(frameImages)" 
+          :key="image.id">  
+          <img :src="image.src" @click="selectImage(frameImages,image.id)" class="frame-image"/>
+          <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택" style="width: 40px; height: 40px; position: absolute; top: 25%" />
+          <span>{{ image.name }}</span>
         </div>
       </div>
       <div class="button-container">
@@ -456,6 +456,7 @@ const frameButtonStyle = computed(() => ({
 }
 
 .image-view {
+  position: relative;
   flex: 0 0 auto;
   width: 24%;
   display: flex;
@@ -465,9 +466,9 @@ const frameButtonStyle = computed(() => ({
 }
 
 .image-view > span {
-  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-  overflow: hidden; /* 긴 텍스트가 상자를 넘어가지 않도록 함 */
-  max-width: 100%; /* 상자의 최대 너비에 맞춤 */
+  white-space: nowrap; 
+  overflow: hidden; 
+  max-width: 100%; 
   font-size: 0.9.5rem;
 }
 
