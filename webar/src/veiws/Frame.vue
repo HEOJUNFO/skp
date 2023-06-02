@@ -130,21 +130,24 @@ import {useRouter} from "vue-router";
       const arCharacterSettingYn = ref('Y');
       const arStickerSettingYn = ref('Y');
       
-
       const frameTabs = ref([
-      { id: 1, name: '축제1' },
-      { id: 2, name: '축제2' },
-      { id: 3, name: '축제3' },
+      { id: 1, name: '배경' },
     ]);
     
-    const frameImages = ref([
-      { id: 1, tabId:1, src: '', name: '',select: true },
-      { id: 2, tabId:1, src: '', name: '' ,select: false},
-      { id: 3, tabId:1, src: '', name: '',select: false },
-      { id: 4, tabId:1, src: '', name: '', select:false },
-    ]);
+    const frameImages = ref([]);
 
     const effectTabs = ref([]);
+
+    const effectImages = ref([
+      { id: 1, tabId:1, src: '/path/to/image1', name: 'model 1',select: true },
+      { id: 2, tabId:1, src: '/path/to/image2', name: 'model 2' ,select: false},
+      { id: 3, tabId:1, src: '/path/to/image3', name: 'model 3',select: false },
+      { id: 4, tabId:1, src: '/path/to/image4', name: 'model 4', select:false },
+      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: true },
+      { id: 6, tabId:2, src: '/path/to/model2', name: 'effect 2' ,select: false},
+      { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
+      { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
+    ]);
 
     const getEffectTabs = () => {
       const tabs = [];
@@ -161,16 +164,7 @@ import {useRouter} from "vue-router";
       return tabs;
     }
     
-    const effectImages = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'model 1',select: true },
-      { id: 2, tabId:1, src: '/path/to/image2', name: 'model 2' ,select: false},
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'model 3',select: false },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'model 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: true },
-      { id: 6, tabId:2, src: '/path/to/model2', name: 'effect 2' ,select: false},
-      { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
-      { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
-    ]);
+   
     window.toggleBarVisibility = function() {
         if (iframeRef.value) {
           isPhotoRatioSettingType.value = iframeRef.value.contentWindow.photoRatioSettingType()
@@ -283,7 +277,6 @@ import {useRouter} from "vue-router";
       if (iframeRef.value) {
           frameImages.value = iframeRef.value.contentWindow.createFrameImages();
         }
-       
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
@@ -293,11 +286,9 @@ import {useRouter} from "vue-router";
 
     const selectTab = (tabId) => {
       selectedTab.value = tabId;
-    
     }
 
     const getImagesForSelectedTab = (images) => {
-
   return images.filter(image => image.tabId === selectedTab.value);
 }
 
@@ -317,7 +308,7 @@ for (let tabId of frameTabIds) {
     );
     watch(selectedFrameImage, (newImage, oldImage) => {
         if (newImage !== oldImage && newImage !== null) {
-           newImage.id = (newImage.tabId - 1) * 4 + (newImage.id % 4 === 0 ? 4 : newImage.id % 4);
+           newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
             iframeRef.value.contentWindow.selectFrame(newImage.id);
         }
     });
@@ -448,7 +439,10 @@ const frameButtonStyle = computed(() => ({
   width: 100%;
   gap: 1%;
   margin-bottom: 4%;
-  padding-bottom: 20px;
+}
+
+.image-container::-webkit-scrollbar {
+    height: 1px;
 }
 
 .image-view {

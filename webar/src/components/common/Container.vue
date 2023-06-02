@@ -61,7 +61,6 @@ export default {
     }
 
     const changeSelectFrame = (value) => {
-      console.log(orientation.value)
       selectFrame.value = value;
     }
 
