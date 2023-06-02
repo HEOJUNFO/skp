@@ -180,6 +180,7 @@ import {useRouter} from "vue-router";
           arFilterSettingYn.value = iframeRef.value.contentWindow.arFilterSettingYn()
           arCharacterSettingYn.value = iframeRef.value.contentWindow.arCharacterSettingYn()
           arStickerSettingYn.value = iframeRef.value.contentWindow.arStickerSettingYn()
+          frameImages.value = iframeRef.value.contentWindow.createFrameImages();
         }
         aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
         isBarVisible.value = !isBarVisible.value;
@@ -282,9 +283,6 @@ import {useRouter} from "vue-router";
 
     const frameToggleBar = () => {
       isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
-      if (iframeRef.value) {
-          frameImages.value = iframeRef.value.contentWindow.createFrameImages();
-        }
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
