@@ -161,7 +161,6 @@ import {useRouter} from "vue-router";
 
     const getEffectTabs = () => {
       const tabs = [];
-      console.log('getEffectTabs')
       if (arCharacterSettingYn.value === 'Y') {
         tabs.push({ id: 1, name: '캐릭터' });
       }
@@ -173,7 +172,6 @@ import {useRouter} from "vue-router";
       }
       return tabs;
     }
-    
    
     window.toggleBarVisibility = function() {
         if (iframeRef.value) {
@@ -333,7 +331,7 @@ for (let tabId of effectTabIds) {
 
     watch(selectedEffectImage, (newImage, oldImage) => {
         if (newImage !== oldImage && newImage !== null) {
-          newImage.id = newImage.id % 4 === 0 ? 4 : newImage.id % 4
+          newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
             iframeRef.value.contentWindow.selectModel(newImage.id);
         }
     });
