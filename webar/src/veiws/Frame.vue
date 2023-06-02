@@ -13,10 +13,10 @@
       </div>
     </div>
       <div class="top-bar" :style="barStyle" v-show="isBarVisible" >
-        <button v-if="!isCapturing && !isPhotoRatioSetting">
+        <button v-if="!isCapturing && arFrameSettingYn === 'Y'">
           <span  style="color: rgba(0, 0, 0, 0)" >4:6</span>
         </button>
-        <button v-if="!isCapturing && isPhotoRatioSetting" @click="toggleAspectRatio">
+        <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio">
           <span v-if="aspectRatio ===0" style="font-size: 30px; font-weight: bold;" >4:6</span>
           <span v-else-if="aspectRatio ===1" style="font-size: 30px; font-weight: bold;">1:1</span>
           <span v-else-if="aspectRatio ===2" style="font-size: 30px; font-weight: bold;">9:16</span>
@@ -125,7 +125,6 @@ import {useRouter} from "vue-router";
       const countdownInterval = ref(null);
       const isPhotoRatioSettingType = ref(null);
       const aspectRatioValue = ref('4 / 6');
-      const isPhotoRatioSetting = ref(false);
       const arFrameSettingYn = ref('Y');
 
       const frameTabs = ref([
@@ -368,7 +367,6 @@ for (let tabId of effectTabIds) {
         , exitModalVisible
         , closeExitModal
         , exit
-        , isPhotoRatioSetting
         , arFrameSettingYn
       }
     }

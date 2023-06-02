@@ -1,7 +1,7 @@
 <template>
     <container ref="containerRef" >
       <tutorial-modal v-if="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-modal>
-      <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
+      <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
         <template v-if="loadedVideo">
         <event-drag-n-drop-object
@@ -60,6 +60,8 @@
       const imageUrl = ref(null);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
+      const isWebView = computed(() => navigator.userAgent.includes('WebView'));
+     
       
       const tutorialYn = computed(() => {
       const istutorial = getters['eventData/tutorialYn'];
@@ -210,7 +212,8 @@
         allowOrientationPermission,
         rejectOrientationPermission,
         printModal,
-        imageUrl
+        imageUrl,
+        isWebView
       }
     }
   }
