@@ -15,7 +15,9 @@
 
         <button @click="next">다음</button>
       </div>
-      <button class="close-button" @click="close">X</button>
+      <button class="close-button" @click="close">
+        <img src="../../assets/icon/round-close-button.png" alt="내리기" style="width: 40px; height: 40px;"   />
+      </button>
       </div>
     </div>
 </template>
@@ -95,20 +97,18 @@
 .dots span.active {
   background-color: #000;
 }
-
 .close-button {
   position: absolute;
   bottom: 25%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: black;
+  background-color: #fff;
   color: white;
-  width: 14%;
-  height: 10%;
   border-radius: 50%;
   border: none;
   font-size: 30px;
   text-align: center;
   cursor: pointer;
 }
+
   </style>

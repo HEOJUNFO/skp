@@ -4,14 +4,19 @@
       <img :src="imageurl" class="image" alt="Image from URL" />
       <button class="box-button"  @click="print">사진 출력하기</button>
       <div class="buttons">
-        <button @click="back">뒤로</button>
-        <button @click="share">공유</button>
-        <button @click="saveImage(), showSaveModal =true">저장</button>
+        <button @click="back">
+          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 30px; height: 30px;"   />
+        </button>
+        <button @click="saveImage(), showSaveModal =true">
+          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 30px; height: 30px;"   />
+        </button>
+        <button @click="share">
+          <img src="../../assets/icon/share-button.png" alt="공유" style="width: 30px; height: 30px;"   />
+        </button>
       </div>
       <div class="box">
-        <h2>필수해시태그</h2>
+        <h1 style="font-weight: bold">필수해시태그</h1>
         <p v-html="formattedBoxContent"></p>
-       
         <button class="copy-button" @click="copyToClipboard" >해시태그 복사하기</button>
         <transition name="fade">
           <div v-show="isCopyCilp" class="copy-alert" >해시태그가 클립보드에 복사되었습니다.</div>
@@ -168,29 +173,33 @@
   z-index: 2;
   width: 100%;
   height: 100%;
-    position: absolute;
+  position: absolute;
   background-color: #fff;
+  padding-top : 10%;
 }
 
 .image {
-  max-width: 50%;
-  height: auto;
+  width: auto;
+  height: 33%;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
 }
 
 .box-button {
   display: block;
-  margin: 10px auto;
-  
+  margin-left: 10%;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
   width: 80%;
-  height: 40px;
+  height: 5%;
   border: 1px solid #000; 
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .modal {
@@ -263,7 +272,11 @@
 }
 
 .copy-button {
-    border: 2px solid #000;  
+    border: 1px solid #000;
+    border-radius: 20px;  
+    width: 40%;
+    height: 30%;
+    background-color: lightgray;
   }
   
 .box {
@@ -272,6 +285,13 @@
   flex-direction: column;
   align-items: center;
   border: 1px solid #000; 
+  border-radius: 15px;
+  width: 80%;
+  height: 10%;
+  margin-left: 10%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  gap: 10%
 }
   
 
@@ -297,7 +317,7 @@
   background-color: #000;
   color: #fff;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 100;
 }
 
