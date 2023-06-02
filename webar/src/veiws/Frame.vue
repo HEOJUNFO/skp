@@ -443,18 +443,21 @@ const frameButtonStyle = computed(() => ({
 }
   
 .image-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1%;
+  display: flex;
+  overflow-x: auto;
   width: 100%;
+  gap: 1%;
   margin-bottom: 4%;
+  padding-bottom: 20px;
 }
 
 .image-view {
+  flex: 0 0 auto;
+  width: 24%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color : #000;
+  color: #000;
 }
 
 .image-view > span {
@@ -536,4 +539,4 @@ const frameButtonStyle = computed(() => ({
   align-items: center;
   justify-content: center;
 }
-  </style>
+</style>

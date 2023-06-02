@@ -88,8 +88,8 @@ export default {
   const url = computed(() => store.getters['eventData/frameContentsInfoList']);
 
    const frameImages = url.value.map((item, index) => {
-    let tabId = Math.floor(index / 4) + 1; 
-    let select = (tabId === 1 && index % 4 === 0);
+    let tabId = 1; 
+    let select = index === 0;
 
     return {
       id: index + 1,
@@ -139,4 +139,9 @@ export default {
 </script>
 
 <style scoped>
+
+.event-wrapper {
+  overflow-x: hidden;
+}
+
 </style>
