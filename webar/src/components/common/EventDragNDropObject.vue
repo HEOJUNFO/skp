@@ -95,6 +95,7 @@ export default {
 
     const changeSelectModel = (value) => {
       selectModel.value = value.toString();
+
     }
 
     // 아이템 드래그 시작

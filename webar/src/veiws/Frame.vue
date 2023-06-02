@@ -153,7 +153,7 @@ import {useRouter} from "vue-router";
       { id: 2, tabId:1, src: '/path/to/image2', name: 'model 2' ,select: false},
       { id: 3, tabId:1, src: '/path/to/image3', name: 'model 3',select: false },
       { id: 4, tabId:1, src: '/path/to/image4', name: 'model 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: true },
+      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: false },
       { id: 6, tabId:2, src: '/path/to/model2', name: 'effect 2' ,select: false},
       { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
       { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
@@ -223,6 +223,7 @@ import {useRouter} from "vue-router";
     };
 
     const exit = () => {
+      
       router.back();
     };
 
@@ -306,34 +307,6 @@ const selectImage = (images, imageId) => {
   const selectedImage = images.find(image => image.id === imageId);
   if (selectedImage) selectedImage.select = true;
 }
-const frameTabIds = frameTabs.value.map(tab => tab.id);
-
-for (let tabId of frameTabIds) {
-    const selectedFrameImage = computed(() => 
-        frameImages.value.find(image => tabId && image.select === true)
-    );
-    watch(selectedFrameImage, (newImage, oldImage) => {
-        if (newImage !== oldImage && newImage !== null) {
-           newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
-            iframeRef.value.contentWindow.selectFrame(newImage.id);
-        }
-    });
-}
-
-const effectTabIds = effectTabs.value.map(tab => tab.id);
-
-for (let tabId of effectTabIds) {
-    const selectedEffectImage = computed(() => 
-        effectImages.value.find(image => image.tabId === tabId && image.select === true)
-    );
-
-    watch(selectedEffectImage, (newImage, oldImage) => {
-        if (newImage !== oldImage && newImage !== null) {
-          newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
-            iframeRef.value.contentWindow.selectModel(newImage.id);
-        }
-    });
-}
 
 const frameStyle = computed(() => ({
       aspectRatio: aspectRatioValue.value,
@@ -346,6 +319,26 @@ const barStyle = computed(() => ({
 const frameButtonStyle = computed(() => ({
       color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
     }));
+
+const frameTabIds = frameTabs.value.map(tab => tab.id);
+
+for (let tabId of frameTabIds) {
+    const selectedFrameImage = computed(() => 
+        frameImages.value.find(image => tabId && image.select === true)
+    );
+    watch(selectedFrameImage, (newImage, oldImage) => {
+
+        if (newImage !== oldImage && newImage !== null) {
+           newImage.id = (newImage.tabId - 1) * 9 + (newImage.id % 9 === 0 ? 9 : newImage.id % 9);
+            iframeRef.value.contentWindow.selectFrame(newImage.id);
+        }
+    });
+}
+
+watch(effectImages, () => {
+    let selectedItem = effectImages.value.find(image => image.select === true);
+    iframeRef.value.contentWindow.selectModel(selectedItem.id);
+}, {deep: true});
 
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
