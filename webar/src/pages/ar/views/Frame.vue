@@ -1,12 +1,12 @@
 <template>
-    <container ref="containerRef" >
-      <tutorial-modal v-if="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-modal>
+    <frame-container ref="containerRef" >
+      <tutorial-modal v-show="tutorialPopup"  @close="tutorialPopup = false ,toggleBarVisibility()"></tutorial-modal>
       <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
         <template v-if="loadedVideo">
-        <event-drag-n-drop-object
-            v-if="arObjectInfoList"
-            :object-list="arObjectInfoList"
+        <event-frame-object
+            v-if="characterList"
+            :object-list="characterList"
             :asset-list="arAssetInfoList"
             :target-info="arDropTargetInfo"
             @load:scene="loadScene"
@@ -17,7 +17,7 @@
             @request:orientationpermission="rquestOrientationPermission"
         />
       </template>
-    </container>
+    </frame-container>
     <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
   </template>
   
@@ -25,8 +25,8 @@
   import {onMounted, ref,computed} from "vue";
   import {useStore} from "vuex";
 
-  import Container from "@/components/common/Container";
-  import EventDragNDropObject from "@/components/common/EventDragNDropObject";
+  import FrameContainer from "../../../components/common/FrameContainer";
+  import EventFrameObject from "../../../components/common/EventFrameObject";
   import Camera from "@/components/common/Camera";
   import TutorialModal from "@/components/modal/TutorialModal";
   import PrintOpenBrowserModal from "../../../components/modal/PrintOpenBrowserModal.vue";
@@ -42,8 +42,8 @@
     name: "Frame",
     components: {
     Camera,
-    EventDragNDropObject,
-    Container,
+    EventFrameObject,
+    FrameContainer,
     TutorialModal,
     PrintOpenBrowserModal,
     BrowserCheckModal
@@ -58,6 +58,7 @@
       const containerRef = ref(null);
       const printModal = ref(null);
       const imageUrl = ref(null);
+      const characterList = ref(null);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       const isWebView = computed(() => navigator.userAgent.includes('WebView'));
@@ -73,7 +74,6 @@
       } = useEventData({dispatch});
     
       const {
-        arObjectInfoList,
         arAssetInfoList,
         arDropTargetInfo,
         setArObjectInfoListFromStore,
@@ -167,11 +167,39 @@
         containerRef.value.topValue = 40;
     }}
 
+    window.createCharacterList = function()
+    {
+      const characterList = createCharacterList();
+      return characterList
+    }
+
+  function createCharacterList() {
+  const url = computed(() => store.getters['eventData/characterContentsInfoList']);
+
+   const  characterList = url.value.slice(0,9).map((item, index) => {
+    let tabId = 1; 
+    let select = index === 0;
+
+    return {
+      id: index + 1,
+      tabId: tabId,
+      src: item.thumbnailUri, 
+      file: item.sourceUri,
+      name: item.fileName, 
+      select: select,
+      type: item.tabMenuType,
+    };
+    });
+      return characterList;
+  } 
+
       onMounted(async () => {
         await getEventData();
         templateType.value = getters['eventData/templateType'];
-        setArObjectInfoListFromStore();
+        characterList.value = createCharacterList();
 
+        setArObjectInfoListFromStore();
+       
         startLoading();
       
         setTimeout(() => {
@@ -188,7 +216,7 @@
       });
     
       return {
-        arObjectInfoList,
+        characterList,
         arAssetInfoList,
         arDropTargetInfo,
         eventResult,

@@ -59,6 +59,17 @@
         @animationcomplete="animationcomplete"
         animation-mixer
     />
+    <a-gltf-model
+        v-else-if="objectType === `CHARACTER`"
+        :src="arData.file"
+        scale="0.5 0.5 0.5"
+        position="0 0.7 -2"
+        gesture-handler="locationBased: true"
+        @dragstart="dragStart"
+        @dragend="dragEnd"
+        @animationcomplete="animationcomplete"
+        animation-mixer
+    />
   </template>
 </template>
 
@@ -88,6 +99,7 @@ export default {
     const {arData, arType, touchEffectType} = toRefs(props);
     // 객체 타입
     const objectType = computed(() => arData.value.type);
+    console.log(arData.value)
     // arData에 arType추가 (a-asset id용)
     arData.value.objectType = arType.value;
     // 데이터에서 AR Object데이터로 변환

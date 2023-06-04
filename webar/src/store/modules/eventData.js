@@ -37,8 +37,11 @@ export const eventData = {
     // asset 정보
     frameContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      
       return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].frameContentsInfo.map(getContentsData) : [];
+    },
+    characterContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].characterContentsInfo.map(getContentsData) : [];
     },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
@@ -325,10 +328,10 @@ function getContentsData(item){
   const { photoContentChoiceType, photoFileName , photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType,sort} = item;
   return {
     itemID: sort,
-    type: photoContentChoiceType,
+    chocieType: photoContentChoiceType,
+    tabMenuType: photoContentTabMenuType,
     thumbnailUri: photoThumbnailImgUrl,
     sourceUri: photoOriginalFileUrl,
-    tabMenuType: photoContentTabMenuType,
     fileName: photoFileName,
   };
     

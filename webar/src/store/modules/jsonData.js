@@ -758,7 +758,7 @@ export const jsonData = {
         tabMenuTitle: "",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "N",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
         arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
-        arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
+        arStickerSettingYn: "N",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
         filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	
         hashTagSettingYn: "",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
         hashTagValue: "",	                // 	해시태그 값 	String	콤마 , 로 구분자
@@ -856,16 +856,16 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong/models/King_V4.gltf",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
           {
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong/models/Queen_V3.gltf",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf",    //	원본 이미지 URL	string	
+            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },
         ],

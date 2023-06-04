@@ -1,19 +1,27 @@
 <template>
-  <div class="event-wrapper" :class="{'disable-click' : disableClick }" >
+  <div class="event-wrapper" :class="{'disable-click' : disableClick }">
     <slot></slot>
-    <div v-if="arFrameSettingYn" class="frame-top" :style="{'backgroundImage': `url(${frameUrl})`, 'top': `${topValue}px`}"></div>
-    <div v-if="arFrameSettingYn" class="frame-bottom" :style="{'backgroundImage': `url(${frameUrl})`}"></div>
+    <div class="frame-top" :style="{'backgroundImage': `url(${url})`}"></div>
+    <div class="frame-bottom" :style="{'backgroundImage': `url(${url})`}"></div>
   </div>
+  <!-- 로딩 카운터 -->
   <template v-if="loadingState !== 'COMPLETE'">
-    <!-- loading -->
-    <div v-if="loadingYn" class="loading loading2" >
-      <img :src="loadingUrl" alt="로딩 이미지">
+    <!-- counter -->
+    <div class="loading loading2" v-if="loadingState === 'COUNTING'">
+      <img src="../../assets/img/AR_countdown.gif" alt="로딩 이미지">
     </div>
+    <!-- // counter -->
+    <!-- loading -->
+    <div class="loading loading2" v-if="loadingState === 'LOADING'">
+      <img src="../../assets/img/loading01_114x120.gif" alt="로딩 이미지">
+    </div>
+    <!-- // loading -->
   </template>
   <!-- 가로모드 -->
   <div class="landscape_wrap" v-if="orientation !== 'portrait'">
     <p>가로모드 지원안함</p>
   </div>
+  <!-- // 가로모드 -->
 </template>
 
 <script>
@@ -29,40 +37,10 @@ export default {
   setup() {
     const store = useStore();
     const {getters} = store;
+
+    const url = computed(()=>getters['eventData/backgroundUri']);
     const orientation = ref('landscape')
     const disableClick = ref(false);
-
-    const selectFrame = ref(1);
-    const frameUrl = computed(() => {
-    const frameInfo = getters['eventData/frameContentsInfoList'][selectFrame.value-1];
-    return frameInfo ? frameInfo.sourceUri : '';
-    });
-
-    const loadingYn = computed(() => {
-      const isLoading = store.getters['eventData/loadingImgYn'];
-      return isLoading === 'Y';
-    });
-
-    const loadingUrl = computed(() => {
-    const url = store.getters['eventData/loadingImgUrl'];
-     return String(url);  
-    });
-
-    const arFrameSettingYn = computed(() => {
-      const isArFrameSetting = store.getters['eventData/arFrameSettingYn'];
-      return isArFrameSetting === 'Y';
-    });
-    
-
-    const topValue = ref(0);
-
-    window.selectFrame = function(props) {
-      changeSelectFrame(props);
-    }
-
-    const changeSelectFrame = (value) => {
-      selectFrame.value = value;
-    }
 
     const {
       loadingState,
@@ -77,30 +55,6 @@ export default {
       disableClick.value = !isClick;
     }
 
-    window.createFrameImages = function()
-    {
-      const frameImages = createFrameImages();
-      return frameImages
-    }
-
-  function createFrameImages() {
-  const url = computed(() => store.getters['eventData/frameContentsInfoList']);
-
-   const frameImages = url.value.map((item, index) => {
-    let tabId = 1; 
-    let select = index === 0;
-
-    return {
-      id: index + 1,
-      tabId: tabId,
-      src: item.thumbnailUri, 
-      name: item.fileName, 
-      select: select,
-    };
-    });
-      return frameImages;
-  } 
-
     // 가로 세로 체크
     const setOrientation = (str) => {
       orientation.value = str;
@@ -113,31 +67,25 @@ export default {
     checkOrientation(setOrientation);
 
     watch(loadingState, () => {
-     
       if(loadingState.value === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
-      
-        }, loadingYn.value? 5000:0)
+        }, 5000)
       }
     })
 
     return {
-      frameUrl,
-      loadingYn,
-      loadingUrl,
+      url,
       disableClick,
       orientation,
       loadingState,
-      setClick,
-      topValue,
-      arFrameSettingYn,
+
+      setClick
     }
   }
 }
 </script>
 
 <style scoped>
-
 
 </style>

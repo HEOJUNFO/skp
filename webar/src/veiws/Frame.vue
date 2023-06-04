@@ -39,7 +39,7 @@
         </button>
       </div>
        <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
-    <div v-show="!isSecondFrameBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
+    <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1" :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
         <img v-if="arFrameSettingYn === 'Y'" src="../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px;" />
         <p style="font-size: 17.5px; font-weight: bold;" :style="frameButtonStyle">프레임</p>
@@ -63,9 +63,9 @@
       </div>
       <div class="image-container">
         <div class="image-view" 
-          v-for="image in getImagesForSelectedTab(frameImages)" 
+          v-for="image in getImagesForSelectedTab(frameList)" 
           :key="image.id">  
-          <img :src="image.src" @click="selectImage(frameImages,image.id)" class="frame-image"/>
+          <img :src="image.src" @click="selectImage(frameList,image.id)" class="frame-image"/>
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택" style="width: 40px; height: 40px; position: absolute; top: 25%" />
           <span>{{ image.name }}</span>
         </div>
@@ -91,11 +91,11 @@
       </div>
       <div class="image-container">
         <div class="image-view" 
-        v-for="image in getImagesForSelectedTab(effectImages)" 
-        :key="image.id"
-        :class="{ selected: image.select }">  <!-- 선택된 이미지에 클래스를 적용 -->
-        <img :src="image.src" @click="selectImage(effectImages,image.id)"/>
-        <span>{{ image.name }}</span>
+          v-for="image in getImagesForSelectedTab(characterList)" 
+          :key="image.id">  
+          <img :src="image.src" @click="selectImage(characterList,image.id)" class="frame-image"/>
+          <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택" style="width: 40px; height: 40px; position: absolute; top: 25%" />
+          <span>{{ image.name }}</span>
         </div>
       </div>
       <div class="button-container">
@@ -144,20 +144,11 @@ import {useRouter} from "vue-router";
       { id: 1, name: '배경' },
     ]);
     
-    const frameImages = ref([]);
+    const frameList = ref([]);
 
     const effectTabs = ref([]);
 
-    const effectImages = ref([
-      { id: 1, tabId:1, src: '/path/to/image1', name: 'model 1',select: true },
-      { id: 2, tabId:1, src: '/path/to/image2', name: 'model 2' ,select: false},
-      { id: 3, tabId:1, src: '/path/to/image3', name: 'model 3',select: false },
-      { id: 4, tabId:1, src: '/path/to/image4', name: 'model 4', select:false },
-      { id: 5, tabId:2, src: '/path/to/model1', name: 'effect 1',select: false },
-      { id: 6, tabId:2, src: '/path/to/model2', name: 'effect 2' ,select: false},
-      { id: 7, tabId:2, src: '/path/to/model3', name: 'effect 3',select: false },
-      { id: 8, tabId:2, src: '/path/to/model4', name: 'effect 4', select:false },
-    ]);
+    const characterList = ref([]);
 
     const getEffectTabs = () => {
       const tabs = [];
@@ -180,7 +171,9 @@ import {useRouter} from "vue-router";
           arFilterSettingYn.value = iframeRef.value.contentWindow.arFilterSettingYn()
           arCharacterSettingYn.value = iframeRef.value.contentWindow.arCharacterSettingYn()
           arStickerSettingYn.value = iframeRef.value.contentWindow.arStickerSettingYn()
-          frameImages.value = iframeRef.value.contentWindow.createFrameImages();
+          frameList.value = iframeRef.value.contentWindow.createFrameList();
+          characterList.value = iframeRef.value.contentWindow.createCharacterList();
+        
         }
         aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
         isBarVisible.value = !isBarVisible.value;
@@ -287,6 +280,7 @@ import {useRouter} from "vue-router";
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
+      console.log(isSecondEffectBarVisible.value)
       effectTabs.value = getEffectTabs();
 
     }
@@ -321,13 +315,13 @@ const frameButtonStyle = computed(() => ({
     }));
 
 
-watch(frameImages, () => {
-    let selectedItem = frameImages.value.find(image => image.select === true);
+watch(frameList, () => {
+    let selectedItem = frameList.value.find(image => image.select === true);
     iframeRef.value.contentWindow.selectFrame(selectedItem.id);
 }, {deep: true});
 
-watch(effectImages, () => {
-    let selectedItem = effectImages.value.find(image => image.select === true);
+watch(characterList, () => {
+    let selectedItem = characterList.value.find(image => image.select === true);
     iframeRef.value.contentWindow.selectModel(selectedItem.id);
 }, {deep: true});
 
@@ -347,9 +341,9 @@ watch(effectImages, () => {
         , barStyle
         ,frameButtonStyle
         , frameTabs
-        , frameImages
+        , frameList
         , effectTabs
-        , effectImages
+        , characterList
         , selectTab
         , getImagesForSelectedTab
         , selectImage
@@ -439,6 +433,7 @@ watch(effectImages, () => {
   position: relative;
   flex: 0 0 auto;
   width: 24%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
