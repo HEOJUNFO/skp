@@ -1,5 +1,5 @@
 <template>
-    <drag-entity
+    <frame-entity
         ar-type="stayObject"
         :ar-data="arData"
         :touch-effect-type="arData.type"
@@ -15,11 +15,11 @@
   
   <script>
   import {computed, ref, toRefs} from "vue";
-  import DragEntity from "@/components/common/DragEntity";
+  import FrameEntity from "@/components/common/FrameEntity";
   
   export default {
     name: "DragObject",
-    components: {DragEntity},
+    components: {FrameEntity},
     props: {
       arData: {
         type: Object,

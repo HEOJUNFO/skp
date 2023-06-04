@@ -3,7 +3,7 @@
     <a-sphere
         v-if="objectType === `SPHERE`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -11,7 +11,7 @@
     <a-cylinder
         v-else-if="objectType === `CYLINDER`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -19,7 +19,7 @@
     <a-box
         v-else-if="objectType === `CUBE`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -27,7 +27,7 @@
     <a-image
         v-else-if="objectType === `IMAGE`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -35,7 +35,7 @@
     <a-entity
         v-else-if="objectType === `GIF`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -44,7 +44,7 @@
         v-else-if="objectType === `VIDEO`"
         loop="false"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -53,18 +53,7 @@
     <a-gltf-model
         v-else-if="objectType === `3D`"
         v-bind="attrs"
-        gesture-handler="locationBased: true"
-        @dragstart="dragStart"
-        @dragend="dragEnd"
-        @animationcomplete="animationcomplete"
-        animation-mixer
-    />
-    <a-gltf-model
-        v-else-if="objectType === `CHARACTER`"
-        :src="arData.file"
-        scale="0.5 0.5 0.5"
-        position="0 0.7 -2"
-        gesture-handler="locationBased: true"
+        click-drag
         @dragstart="dragStart"
         @dragend="dragEnd"
         @animationcomplete="animationcomplete"
@@ -99,7 +88,6 @@ export default {
     const {arData, arType, touchEffectType} = toRefs(props);
     // 객체 타입
     const objectType = computed(() => arData.value.type);
-    console.log(arData.value)
     // arData에 arType추가 (a-asset id용)
     arData.value.objectType = arType.value;
     // 데이터에서 AR Object데이터로 변환
