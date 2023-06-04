@@ -3,7 +3,7 @@
       ar-type="stayObject"
       :ar-data="arData.stayObject"
       :touch-effect-type="arData.touchEffectType"
-      v-if="!isTouched && visible"
+      v-if="!isTouched"
       @dragstart:object="dragStart"
       @dragend:object="dragEnd"
       @animationcomplete:object="animationcomplete"
@@ -32,9 +32,6 @@ export default {
   props: {
     arData: {
       type: Object,
-    },
-    visible: {
-      type: Boolean,
     }
   },
   emits: ['dragstart:object', 'dragend:object', 'animationcomplete:object', 'timeout:object'],
