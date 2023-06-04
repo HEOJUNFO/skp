@@ -2,15 +2,22 @@ export function setGesture() {
     window.AFRAME.registerComponent("gesture-handler", {
         schema: {
           enabled: { default: true },
-          rotationFactor: { default: 3 },
+          moveFactor: { default: 3 },
+          rotateFactor: {default : 8},
           minScale: { default: 0.3 },
           maxScale: { default: 5 },
           locationBased: { default: false},
         },
       
         init: function () {
+          const axisY = new window.THREE.Vector3(0, 1, 0).normalize();
+          const axisX = new window.THREE.Vector3(1, 0, 0).normalize();
+          this.moveState = 'fingermove';
+
           this.handleScale = this.handleScale.bind(this);
-          this.handleRotation = this.handleRotation.bind(this);
+          this.handleMove = this.handleMove.bind(this);
+          this.handleRotationY = this.handleRotation.bind(this,axisY);
+          this.handleRotationX = this.handleRotation.bind(this,axisX);
       
           this.isVisible = this.data.locationBased;
           this.initialScale = this.el.object3D.scale.clone();
@@ -39,20 +46,27 @@ export function setGesture() {
       
         update: function () {
           if (this.data.enabled) {
-            this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+            this.el.sceneEl.addEventListener("onefingermove", this.handleMove);
             this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+            this.el.sceneEl.addEventListener("onefingerrotY", this.handleRotationY);
+            this.el.sceneEl.addEventListener("onefingerrotX", this.handleRotationX);
+
           } else {
-            this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+            this.el.sceneEl.removeEventListener("onefingermove", this.handleMove);
             this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+            this.el.sceneEl.removeEventListener("onefingerrotY", this.handleRotationY);
+            this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
           }
         },
       
         remove: function () {
-          this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+          this.el.sceneEl.removeEventListener("onefingermove", this.handleMove);
           this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+          this.el.sceneEl.removeEventListener("onefingerrotY", this.handleRotationY);
+          this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
         },
       
-        handleRotation: function (event) {
+        handleMove: function (event) {
           /*
           if (this.isVisible) {
       
@@ -67,22 +81,30 @@ export function setGesture() {
       
           if (this.isVisible) {
       
-            this.el.object3D.position.x += event.detail.positionChange.x * this.data.rotationFactor;
-            this.el.object3D.position.y -= event.detail.positionChange.y * this.data.rotationFactor;
+            this.el.object3D.position.x += event.detail.positionChange.x * this.data.moveFactor;
+            this.el.object3D.position.y -= event.detail.positionChange.y * this.data.moveFactor;
       
           }
         },
         //회전 커스텀 함수 월드기준으로 회전한다
-        rotation : function (object, axis, radians){
+        handleRotation : function (axis, event){       
+          const rotWorldMatrix = new window.THREE.Matrix4();
+          let rotateFactor =  this.data.rotateFactor;
+
+          if(axis.y > 0){
+            rotateFactor *= event.detail.positionChange.x;
+          }
+          else{
+            rotateFactor *= event.detail.positionChange.y;
+          }
+
+          rotWorldMatrix.makeRotationAxis(axis, rotateFactor);
+          rotWorldMatrix.multiply(this.el.object3D.matrix);
       
-          var rotWorldMatrix = new window.THREE.Matrix4();
-          rotWorldMatrix.makeRotationAxis(axis.normalize(),radians)
-          rotWorldMatrix.multiply(object.matrix);
-      
-          var rotMat2 = new window.THREE.Matrix4().extractRotation(rotWorldMatrix);
-          var rotQuat = new window.THREE.Quaternion().setFromRotationMatrix(rotMat2);
-          object.quaternion.copy(rotQuat);
-          object.updateMatrix();
+          const rotMat2 = new window.THREE.Matrix4().extractRotation(rotWorldMatrix);
+          const rotQuat = new window.THREE.Quaternion().setFromRotationMatrix(rotMat2);
+          this.el.object3D.quaternion.copy(rotQuat);
+          this.el.object3D.updateMatrix();
         },
       
         handleScale: function (event) {
@@ -138,7 +160,6 @@ export function setGesture() {
       
         emitGestureEvent(event) {
           const currentState = this.getTouchState(event);
-      
           const previousState = this.internalState.previousState;
       
           const gestureContinues =
@@ -172,6 +193,16 @@ export function setGesture() {
             this.el.emit(eventName, currentState);
       
             this.internalState.previousState = currentState;
+            
+            if(currentState.positionRaw.y > window.innerHeight - 100){
+              this.moveState = 'fingerrotY';
+            }
+            else if(currentState.positionRaw.x > window.innerWidth - 50){
+              this.moveState = 'fingerrotX';
+            }
+            else{
+              this.moveState = 'fingermove';
+            }
           }
       
           if (gestureContinues) {
@@ -190,9 +221,12 @@ export function setGesture() {
             Object.assign(previousState, currentState);
     
             Object.assign(eventDetail, previousState);
+
+
+          
       
             const eventName =
-              this.getEventPrefix(currentState.touchCount) + "fingermove";
+              this.getEventPrefix(currentState.touchCount) + this.moveState;
       
             this.el.emit(eventName, eventDetail);
           }
@@ -250,8 +284,9 @@ export function setGesture() {
       
         getEventPrefix(touchCount) {
           const numberNames = ["one", "two", "three", "many"];
-      
-          return numberNames[Math.min(touchCount, 4) - 1];
+          let prefix = numberNames[Math.min(touchCount, 4) - 1];
+          
+          return prefix;
         }
       });    
 }
