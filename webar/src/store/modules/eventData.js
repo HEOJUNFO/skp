@@ -43,6 +43,14 @@ export const eventData = {
       const { photoContentsInfo } = eventData;
       return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].characterContentsInfo.map(getContentsData) : [];
     },
+    filterContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].filterContentsInfo.map(getContentsData) : [];
+    },
+    stickerContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].stickerContentsInfo.map(getContentsData) : [];
+    },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
       return Array.isArray(arObjectInfo) ? arObjectInfo.reduce(getAssetData, []) : [];

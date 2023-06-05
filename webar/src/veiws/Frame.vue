@@ -149,6 +149,8 @@ import {useRouter} from "vue-router";
     const effectTabs = ref([]);
 
     const characterList = ref([]);
+    const filterList = ref([]);
+    const stickerList = ref([]);
 
     const getEffectTabs = () => {
       const tabs = [];
@@ -172,8 +174,9 @@ import {useRouter} from "vue-router";
           arCharacterSettingYn.value = iframeRef.value.contentWindow.arCharacterSettingYn()
           arStickerSettingYn.value = iframeRef.value.contentWindow.arStickerSettingYn()
           frameList.value = iframeRef.value.contentWindow.createFrameList();
-          characterList.value = iframeRef.value.contentWindow.createCharacterList();
-        
+          characterList.value = iframeRef.value.contentWindow.createEffectList().characterList;
+          filterList.value = iframeRef.value.contentWindow.createEffectList().filterList;
+          stickerList.value = iframeRef.value.contentWindow.createEffectList().stickerList;  
         }
         aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
         isBarVisible.value = !isBarVisible.value;

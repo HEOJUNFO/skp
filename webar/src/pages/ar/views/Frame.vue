@@ -32,7 +32,6 @@
   import PrintOpenBrowserModal from "../../../components/modal/PrintOpenBrowserModal.vue";
   import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
   
-  import useArObjectInfo from "@/composables/useArObjectInfo";
   import useEventData from "@/composables/useEventData";
   import useResultData from "@/composables/useResultData";
   import useLoading from "@/composables/useLoading";
@@ -59,6 +58,8 @@
       const printModal = ref(null);
       const imageUrl = ref(null);
       const characterList = ref(null);
+      const filterList = ref(null);
+      const stickerList = ref(null);
 
       const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
       const isWebView = computed(() => navigator.userAgent.includes('WebView'));
@@ -72,12 +73,6 @@
       const {
         getEventData
       } = useEventData({dispatch});
-    
-      const {
-        arAssetInfoList,
-        arDropTargetInfo,
-        setArObjectInfoListFromStore,
-      } = useArObjectInfo();
 
       const {
         eventResult,
@@ -167,38 +162,43 @@
         containerRef.value.topValue = 40;
     }}
 
-    window.createCharacterList = function()
-    {
-      const characterList = createCharacterList();
-      return characterList
-    }
+    function createList(urlGetter) {
+  const url = computed(() => store.getters[urlGetter]);
 
-  function createCharacterList() {
-  const url = computed(() => store.getters['eventData/characterContentsInfoList']);
-
-   const  characterList = url.value.slice(0,9).map((item, index) => {
-    let tabId = 1; 
+  return url.value.map((item, index) => {
+    let tabId = 1;
     let select = index === 0;
 
     return {
       id: index + 1,
       tabId: tabId,
-      src: item.thumbnailUri, 
+      src: item.thumbnailUri,
       file: item.sourceUri,
-      name: item.fileName, 
+      name: item.fileName,
       select: select,
       type: item.tabMenuType,
     };
-    });
-      return characterList;
-  } 
+  });
+}
+
+window.createEffectList = function() {
+  const characterList = createList('eventData/characterContentsInfoList');
+  const filterList = createList('eventData/filterContentsInfoList');
+  const stickerList = createList('eventData/stickerContentsInfoList');
+
+  return {
+    characterList,
+    filterList,
+    stickerList
+  }
+}
 
       onMounted(async () => {
         await getEventData();
         templateType.value = getters['eventData/templateType'];
-        characterList.value = createCharacterList();
-
-        setArObjectInfoListFromStore();
+        characterList.value = createList('eventData/characterContentsInfoList');
+        filterList.value = createList('eventData/filterContentsInfoList');
+        stickerList.value = createList('eventData/stickerContentsInfoList');
        
         startLoading();
       
@@ -217,8 +217,6 @@
     
       return {
         characterList,
-        arAssetInfoList,
-        arDropTargetInfo,
         eventResult,
         templateType,
         loadedVideo,
