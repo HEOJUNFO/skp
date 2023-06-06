@@ -58,10 +58,10 @@
     <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
       <div class="tab-container">
         <button class="tab" v-for="tab in frameTabs" :key="tab.id" :class="{ selected: selectedTab === tab.id }"
-          @click="selectTab(tab.id)">{{ tab.name }}</button>
+          @click="selectFrameTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
-        <div class="image-view" v-for="image in getImagesForSelectedTab(frameList)" :key="image.id">
+        <div class="image-view" v-for="image in frameList" :key="image.id">
           <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
             style="width: 40px; height: 40px; position: absolute; top: 25%" />
@@ -82,11 +82,11 @@
     <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
       <div class="tab-container">
         <button class="tab" v-for="tab in effectTabs" :key="tab.id" :class="{ selected: selectedTab === tab.id }"
-          @click="selectTab(tab.id)">{{ tab.name }}</button>
+          @click="selectEffectTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
         <div class="image-view"
-          v-for="image in getImagesForSelectedTab(selectedTab === 1 ? characterList : selectedTab === 2 ? filterList : stickerList)"
+          v-for="image in selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList"
           :key="image.id">
           <img :src="image.src"
             @click="selectImage(selectedTab === 1 ? characterList : selectedTab === 2 ? filterList : stickerList, image.id)"
@@ -125,7 +125,7 @@ export default {
     const isBarVisible = ref(false);
     const exitModalVisible = ref(false);
     const aspectRatio = ref(0);
-    const selectedTab = ref(1);
+
     const longPressTimer = ref(null);
     const timerButtonVisible = ref(0);
     const isCapturing = ref(false);
@@ -138,17 +138,19 @@ export default {
     const arCharacterSettingYn = ref('Y');
     const arStickerSettingYn = ref('Y');
 
+    const frameList = ref([]);
+    const characterList = ref([]);
+    const filterList = ref([]);
+    const stickerList = ref([]);
+
+    const selectedFrameTab = ref(1);
+    const selectedEffectTab = ref(1);
+
     const frameTabs = ref([
       { id: 1, name: '배경' },
     ]);
 
-    const frameList = ref([]);
-
     const effectTabs = ref([]);
-
-    const characterList = ref([]);
-    const filterList = ref([]);
-    const stickerList = ref([]);
 
     const getEffectTabs = () => {
       const tabs = [];
@@ -162,6 +164,14 @@ export default {
         tabs.push({ id: 3, name: '스티커' });
       }
       return tabs;
+    }
+
+    const selectFrameTab = (tabId) => {
+      selectedFrameTab.value = tabId;
+    }
+
+    const selectEffectTab = (tabId) => {
+      selectedEffectTab.value = tabId;
     }
 
     window.toggleBarVisibility = function () {
@@ -285,14 +295,6 @@ export default {
 
     }
 
-    const selectTab = (tabId) => {
-      selectedTab.value = tabId;
-    }
-
-    const getImagesForSelectedTab = (images) => {
-      return images
-    }
-
     const selectImage = (images, imageId) => {
       images.forEach(image => {
         image.select = false;
@@ -347,10 +349,7 @@ export default {
       , characterList
       , stickerList
       , filterList
-      , selectTab
-      , getImagesForSelectedTab
       , selectImage
-      , selectedTab
       , stopCapture
       , captureImage
       , isCapturing
@@ -367,6 +366,10 @@ export default {
       , arFilterSettingYn
       , arCharacterSettingYn
       , arStickerSettingYn
+      , selectFrameTab
+      , selectEffectTab
+      , selectedFrameTab
+      , selectedEffectTab
     }
   }
 }
