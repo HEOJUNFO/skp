@@ -61,9 +61,7 @@
       />
       <a-gltf-model
           v-else-if="objectType === `CHARACTER`"
-          :src="arData.file"
-          scale="0.5 0.5 0.5"
-          position="0 0.7 -2"
+          v-bind="attrs"
           gesture-handler="locationBased: true"
           @dragstart="dragStart"
           @dragend="dragEnd"
@@ -104,7 +102,9 @@
       arData.value.objectType = arType.value;
       // 데이터에서 AR Object데이터로 변환
       const attrs = ref(getObjectAttrs(arData.value));
+    
       watch(arData, (newValue) => {
+        console.log(attrs.value)
         attrs.value = getObjectAttrs(newValue);
       })
   

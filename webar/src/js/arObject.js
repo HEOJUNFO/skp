@@ -308,6 +308,17 @@ export const getObjectAttrs = (data) => {
       // ['animation-mixer']: data['animation-mixer']
     }
   }
+  if (type === 'CHARACTER') {
+    console.log(data)
+     const scale = getScale(0.5, 0.5, 0.5);
+    return {
+      position: getPosition(0,0.7,-2),
+      scale,
+      animation: getStayAnimation("ROTATION", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
+      src: data.file.toString()
+      // ['animation-mixer']: data['animation-mixer']
+    }
+  }
 }
 
 /**
