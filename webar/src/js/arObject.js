@@ -4,6 +4,7 @@
  * @returns {string}
  */
 
+
 export const getObjectType = (type) => {
   const TYPES = ['SPHERE', 'CUBE', 'CYLINDER', 'IMAGE', 'GIF', 'VIDEO', '3D'];
   return TYPES[type];
@@ -310,9 +311,9 @@ export const getObjectAttrs = (data) => {
   }
   if (type === 'CHARACTER') {
     console.log(data)
-     const scale = getScale(0.5, 0.5, 0.5);
+     const scale = getScale({sizeX: 0.5, sizeY: 0.5, sizeZ: 0.5});
     return {
-      position: getPosition(0,0.7,-2),
+      position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,
       animation: getStayAnimation("ROTATION", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
       src: data.file.toString()
