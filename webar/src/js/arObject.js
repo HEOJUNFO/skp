@@ -311,13 +311,25 @@ export const getObjectAttrs = (data) => {
   }
   if (type === 'CHARACTER') {
     console.log(data)
-     const scale = getScale({sizeX: 0.5, sizeY: 0.5, sizeZ: 0.5});
+     const scale = getScale({sizeX: 0.1, sizeY: 0.1, sizeZ: 0.1});
     return {
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,
       animation: getStayAnimation("ROTATION", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
       src: data.file.toString()
       // ['animation-mixer']: data['animation-mixer']
+    }
+  }
+  if (type === 'STICKER') {
+    const width = data.sizeX ? data.sizeX : 0.3;
+    const height = data.sizeY ? data.sizeY : 0.3;
+    return {
+      width,
+      height,
+      src: data.file.toString(),
+      position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
+      animation: getStayAnimation("", {x:width, y:height, z:1}),
+      ['look-at']: '[gps-camera]',
     }
   }
 }

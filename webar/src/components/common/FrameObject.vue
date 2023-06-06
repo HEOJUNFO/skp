@@ -3,9 +3,7 @@
         ar-type="stayObject"
         :ar-data="arData"
         :touch-effect-type="arData.type"
-        v-if="!isTouched && visible"
-        @dragstart:object="dragStart"
-        @dragend:object="dragEnd"
+        v-if="visible"
         @animationcomplete:object="animationcomplete"
         @timeout:object="timeout"
         ref="stayObjectEl"
@@ -18,7 +16,7 @@
   import FrameEntity from "@/components/common/FrameEntity";
   
   export default {
-    name: "DragObject",
+    name: "FrameObject",
     components: {FrameEntity},
     props: {
       arData: {
@@ -28,12 +26,13 @@
         type: Boolean,
       }
     },
-    emits: ['dragstart:object', 'dragend:object', 'animationcomplete:object', 'timeout:object'],
+    emits: ['animationcomplete:object', 'timeout:object'],
   
     //setup
     setup(props, {emit}) {
       // props에서 데이터 파싱
       const {arData} = toRefs(props);
+  
       // stay object ref
       const stayObjectEl = ref(null);
       // 터치 flag
@@ -52,18 +51,6 @@
         })
       }
   
-      // drag start 이벤트 처리
-      const dragStart = ({type, itemID}) => {
-        console.log("object dragstart: "+type+","+itemID)
-        emit('dragstart:object', {type, itemID});
-      }
-  
-      //drag end 이벤트 처리
-      const dragEnd = ({type, itemID, position}) => {
-        console.log("object dragend: %s, %s, %s, %s ", type, itemID, position.x, position.y);
-        emit('dragend:object', {type, itemID, position});
-      }
-  
       const animationcomplete = (itemID) => {
         // 터치 효과 타입별 동작
         const effectType = touchEffectType.value;
@@ -78,8 +65,6 @@
       return {
         isTouched,
         stayObjectEl,
-        dragStart,
-        dragEnd,
         animationcomplete,
         timeout,
       }

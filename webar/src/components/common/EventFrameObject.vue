@@ -17,12 +17,7 @@
     >
       <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
       <a-assets>
-        <ar-asset
-            v-for="item in assetList"
-            :key="`asset_${item.itemID}_${selectModel}`"
-            :asset-data="item"
-            @ended:video="videocomplete"
-        />
+        
         <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl"/>
   
         <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
@@ -48,12 +43,30 @@
   
       <a-entity position="0 -1 -1">
         <frame-object
-            v-for="item in objectList"
-            :key="`dragobject_${item.id}`"
+            v-for="item in characterList"
+            :key="`frmaeobject_${item.id}`"
             :ar-data="item"
-            :visible="item.select"
-            @dragstart:object="dragStart"
-            @dragend:object="dragEnd"
+            :visible="item.id == selectCharacter"
+            @animationcomplete:object="animationcomplete"
+            @timeout:object="timeout"
+        />
+      </a-entity> 
+      <a-entity position="0 -1 -1">
+        <frame-object
+            v-for="item in stickerList"
+            :key="`frmaeobject_${item.id}`"
+            :ar-data="item"
+            :visible="item.id == selectSticker"
+            @animationcomplete:object="animationcomplete"
+            @timeout:object="timeout"
+        />
+      </a-entity> 
+      <a-entity position="0 -1 -1">
+        <frame-object
+            v-for="item in filterList"
+            :key="`frmaeobject_${item.id}`"
+            :ar-data="item"
+            :visible="item.id == selectFilter"
             @animationcomplete:object="animationcomplete"
             @timeout:object="timeout"
         />
@@ -67,67 +80,43 @@
   <script>
   import {toRefs,ref} from "vue";
   import FrameObject from "@/components/common/FrameObject";
-  import ArAsset from "@/components/common/ArAsset";
+
   
   export default {
-    name: "EventDragNDropObject",
-    props: ['objectList', 'assetList', "targetInfo"],
+    name: "EventFrameObject",
+    props: ['characterList', 'filterList', "stickerList"],
     emits: [
-      'dragstart:object',
-      'dragend:object',
       'load:scene',
       'request:orientationpermission',
       'allow:orientationpermission',
       'reject:orientationpermission',
       'animationcomplete'
     ],
-    components: {ArAsset, FrameObject},
+    components: { FrameObject},
   
     setup(props, {emit}) {
       //props
-      const {objectList} = toRefs(props);
-
-      const selectModel = ref('1');
+      const {characterList} = toRefs(props);
+      console.log(characterList.value)
       
-      window.selectModel = function(props) {
-        changeSelectModel(props);
+      const selectCharacter = ref(false);
+      const selectFilter = ref(false);
+      const selectSticker = ref(false);
+  
+      window.selectCharacter = function(props) {
+        selectCharacter.value = props.toString();
       }
-  
-      const changeSelectModel = (value) => {
-        selectModel.value = value.toString();
-  
+
+      window.selectFilter = function(props) {
+        selectFilter.value = props.toString();
       }
+
+      window.selectSticker = function(props) {
+        selectSticker.value = props.toString();
+      }
+
   
-      // 아이템 드래그 시작
-      const dragStart = ({type, itemID}) => {
-        let camera = document.querySelector('a-camera');
-        if (camera) {
-          camera.setAttribute("look-controls-enabled", "false");
-        }
-        // camera.setAttribute("keyboard-controls", "fpsMode:true");
-        emit('dragstart', {type, itemID})
-      };
-  
-      // 아이템 드랍
-      const dragEnd = ({itemID, position}) => {
-        let walletBBox = walletClientBBox();
-  
-        let camera = document.querySelector('a-camera');
-        if(camera){
-          camera.removeAttribute("look-controls-enabled");
-          // camera.removeAttribute("keyboard-controls");
-        }
-  
-        if(
-            position.x >= walletBBox.x1 && position.x <=walletBBox.x2 &&
-            position.y >= walletBBox.y1 && position.y <=walletBBox.y2
-        ){
-          playSound();
-          emit('animationcomplete', {itemID})
-        }else{
-          console.log("Not intersect with wallet!!!!!");
-        }
-      };
+ 
   
       // 애니메이션 재생 완료
       const animationcomplete = (data) => {
@@ -164,46 +153,9 @@
         emit('request:orientationpermission');
       }
   
-      //function wallet client bbox
-      function walletClientBBox() {
-        let canvas = document.querySelector('a-scene').canvas;
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-    
-        // postion entire coordinate of initial is (-1~+1,-1~+1)
-        let px = width / 2.0; // client pixel per 1 x position
-        let py = height / 2.0; // client pixel per 1 y position
-        let wx = 0.0;   // wallet position x
-        let wy = 0.0 // wallet position y
-        let ww = 0.1;  // wallet width of position
-        let wh = 0.1;  // wallet height of position
-        let walletEl = document.querySelector("#wallet");
-        if(walletEl){
-          let pos = walletEl.getAttribute("position");
-          let geo = walletEl.getAttribute("geometry");
-          wx = pos.x;
-          wy = pos.y;
-          ww = geo.width;
-          wh = geo.height;
-        }
-        let dx1 = 1.0 + (wx - ww);  // left distance from left
-        let dy1 = 1.0 - (wy + wh);  // upper distance from top
-        let dx2 = 1.0 + (wx + ww);  // right distance from left
-        let dy2 = 1.0 - (wy - wh);  // lower distance from top
-        // left-top(x1,y1), right-bottom (x2,y2)
-        return {x1: dx1 * px, y1: dy1 * py, x2: dx2 * px, y2: dy2 * py};
-      }
-  
-      const audio = new Audio(objectList?.value[0]?.touchSoundUri);
-      // audio.addEventListener('loadeddata',() => {\    
-      // });
-      const playSound = () => {
-          audio.play();
-      }
-  
+     
+
       return {
-        dragStart,
-        dragEnd,
         animationcomplete,
         videocomplete,
         timeout,
@@ -211,7 +163,9 @@
         permissionGranted,
         permissionRejected,
         permissionRequested,
-        selectModel,
+        selectCharacter,
+        selectFilter,
+        selectSticker
       }
     }
   }

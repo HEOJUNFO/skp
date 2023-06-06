@@ -5,17 +5,15 @@
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo"/>
         <template v-if="loadedVideo">
         <event-frame-object
-            v-if="characterList"
-            :object-list="characterList"
-            :asset-list="arAssetInfoList"
-            :target-info="arDropTargetInfo"
+            :character-list="characterList"
+            :filter-list="filterList"
+            :sticker-list="stickerList"
             @load:scene="loadScene"
-            @dragstart:object="dragStart"
-            @dragend:object="dragEnd"
             @allow:orientationpermission="allowOrientationPermission"
             @reject:orientationpermission="rejectOrientationPermission"
             @request:orientationpermission="rquestOrientationPermission"
         />
+    
       </template>
     </frame-container>
     <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
@@ -217,6 +215,8 @@ window.createEffectList = function() {
     
       return {
         characterList,
+        stickerList,
+        filterList,
         eventResult,
         templateType,
         loadedVideo,

@@ -91,9 +91,9 @@
       </div>
       <div class="image-container">
         <div class="image-view" 
-          v-for="image in getImagesForSelectedTab(characterList)" 
+          v-for="image in getImagesForSelectedTab(selectedTab === 1 ? characterList : selectedTab === 2 ? filterList : stickerList)" 
           :key="image.id">  
-          <img :src="image.src" @click="selectImage(characterList,image.id)" class="frame-image"/>
+          <img :src="image.src" @click="selectImage(selectedTab === 1 ? characterList : selectedTab === 2 ? filterList : stickerList,image.id)" class="frame-image"/>
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택" style="width: 40px; height: 40px; position: absolute; top: 25%" />
           <span>{{ image.name }}</span>
         </div>
@@ -283,7 +283,6 @@ import {useRouter} from "vue-router";
     }
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
-      console.log(isSecondEffectBarVisible.value)
       effectTabs.value = getEffectTabs();
 
     }
@@ -293,8 +292,8 @@ import {useRouter} from "vue-router";
     }
 
     const getImagesForSelectedTab = (images) => {
-  return images.filter(image => image.tabId === selectedTab.value);
-}
+     return images
+    }
 
 const selectImage = (images, imageId) => {
  images.forEach(image => {
@@ -325,7 +324,17 @@ watch(frameList, () => {
 
 watch(characterList, () => {
     let selectedItem = characterList.value.find(image => image.select === true);
-    iframeRef.value.contentWindow.selectModel(selectedItem.id);
+    iframeRef.value.contentWindow.selectCharacter(selectedItem.id);
+}, {deep: true});
+
+watch(filterList, () => {
+    let selectedItem = filterList.value.find(image => image.select === true);
+    iframeRef.value.contentWindow.selectFilter(selectedItem.id);
+}, {deep: true});
+
+watch(stickerList, () => {
+    let selectedItem = stickerList.value.find(image => image.select === true);
+    iframeRef.value.contentWindow.selectSticker(selectedItem.id);
 }, {deep: true});
 
       return {
@@ -347,6 +356,8 @@ watch(characterList, () => {
         , frameList
         , effectTabs
         , characterList
+        , stickerList
+        , filterList
         , selectTab
         , getImagesForSelectedTab
         , selectImage

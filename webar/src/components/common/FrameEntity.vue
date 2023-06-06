@@ -4,40 +4,30 @@
           v-if="objectType === `SPHERE`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
       />
       <a-cylinder
           v-else-if="objectType === `CYLINDER`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
       />
       <a-box
           v-else-if="objectType === `CUBE`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
       />
       <a-image
           v-else-if="objectType === `IMAGE`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
       />
       <a-entity
           v-else-if="objectType === `GIF`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
       />
       <a-video
@@ -45,8 +35,6 @@
           loop="false"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
           animation-mixer
       />
@@ -54,8 +42,6 @@
           v-else-if="objectType === `3D`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
           animation-mixer
       />
@@ -63,10 +49,14 @@
           v-else-if="objectType === `CHARACTER`"
           v-bind="attrs"
           gesture-handler="locationBased: true"
-          @dragstart="dragStart"
-          @dragend="dragEnd"
           @animationcomplete="animationcomplete"
           animation-mixer
+      />
+      <a-image
+          v-else-if="objectType === `STICKER`"
+          v-bind="attrs"
+          gesture-handler="locationBased: true"
+          @animationcomplete="animationcomplete"
       />
     </template>
   </template>
@@ -91,13 +81,14 @@
         type: null,
       }
     },
-    emits: ['dragstart:object', 'dragend:object', 'animationcomplete:object', 'timeout:object'],
+    emits: [ 'animationcomplete:object', 'timeout:object'],
     setup(props, {emit}) {
       // 상속받은 데이터 & 타입 & 터치이펙트 타입
       const {arData, arType, touchEffectType} = toRefs(props);
       // 객체 타입
       const objectType = computed(() => arData.value.type);
-      console.log(arData.value)
+
+      console.log(objectType.value)
       // arData에 arType추가 (a-asset id용)
       arData.value.objectType = arType.value;
       // 데이터에서 AR Object데이터로 변환
@@ -107,40 +98,6 @@
         console.log(attrs.value)
         attrs.value = getObjectAttrs(newValue);
       })
-  
-      //drag start event
-      const dragStart = (e) => {
-        console.log("entity dragStart :" + e.target.tagName);
-        let cx = e.detail.clientX;
-        let cy = e.detail.clientY;
-        console.log("entity dragStart client Coord: %s,%s",cx,cy);
-        let pos = e.target.components['position'].data
-        let ox = pos.x;
-        let oy = pos.y;
-        let oz = pos.z;
-        console.log("entity dragStart Coord: %s,%s,%s",ox,oy,oz);
-        const clickDrag = e.target.components['click-drag']
-        if (clickDrag) {
-          emit('dragstart:object', {type: arType.value, itemID: arData.value.itemID});
-        }
-      };
-      //drag end event
-      const dragEnd = (e) => {
-        console.log("entity dragEnd:" + e.target.tagName);
-        let cx = e.detail.clientX;
-        let cy = e.detail.clientY;
-        const isEnd = !(cx == undefined || cy == undefined );
-        const clickDrag = e.target.components['click-drag']
-        if( clickDrag && isEnd ){
-          console.log("entity dragEnd client Coord(end?%s): %s,%s",isEnd, cx,cy);
-          let pos = e.target.components['position'].data
-          let ox = pos.x;
-          let oy = pos.y;
-          let oz = pos.z;
-          console.log("entity dragEnd Coord: %s,%s,%s",ox,oy,oz);
-          emit('dragend:object', {type: arType.value, itemID: arData.value.itemID, position: {x: cx, y:cy }});
-        }
-      };
   
       //animation complete event
       const animationcomplete = () => {
@@ -183,8 +140,6 @@
       return {
         attrs,
         objectType,
-        dragStart,
-        dragEnd,
         animationcomplete,
         playTouchEffect,
       }
