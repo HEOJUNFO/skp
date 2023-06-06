@@ -77,29 +77,6 @@ export default {
       disableClick.value = !isClick;
     }
 
-    window.createFrameList = function () {
-      const frameList = createFrameList();
-      return frameList
-    }
-
-    function createFrameList() {
-      const url = computed(() => store.getters['eventData/frameContentsInfoList']);
-
-      const frameList = url.value.slice(0, 9).map((item, index) => {
-        let tabId = 1;
-        let select = index === 0;
-
-        return {
-          id: index + 1,
-          tabId: tabId,
-          src: item.thumbnailUri,
-          name: item.fileName,
-          select: select,
-        };
-      });
-      return frameList;
-    }
-
     // 가로 세로 체크
     const setOrientation = (str) => {
       orientation.value = str;

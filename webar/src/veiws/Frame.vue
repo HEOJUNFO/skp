@@ -57,7 +57,7 @@
     </div>
     <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
       <div class="tab-container">
-        <button class="tab" v-for="tab in frameTabs" :key="tab.id" :class="{ selected: selectedTab === tab.id }"
+        <button class="tab" v-for="tab in frameTabs" :key="tab.id" :class="{ selected: selectedFrameTab === tab.id }"
           @click="selectFrameTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
@@ -81,7 +81,7 @@
     </div>
     <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
       <div class="tab-container">
-        <button class="tab" v-for="tab in effectTabs" :key="tab.id" :class="{ selected: selectedTab === tab.id }"
+        <button class="tab" v-for="tab in effectTabs" :key="tab.id" :class="{ selected: selectedEffectTab === tab.id }"
           @click="selectEffectTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
@@ -89,7 +89,7 @@
           v-for="image in selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList"
           :key="image.id">
           <img :src="image.src"
-            @click="selectImage(selectedTab === 1 ? characterList : selectedTab === 2 ? filterList : stickerList, image.id)"
+            @click="selectImage(selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList, image.id)"
             class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
             style="width: 40px; height: 40px; position: absolute; top: 25%" />

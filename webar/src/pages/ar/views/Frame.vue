@@ -29,6 +29,7 @@ import useEventData from "@/composables/useEventData";
 import useResultData from "@/composables/useResultData";
 import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
+import useWindowEvent from "@/composables/useWindowEvent";
 
 export default {
   name: "Frame",
@@ -50,9 +51,6 @@ export default {
     const containerRef = ref(null);
     const printModal = ref(null);
     const imageUrl = ref(null);
-    const characterList = ref(null);
-    const filterList = ref(null);
-    const stickerList = ref(null);
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
     const isWebView = computed(() => navigator.userAgent.includes('WebView'));
@@ -84,6 +82,13 @@ export default {
       allowOrientationPermission,
       rejectOrientationPermission,
     } = useEventHandlers();
+
+    const {
+      characterList,
+      filterList,
+      stickerList,
+      setList
+    } = useWindowEvent();
 
     // video load complete
     const loadVideo = () => {
@@ -121,22 +126,6 @@ export default {
       containerRef.value.topValue = 40;
     };
 
-    const createGetterFunction = (getterPath) => {
-      return function () {
-        const computedValue = computed(() => {
-          const isValue = getters[getterPath];
-          return isValue;
-        });
-        return computedValue.value;
-      }
-    }
-
-    window.photoRatioSettingType = createGetterFunction('eventData/photoRatioSettingType');
-    window.arFrameSettingYn = createGetterFunction('eventData/arFrameSettingYn');
-    window.arFilterSettingYn = createGetterFunction('eventData/arFilterSettingYn');
-    window.arCharacterSettingYn = createGetterFunction('eventData/arCharacterSettingYn');
-    window.arStickerSettingYn = createGetterFunction('eventData/arStickerSettingYn');
-
     window.flipCamera = function () {
       cameraRef.value.flipCamera();
     }
@@ -154,44 +143,10 @@ export default {
       }
     }
 
-    function createList(urlGetter) {
-      const url = computed(() => store.getters[urlGetter]);
-
-      return url.value.map((item, index) => {
-        let tabId = 1;
-        let select = index === 0;
-
-        return {
-          id: index + 1,
-          tabId: tabId,
-          src: item.thumbnailUri,
-          file: item.sourceUri,
-          name: item.fileName,
-          select: select,
-          type: item.tabMenuType,
-        };
-      });
-    }
-
-    window.createEffectList = function () {
-      const characterList = createList('eventData/characterContentsInfoList');
-      const filterList = createList('eventData/filterContentsInfoList');
-      const stickerList = createList('eventData/stickerContentsInfoList');
-
-      return {
-        characterList,
-        filterList,
-        stickerList
-      }
-    }
-
     onMounted(async () => {
       await getEventData();
       templateType.value = getters['eventData/templateType'];
-      characterList.value = createList('eventData/characterContentsInfoList');
-      filterList.value = createList('eventData/filterContentsInfoList');
-      stickerList.value = createList('eventData/stickerContentsInfoList');
-
+      setList();
       startLoading();
 
       setTimeout(() => {
