@@ -1,17 +1,17 @@
 <template>
-  <video ref="video" @loadedmetadata="loadedmetadata" @loadeddata="loadeddata" playsinline/>
+  <video ref="video" @loadedmetadata="loadedmetadata" @loadeddata="loadeddata" playsinline />
 </template>
 
 <script>
-import {onMounted, ref} from "vue";
-import {getUserMedia} from "@/js/getUserMedia";
+import { onMounted, ref } from "vue";
+import { getUserMedia } from "@/js/getUserMedia";
 
 export default {
   name: "Camera",
   emits: ['loadeddata', 'loadedmetadata', 'reject:video'],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const video = ref(null);
-  
+
     let facingMode = "user";
     // meta data load
     const loadedmetadata = () => {
@@ -25,7 +25,7 @@ export default {
       facingMode = facingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
 
       try {
-        await getUserMedia({videoEl: video.value, facingMode});
+        await getUserMedia({ videoEl: video.value, facingMode });
       } catch (err) {
         emit('reject:video')
       }
@@ -34,7 +34,7 @@ export default {
 
     onMounted(async () => {
       try {
-        await getUserMedia({videoEl: video.value});
+        await getUserMedia({ videoEl: video.value });
       } catch (err) {
         // alert('카메라 사용을 허용하지 않으셨습니다. 이벤트 페이지로 돌아갑니다.')
         emit('reject:video')

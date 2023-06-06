@@ -1,7 +1,7 @@
 <template>
-    <div class="tutorial-popup" >
-      <div class="tutorial-inner">
-        <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
+  <div class="tutorial-popup">
+    <div class="tutorial-inner">
+      <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
         <img :src="tutorial.image" alt="튜토리얼가이드 이미지 필요!!" />
         <p>{{ tutorial.description }}</p>
       </div>
@@ -16,16 +16,16 @@
         <button @click="next">다음</button>
       </div>
       <button class="close-button" @click="close">
-        <img src="../../assets/icon/round-close-button.png" alt="내리기" style="width: 40px; height: 40px;"   />
+        <img src="../../assets/icon/round-close-button.png" alt="내리기" style="width: 40px; height: 40px;" />
       </button>
-      </div>
     </div>
+  </div>
 </template>
   
-  <script>
-  export default {
-    name: "TutorialModal",
-    data() {
+<script>
+export default {
+  name: "TutorialModal",
+  data() {
     return {
       tutorials: [
         // 여기에 튜토리얼 이미지와 설명을 추가하십시오
@@ -37,12 +37,12 @@
       currentIndex: 0,
     };
   },
-    methods: {
-      close() {
-        this.$emit('close');
-      },
-      next() {
-        console.log(this.currentIndex, this.tutorials.length - 1)
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    next() {
+      console.log(this.currentIndex, this.tutorials.length - 1)
       if (this.currentIndex < this.tutorials.length - 1) {
         this.currentIndex++;
       } else {
@@ -52,29 +52,29 @@
     skip() {
       this.close();
     },
-    }
   }
-  </script>
+}
+</script>
   
-  <style scoped>
-  .tutorial-popup {
-    z-index: 10000;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: gray;
-    color: #fff;
-  }
+<style scoped>
+.tutorial-popup {
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  color: #fff;
+}
 
-  .tutorial-inner{
-    text-align: center;
+.tutorial-inner {
+  text-align: center;
   margin-bottom: 1em;
   background-color: #fff;
 }
-  
+
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -97,6 +97,7 @@
 .dots span.active {
   background-color: #000;
 }
+
 .close-button {
   position: absolute;
   bottom: 25%;
@@ -110,5 +111,4 @@
   text-align: center;
   cursor: pointer;
 }
-
-  </style>
+</style>
