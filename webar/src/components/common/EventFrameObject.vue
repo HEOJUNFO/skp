@@ -99,21 +99,17 @@
       const {characterList} = toRefs(props);
       console.log(characterList.value)
       
-      const selectCharacter = ref(false);
-      const selectFilter = ref(false);
-      const selectSticker = ref(false);
-  
-      window.selectCharacter = function(props) {
-        selectCharacter.value = props.toString();
-      }
+      function defineWindowFuncAndRef(name) {
+  const refVariable = ref(false);
+  window[name] = function(props) {
+    refVariable.value = props.toString();
+  }
+  return refVariable;
+}
 
-      window.selectFilter = function(props) {
-        selectFilter.value = props.toString();
-      }
-
-      window.selectSticker = function(props) {
-        selectSticker.value = props.toString();
-      }
+const selectCharacter = defineWindowFuncAndRef('selectCharacter');
+const selectFilter = defineWindowFuncAndRef('selectFilter');
+const selectSticker = defineWindowFuncAndRef('selectSticker');
 
   
  

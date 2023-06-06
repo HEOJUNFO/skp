@@ -317,25 +317,17 @@ const frameButtonStyle = computed(() => ({
     }));
 
 
-watch(frameList, () => {
-    let selectedItem = frameList.value.find(image => image.select === true);
-    iframeRef.value.contentWindow.selectFrame(selectedItem.id);
-}, {deep: true});
+    function watchAndSelect(list, selectFuncName) {
+    watch(list, () => {
+        let selectedItem = list.value.find(item => item.select === true);
+        iframeRef.value.contentWindow[selectFuncName](selectedItem.id);
+    }, {deep: true});
+}
 
-watch(characterList, () => {
-    let selectedItem = characterList.value.find(image => image.select === true);
-    iframeRef.value.contentWindow.selectCharacter(selectedItem.id);
-}, {deep: true});
-
-watch(filterList, () => {
-    let selectedItem = filterList.value.find(image => image.select === true);
-    iframeRef.value.contentWindow.selectFilter(selectedItem.id);
-}, {deep: true});
-
-watch(stickerList, () => {
-    let selectedItem = stickerList.value.find(image => image.select === true);
-    iframeRef.value.contentWindow.selectSticker(selectedItem.id);
-}, {deep: true});
+watchAndSelect(frameList, 'selectFrame');
+watchAndSelect(characterList, 'selectCharacter');
+watchAndSelect(filterList, 'selectFilter');
+watchAndSelect(stickerList, 'selectSticker');
 
       return {
         baseUrl: process.env.VUE_APP_PAGE_PATH
