@@ -78,8 +78,6 @@ export default {
     } = useLoading()
 
     const {
-      dragStart,
-      dragEnd,
       rejectVideo,
       loadScene,
       rquestOrientationPermission,
@@ -217,8 +215,6 @@ export default {
       templateType,
       loadedVideo,
       loadingState,
-      dragStart,
-      dragEnd,
       loadVideo,
       rejectVideo,
       loadScene,
