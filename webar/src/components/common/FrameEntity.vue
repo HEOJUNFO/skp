@@ -2,22 +2,34 @@
   <template v-if="arData">
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
+
     <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
+
     <a-box v-else-if="objectType === `CUBE`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
+
     <a-image v-else-if="objectType === `IMAGE`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
+
     <a-entity v-else-if="objectType === `GIF`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
+
     <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer />
+
     <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" animation-mixer />
+      @animationcomplete="animationcomplete" animation-mixer>
+      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true"  renderOrder="0" raycaster> </a-box>
+     </a-gltf-model>
+
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" animation-mixer />
-    <a-image v-else-if="objectType === `STICKER`" v-bind="attrs" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
+      @animationcomplete="animationcomplete" animation-mixer>
+      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"  raycaster> </a-box>
+    </a-gltf-model>
+
+    <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" gesture-handler="locationBased: true"
+      @animationcomplete="animationcomplete" renderOrder="1" ></a-plane>
   </template>
 </template>
   

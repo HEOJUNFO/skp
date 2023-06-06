@@ -4,6 +4,7 @@
                   enabled: true;
                   deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
                   allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
+                  cursor="rayOrigin: mouse"
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
     @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
@@ -37,11 +38,11 @@
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
-    <a-entity position="0 -1 -1">
+    <a-entity position="0 -1 0">
       <frame-object v-for="item in characterList" :key="`frmaeobject_${item.id}`" :ar-data="item"
         :visible="item.id == selectCharacter" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 -1 -1">
+    <a-entity position="0 -1 0">
       <frame-object v-for="item in stickerList" :key="`frmaeobject_${item.id}`" :ar-data="item"
         :visible="item.id == selectSticker" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
