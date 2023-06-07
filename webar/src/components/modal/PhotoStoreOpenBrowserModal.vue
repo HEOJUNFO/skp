@@ -3,14 +3,21 @@
     <div class="main-content">
       <button class="exit-button" @click="exit">X</button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
-      <button class="round-button">셀픽 디바이스 위치 찾기</button>
+      <div class="prints-count">
+        <span style="margin-right: 2em;">출력 장수</span>
+        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
+        <span class="prints-number">{{ printNumber }}</span>
+        <button v-if="printNumber < 5" class="button-print2" @click="increasePrints">+</button>
+      </div>
+
       <button class="round-button" @click="print">출력하기</button>
-      <div v-if="showErrorModal" class="modal">
+      <button class="round-button">셀픽 디바이스 위치 찾기</button>
+      <div v-if="showDeviceModal" class="modal2">
         <div class="modal-content">
-          <h2>디바이스번호 불일치</h2>
-          <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
-          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
-          <button class="round-button" @click="print">다시 출력요청</button>
+          <p>키오스크 화면에 보이는</p>
+          <p>기기번호를 입력해 주세요.</p>
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
+          <button class="round-button" @click="print">확인</button>
         </div>
       </div>
       <div v-if="showSuccessModal" class="modal2">
@@ -59,11 +66,12 @@ export default {
   data() {
     return {
       deviceNumber: '',
-      showErrorModal: false,
+      showDeviceModal: false,
       showSuccessModal: false,
       showFailureModal: false,
-      freePrints: 5,
-      printStatus: 'printing'
+      freePrints: 10,
+      printStatus: 'printing',
+      printNumber: 1,
     }
   },
   methods: {
@@ -72,14 +80,14 @@ export default {
     },
     print() {
       if (!this.checkDeviceNumber(this.deviceNumber)) {
-        this.showErrorModal = false;
+        this.showDeviceModal = false;
         setTimeout(() => {
-          this.showErrorModal = true;
+          this.showDeviceModal = true;
         }, 100);
         return;
       }
-      if (this.freePrints > 0) {
-        this.freePrints--;
+      if (this.freePrints > this.printNumber) {
+        this.freePrints -= this.printNumber;
         this.showSuccessModal = true;
         setTimeout(() => {
           this.printStatus = 'success';
@@ -90,6 +98,15 @@ export default {
     },
     checkDeviceNumber(deviceNumber) {
       return deviceNumber === '12345';
+    },
+    increasePrints() {
+      if (this.printNumber < 5)
+        this.printNumber++;
+    },
+    decreasePrints() {
+      if (this.printNumber > 1) {
+        this.printNumber--;
+      }
     },
   },
   created() {
@@ -164,18 +181,6 @@ export default {
   border: 1px solid #000;
 }
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal2 {
   position: fixed;
   top: 0;
@@ -235,5 +240,49 @@ export default {
   margin: 20px 0;
   text-align: center;
   color: #000
+}
+
+.prints-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-left: 10%;
+  width: 80%;
+  height: 30px;
+}
+
+.prints-number {
+  border: 1px solid black;
+  padding: 2px 70px;
+
+}
+
+.button-print1 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.button-print2 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
 }
 </style>

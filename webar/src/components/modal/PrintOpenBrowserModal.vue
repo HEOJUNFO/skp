@@ -29,7 +29,7 @@
           <button class="close-button" @click="showModal = false">X</button>
           <img :src="modalImageUrl" alt="Image for Modal" />
           <p>{{ modalText }}</p>
-          <div><button class="round-button">배송정보입력(당첨정보입력)</button></div>
+          <div><button class="round-button">당첨정보입력</button></div>
           <div><button class="round-button" @click="openReCaptureModal">다시촬영</button></div>
         </div>
       </div>
@@ -88,8 +88,6 @@ export default {
   },
   data() {
     return {
-      title: 'Page Title',
-      content: 'Page content...',
       showModal: false,
       modalImageUrl: 'path/to/image.jpg',
       modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
