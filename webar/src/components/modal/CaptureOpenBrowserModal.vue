@@ -50,7 +50,8 @@
           <p>지금 출력을 원하시면 출력 하기를</p>
           <p>눌러주세요</p>
           <div class="button-container">
-            <button class="round-button" @click="print">출력하기</button>
+            <button class="round-button" @click="photoStore">포토함 이동</button>
+            <button class="round-button" @click="print">지금 출력</button>
           </div>
         </div>
       </div>
@@ -70,7 +71,8 @@
         </div>
       </div>
     </div>
-    <print-open-browser-modal ref="photoStoreModal" />
+    <print-open-browser-modal ref="printModal" />
+    <photo-store-open-browser-modal ref="photoStoreModal" />
   </vue-final-modal>
 </template>
   
@@ -79,12 +81,13 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
-
+import PhotoStoreOpenBrowserModal from "./PhotoStoreOpenBrowserModal.vue";
 
 export default {
   name: "EventCompleteModal",
   components: {
     PrintOpenBrowserModal,
+    PhotoStoreOpenBrowserModal,
   },
   data() {
     return {
@@ -113,6 +116,7 @@ export default {
     const showVModal = ref(false);
     const imageurl = ref('');
     const isCopyCilp = ref(false);
+    const printModal = ref(null);
     const photoStoreModal = ref(null);
 
     const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
@@ -161,7 +165,9 @@ export default {
       });
     }
     const print = () => {
-
+      printModal.value.openModal(imageurl.value);
+    }
+    const photoStore = () => {
       photoStoreModal.value.openModal(imageurl.value);
     }
 
@@ -198,6 +204,7 @@ export default {
 
     return {
       print,
+      photoStore,
       openModal,
       showVModal,
       imageurl,
@@ -213,6 +220,7 @@ export default {
       agreePopupInputText,
       copyToClipboard,
       isCopyCilp,
+      printModal,
       photoStoreModal,
       photoPrintYn,
       photoPrintButtonText,

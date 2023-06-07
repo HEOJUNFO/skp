@@ -8,7 +8,7 @@
         @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
-      <capture-open-browser-modal ref="printModal" :image-url="imageUrl" />
+      <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
     </template>
   </frame-container>
 </template>
@@ -48,7 +48,7 @@ export default {
     const tutorialPopup = ref(false);
     const cameraRef = ref(null);
     const containerRef = ref(null);
-    const printModal = ref(null);
+    const captureModal = ref(null);
     const imageUrl = ref(null);
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
@@ -130,7 +130,7 @@ export default {
     }
 
     window.capture = function () {
-      printModal.value.openModal(capture());
+      captureModal.value.openModal(capture());
       window.parent.toggleBarVisibility();
       cameraRef.value.resetCamera();
     }
@@ -182,7 +182,7 @@ export default {
       rquestOrientationPermission,
       allowOrientationPermission,
       rejectOrientationPermission,
-      printModal,
+      captureModal,
       imageUrl,
       isWebView
     }

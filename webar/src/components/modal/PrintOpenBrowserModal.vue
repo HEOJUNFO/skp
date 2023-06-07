@@ -109,9 +109,6 @@ export default {
       }
     },
   },
-  created() {
-    this.localImageUrl = this.$route.params.data
-  },
   setup() {
     const showVModal = ref(false);
     const imageUrl = ref('');
