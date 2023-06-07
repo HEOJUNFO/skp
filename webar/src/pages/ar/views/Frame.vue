@@ -8,10 +8,9 @@
         @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
-
+      <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
     </template>
   </frame-container>
-  <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
 </template>
   
 <script>

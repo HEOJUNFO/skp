@@ -57,7 +57,7 @@
 </template>
   
 <script>
-import { toRefs, ref } from "vue";
+import { ref } from "vue";
 import FrameObject from "@/components/common/FrameObject";
 
 
@@ -74,10 +74,6 @@ export default {
   components: { FrameObject },
 
   setup(props, { emit }) {
-    //props
-    const { characterList } = toRefs(props);
-    console.log(characterList.value)
-
     function defineWindowFuncAndRef(name) {
       const refVariable = ref(false);
       window[name] = function (props) {
@@ -124,8 +120,6 @@ export default {
     const permissionRequested = () => {
       emit('request:orientationpermission');
     }
-
-
 
     return {
       animationcomplete,

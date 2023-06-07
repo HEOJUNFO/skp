@@ -10,14 +10,14 @@
         <button @click="saveImage(), showSaveModal = true">
           <img src="../../assets/icon/save-button.png" alt="저장" style="width: 30px; height: 30px;" />
         </button>
-        <button @click="share">
+        <button @click="shareAgreePopupYn ? showAgreeModal=true : share()">
           <img src="../../assets/icon/share-button.png" alt="공유" style="width: 30px; height: 30px;" />
         </button>
       </div>
-      <div class="box">
+      <div v-if="hashTagYn" class="box">
         <h1 style="font-weight: bold">필수해시태그</h1>
-        <p v-html="formattedBoxContent"></p>
-        <button class="copy-button" @click="copyToClipboard">해시태그 복사하기</button>
+        <p v-html="formattedBoxContent(hashTagValue)"></p>
+        <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
         <transition name="fade">
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
         </transition>
@@ -54,13 +54,29 @@
           </div>
         </div>
       </div>
+      <div v-if="showAgreeModal" class="modal">
+        <div class="modal-content2">
+          <button class="close-button2" @click="showAgreeModal = false">X</button>
+          <h1 style="font-weight: bold;" >사진 활용 동의 안내</h1>
+          <br>
+          <p class="text">{{agreePopupText }}</p>
+          <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
+          <br>
+          <input type="text" :placeholder="agreePopupInputText" class="input-text"/> 
+          <br>
+          <div class="button-container">
+            <button class="round-button" @click="share">동의하기</button>
+          </div>
+        </div>
+      </div>
     </div>
   </vue-final-modal>
 </template>
   
 <script>
-import { ref } from "vue";
+import { ref,computed} from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 
 export default {
@@ -69,38 +85,67 @@ export default {
     return {
       title: 'Page Title',
       content: 'Page content...',
-      hashtagContent: '#양양서프비치 #AR포토',
-      isCopyCilp: false,
       showModal: false,
       modalImageUrl: 'path/to/image.jpg',
       modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
       showReCaptureModal: false,
       showSaveModal: false,
+      showAgreeModal: false,
     }
   },
   methods: {
     exit() {
       this.$router.go(-1)
     },
-    copyToClipboard() {
-      navigator.clipboard.writeText(this.hashtagContent).then(() => {
-        this.isCopyCilp = true;
-
-        setTimeout(() => this.isCopyCilp = false, 2000);
-      }).catch(err => {
-        console.error('Could not copy text: ', err);
-        alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
-      });
-    },
+   
     openReCaptureModal() {
       this.showModal = false;
       this.showReCaptureModal = true;
     },
 
   },
-  computed: {
-    formattedBoxContent() {
-      const hashtags = this.hashtagContent.split(' ');
+  setup() {
+    const store = useStore();
+    const { getters } = store;
+    const showVModal = ref(false);
+    const imageurl = ref('');
+    const router = useRouter()
+    const printImageUrl = router.currentRoute.value.params.data
+    const isCopyCilp = ref(false);
+
+    const hashTagYn = computed(() => {
+      const isHashTag = getters['eventData/hashTagSettingYn'];
+      return isHashTag === 'Y';
+    });
+
+    const hashTagValue = computed(() => {
+      const hashTagValue = getters['eventData/hashTagValue'];
+      return hashTagValue;
+    });
+
+    const shareAgreePopupYn = computed(() => {
+      const shareAgreePopupYn = getters['eventData/shareAgreePopupSettingYn'];
+      return shareAgreePopupYn === 'Y';
+    });
+
+    const agreePopupText = computed(() => {
+      const agreePopupText = getters['eventData/agreePopupText'];
+      return agreePopupText;
+    });
+
+    const agreePopupDetailLinkUrl = computed(() => {
+      const agreePopupDetailLinkUrl = getters['eventData/agreePopupDetailLinkUrl'];
+      return agreePopupDetailLinkUrl;
+    });
+
+    const agreePopupInputText = computed(() => {
+      const agreePopupInputText = getters['eventData/agreePopupInputText'];
+      return agreePopupInputText;
+    });
+
+    const formattedBoxContent = (hashTag) => {
+      console.log(hashTag)
+      const hashtags = hashTagValue.value.split(' ');
       let lineLength = 0;
       return hashtags.map((hashtag, index) => {
         lineLength += hashtag.length;
@@ -111,14 +156,18 @@ export default {
           return `<span class="hashtag">${hashtag}</span>`;
         }
       }).join(' ');
-    },
-  },
-  setup() {
-    const showVModal = ref(false);
-    const imageurl = ref('');
+    }
+    
+    const copyToClipboard = (hashTag) => {
+      navigator.clipboard.writeText(hashTag).then(() => {
+        isCopyCilp.value = true;
 
-    const router = useRouter()
-    const printImageUrl = router.currentRoute.value.params.data
+        setTimeout(() => isCopyCilp.value = false, 2000);
+      }).catch(err => {
+        console.error('Could not copy text: ', err);
+        alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
+      });
+    }
     const print = () => {
       router.push({ name: 'Photo Store Open Browser', params: { data: printImageUrl } });
     }
@@ -150,7 +199,7 @@ export default {
           .catch((error) => console.log('Error sharing', error),
             alert('공유기능을 지원하지 않는 브라우저입니다.'));
       } else {
-        console.log('Share not supported on this browser');
+        alert('공유기능을 지원하지 않는 브라우저입니다.');
       }
     }
 
@@ -162,6 +211,15 @@ export default {
       saveImage,
       back,
       share,
+      hashTagYn,
+      hashTagValue,
+      formattedBoxContent,
+      shareAgreePopupYn,
+      agreePopupText,
+      agreePopupDetailLinkUrl,
+      agreePopupInputText,
+      copyToClipboard,
+      isCopyCilp,
     }
   }
 }
@@ -230,8 +288,7 @@ export default {
   background-color: rgba(0, 0, 0, 0);
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
+  width: 60%;
   text-align: center;
   background-color: #fff;
   color: #000;
@@ -257,7 +314,7 @@ export default {
 
 .round-button {
   display: inline-block;
-  border-radius: 10px;
+  border-radius: 25px;
   width: 100%;
   height: 50px;
   margin: 10px;
@@ -316,7 +373,7 @@ export default {
 
 .copy-alert {
   position: fixed;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #000;
@@ -324,4 +381,23 @@ export default {
   padding: 10px;
   border-radius: 10px;
   z-index: 100;
-}</style>
+}
+
+.text {
+    word-wrap: break-word;
+    max-width: 23ch;
+  }
+  
+  .link {
+    text-decoration: underline;
+  }
+  .input-text {
+  width: 100%;
+  height: 30px;
+  border: none;
+  background-color: grey;
+  color: white;
+  border-radius: 5px;
+}
+
+</style>

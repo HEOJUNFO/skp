@@ -59,15 +59,12 @@ export default {
     const { arData, arType, touchEffectType } = toRefs(props);
     // 객체 타입
     const objectType = computed(() => arData.value.type);
-
-    console.log(objectType.value)
     // arData에 arType추가 (a-asset id용)
     arData.value.objectType = arType.value;
     // 데이터에서 AR Object데이터로 변환
     const attrs = ref(getObjectAttrs(arData.value));
 
     watch(arData, (newValue) => {
-      console.log(attrs.value)
       attrs.value = getObjectAttrs(newValue);
     })
 

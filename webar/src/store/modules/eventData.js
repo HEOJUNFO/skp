@@ -121,27 +121,40 @@ export const eventData = {
       return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
     },
     tutorialYn({ eventData }) {
-      if(Array.isArray(eventData?.photoLogicalInfo))
-      return eventData?.photoLogicalInfo[0].tutorialYn ?? "N";
+      return getPhotoLogicalInfoProperty(eventData, 'tutorialYn', 'N');
     },
     photoRatioSettingType({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'photoRatioSettingType', 'BASIC');
     },
-    
     arFrameSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arFrameSettingYn', 'N');
     },
-    
     arFilterSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arFilterSettingYn', 'N');
     },
-    
     arCharacterSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arCharacterSettingYn', 'N');
     },
-    
     arStickerSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arStickerSettingYn', 'N');
+    },
+    hashTagSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'hashTagSettingYn', 'N');
+    },
+    hashTagValue({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'hashTagValue', 'default');
+    },
+    shareAgreePopupSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'shareAgreePopupSettingYn', 'N');
+    },
+    agreePopupText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'agreePopupText', 'default');
+    },
+    agreePopupDetailLinkUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'agreePopupDetailLinkUrl', 'default');
+    },
+    agreePopupInputText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'agreePopupInputText', 'default');
     },
 
     templateType(state) {
@@ -411,7 +424,8 @@ function getScanningBridgeData(item) {
 }
 
 function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {
-  if (Array.isArray(eventData?.photoLogicalInfo))
+  if (Array.isArray(eventData?.photoLogicalInfo)){
     return eventData?.photoLogicalInfo[0][propertyName] ?? defaultValue;
+  }
 }
 
