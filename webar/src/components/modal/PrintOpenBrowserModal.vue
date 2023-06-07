@@ -10,7 +10,7 @@
         <button @click="saveImage(), showSaveModal = true">
           <img src="../../assets/icon/save-button.png" alt="저장" style="width: 30px; height: 30px;" />
         </button>
-        <button @click="shareAgreePopupYn ? showAgreeModal=true : share()">
+        <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
           <img src="../../assets/icon/share-button.png" alt="공유" style="width: 30px; height: 30px;" />
         </button>
       </div>
@@ -57,12 +57,12 @@
       <div v-if="showAgreeModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showAgreeModal = false">X</button>
-          <h1 style="font-weight: bold;" >사진 활용 동의 안내</h1>
+          <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
           <br>
-          <p class="text">{{agreePopupText }}</p>
+          <p class="text">{{ agreePopupText }}</p>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
           <br>
-          <input type="text" :placeholder="agreePopupInputText" class="input-text"/> 
+          <input type="text" :placeholder="agreePopupInputText" class="input-text" />
           <br>
           <div class="button-container">
             <button class="round-button" @click="share">동의하기</button>
@@ -70,12 +70,12 @@
         </div>
       </div>
     </div>
-  <photo-store-open-browser-modal ref="photoStoreModal" />
+    <photo-store-open-browser-modal ref="photoStoreModal" />
   </vue-final-modal>
 </template>
   
 <script>
-import { ref,computed} from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import PhotoStoreOpenBrowserModal from "@/components/modal/PhotoStoreOpenBrowserModal";
@@ -102,7 +102,7 @@ export default {
     exit() {
       this.$router.go(-1)
     },
-   
+
     openReCaptureModal() {
       this.showModal = false;
       this.showReCaptureModal = true;
@@ -117,63 +117,28 @@ export default {
     const isCopyCilp = ref(false);
     const photoStoreModal = ref(null);
 
-    const hashTagYn = computed(() => {
-      const isHashTag = getters['eventData/hashTagSettingYn'];
-      return isHashTag === 'Y';
-    });
+    const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
+      return computed(() => {
+        const value = getters[`eventData/${getterKey}`];
+        return shouldCheckEquality ? value === equalityValue : value;
+      });
+    };
 
-    const hashTagValue = computed(() => {
-      return  getters['eventData/hashTagValue'];
-    });
-
-    const shareAgreePopupYn = computed(() => {
-      const isShareAgreePopup = getters['eventData/shareAgreePopupSettingYn'];
-      return isShareAgreePopup === 'Y';
-    });
-
-    const agreePopupText = computed(() => {
-      return getters['eventData/agreePopupText'];
-     
-    });
-
-    const agreePopupDetailLinkUrl = computed(() => {
-      return  getters['eventData/agreePopupDetailLinkUrl'];
-    });
-
-    const agreePopupInputText = computed(() => {
-      return  getters['eventData/agreePopupInputText'];
-    });
-
-    const photoPrintYn = computed(() => {
-      const isPhotoPrint = getters['eventData/photoPrintSettingYn'];
-      return isPhotoPrint === 'Y';
-    });
-
-    const photoPrintButtonText = computed(() => {
-      return  getters['eventData/photoPrintButtonText'];
-    });
-
-    const photoGiveAwayYn = computed(() => {
-      const isPhotoGiveAway = getters['eventData/photoGiveAwaySettingYn'];
-      return isPhotoGiveAway === 'Y';
-    });
-
-    const photoGiveAwayButtonText = computed(() => {
-      return  getters['eventData/photoGiveAwayButtonText'];
-    });
-
-    const filmResultFooterImgYn = computed(() => {
-      const isFilmResultFooterImg = getters['eventData/filmResultFooterImgSettingYn'];
-      return isFilmResultFooterImg === 'Y';
-    });
-
-    const filmResultFooterImgUrl = computed(() => {
-      return  getters['eventData/filmResultFooterImgUrl'];
-    });
+    const hashTagYn = computedPropertyGenerator('hashTagSettingYn', true);
+    const hashTagValue = computedPropertyGenerator('hashTagValue', false);
+    const shareAgreePopupYn = computedPropertyGenerator('shareAgreePopupSettingYn', true);
+    const agreePopupText = computedPropertyGenerator('agreePopupText', false);
+    const agreePopupDetailLinkUrl = computedPropertyGenerator('agreePopupDetailLinkUrl', false);
+    const agreePopupInputText = computedPropertyGenerator('agreePopupInputText', false);
+    const photoPrintYn = computedPropertyGenerator('photoPrintSettingYn', true);
+    const photoPrintButtonText = computedPropertyGenerator('photoPrintButtonText', false);
+    const photoGiveAwayYn = computedPropertyGenerator('photoGiveAwaySettingYn', true);
+    const photoGiveAwayButtonText = computedPropertyGenerator('photoGiveAwayButtonText', false);
+    const filmResultFooterImgYn = computedPropertyGenerator('filmResultFooterImgSettingYn', true);
+    const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
 
     const formattedBoxContent = (hashTag) => {
-      console.log(hashTag)
-      const hashtags = hashTagValue.value.split(' ');
+      const hashtags = hashTag.split(' ');
       let lineLength = 0;
       return hashtags.map((hashtag, index) => {
         lineLength += hashtag.length;
@@ -185,7 +150,7 @@ export default {
         }
       }).join(' ');
     }
-    
+
     const copyToClipboard = (hashTag) => {
       navigator.clipboard.writeText(hashTag).then(() => {
         isCopyCilp.value = true;
@@ -197,7 +162,7 @@ export default {
       });
     }
     const print = () => {
-    
+
       photoStoreModal.value.openModal(imageurl.value);
     }
 
@@ -420,14 +385,15 @@ export default {
 }
 
 .text {
-    word-wrap: break-word;
-    max-width: 23ch;
-  }
-  
-  .link {
-    text-decoration: underline;
-  }
-  .input-text {
+  word-wrap: break-word;
+  max-width: 23ch;
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.input-text {
   width: 100%;
   height: 30px;
   border: none;
@@ -435,5 +401,4 @@ export default {
   color: white;
   border-radius: 5px;
 }
-
 </style>
