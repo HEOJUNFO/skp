@@ -8,7 +8,7 @@
         @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
-      <print-open-browser-modal ref="printModal" :image-url="imageUrl" />
+      <capture-open-browser-modal ref="printModal" :image-url="imageUrl" />
     </template>
   </frame-container>
 </template>
@@ -21,7 +21,7 @@ import FrameContainer from "../../../components/common/FrameContainer";
 import EventFrameObject from "../../../components/common/EventFrameObject";
 import Camera from "@/components/common/Camera";
 import TutorialModal from "@/components/modal/TutorialModal";
-import PrintOpenBrowserModal from "../../../components/modal/PrintOpenBrowserModal.vue";
+import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
 
 import useEventData from "@/composables/useEventData";
@@ -37,7 +37,7 @@ export default {
     EventFrameObject,
     FrameContainer,
     TutorialModal,
-    PrintOpenBrowserModal,
+    CaptureOpenBrowserModal,
     BrowserCheckModal
   },
   setup() {

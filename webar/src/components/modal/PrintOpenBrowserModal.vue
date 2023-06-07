@@ -1,231 +1,134 @@
 <template>
   <vue-final-modal v-model="showVModal">
-    <div class="main-content" :style="{ backgroundImage: `url(${filmResultImgUrl})` }">
-      <img :src="imageurl" class="image" alt="Image from URL" />
-      <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
-      <div class="buttons">
-        <button @click="back">
-          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 30px; height: 30px;" />
-        </button>
-        <button @click="saveImage(), showSaveModal = true">
-          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 30px; height: 30px;" />
-        </button>
-        <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
-          <img src="../../assets/icon/share-button.png" alt="공유" style="width: 30px; height: 30px;" />
-        </button>
+    <div class="main-content">
+      <button class="exit-button" @click="exit">X</button>
+      <img :src="imageUrl" class="image" alt="Image from URL" />
+      <div class="prints-count">
+        <span style="margin-right: 2em;">출력 장수</span>
+        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
+        <span class="prints-number">{{ printNumber }}</span>
+        <button v-if="printNumber < 5" class="button-print2" @click="increasePrints">+</button>
       </div>
-      <div v-if="hashTagYn" class="box">
-        <h1 style="font-weight: bold">필수해시태그</h1>
-        <p v-html="formattedBoxContent(hashTagValue)"></p>
-        <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
-        <transition name="fade">
-          <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
-        </transition>
-      </div>
-      <button v-if="photoGiveAwayYn" class="box-button" @click="showModal = true">{{ photoGiveAwayButtonText }}</button>
-      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
-      <div v-if="showModal" class="modal">
+
+      <button class="round-button" @click="print">출력하기</button>
+      <button class="round-button">셀픽 디바이스 위치 찾기</button>
+      <div v-if="showDeviceModal" class="modal2">
         <div class="modal-content">
-          <button class="close-button" @click="showModal = false">X</button>
-          <img :src="modalImageUrl" alt="Image for Modal" />
-          <p>{{ modalText }}</p>
-          <div><button class="round-button">당첨정보입력</button></div>
-          <div><button class="round-button" @click="openReCaptureModal">다시촬영</button></div>
+          <p>키오스크 화면에 보이는</p>
+          <p>기기번호를 입력해 주세요.</p>
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
+          <button class="round-button" @click="print">확인</button>
         </div>
       </div>
-      <div v-if="showReCaptureModal" class="modal">
-        <div class="modal-content2">
-          <button class="close-button2" @click="showReCaptureModal = false">X</button>
-          <p>정말 당첨을 포기하시겠습니까?</p>
-          <div class="button-container">
-            <button class="round-button" @click="back">포기</button>
-            <button class="round-button" @click="showReCaptureModal = false">취소</button>
+      <div v-if="showSuccessModal" class="modal2">
+        <div class="modal-content">
+          <h1 class="highlight-text"><span>{{ "디바이스 번호" }}</span>{{ deviceNumber }}<span>{{ "에" }}</span></h1>
+          <h1 class="highlight-text">사진출력이</h1>
+          <h1 class="highlight-text">요청되었습니다.</h1>
+          <div v-if="printStatus !== 'fail'" class="circle-message">
+            <p v-if="printStatus === 'printing'">출력중</p>
+            <p v-else-if="printStatus === 'success'">출력완료</p>
           </div>
-        </div>
-      </div>
-      <div v-if="showSaveModal" class="modal">
-        <div class="modal-content2">
-          <button class="close-button2" @click="showSaveModal = false">X</button>
-          <p>휴대폰 갤러리에 저장되었습니다</p>
-          <p>지금 출력을 원하시면 출력 하기를</p>
-          <p>눌러주세요</p>
-          <div class="button-container">
-            <button class="round-button" @click="print">출력하기</button>
+          <div v-if="printStatus === 'fail'" class="error">
+            <p>!</p>
+            <p class="error-text">디바이스(통신) 오류로</p>
+            <p class="error-text">출력이 불가능 합니다.</p>
           </div>
+
+          <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
+          <button v-if="printStatus === 'success'" class="round-button2"
+            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
+          <p v-if="printStatus === 'fail'" class="bottom-text">주변의 현장안내 직원에게 문의 해주세요.</p>
+          <button v-if="printStatus === 'fail'" class="round-button2"
+            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
         </div>
       </div>
-      <div v-if="showAgreeModal" class="modal">
-        <div class="modal-content2">
-          <button class="close-button2" @click="showAgreeModal = false">X</button>
-          <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
-          <br>
-          <p class="text">{{ agreePopupText }}</p>
-          <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
-          <br>
-          <input type="text" :placeholder="agreePopupInputText" class="input-text" />
-          <br>
-          <div class="button-container">
-            <button class="round-button" @click="share">동의하기</button>
+
+      <div v-if="showFailureModal" class="modal2">
+        <div class="modal-content">
+          <h1 class="highlight-text">무료출력 가능 횟수가</h1>
+          <h1 class="highlight-text">초과되었습니다.</h1>
+          <div class="circle-message">
+            <p>죄송합니다.</p>
           </div>
+          <button class="round-button2" @click="showFailureModal = false">닫기</button>
         </div>
       </div>
+
     </div>
-    <photo-store-open-browser-modal ref="photoStoreModal" />
   </vue-final-modal>
 </template>
   
 <script>
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
-
-import PhotoStoreOpenBrowserModal from "@/components/modal/PhotoStoreOpenBrowserModal";
-
+import { ref } from 'vue';
 
 export default {
-  name: "EventCompleteModal",
-  components: {
-    PhotoStoreOpenBrowserModal,
-  },
   data() {
     return {
-      showModal: false,
-      modalImageUrl: 'path/to/image.jpg',
-      modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
-      showReCaptureModal: false,
-      showSaveModal: false,
-      showAgreeModal: false,
+      deviceNumber: '',
+      showDeviceModal: false,
+      showSuccessModal: false,
+      showFailureModal: false,
+      freePrints: 10,
+      printStatus: 'printing',
+      printNumber: 1,
     }
   },
   methods: {
     exit() {
-      this.$router.go(-1)
+      this.showVModal = false;
     },
-
-    openReCaptureModal() {
-      this.showModal = false;
-      this.showReCaptureModal = true;
+    print() {
+      if (!this.checkDeviceNumber(this.deviceNumber)) {
+        this.showDeviceModal = false;
+        setTimeout(() => {
+          this.showDeviceModal = true;
+        }, 100);
+        return;
+      }
+      if (this.freePrints > this.printNumber) {
+        this.freePrints -= this.printNumber;
+        this.showSuccessModal = true;
+        setTimeout(() => {
+          this.printStatus = 'success';
+        }, 1000);
+      } else {
+        this.showFailureModal = true;
+      }
     },
-
+    checkDeviceNumber(deviceNumber) {
+      return deviceNumber === '12345';
+    },
+    increasePrints() {
+      if (this.printNumber < 5)
+        this.printNumber++;
+    },
+    decreasePrints() {
+      if (this.printNumber > 1) {
+        this.printNumber--;
+      }
+    },
+  },
+  created() {
+    this.localImageUrl = this.$route.params.data
   },
   setup() {
-    const store = useStore();
-    const { getters } = store;
     const showVModal = ref(false);
-    const imageurl = ref('');
-    const isCopyCilp = ref(false);
-    const photoStoreModal = ref(null);
+    const imageUrl = ref('');
 
-    const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
-      return computed(() => {
-        const value = getters[`eventData/${getterKey}`];
-        return shouldCheckEquality ? value === equalityValue : value;
-      });
-    };
-
-    const hashTagYn = computedPropertyGenerator('hashTagSettingYn', true);
-    const hashTagValue = computedPropertyGenerator('hashTagValue', false);
-    const shareAgreePopupYn = computedPropertyGenerator('shareAgreePopupSettingYn', true);
-    const agreePopupText = computedPropertyGenerator('agreePopupText', false);
-    const agreePopupDetailLinkUrl = computedPropertyGenerator('agreePopupDetailLinkUrl', false);
-    const agreePopupInputText = computedPropertyGenerator('agreePopupInputText', false);
-    const photoPrintYn = computedPropertyGenerator('photoPrintSettingYn', true);
-    const photoPrintButtonText = computedPropertyGenerator('photoPrintButtonText', false);
-    const photoGiveAwayYn = computedPropertyGenerator('photoGiveAwaySettingYn', true);
-    const photoGiveAwayButtonText = computedPropertyGenerator('photoGiveAwayButtonText', false);
-    const filmResultFooterImgYn = computedPropertyGenerator('filmResultFooterImgSettingYn', true);
-    const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
-    const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
-
-    const formattedBoxContent = (hashTag) => {
-      const hashtags = hashTag.split(' ');
-      let lineLength = 0;
-      return hashtags.map((hashtag, index) => {
-        lineLength += hashtag.length;
-        if (lineLength > 25 && index !== 0) {
-          lineLength = hashtag.length;
-          return `<br/><span class="hashtag">${hashtag}</span>`;
-        } else {
-          return `<span class="hashtag">${hashtag}</span>`;
-        }
-      }).join(' ');
-    }
-
-    const copyToClipboard = (hashTag) => {
-      navigator.clipboard.writeText(hashTag).then(() => {
-        isCopyCilp.value = true;
-
-        setTimeout(() => isCopyCilp.value = false, 2000);
-      }).catch(err => {
-        console.error('Could not copy text: ', err);
-        alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
-      });
-    }
-    const print = () => {
-
-      photoStoreModal.value.openModal(imageurl.value);
-    }
-
-    const openModal = (imageUrl) => {
-      imageurl.value = imageUrl;
+    const openModal = (url) => {
+      imageUrl.value = url
       showVModal.value = true;
     };
-
-    const saveImage = () => {
-      const a = document.createElement("a");
-      a.href = imageurl.value;
-      a.download = "download.jpg";
-      a.click();
-    };
-
-    const back = () => {
-      window.parent.toggleBarVisibility()
-      window.parent.reCapture()
-      showVModal.value = false;
-    }
-
-    const share = () => {
-      if (navigator.share) {
-        navigator.share({
-          url: imageurl.value
-        })
-          .then(() => console.log('Successful share'))
-          .catch((error) => console.log('Error sharing', error),
-            alert('공유기능을 지원하지 않는 브라우저입니다.'));
-      } else {
-        alert('공유기능을 지원하지 않는 브라우저입니다.');
-      }
-    }
-
     return {
-      print,
-      openModal,
       showVModal,
-      imageurl,
-      saveImage,
-      back,
-      share,
-      hashTagYn,
-      hashTagValue,
-      formattedBoxContent,
-      shareAgreePopupYn,
-      agreePopupText,
-      agreePopupDetailLinkUrl,
-      agreePopupInputText,
-      copyToClipboard,
-      isCopyCilp,
-      photoStoreModal,
-      photoPrintYn,
-      photoPrintButtonText,
-      photoGiveAwayYn,
-      photoGiveAwayButtonText,
-      filmResultFooterImgYn,
-      filmResultFooterImgUrl,
-      filmResultImgUrl
+      imageUrl,
+      openModal,
     }
-  }
+  },
 }
 </script>
-  
+
 <style scoped>
 .main-content {
   text-align: center;
@@ -234,171 +137,152 @@ export default {
   height: 100%;
   position: absolute;
   background-color: #fff;
-  padding-top: 10%;
 }
 
 .image {
-  width: auto;
-  height: 33%;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-around;
   width: 100%;
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+  height: auto;
 }
 
-.box-button {
-  display: block;
-  margin-left: 10%;
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+.exit-button {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 2rem;
+}
+
+.round-button {
+  display: inline-block;
+  border-radius: 30px;
   width: 80%;
-  height: 5%;
-  border: 1px solid #000;
-  border-radius: 15px;
+  height: 60px;
+  margin-top: 10px;
+  border: 2px solid #000;
+  background-color: #fff;
+  color: #000;
 }
 
-.modal {
+.round-button2 {
+  display: inline-block;
+  border-radius: 30px;
+  width: 100%;
+  height: 30px;
+  margin: 10px;
+  border: 2px solid #000;
+  background-color: #000;
+  color: #fff;
+}
+
+.device-number-input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #000;
+}
+
+.modal2 {
   position: fixed;
-  z-index: 9999;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background-color: rgba(0, 0, 0, 0);
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  color: #fff;
-}
-
-.modal-content2 {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0);
-  padding: 20px;
-  border-radius: 10px;
-  width: 60%;
-  text-align: center;
   background-color: #fff;
-  color: #000;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-  background-color: transparent;
-  font-size: 2.5em;
-}
-
-.close-button2 {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-  background-color: transparent;
-  font-size: 1em;
-}
-
-.round-button {
-  display: inline-block;
-  border-radius: 25px;
-  width: 100%;
-  height: 50px;
-  margin: 10px;
-  border: 2px solid #000;
-  background-color: #fff;
-  color: #000;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.copy-button {
-  border: 1px solid #000;
-  border-radius: 20px;
-  width: 40%;
-  height: 30%;
-  background-color: lightgray;
-}
-
-.box {
-  display: flex;
-  margin-top: 10px;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #000;
-  border-radius: 15px;
-  width: 80%;
-  height: 10%;
-  margin-left: 10%;
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
-  gap: 10%
-}
-
-
-.hashtag {
-  display: inline-block;
-}
-
-.box p {
-  word-wrap: break-word;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 2s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.copy-alert {
-  position: fixed;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #000;
-  color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  z-index: 100;
-}
-
-.text {
-  word-wrap: break-word;
-  max-width: 23ch;
-}
-
-.link {
-  text-decoration: underline;
-}
-
-.input-text {
-  width: 100%;
-  height: 30px;
-  border: none;
-  background-color: grey;
-  color: white;
+  padding: 20px;
   border-radius: 5px;
+  text-align: center;
+}
+
+.highlight-text {
+  font-size: 1.7em;
+  font-weight: bold;
+  margin: 20px 0;
+  text-align: left;
+}
+
+
+.circle-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  margin: 100px auto;
+}
+
+.circle-message p {
+  font-size: 3.5em;
+}
+
+.bottom-text {
+  margin: 20px auto;
+}
+
+.error {
+  color: red;
+  font-size: 5em;
+  margin: 100px auto;
+}
+
+.error-text {
+  font-size: 0.3em;
+  margin: 20px 0;
+  text-align: center;
+  color: #000
+}
+
+.prints-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-left: 10%;
+  width: 80%;
+  height: 30px;
+}
+
+.prints-number {
+  border: 1px solid black;
+  padding: 2px 70px;
+
+}
+
+.button-print1 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.button-print2 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
 }
 </style>
