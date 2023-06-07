@@ -2,7 +2,7 @@
    <vue-final-modal v-model="showVModal">
   <div class="main-content">
     <button class="exit-button" @click="exit">X</button>
-    <img :src="localImageUrl" class="image" alt="Image from URL" />
+    <img :src="imageUrl" class="image" alt="Image from URL" />
     <h2 class="highlight-text2">출력 디바이스번호</h2>
     <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
     <button class="round-button">셀픽 디바이스 위치 찾기</button>
@@ -55,6 +55,8 @@
 </template>
   
 <script>
+import { ref } from 'vue';
+
 export default {
   data() {
     return {
@@ -65,12 +67,6 @@ export default {
       freePrints: 5,
       printStatus: 'printing'
     }
-  },
-  props: {
-    imageUrl: {
-      type: String,
-      required: true,
-    },
   },
   methods: {
     exit() {
@@ -103,15 +99,15 @@ export default {
   },
   setup() {
     const showVModal = ref(false);
-    const imageurl = ref('');
+    const imageUrl = ref('');
 
-    const openModal = (imageUrl) => {
-      imageurl.value = imageUrl;
+    const openModal = (url) => {
+      imageUrl.value = url
       showVModal.value = true;
     };
     return {
       showVModal,
-      imageurl,
+      imageUrl,
       openModal,
     }
   },
@@ -126,12 +122,11 @@ export default {
   height: 100%;
   position: absolute;
   background-color: #fff;
-  padding-top: 10%;
 }
 
 .image {
-  width: auto;
-  height: 33%;
+  width: 100%;
+  height: auto;
 }
 
 .exit-button {

@@ -156,6 +156,24 @@ export const eventData = {
     agreePopupInputText({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'agreePopupInputText', 'default');
     },
+    photoPrintSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'photoPrintSettingYn', 'N');
+    },
+    photoPrintButtonText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'photoPrintButtonText', 'default');
+    },
+    photoGiveAwaySettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'photoGiveAwaySettingYn', 'N');
+    },
+    photoGiveAwayButtonText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'photoGiveAwayButtonText', 'default');
+    },
+    filmResultFooterImgSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgSettingYn', 'N');
+    },
+    filmResultFooterImgUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgUrl', 'default');
+    },
 
     templateType(state) {
       return state.eventData?.eventLogicalType;

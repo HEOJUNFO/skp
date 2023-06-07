@@ -2,7 +2,7 @@
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
       <img :src="imageurl" class="image" alt="Image from URL" />
-      <button class="box-button" @click="print">사진 출력하기</button>
+      <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
       <div class="buttons">
         <button @click="back">
           <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 30px; height: 30px;" />
@@ -22,8 +22,8 @@
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
         </transition>
       </div>
-      <button class="box-button" @click="showModal = true">경품 추첨하기</button>
-      <img :src="bannerImageUrl" alt="Banner Image" />
+      <button v-if="photoGiveAwayYn" class="box-button" @click="showModal = true">{{ photoGiveAwayButtonText }}</button>
+      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showModal" class="modal">
         <div class="modal-content">
           <button class="close-button" @click="showModal = false">X</button>
@@ -70,17 +70,22 @@
         </div>
       </div>
     </div>
+  <photo-store-open-browser-modal ref="photoStoreModal" />
   </vue-final-modal>
 </template>
   
 <script>
 import { ref,computed} from "vue";
-import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+
+import PhotoStoreOpenBrowserModal from "@/components/modal/PhotoStoreOpenBrowserModal";
 
 
 export default {
   name: "EventCompleteModal",
+  components: {
+    PhotoStoreOpenBrowserModal,
+  },
   data() {
     return {
       title: 'Page Title',
@@ -109,9 +114,8 @@ export default {
     const { getters } = store;
     const showVModal = ref(false);
     const imageurl = ref('');
-    const router = useRouter()
-    const printImageUrl = router.currentRoute.value.params.data
     const isCopyCilp = ref(false);
+    const photoStoreModal = ref(null);
 
     const hashTagYn = computed(() => {
       const isHashTag = getters['eventData/hashTagSettingYn'];
@@ -119,28 +123,52 @@ export default {
     });
 
     const hashTagValue = computed(() => {
-      const hashTagValue = getters['eventData/hashTagValue'];
-      return hashTagValue;
+      return  getters['eventData/hashTagValue'];
     });
 
     const shareAgreePopupYn = computed(() => {
-      const shareAgreePopupYn = getters['eventData/shareAgreePopupSettingYn'];
-      return shareAgreePopupYn === 'Y';
+      const isShareAgreePopup = getters['eventData/shareAgreePopupSettingYn'];
+      return isShareAgreePopup === 'Y';
     });
 
     const agreePopupText = computed(() => {
-      const agreePopupText = getters['eventData/agreePopupText'];
-      return agreePopupText;
+      return getters['eventData/agreePopupText'];
+     
     });
 
     const agreePopupDetailLinkUrl = computed(() => {
-      const agreePopupDetailLinkUrl = getters['eventData/agreePopupDetailLinkUrl'];
-      return agreePopupDetailLinkUrl;
+      return  getters['eventData/agreePopupDetailLinkUrl'];
     });
 
     const agreePopupInputText = computed(() => {
-      const agreePopupInputText = getters['eventData/agreePopupInputText'];
-      return agreePopupInputText;
+      return  getters['eventData/agreePopupInputText'];
+    });
+
+    const photoPrintYn = computed(() => {
+      const isPhotoPrint = getters['eventData/photoPrintSettingYn'];
+      return isPhotoPrint === 'Y';
+    });
+
+    const photoPrintButtonText = computed(() => {
+      return  getters['eventData/photoPrintButtonText'];
+    });
+
+    const photoGiveAwayYn = computed(() => {
+      const isPhotoGiveAway = getters['eventData/photoGiveAwaySettingYn'];
+      return isPhotoGiveAway === 'Y';
+    });
+
+    const photoGiveAwayButtonText = computed(() => {
+      return  getters['eventData/photoGiveAwayButtonText'];
+    });
+
+    const filmResultFooterImgYn = computed(() => {
+      const isFilmResultFooterImg = getters['eventData/filmResultFooterImgSettingYn'];
+      return isFilmResultFooterImg === 'Y';
+    });
+
+    const filmResultFooterImgUrl = computed(() => {
+      return  getters['eventData/filmResultFooterImgUrl'];
     });
 
     const formattedBoxContent = (hashTag) => {
@@ -169,7 +197,8 @@ export default {
       });
     }
     const print = () => {
-      router.push({ name: 'Photo Store Open Browser', params: { data: printImageUrl } });
+    
+      photoStoreModal.value.openModal(imageurl.value);
     }
 
     const openModal = (imageUrl) => {
@@ -220,6 +249,13 @@ export default {
       agreePopupInputText,
       copyToClipboard,
       isCopyCilp,
+      photoStoreModal,
+      photoPrintYn,
+      photoPrintButtonText,
+      photoGiveAwayYn,
+      photoGiveAwayButtonText,
+      filmResultFooterImgYn,
+      filmResultFooterImgUrl,
     }
   }
 }

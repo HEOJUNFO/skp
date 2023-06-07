@@ -766,11 +766,11 @@ export const jsonData = {
         agreePopupText: "해당사진은 (이벤트명) 홍보 저작물 제작에 활용될수 있음을 동의 합니다.",	  // 	동의 팝업 문구	String	
         agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
         agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
-        photoPrintSettingYn: "",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
-        photoPrintButtonText: "",	        // 	사진 출력 버튼명	String	
-        photoGiveAwaySettingYn: "",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
-        photoGiveAwayButtonText: "",	    // 	경품 당첨 버튼명	String	
-        filmResultFooterImgSettingYn: "",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
+        photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
+        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
         filmResultFooterImgUrl: "",	      // 	하단 이미지 url	String	하단 이미지 url
       }],
       photoContentsInfo: [{
