@@ -3,8 +3,6 @@
     <div class="main-content">
       <button class="exit-button" @click="exit">X</button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
-      <h2 class="highlight-text2">출력 디바이스번호</h2>
-      <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
       <button class="round-button">셀픽 디바이스 위치 찾기</button>
       <button class="round-button" @click="print">출력하기</button>
       <div v-if="showErrorModal" class="modal">
@@ -70,7 +68,7 @@ export default {
   },
   methods: {
     exit() {
-      this.$router.go(-1)
+      this.showVModal = false;
     },
     print() {
       if (!this.checkDeviceNumber(this.deviceNumber)) {
@@ -204,13 +202,6 @@ export default {
   text-align: left;
 }
 
-.highlight-text2 {
-  font-weight: bold;
-  text-align: left;
-  margin-left: 30px;
-  margin-top: 5px;
-
-}
 
 .circle-message {
   display: flex;

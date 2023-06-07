@@ -61,7 +61,7 @@ function isSupportUserMedia() {
  * @param videoEl
  * @returns {Promise<void>}
  */
-export async function getUserMedia({videoEl}) {
+export async function getUserMedia({videoEl, facingMode}) {
   
   // 비디오 엘리먼트 여부
   if(!videoEl || !(videoEl instanceof HTMLVideoElement)) {
@@ -82,7 +82,7 @@ export async function getUserMedia({videoEl}) {
     const constraints = {
       audio: false,
       video: {
-        facingMode: 'user'
+        facingMode: facingMode
       }
     }
     // 재생

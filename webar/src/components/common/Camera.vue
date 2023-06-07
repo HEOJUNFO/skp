@@ -31,10 +31,18 @@ export default {
       }
     };
 
+    const resetCamera = async () => {
+      try {
+        await getUserMedia({ videoEl: video.value, facingMode });
+      } catch (err) {
+        emit('reject:video')
+      }
+    }
+
 
     onMounted(async () => {
       try {
-        await getUserMedia({ videoEl: video.value });
+        await getUserMedia({ videoEl: video.value, facingMode });
       } catch (err) {
         // alert('카메라 사용을 허용하지 않으셨습니다. 이벤트 페이지로 돌아갑니다.')
         emit('reject:video')
@@ -45,7 +53,8 @@ export default {
       video,
       loadedmetadata,
       loadeddata,
-      flipCamera
+      flipCamera,
+      resetCamera
     }
   }
 }

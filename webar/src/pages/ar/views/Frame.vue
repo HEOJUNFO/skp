@@ -132,6 +132,7 @@ export default {
     window.capture = function () {
       printModal.value.openModal(capture());
       window.parent.toggleBarVisibility();
+      cameraRef.value.resetCamera();
     }
 
     window.containTopValueToggle = function () {
