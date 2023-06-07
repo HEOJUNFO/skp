@@ -1,6 +1,6 @@
 <template>
   <vue-final-modal v-model="showVModal">
-    <div class="main-content">
+    <div class="main-content" :style="{ backgroundImage: `url(${filmResultImgUrl})` }">
       <img :src="imageurl" class="image" alt="Image from URL" />
       <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
       <div class="buttons">
@@ -134,6 +134,7 @@ export default {
     const photoGiveAwayButtonText = computedPropertyGenerator('photoGiveAwayButtonText', false);
     const filmResultFooterImgYn = computedPropertyGenerator('filmResultFooterImgSettingYn', true);
     const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
+    const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
 
     const formattedBoxContent = (hashTag) => {
       const hashtags = hashTag.split(' ');
@@ -219,6 +220,7 @@ export default {
       photoGiveAwayButtonText,
       filmResultFooterImgYn,
       filmResultFooterImgUrl,
+      filmResultImgUrl
     }
   }
 }

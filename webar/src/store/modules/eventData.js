@@ -138,6 +138,9 @@ export const eventData = {
     arStickerSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arStickerSettingYn', 'N');
     },
+    filmResultImgUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'filmResultImgUrl', 'default');
+    },
     hashTagSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'hashTagSettingYn', 'N');
     },
