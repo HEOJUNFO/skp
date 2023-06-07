@@ -1,8 +1,8 @@
 <template>
     <vue-final-modal v-model="showVModal">
         <div class="main-content">
-
-
+            <input type="file" ref="fileInput" @change="onFileChange" style="display: none">
+            <button @click="triggerFileInput">Upload</button>
         </div>
     </vue-final-modal>
 </template>
@@ -11,10 +11,27 @@
 import { ref } from 'vue';
 
 export default {
+    data() {
+        return {
+            selectedFile: null
+        };
+    },
     methods: {
+        onFileChange(e) {
+            this.selectedFile = e.target.files[0];
+        },
         exit() {
             this.showVModal = false;
         },
+        triggerFileInput() {
+            this.$refs.fileInput.click();
+        },
+        upload() {
+            console.log(this.selectedFile)
+            const fd = new FormData();
+            fd.append('image', this.selectedFile, this.selectedFile.name);
+
+        }
     },
     setup() {
         const showVModal = ref(false);
