@@ -750,145 +750,6 @@ export const jsonData = {
     loadingImgYn: "Y", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
 
-      photoLogicalInfo: [{
-        tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
-        photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
-        photoTabMenuAddSettingYn: "",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
-        tabMenuTitle: "",                 //	탭메뉴 제목	String	
-        arFilterSettingYn: "N",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
-        arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
-        arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
-        filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	
-        hashTagSettingYn: "Y",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
-        hashTagValue: "#AR포토개발 #모두화이팅",	                // 	해시태그 값 	String	콤마 , 로 구분자
-        shareAgreePopupSettingYn: "Y",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
-        agreePopupText: "해당사진은 (이벤트명) 홍보 저작물 제작에 활용될수 있음을 동의 합니다.",	  // 	동의 팝업 문구	String	
-        agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
-        agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
-        photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
-        photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
-        photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
-        photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
-        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
-        filmResultFooterImgUrl: "",	      // 	하단 이미지 url	String	하단 이미지 url
-      }],
-      photoContentsInfo: [{
-
-        frameContentsInfo: [              // 프레임 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO2030",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
-
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO MUSIC",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 2,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO WISH",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 3,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO GOGO",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 4,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO PRAY",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 5,                      //	순서	int	
-          },
-
-        ],
-
-        tabContentsInfo: [                // 탭 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-        ],
-
-        filterContentsInfo: [             //  필터 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-        ],
-
-        characterContentsInfo: [          // 캐릭터 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/King_V4.gltf",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/Queen_V3.gltf",    //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
-        ],
-
-        stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "가자강원도",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
-        ],
-      }],
       arObjectInfo: [
         {
           arEventObjectId: "1", // 인덱스 번호
@@ -1053,6 +914,145 @@ export const jsonData = {
           inactiveThumbnailUrl: "", //	리소스 url 값
         },
       ],
+      photoLogicalInfo: [{
+        tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
+        photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoTabMenuAddSettingYn: "",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
+        tabMenuTitle: "",                 //	탭메뉴 제목	String	
+        arFilterSettingYn: "N",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
+        arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
+        arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
+        filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	
+        hashTagSettingYn: "Y",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
+        hashTagValue: "#AR포토개발 #모두화이팅",	                // 	해시태그 값 	String	콤마 , 로 구분자
+        shareAgreePopupSettingYn: "Y",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
+        agreePopupText: "해당사진은 (이벤트명) 홍보 저작물 제작에 활용될수 있음을 동의 합니다.",	  // 	동의 팝업 문구	String	
+        agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
+        agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
+        photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
+        photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
+        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        filmResultFooterImgUrl: "",	      // 	하단 이미지 url	String	하단 이미지 url
+      }],
+      photoContentsInfo: [{
+
+        frameContentsInfo: [              // 프레임 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO2030",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO MUSIC",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 2,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO WISH",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 3,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO GOGO",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 4,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "EXPO PRAY",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06t.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06.png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 5,                      //	순서	int	
+          },
+
+        ],
+
+        tabContentsInfo: [                // 탭 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+        ],
+
+        filterContentsInfo: [             //  필터 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+        ],
+
+        characterContentsInfo: [          // 캐릭터 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/King_V4.gltf",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/Queen_V3.gltf",    //	원본 이미지 URL	string	
+            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+        ],
+
+        stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "가자강원도",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 0,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
+        ],
+      }],
     },
     actionObjectBasic: null,
     actionObjectMission: null,
