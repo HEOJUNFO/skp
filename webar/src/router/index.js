@@ -11,7 +11,7 @@ import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
 import Frame from "@/veiws/Frame"
 import Face from "@/veiws/Face"
-import Storage from "@/veiws/Storage"
+
 
 export const routes = [
     {path: '/', component: Landing, name: 'Landing'},
@@ -24,7 +24,6 @@ export const routes = [
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
     {path: '/frame', component: Frame, name: 'Frame'},
     {path: '/Face', component: Face, name: 'Face'},
-    {path: '/storage', component: Storage, name: 'Storage'},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
 
