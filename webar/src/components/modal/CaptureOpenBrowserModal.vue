@@ -50,7 +50,7 @@
           <p>지금 출력을 원하시면 출력 하기를</p>
           <p>눌러주세요</p>
           <div class="button-container">
-            <button class="round-button" @click="photoStore">포토함 이동</button>
+            <button class="round-button" @click="photoStore(), showSaveModal = false">포토함 이동</button>
             <button class="round-button" @click="print">지금 출력</button>
           </div>
         </div>
