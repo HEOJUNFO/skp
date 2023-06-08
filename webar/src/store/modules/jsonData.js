@@ -741,11 +741,11 @@ export const jsonData = {
       ],
     },
     offsetActionObjectFrame: {
-      eventId: "dnd111", // 이벤트ID
-      eventTitle: "test", // 이벤트명
-      eventLogicalType: "Frame", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
-      arBgImage: "", // AR 백그라운드 이미지 URL
-      arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
+    eventId: "dnd111", // 이벤트ID
+    eventTitle: "test", // 이벤트명
+    eventLogicalType: "Frame", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
+    arBgImage: "", // AR 백그라운드 이미지 URL
+    arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
     
     loadingImgYn: "Y", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
@@ -754,7 +754,6 @@ export const jsonData = {
         {
           arEventObjectId: "1", // 인덱스 번호
           objectSettingType: "3D", // IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          // "objectSettingUrl": "https://dt-static.syrup.co.kr/webar/gltf/mei/scene.gltf", // 리소스 url 값
           objectSettingUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf", // 리소스 url 값
           objectSizeX: "0.5", // 오브젝트 크기
           objectSizeY: "0.5", // 오브젝트 크기
@@ -866,9 +865,7 @@ export const jsonData = {
           catchSoundType: "URL", // *선택암함 : N, URL입력 : URL, Library선택 : LIBRARY
           catchSoundFile: "https://dt-static.syrup.co.kr/webar/mp3/touch_effect_sound_1.mp3", // *리소스 값
           objectChangeSettingType: "VIDEO", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
-          // "objectChangeSettingType": "GIF", // *IMAGE(2D) : IMAGE, GIF(2D) : GIF, VIDEO(2D) : VIDEO, CUBE(3D) : CUBE, CYLINDER(3D) : CYLINDER, SPHERE(3D) : SPHERE, 3D: 3D
           objectChangeSettingUrl: "https://dt-static.syrup.co.kr/webar/mp4/ForBiggerFun.mp4", // *리소스 url 값
-          // "objectChangeSettingUrl": "https://dt-static.syrup.co.kr/webar/images/object_gif_2.gif", // *리소스 url 값
           objectChangeSizeX: "", // *체인지 오브젝트 크기
           objectChangeSizeY: "", // *체인지 오브젝트 크기
           objectChangeSizeZ: "", // *체인지 오브젝트 크기
@@ -896,7 +893,6 @@ export const jsonData = {
         bridgeExposureTimeType: "", // 설정함 : Y, 설정안함 : N
         bridgeExposureTimeSecond: "", // 숫자 값
         bridgeDisplayDirectionType: "", // 가로 : WIDTH, 세로 : HEIGHT
-        // add by jinylee
         nftWalletImgUrl: "https://dt-static.syrup.co.kr/webar/images/object_img_3.png", //DnD 타겟 Image Url( ex. 지갑이미지)
         nftWalletPositionX: "0.0", //DnD 타겟 3D 좌표 X
         nftWalletPositionY: "-0.5", //DnD 타겟 3D 좌표 Y
@@ -948,7 +944,6 @@ export const jsonData = {
             photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
-
           {
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
@@ -992,26 +987,40 @@ export const jsonData = {
           },
 
         ],
-
         tabContentsInfo: [                // 탭 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+         {
+            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/King_V4.gltf",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
+          {
+            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
+          },
         ],
-
         filterContentsInfo: [             //  필터 콘텐츠 정보(array)
           {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            photoFileName: "파티클1",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "particleThumbnail.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "particleData.json",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
+          },
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "필터1",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "filterThumbnail.png",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "filterData.json",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 1,                      //	순서	int	
           },
         ],
 
