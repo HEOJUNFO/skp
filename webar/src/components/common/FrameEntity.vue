@@ -1,5 +1,8 @@
+
 <template>
   <template v-if="arData">
+    <a-plane v-if="isTrash" id="close-button" gesture-handler="locationBased: true" src="#button-texture" width="0.1"
+      height="0.1" position="0 0.4 -2" @mousedown="stickerListUpdate(arData)"></a-plane>
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
@@ -20,16 +23,19 @@
 
     <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true"  renderOrder="0" raycaster> </a-box>
-     </a-gltf-model>
+      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
+        raycaster> </a-box>
+    </a-gltf-model>
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"  raycaster> </a-box>
+      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
+        raycaster> </a-box>
     </a-gltf-model>
 
     <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" renderOrder="1" ></a-plane>
+      @animationcomplete="animationcomplete" renderOrder="1" @mousedown="setTrash"></a-plane>
+
   </template>
 </template>
   
@@ -55,6 +61,7 @@ export default {
   },
   emits: ['animationcomplete:object', 'timeout:object'],
   setup(props, { emit }) {
+    const isTrash = ref(false);
     // 상속받은 데이터 & 타입 & 터치이펙트 타입
     const { arData, arType, touchEffectType } = toRefs(props);
     // 객체 타입
@@ -62,11 +69,20 @@ export default {
     // arData에 arType추가 (a-asset id용)
     arData.value.objectType = arType.value;
     // 데이터에서 AR Object데이터로 변환
-    const attrs = ref(getObjectAttrs(arData.value));
+    const attrs = ref(getObjectAttrs(arData.value))
 
     watch(arData, (newValue) => {
       attrs.value = getObjectAttrs(newValue);
     })
+
+    const setTrash = () => {
+      isTrash.value = !isTrash.value;
+    }
+
+    const stickerListUpdate = (arData) => {
+      window.parent.stickerListUpdate(arData)
+    }
+
 
     //animation complete event
     const animationcomplete = () => {
@@ -111,6 +127,9 @@ export default {
       objectType,
       animationcomplete,
       playTouchEffect,
+      setTrash,
+      isTrash,
+      stickerListUpdate
     }
   }
 }

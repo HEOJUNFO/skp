@@ -1,16 +1,17 @@
 <template>
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false" device-orientation-permission-ui="
-                                  enabled: true;
-                                  deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                                  allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
-    cursor="rayOrigin: mouse" @deviceorientationpermissiongranted="permissionGranted"
+                                                          enabled: true;
+                                                          deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
+                                                          allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
+    debug="false" cursor="rayOrigin: mouse" @deviceorientationpermissiongranted="permissionGranted"
     @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
     @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
     <a-assets>
 
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl" />
+      <img id="button-texture" src="../../assets/icon/trash-button.png">
 
       <a-asset-item id="glassesModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
@@ -63,7 +64,6 @@
 <script>
 import { ref } from "vue";
 import FrameObject from "@/components/common/FrameObject";
-
 
 export default {
   name: "EventFrameObject",
@@ -138,7 +138,7 @@ export default {
       selectCharacter,
       selectFilter,
       selectSticker,
-      isMindAR
+      isMindAR,
     }
   }
 }

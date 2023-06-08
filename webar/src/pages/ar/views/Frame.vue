@@ -38,7 +38,7 @@ export default {
     FrameContainer,
     TutorialModal,
     CaptureOpenBrowserModal,
-    BrowserCheckModal
+    BrowserCheckModal,
   },
   setup() {
     const store = useStore();
@@ -53,7 +53,6 @@ export default {
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
     const isWebView = computed(() => navigator.userAgent.includes('WebView'));
-
 
     const tutorialYn = computed(() => {
       const istutorial = getters['eventData/tutorialYn'];
@@ -184,7 +183,7 @@ export default {
       rejectOrientationPermission,
       captureModal,
       imageUrl,
-      isWebView
+      isWebView,
     }
   }
 }

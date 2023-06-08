@@ -328,6 +328,17 @@ export default {
     watchAndSelect(filterList, 'selectFilter');
     watchAndSelect(stickerList, 'selectSticker');
 
+    window.stickerListUpdate = function (list) {
+      console.log(list)
+      for (let i = 0; i < stickerList.value.length; i++) {
+        // Check if the id of the current sticker equals the id of stickerListUpdate
+        if (stickerList.value[i].id === list.id) {
+          // If so, set the select value of the current sticker to false
+          stickerList.value[i].select = false;
+        }
+      }
+    }
+
     return {
       baseUrl: process.env.VUE_APP_PAGE_PATH
       , iframeRef
