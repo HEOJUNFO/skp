@@ -20,8 +20,11 @@ export default function useArObjectInfo() {
 
       return url.value.map((item, index) => {
         let tabId = 1;
-        let select = index === 0;
-
+        let select = false;
+        if(urlGetter === 'eventData/characterContentsInfoList') {
+          select = index === 0;
+        }
+       
         return {
           id: index + 1,
           tabId: tabId,

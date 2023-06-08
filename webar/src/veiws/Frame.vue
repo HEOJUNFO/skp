@@ -44,7 +44,7 @@
       <button v-if="!isCapturing" @click="frameToggleBar">
         <img v-if="arFrameSettingYn === 'Y'" src="../assets/icon/frame-button.png" alt="프레임"
           style="width: 40px; height: 40px;" />
-        <p style="font-size: 17.5px; font-weight: bold;" :style="frameButtonStyle">프레임</p>
+        <p style="font-size: 17.5px; font-weight: bold;" :style="frameButtonStyle">배경</p>
       </button>
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
         <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px;" />
@@ -64,7 +64,7 @@
         <div class="image-view" v-for="image in frameList" :key="image.id">
           <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
-            style="width: 40px; height: 40px; position: absolute; top: 25; pointer-events: none;" />
+            style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
           <span>{{ image.name }}</span>
         </div>
       </div>
@@ -409,7 +409,7 @@ export default {
 }
 
 .bottom-bar-2 {
-  top: 73%;
+  top: 85%;
   padding-top: 1%;
   padding-bottom: 1%;
 }
@@ -423,7 +423,7 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 
 .image-container {
@@ -431,7 +431,6 @@ export default {
   overflow-x: auto;
   width: 100%;
   gap: 1%;
-  margin-bottom: 4%;
 }
 
 .image-container::-webkit-scrollbar {
