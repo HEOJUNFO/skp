@@ -1,12 +1,12 @@
 <template>
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false" device-orientation-permission-ui="
-                  enabled: true;
-                  deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                  allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
-                  cursor="rayOrigin: mouse"
-    @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
-    @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
+                              enabled: true;
+                              deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
+                              allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
+    cursor="rayOrigin: mouse" @deviceorientationpermissiongranted="permissionGranted"
+    @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
+    @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
     <a-assets>
 
@@ -19,24 +19,25 @@
 
     </a-assets>
 
-    <a-entity mindar-face-target="anchorIndex: 168">
+    <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 168">
       <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
         visible="true"></a-gltf-model>
     </a-entity>
 
-    <a-entity mindar-face-target="anchorIndex: 127">
+    <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 127">
       <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
-    <a-entity mindar-face-target="anchorIndex: 356">
+    <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 356">
       <a-gltf-model rotation="0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
-    <a-entity mindar-face-target="anchorIndex: 1">
+    <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 1">
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
+
 
     <a-entity position="0 -1 0">
       <frame-object v-for="item in characterList" :key="`frmaeobject_${item.id}`" :ar-data="item"
@@ -46,7 +47,7 @@
       <frame-object v-for="item in stickerList" :key="`frmaeobject_${item.id}`" :ar-data="item"
         :visible="item.id == selectSticker" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 -1 -1">
+    <a-entity position="0 -1 0">
       <frame-object v-for="item in filterList" :key="`frmaeobject_${item.id}`" :ar-data="item"
         :visible="item.id == selectFilter" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
@@ -74,6 +75,8 @@ export default {
   components: { FrameObject },
 
   setup(props, { emit }) {
+    const isMindAR = ref(false);
+
     function defineWindowFuncAndRef(name) {
       const refVariable = ref(false);
       window[name] = function (props) {
@@ -131,7 +134,8 @@ export default {
       permissionRequested,
       selectCharacter,
       selectFilter,
-      selectSticker
+      selectSticker,
+      isMindAR
     }
   }
 }
