@@ -31,6 +31,7 @@
           <p>{{ modalText }}</p>
           <div><button class="round-button">당첨정보입력</button></div>
           <div><button class="round-button" @click="openReCaptureModal">다시촬영</button></div>
+          <div><button class="round-button" @click="exit">AR닫기</button></div>
         </div>
       </div>
       <div v-if="showReCaptureModal" class="modal">
