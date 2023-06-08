@@ -64,7 +64,7 @@
         <div class="image-view" v-for="image in frameList" :key="image.id">
           <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
-            style="width: 40px; height: 40px; position: absolute; top: 25%" />
+            style="width: 40px; height: 40px; position: absolute; top: 25; pointer-events: none;" />
           <span>{{ image.name }}</span>
         </div>
       </div>
@@ -92,7 +92,7 @@
             @click="selectImage(selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList, image.id)"
             class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
-            style="width: 40px; height: 40px; position: absolute; top: 25%" />
+            style="width: 40px; height: 40px; position: absolute; top: 25%;pointer-events: none;" />
           <span>{{ image.name }}</span>
         </div>
       </div>
@@ -296,12 +296,10 @@ export default {
     }
 
     const selectImage = (images, imageId) => {
-      images.forEach(image => {
-        image.select = false;
-      });
+
 
       const selectedImage = images.find(image => image.id === imageId);
-      if (selectedImage) selectedImage.select = true;
+      if (selectedImage) selectedImage.select = !selectedImage.select;
     }
 
     const frameStyle = computed(() => ({
@@ -318,8 +316,10 @@ export default {
 
     function watchAndSelect(list, selectFuncName) {
       watch(list, () => {
-        let selectedItem = list.value.find(item => item.select === true);
-        iframeRef.value.contentWindow[selectFuncName](selectedItem.id);
+        let selectedItems = list.value.filter(item => item.select === true);
+        let selectedIds = selectedItems.map(item => item.id);
+        iframeRef.value.contentWindow[selectFuncName](selectedIds);
+
       }, { deep: true });
     }
 

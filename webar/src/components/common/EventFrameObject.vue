@@ -1,9 +1,9 @@
 <template>
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false" device-orientation-permission-ui="
-                              enabled: true;
-                              deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                              allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
+                                  enabled: true;
+                                  deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
+                                  allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
     cursor="rayOrigin: mouse" @deviceorientationpermissiongranted="permissionGranted"
     @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
     @loaded="loaded">
@@ -39,17 +39,20 @@
     </a-entity>
 
 
-    <a-entity position="0 -1 0">
-      <frame-object v-for="item in characterList" :key="`frmaeobject_${item.id}`" :ar-data="item"
-        :visible="item.id == selectCharacter" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
+    <a-entity v-if="selectCharacter" position="0 -1 0">
+      <frame-object v-for="item in characterList" :key="`frameobject_${item.id}`" :ar-data="item"
+        :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 -1 0">
-      <frame-object v-for="item in stickerList" :key="`frmaeobject_${item.id}`" :ar-data="item"
-        :visible="item.id == selectSticker" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
+    <a-entity v-if="selectSticker" position="0 -1 0">
+      <frame-object v-for="item in stickerList" :key="`frameobject_${item.id}`" :ar-data="item"
+        :visible="selectSticker.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 -1 0">
-      <frame-object v-for="item in filterList" :key="`frmaeobject_${item.id}`" :ar-data="item"
-        :visible="item.id == selectFilter" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
+    <a-entity v-if="selectFilter" position="0 -1 0">
+      <frame-object v-for="item in filterList" :key="`frameobject_${item.id}`" :ar-data="item"
+        :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
     </a-entity>
 
     <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;"></a-camera>
@@ -78,9 +81,9 @@ export default {
     const isMindAR = ref(false);
 
     function defineWindowFuncAndRef(name) {
-      const refVariable = ref(false);
+      const refVariable = ref([]);
       window[name] = function (props) {
-        refVariable.value = props.toString();
+        refVariable.value = props;
       }
       return refVariable;
     }
