@@ -4,7 +4,8 @@
     device-orientation-permission-ui="
                                                             enabled: true;
                                                             deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                                                            allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false" cursor="rayOrigin: mouse"
+                                                            allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false" 
+    cursor="rayOrigin: mouse" raycaster="objects: .clickable"
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
     @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
@@ -24,7 +25,7 @@
       <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
         visible="true"></a-gltf-model>
     </a-entity>
-
+    
     <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 127">
       <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
@@ -39,6 +40,7 @@
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
+    <a-entity position="0 2.25 -15" particle-system="color: #EF0000,#44CC00"></a-entity>
 
     <a-entity v-if="selectCharacter" position="0 -1 0">
       <frame-object v-for="item in characterList" :key="`frameobject_${item.id}`" :ar-data="item"

@@ -1,39 +1,39 @@
 
 <template>
   <template v-if="arData">
-    <a-plane v-if="isTrash" id="close-button" gesture-handler="locationBased: true" src="#button-texture" width="0.1"
+    <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true" src="#button-texture" width="0.1"
       height="0.1" position="0 0.6 -2" @mousedown="stickerListUpdate(arData)"></a-plane>
-    <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-box v-else-if="objectType === `CUBE`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-box v-else-if="objectType === `CUBE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-image v-else-if="objectType === `IMAGE`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-image v-else-if="objectType === `IMAGE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-entity v-else-if="objectType === `GIF`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-entity v-else-if="objectType === `GIF`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer />
 
     <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
+      <a-box class="clickable" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
         raycaster> </a-box>
     </a-gltf-model>
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box id="hitbox" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
+      <a-box class="clickable" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
         raycaster> </a-box>
     </a-gltf-model>
 
-    <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" renderOrder="1" @mousedown="setTrash"></a-plane>
 
   </template>
