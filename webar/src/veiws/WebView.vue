@@ -312,7 +312,11 @@ export default {
     }
 
     const selectImage = (images, imageId) => {
-
+      if (isSecondFrameBarVisible.value) {
+        images.forEach(image => {
+          image.select = false;
+        });
+      }
 
       const selectedImage = images.find(image => image.id === imageId);
       if (selectedImage) selectedImage.select = !selectedImage.select;
