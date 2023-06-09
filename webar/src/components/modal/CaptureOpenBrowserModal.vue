@@ -140,6 +140,7 @@ export default {
     const filmResultFooterImgYn = computedPropertyGenerator('filmResultFooterImgSettingYn', true);
     const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
     const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
+    console.log(filmResultImgUrl.value)
 
     const formattedBoxContent = (hashTag) => {
       const hashtags = hashTag.split(' ');
@@ -243,6 +244,7 @@ export default {
   height: 100%;
   position: absolute;
   background-color: #fff;
+  background-blend-mode: multiply;
   padding-top: 10%;
 }
 
@@ -268,6 +270,7 @@ export default {
   height: 5%;
   border: 1px solid #000;
   border-radius: 15px;
+  background-color: #fff;
 }
 
 .modal {
@@ -359,7 +362,8 @@ export default {
   margin-left: 10%;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
-  gap: 10%
+  gap: 10%;
+  background-color: #fff;
 }
 
 

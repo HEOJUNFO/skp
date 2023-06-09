@@ -970,8 +970,8 @@ export const jsonData = {
         photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
         photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
-        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
-        filmResultFooterImgUrl: "",	      // 	하단 이미지 url	String	하단 이미지 url
+        filmResultFooterImgSettingYn: "Y",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        filmResultFooterImgUrl: "https://blog.kakaocdn.net/dn/CNxUY/btqw7dnElRU/HuVZgvpT6J8n4aEYFathEk/img.jpg",	      // 	하단 이미지 url	String	하단 이미지 url
       }],
       photoContentsInfo: [{
 
