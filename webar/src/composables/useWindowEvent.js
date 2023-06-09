@@ -5,14 +5,17 @@ export default function useArObjectInfo() {
   const {getters} = useStore();
 
   const characterList = ref(null);
-    const filterList = ref(null);
-    const stickerList = ref(null);
+  const filterList = ref(null);
+  const stickerList = ref(null);
+  const tabList = ref(null);
+
 
     
     const setList = () => {
         characterList.value = createList('eventData/characterContentsInfoList');
         filterList.value = createList('eventData/filterContentsInfoList');
         stickerList.value = createList('eventData/stickerContentsInfoList');
+        tabList.value = createList('eventData/tabContentsInfoList')
     }
 
     function createList(urlGetter) {
@@ -41,11 +44,13 @@ export default function useArObjectInfo() {
       const characterList = createList('eventData/characterContentsInfoList');
       const filterList = createList('eventData/filterContentsInfoList');
       const stickerList = createList('eventData/stickerContentsInfoList');
+      const tabList = createList('eventData/tabContentsInfoList')
 
       return {
         characterList,
         filterList,
-        stickerList
+        stickerList,
+        tabList,
       }
     }
 
@@ -64,6 +69,7 @@ export default function useArObjectInfo() {
       window.arFilterSettingYn = createGetterFunction('eventData/arFilterSettingYn');
       window.arCharacterSettingYn = createGetterFunction('eventData/arCharacterSettingYn');
       window.arStickerSettingYn = createGetterFunction('eventData/arStickerSettingYn');
+      window.arTabSettingYn = createGetterFunction('eventData/photoTabMenuAddSettingYn');
 
       window.createFrameList = function () {
         const frameList = createFrameList();
@@ -91,6 +97,7 @@ export default function useArObjectInfo() {
     characterList,
     filterList,
     stickerList,
+    tabList,
     setList,
   };
 }

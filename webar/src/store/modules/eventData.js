@@ -43,6 +43,10 @@ export const eventData = {
       const { photoContentsInfo } = eventData;
       return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].characterContentsInfo.map(getContentsData) : [];
     },
+    tabContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].tabContentsInfo.map(getContentsData) : [];
+    },
     filterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
       return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].filterContentsInfo.map(getContentsData) : [];
@@ -128,6 +132,12 @@ export const eventData = {
     },
     arFrameSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arFrameSettingYn', 'N');
+    },
+    photoTabMenuAddSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'photoTabMenuAddSettingYn', 'N');
+    },
+    tabMenuTitle({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, 'tabMenuTitle', 'default');
     },
     arFilterSettingYn({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'arFilterSettingYn', 'N');
