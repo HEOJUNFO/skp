@@ -9,7 +9,7 @@ import DragNDrop from "@/veiws/DragNDrop";
 import JsonEditor from "@/veiws/JsonEditor";
 import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
-import Frame from "@/veiws/Frame"
+import OpenBrowser from "@/veiws/OpenBrowser";
 import WebView from "@/veiws/WebView"
 
 
@@ -23,7 +23,7 @@ export const routes = [
     {path: '/is-mission', component: IsMission, name: 'Scanning Mission'},
     {path: '/drag-n-drop', component: DragNDrop, name: 'Drag And Drop'},
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
-    {path: '/frame', component: Frame, name: 'Frame'},
+    {path: '/open-browser', component: OpenBrowser, name: 'OpenBrowser'},
     {path: '/webview', component: WebView, name: 'WebView'},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]

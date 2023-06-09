@@ -40,7 +40,7 @@ export default function useEventData() {
                 // nft
                 await dispatch("jsonData/setActionObjectDragNDrop");
             }
-            if (parent.location.hash.indexOf("frame") > -1) {
+            if (parent.location.hash.indexOf("open-browser") > -1) {
                 // nft
                 await dispatch("jsonData/setActionObjectFrame");
                 await dispatch("jsonData/setPhotoStoreData");
