@@ -740,6 +740,33 @@ export const jsonData = {
         },
       ],
     },
+    offsetPhotoStoreData: {
+      deviceLocationFindSettingYn: "", //디바이스 위치 찾기 버튼 설정 여부 설정안함: N / 설정함: Y
+      deviceLocationFindButtonText: "", //디바이스 위치 찾기 버튼 문구
+      locationFindExposureType: "", //위치 찾기 노출 설정 지도보기: MAP / 팝업보기: POPUP
+      locationFindPopupImgUrl: "", //위치 찾기 팝업 이미지 URL
+      freePrintContrlYn: "", //무료출력수 제어 설정안함: N / 설정함: Y
+      freePrintCustomerCount: "", //무료출력수 제어 설정 값
+
+      bannerList: [
+        {
+          arNftBannerId: "", //인덱스 번호
+          bannerImgUrl: "", //배너 이미지 URL
+          bannerTargetUrl: "", //배너 클릭시 이동 URL
+          bannerSort: "", //배너 정렬 순서
+        },
+      ],
+      deviceGpsList: [
+        {
+          deviceGpsId: "", //인덱스 번호
+          sort: "", //순서
+          gpsName: "", //위치명
+          thirdPartyType:"", // 업체종류(셀픽,...) 셀픽: SELPIC
+          deviceGpsLatitude: "", //위도
+          deviceGpsLongitude: "", //경도
+        }
+      ],
+    },
     offsetActionObjectFrame: {
     eventId: "dnd111", // 이벤트ID
     eventTitle: "test", // 이벤트명
@@ -1068,18 +1095,18 @@ export const jsonData = {
     actionObjectBridge: null,
     imageScanningMission: null,
     resultData: null,
-    // add drag and drop
     actionObjectDragNDrop: null,
     actionObjectFrame : null,
+    photoStoreData: null,
     storageNames: [
       "skWebArActionObjectBasic",
       "skWebArActionObjectMission",
       "skWebArActionObjectBridge",
       "skWebArImageScanningMission",
       "skWebArResultData",
-      // add drag and drop
       "skWebArActionObjectDragNDrop",
       "skWebArActionObjectFrame",
+      "skWebArPhotoStoreData",
     ],
   }),
   mutations: {
@@ -1109,6 +1136,9 @@ export const jsonData = {
     ["SET_RESULT_DATA"](state, payload) {
       state.resultData = payload;
     },
+    ["SET_PHOTO_STORE_DATA"](state, payload) {
+      state.photoStoreData = payload;
+    }
   },
   getters: {
     eventData(state) {
@@ -1138,6 +1168,9 @@ export const jsonData = {
     },
     actionObjectFrame(state) {
       return state.actionObjectFrame;
+    },
+    photoStoreData(state) {
+      return state.photoStoreData;
     }
   },
   actions: {
@@ -1148,9 +1181,9 @@ export const jsonData = {
       dispatch("resetImageScanningMission");
       dispatch("resetImageScanningMission");
       dispatch("resetImageResultData");
-      // add drag and drop
       dispatch("resetActionObjectDragNDrop");
       dispatch("resetActionObjectFrame");
+      dispatch("resetPhotoStoreData");
     },
     resetActionObjectBasic({ state, commit }) {
       commit("SET_ACTION_OBJECT_BASIC", _.cloneDeep(state.offsetActionObjectBasic));
@@ -1167,12 +1200,14 @@ export const jsonData = {
     resetImageResultData({ state, commit }) {
       commit("SET_RESULT_DATA", _.cloneDeep(state.offsetResultData));
     },
-    //add drag and drop
     resetActionObjectDragNDrop({ state, commit }) {
       commit("SET_ACTION_OBJECT_DRAGNDROP", _.cloneDeep(state.offsetActionObjectDragNDrop));
     },
     resetActionObjectFrame({ state, commit }) {
       commit("SET_ACTION_OBJECT_FRAME", _.cloneDeep(state.offsetActionObjectFrame));
+    },
+    resetPhotoStoreData({ state, commit }) {
+      commit("SET_PHOTO_STORE_DATA", _.cloneDeep(state.offsetPhotoStoreData));
     },
 
     setActionObjectBasic({ state, commit }) {
@@ -1212,5 +1247,11 @@ export const jsonData = {
       const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetActionObjectFrame);
       commit("eventData/SET_EVENT_DATA", data, { root: true });
     },
-  },
+    setPhotoStoreData({ state, commit }) {
+      const storeData = localStorage.getItem(state.storageNames[7]);
+      const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetPhotoStoreData);
+      commit("eventData/SET_PHOTO_STORE_DATA", data, { root: true });
+    },
+  }
 };
+

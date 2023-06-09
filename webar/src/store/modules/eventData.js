@@ -6,6 +6,7 @@ export const eventData = {
   state: () => ({
     eventData: {},
     eventResult: {},
+    photoStoreData: {},
     isEventFinish: false,
   }),
   mutations: {
@@ -14,6 +15,9 @@ export const eventData = {
     },
     ["SET_EVENT_RESULT"](state, payload) {
       state.eventResult = payload;
+    },
+    ["SET_PHOTO_STORE_DATA"](state, payload) {
+      state.photoStoreData = payload;
     },
     ["isEventFinish"](state, payload) {
       state.isEventFinish = payload;

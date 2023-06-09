@@ -43,10 +43,11 @@ export default function useEventData() {
             if (parent.location.hash.indexOf("frame") > -1) {
                 // nft
                 await dispatch("jsonData/setActionObjectFrame");
+                await dispatch("jsonData/setPhotoStoreData");
             }
+
         }
     };
-
     return {
         getEventData
     };

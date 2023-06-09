@@ -201,7 +201,6 @@ export default {
         filterList.value = iframeRef.value.contentWindow.createEffectList().filterList;
         stickerList.value = iframeRef.value.contentWindow.createEffectList().stickerList;
         tabList.value = iframeRef.value.contentWindow.createEffectList().tabList;
-        console.log(tabList.value)
       }
       aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
       isBarVisible.value = !isBarVisible.value;
