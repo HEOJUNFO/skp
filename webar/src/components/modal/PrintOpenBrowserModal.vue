@@ -10,7 +10,16 @@
         <button v-if="printNumber < 5" class="button-print2" @click="increasePrints">+</button>
       </div>
 
-      <button class="round-button" @click="print">출력하기</button>
+      <button class="round-button" @click="showDeviceModal = true">출력하기</button>
+      <div v-if="showErrorModal" class="modal">
+        <div class="modal-content">
+          <h2>디바이스번호 불일치</h2>
+          <br />
+          <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
+          <button class="round-button" @click="print(), showErrorModal = false">다시 출력요청</button>
+        </div>
+      </div>
       <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="exit">X</button>
@@ -80,6 +89,7 @@ export default {
     const showDeviceModal = ref(false);
     const showSuccessModal = ref(false);
     const showFailureModal = ref(false);
+    const showErrorModal = ref(false);
 
     const openModal = (url) => {
       imageUrl.value = url
@@ -108,10 +118,8 @@ export default {
 
     const print = () => {
       if (!checkDeviceNumber(deviceNumber)) {
-        showDeviceModal.value = false;
-        setTimeout(() => {
-          showDeviceModal.value = true;
-        }, 100);
+        showErrorModal.value = true;
+        console.log('error')
         return;
       }
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
@@ -124,7 +132,7 @@ export default {
       showSuccessModal.value = true;
       setTimeout(() => {
         printStatus.value = 'success';
-      }, 1000);
+      }, 2000);
     }
 
     const exit = () => {
@@ -147,6 +155,7 @@ export default {
       printNumber,
       deviceNumber,
       printStatus,
+      showErrorModal,
     }
   },
 }
@@ -202,6 +211,20 @@ export default {
   margin: 10px auto;
   display: block;
   border: 1px solid #000;
+}
+
+.modal {
+  position: fixed;
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  height: auto;
+  border: 1px solid #000;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
 .modal2 {
