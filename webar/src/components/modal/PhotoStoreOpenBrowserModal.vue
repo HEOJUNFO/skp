@@ -6,7 +6,7 @@
             <button class="box-button" @click="triggerFileInput">사진 업로드</button>
             <div class="image-group">
                 <div v-for="i in imagesData" :key="i.id" class="image-container">
-                    <img :src="i.url" alt="Uploaded image">
+                    <img :src="i.url" alt="Uploaded image" @click="imgClick(i.url)">
                 </div>
             </div>
             <button class="round-button" @click="reCapture(), stopInterval()">AR포토 더 촬영하기</button>
@@ -18,6 +18,7 @@
                 </div>
             </div>
         </div>
+        <print-open-browser-modal ref="printModal" />
     </vue-final-modal>
 </template>
     
@@ -26,13 +27,16 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 import ImageStorage from '../../js/ImageStorage.js';
-
+import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
 
 export default {
     data() {
         return {
             imagesData: [],
         }
+    },
+    components: {
+        PrintOpenBrowserModal,
     },
     async created() {
         this.data = new ImageStorage('TempDB', 'TempImg');
@@ -65,7 +69,9 @@ export default {
         const bannerList = ref([]);
         const currentBanner = ref([])
         const bannerON = ref(false);
+        const printModal = ref(null);
         let intervalId = null;
+
 
         const changeBanner = () => {
             const nextIndex = (bannerList.value.indexOf(currentBanner.value) + 1) % bannerList.value.length;
@@ -86,6 +92,10 @@ export default {
             if (intervalId) clearInterval(intervalId);
         }
 
+        const imgClick = (imgUrl) => {
+            printModal.value.openModal(imgUrl);
+        }
+
         return {
             showVModal,
             imageUrl,
@@ -94,6 +104,8 @@ export default {
             currentBanner,
             bannerON,
             stopInterval,
+            imgClick,
+            printModal,
         }
     },
 }
