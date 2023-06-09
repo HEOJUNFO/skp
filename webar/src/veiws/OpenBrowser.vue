@@ -38,7 +38,7 @@
         <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px;" />
       </button>
     </div>
-    <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/frame`" frameborder="0"></iframe>
+    <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/open-browser`" frameborder="0"></iframe>
     <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1"
       :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
