@@ -70,6 +70,7 @@ export default function useArObjectInfo() {
       window.arCharacterSettingYn = createGetterFunction('eventData/arCharacterSettingYn');
       window.arStickerSettingYn = createGetterFunction('eventData/arStickerSettingYn');
       window.arTabSettingYn = createGetterFunction('eventData/photoTabMenuAddSettingYn');
+      window.tabMenuTitle = createGetterFunction('eventData/tabMenuTitle');
 
       window.createFrameList = function () {
         const frameList = createFrameList();

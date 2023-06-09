@@ -85,12 +85,8 @@
           @click="selectEffectTab(tab.id)">{{ tab.name }}</button>
       </div>
       <div class="image-container">
-        <div class="image-view"
-          v-for="image in selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList"
-          :key="image.id">
-          <img :src="image.src"
-            @click="selectImage(selectedEffectTab === 1 ? characterList : selectedEffectTab === 2 ? filterList : stickerList, image.id)"
-            class="frame-image" />
+        <div class="image-view" v-for="image in currentList" :key="image.id">
+          <img :src="image.src" @click="selectImage(currentList, image.id)" class="frame-image" />
           <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
             style="width: 40px; height: 40px; position: absolute; top: 25%;pointer-events: none;" />
           <span>{{ image.name }}</span>
@@ -117,6 +113,16 @@ import { useRouter } from "vue-router";
 
 export default {
   name: "Frame",
+  computed: {
+    currentList: function () {
+      switch (this.selectedEffectTab) {
+        case 1: return this.tabList;
+        case 2: return this.characterList;
+        case 3: return this.filterList;
+        default: return this.stickerList;
+      }
+    }
+  },
   setup() {
     const router = useRouter();
     const iframeRef = ref(null);
@@ -137,14 +143,14 @@ export default {
     const arFilterSettingYn = ref('Y');
     const arCharacterSettingYn = ref('Y');
     const arStickerSettingYn = ref('Y');
+    const arTabSettingYn = ref('Y');
+    const tabMenuTitle = ref('축제');
 
     const frameList = ref([]);
     const characterList = ref([]);
     const filterList = ref([]);
     const stickerList = ref([]);
-
-    const selectedFrameTab = ref(1);
-    const selectedEffectTab = ref(1);
+    const tabList = ref([]);
 
     const frameTabs = ref([
       { id: 1, name: '배경' },
@@ -152,17 +158,24 @@ export default {
 
     const effectTabs = ref([]);
 
+    const selectedFrameTab = ref(1);
+    const selectedEffectTab = ref(1);
+
     const getEffectTabs = () => {
       const tabs = [];
+      if (arTabSettingYn.value === 'Y') {
+        tabs.push({ id: 1, name: tabMenuTitle.value });
+      }
       if (arCharacterSettingYn.value === 'Y') {
-        tabs.push({ id: 1, name: '캐릭터' });
+        tabs.push({ id: 2, name: '캐릭터' });
       }
       if (arFilterSettingYn.value === 'Y') {
-        tabs.push({ id: 2, name: '필터' });
+        tabs.push({ id: 3, name: '필터' });
       }
       if (arStickerSettingYn.value === 'Y') {
-        tabs.push({ id: 3, name: '스티커' });
+        tabs.push({ id: 4, name: '스티커' });
       }
+      selectedEffectTab.value = tabs[0].id;
       return tabs;
     }
 
@@ -177,14 +190,18 @@ export default {
     window.toggleBarVisibility = function () {
       if (iframeRef.value) {
         isPhotoRatioSettingType.value = iframeRef.value.contentWindow.photoRatioSettingType()
+        tabMenuTitle.value = iframeRef.value.contentWindow.tabMenuTitle()
         arFrameSettingYn.value = iframeRef.value.contentWindow.arFrameSettingYn()
         arFilterSettingYn.value = iframeRef.value.contentWindow.arFilterSettingYn()
         arCharacterSettingYn.value = iframeRef.value.contentWindow.arCharacterSettingYn()
         arStickerSettingYn.value = iframeRef.value.contentWindow.arStickerSettingYn()
+        arTabSettingYn.value = iframeRef.value.contentWindow.arTabSettingYn()
         frameList.value = iframeRef.value.contentWindow.createFrameList();
         characterList.value = iframeRef.value.contentWindow.createEffectList().characterList;
         filterList.value = iframeRef.value.contentWindow.createEffectList().filterList;
         stickerList.value = iframeRef.value.contentWindow.createEffectList().stickerList;
+        tabList.value = iframeRef.value.contentWindow.createEffectList().tabList;
+        console.log(tabList.value)
       }
       aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
       isBarVisible.value = !isBarVisible.value;
@@ -327,6 +344,7 @@ export default {
     watchAndSelect(characterList, 'selectCharacter');
     watchAndSelect(filterList, 'selectFilter');
     watchAndSelect(stickerList, 'selectSticker');
+    watchAndSelect(tabList, 'selectTab');
 
     window.stickerListUpdate = function (list) {
       console.log(list)
@@ -360,6 +378,7 @@ export default {
       , characterList
       , stickerList
       , filterList
+      , tabList
       , selectImage
       , stopCapture
       , captureImage

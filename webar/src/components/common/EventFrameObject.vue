@@ -2,12 +2,12 @@
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="
-                                                            enabled: true;
-                                                            deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                                                            allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false" 
-    cursor="rayOrigin: mouse" raycaster="objects: .clickable"
-    @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
-    @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
+                                                                    enabled: true;
+                                                                    deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
+                                                                    allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
+    cursor="rayOrigin: mouse" raycaster="objects: .clickable" @deviceorientationpermissiongranted="permissionGranted"
+    @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
+    @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
     <a-assets>
 
@@ -25,7 +25,7 @@
       <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
         visible="true"></a-gltf-model>
     </a-entity>
-    
+
     <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 127">
       <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
@@ -57,6 +57,10 @@
         :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
+    <a-entity v-if="selectTab" position="0 -1 0">
+      <frame-object v-for="item in tabList" :key="`frameobject_${item.id}`" :ar-data="item"
+        :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
+    </a-entity>
 
     <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;"></a-camera>
 
@@ -69,7 +73,7 @@ import FrameObject from "@/components/common/FrameObject";
 
 export default {
   name: "EventFrameObject",
-  props: ['characterList', 'filterList', "stickerList"],
+  props: ['characterList', 'filterList', "stickerList", "tabList"],
   emits: [
     'load:scene',
     'request:orientationpermission',
@@ -93,6 +97,7 @@ export default {
     const selectCharacter = defineWindowFuncAndRef('selectCharacter');
     const selectFilter = defineWindowFuncAndRef('selectFilter');
     const selectSticker = defineWindowFuncAndRef('selectSticker');
+    const selectTab = defineWindowFuncAndRef('selectTab');
 
     // 애니메이션 재생 완료
     const animationcomplete = (data) => {
@@ -140,6 +145,7 @@ export default {
       selectCharacter,
       selectFilter,
       selectSticker,
+      selectTab,
       isMindAR,
     }
   }

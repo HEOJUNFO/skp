@@ -5,7 +5,7 @@
     <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
     <template v-if="loadedVideo">
       <event-frame-object :character-list="characterList" :filter-list="filterList" :sticker-list="stickerList"
-        @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
+        :tab-list="tabList" @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
       <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
@@ -85,6 +85,7 @@ export default {
       characterList,
       filterList,
       stickerList,
+      tabList,
       setList
     } = useWindowEvent();
 
@@ -165,6 +166,7 @@ export default {
       characterList,
       stickerList,
       filterList,
+      tabList,
       eventResult,
       templateType,
       loadedVideo,
