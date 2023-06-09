@@ -1,24 +1,24 @@
 <template>
-  <frame-container ref="containerRef">
+  <ar-photo-container ref="containerRef">
     <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false, toggleBarVisibility()"></tutorial-modal>
     <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
     <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
     <template v-if="loadedVideo">
-      <event-frame-object :character-list="characterList" :filter-list="filterList" :sticker-list="stickerList"
+      <event-ar-photo-object :character-list="characterList" :filter-list="filterList" :sticker-list="stickerList"
         :tab-list="tabList" @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
       <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
     </template>
-  </frame-container>
+  </ar-photo-container>
 </template>
   
 <script>
 import { onMounted, ref, computed } from "vue";
 import { useStore } from "vuex";
 
-import FrameContainer from "../../../components/common/FrameContainer";
-import EventFrameObject from "../../../components/common/EventFrameObject";
+import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
+import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
 import Camera from "@/components/common/Camera";
 import TutorialModal from "@/components/modal/TutorialModal";
 import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
@@ -34,8 +34,8 @@ export default {
   name: "Frame",
   components: {
     Camera,
-    EventFrameObject,
-    FrameContainer,
+    EventArPhotoObject,
+    ArPhotoContainer,
     TutorialModal,
     CaptureOpenBrowserModal,
     BrowserCheckModal,

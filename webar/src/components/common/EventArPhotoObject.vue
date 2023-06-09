@@ -2,9 +2,9 @@
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="
-                                                                    enabled: true;
-                                                                    deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                                                                    allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
+                                                                      enabled: true;
+                                                                      deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
+                                                                      allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
     cursor="rayOrigin: mouse" raycaster="objects: .clickable" @deviceorientationpermissiongranted="permissionGranted"
     @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
     @loaded="loaded">
@@ -43,22 +43,22 @@
     <a-entity position="0 2.25 -15" particle-system="color: #EF0000,#44CC00"></a-entity>
 
     <a-entity v-if="selectCharacter" position="0 -1 0">
-      <frame-object v-for="item in characterList" :key="`frameobject_${item.id}`" :ar-data="item"
+      <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
     <a-entity v-if="selectSticker" position="0 -1 0">
-      <frame-object v-for="item in stickerList" :key="`frameobject_${item.id}`" :ar-data="item"
+      <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectSticker.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
     <a-entity v-if="selectFilter" position="0 -1 0">
-      <frame-object v-for="item in filterList" :key="`frameobject_${item.id}`" :ar-data="item"
+      <ar-photo-object v-for="item in filterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
     <a-entity v-if="selectTab" position="0 -1 0">
-      <frame-object v-for="item in tabList" :key="`frameobject_${item.id}`" :ar-data="item"
+      <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
@@ -69,10 +69,10 @@
   
 <script>
 import { ref } from "vue";
-import FrameObject from "@/components/common/FrameObject";
+import ArPhotoObject from "@/components/common/ArPhotoObject";
 
 export default {
-  name: "EventFrameObject",
+  name: "EventArPhotoObject",
   props: ['characterList', 'filterList', "stickerList", "tabList"],
   emits: [
     'load:scene',
@@ -81,7 +81,7 @@ export default {
     'reject:orientationpermission',
     'animationcomplete'
   ],
-  components: { FrameObject },
+  components: { ArPhotoObject },
 
   setup(props, { emit }) {
     const isMindAR = ref(false);

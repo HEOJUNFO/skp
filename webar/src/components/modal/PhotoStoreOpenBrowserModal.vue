@@ -9,7 +9,9 @@
                     <img :src="i.url" alt="Uploaded image" @click="imgClick(i.url)">
                 </div>
             </div>
-            <button class="more-button" v-if="imagesData.length > visibleImages.length" @click="showMoreImages">더보기</button>
+            <button class="more-button" v-if="imagesData.length > visibleImages.length" @click="showMoreImages">
+                <img src="../../assets/icon/more-button.png" alt="더보기" style="width: 30px; height: 40px;" />
+            </button>
             <button class="round-button" @click="reCapture(), stopInterval()">AR포토 더 촬영하기</button>
             <div v-if="bannerON" class="banner-group">
                 <div class="banner-container">
@@ -142,6 +144,8 @@ export default {
     margin-top: 5%;
     margin-right: 1%;
     align-items: stretch;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .image-container {

@@ -1,15 +1,15 @@
 <template>
-  <frame-entity ar-type="stayObject" :ar-data="arData" :touch-effect-type="arData.type" v-if="visible"
+  <ar-photo-entity ar-type="stayObject" :ar-data="arData" :touch-effect-type="arData.type" v-if="visible"
     @animationcomplete:object="animationcomplete" @timeout:object="timeout" ref="stayObjectEl" />
 </template>
   
 <script>
 import { computed, ref, toRefs } from "vue";
-import FrameEntity from "@/components/common/FrameEntity";
+import ArPhotoEntity from "@/components/common/ArPhotoEntity";
 
 export default {
-  name: "FrameObject",
-  components: { FrameEntity },
+  name: "ArPhotoObject",
+  components: { ArPhotoEntity },
   props: {
     arData: {
       type: Object,
