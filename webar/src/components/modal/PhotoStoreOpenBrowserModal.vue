@@ -5,10 +5,11 @@
             <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
             <button class="box-button" @click="triggerFileInput">사진 업로드</button>
             <div class="image-group">
-                <div v-for="i in imagesData" :key="i.id" class="image-container">
+                <div v-for="i in visibleImages" :key="i.id" class="image-container">
                     <img :src="i.url" alt="Uploaded image" @click="imgClick(i.url)">
                 </div>
             </div>
+            <button class="more-button" v-if="imagesData.length > visibleImages.length" @click="showMoreImages">더보기</button>
             <button class="round-button" @click="reCapture(), stopInterval()">AR포토 더 촬영하기</button>
             <div v-if="bannerON" class="banner-group">
                 <div class="banner-container">
@@ -33,6 +34,7 @@ export default {
     data() {
         return {
             imagesData: [],
+            visibleImages: [],
         }
     },
     components: {
@@ -42,6 +44,7 @@ export default {
         this.data = new ImageStorage('TempDB', 'TempImg');
         await this.data.openDatabase();
         this.imagesData = await this.data.getAll();
+        this.visibleImages = this.imagesData.slice(0, 6);
     },
     methods: {
         async uploadImage(event) {
@@ -49,7 +52,14 @@ export default {
             if (!file) return;
             // Save the image to IndexedDB
             let id = await this.data.saveImage(file);
-            this.imagesData.push({ id: id, url: URL.createObjectURL(file) });
+            let newImage = { id: id, url: URL.createObjectURL(file) };
+            this.imagesData.push(newImage);
+            if (this.imagesData.length <= 6) {
+                this.visibleImages.push(newImage);
+            }
+        },
+        showMoreImages() {
+            this.visibleImages = this.imagesData;
         },
         exit() {
             this.showVModal = false;
@@ -127,10 +137,11 @@ export default {
 .image-group {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     width: 100%;
     margin-top: 5%;
     margin-right: 1%;
+    align-items: stretch;
 }
 
 .image-container {
