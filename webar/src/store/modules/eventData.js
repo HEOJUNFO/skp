@@ -63,6 +63,10 @@ export const eventData = {
       const { arObjectInfo } = eventData;
       return Array.isArray(arObjectInfo) ? arObjectInfo.reduce(getAssetData, []) : [];
     },
+    bannerList({ photoStoreData }) {
+      const { bannerList } = photoStoreData;
+      return Array.isArray(bannerList) ? bannerList.map(getBannerData) : [];
+    },
     // stamp 정보
     stampPanelInfo({ eventData }) {
       const { arObjectInfo, arEventLogicalInfo, eventLogicalType, arScanningImageInfo } = eventData;
@@ -476,6 +480,16 @@ function getScanningBridgeData(item) {
       forcePlayTime: bridgeForceExposureTimeSecond,
     },
   ];
+}
+
+function getBannerData(item) {
+  const {arNftBannerId, bannerImgUrl, bannerTargetUrl, bannerSort} = item;
+  return {
+    itemID: arNftBannerId,
+    bannerImgUrl: bannerImgUrl,
+    bannerTargetUrl: bannerTargetUrl,
+    bannerSort: bannerSort,
+  };
 }
 
 function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {

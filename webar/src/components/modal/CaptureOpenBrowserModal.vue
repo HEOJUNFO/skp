@@ -73,7 +73,7 @@
       </div>
     </div>
     <print-open-browser-modal ref="printModal" />
-    <photo-store-open-browser-modal ref="photoStoreModal" />
+    <photo-store-open-browser-modal ref="photoStoreModal" @reCapture="back()" />
   </vue-final-modal>
 </template>
   

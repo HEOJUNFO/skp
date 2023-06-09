@@ -98,7 +98,6 @@ export default {
       deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
       freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
-      console.log(freePrintControlYn.value, freePrintCustomerCount.value)
     };
 
     const checkDeviceNumber = (deviceNumber) => {
