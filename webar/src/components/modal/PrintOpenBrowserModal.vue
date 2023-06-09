@@ -11,8 +11,9 @@
       </div>
 
       <button class="round-button" @click="print">출력하기</button>
-      <button class="round-button">셀픽 디바이스 위치 찾기</button>
+      <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
+        <button class="exit-button" @click="exit">X</button>
         <div class="modal-content">
           <p>키오스크 화면에 보이는</p>
           <p>기기번호를 입력해 주세요.</p>
@@ -60,67 +61,92 @@
 </template>
   
 <script>
+
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
-  data() {
-    return {
-      deviceNumber: '',
-      showDeviceModal: false,
-      showSuccessModal: false,
-      showFailureModal: false,
-      freePrints: 10,
-      printStatus: 'printing',
-      printNumber: 1,
-    }
-  },
-  methods: {
-    exit() {
-      this.showVModal = false;
-    },
-    print() {
-      if (!this.checkDeviceNumber(this.deviceNumber)) {
-        this.showDeviceModal = false;
-        setTimeout(() => {
-          this.showDeviceModal = true;
-        }, 100);
-        return;
-      }
-      if (this.freePrints > this.printNumber) {
-        this.freePrints -= this.printNumber;
-        this.showSuccessModal = true;
-        setTimeout(() => {
-          this.printStatus = 'success';
-        }, 1000);
-      } else {
-        this.showFailureModal = true;
-      }
-    },
-    checkDeviceNumber(deviceNumber) {
-      return deviceNumber === '12345';
-    },
-    increasePrints() {
-      if (this.printNumber < 5)
-        this.printNumber++;
-    },
-    decreasePrints() {
-      if (this.printNumber > 1) {
-        this.printNumber--;
-      }
-    },
-  },
   setup() {
+    const { getters } = useStore();
     const showVModal = ref(false);
     const imageUrl = ref('');
+    const deviceLocationFindYn = ref(false);
+    const deviceLocationFindButtonText = ref('');
+    const freePrintControlYn = ref(false);
+    const freePrintCustomerCount = ref(10);
+    const deviceNumber = ref('');
+    const printNumber = ref(1);
+    const printStatus = ref('printing');
+    const showDeviceModal = ref(false);
+    const showSuccessModal = ref(false);
+    const showFailureModal = ref(false);
 
     const openModal = (url) => {
       imageUrl.value = url
       showVModal.value = true;
+      deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
+      deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
+      freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
+      freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
+      console.log(freePrintControlYn.value, freePrintCustomerCount.value)
     };
+
+    const checkDeviceNumber = (deviceNumber) => {
+      return deviceNumber.value === '12345';
+    }
+
+    const increasePrints = () => {
+      if (printNumber.value < 5)
+        printNumber.value++;
+    }
+
+    const decreasePrints = () => {
+      if (printNumber.value > 1) {
+        printNumber.value--;
+      }
+    }
+
+    const print = () => {
+      if (!checkDeviceNumber(deviceNumber)) {
+        showDeviceModal.value = false;
+        setTimeout(() => {
+          showDeviceModal.value = true;
+        }, 100);
+        return;
+      }
+      if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
+        showFailureModal.value = true;
+        return;
+      } else if (freePrintCustomerCount.value >= printNumber.value) {
+        freePrintCustomerCount.value -= printNumber.value;
+        showSuccessModal.value = true;
+      }
+      showSuccessModal.value = true;
+      setTimeout(() => {
+        printStatus.value = 'success';
+      }, 1000);
+    }
+
+    const exit = () => {
+      showVModal.value = false;
+    }
+
     return {
       showVModal,
       imageUrl,
       openModal,
+      deviceLocationFindYn,
+      deviceLocationFindButtonText,
+      print,
+      increasePrints,
+      decreasePrints,
+      exit,
+      showDeviceModal,
+      showFailureModal,
+      showSuccessModal,
+      printNumber,
+      deviceNumber,
+      printStatus,
     }
   },
 }

@@ -741,12 +741,12 @@ export const jsonData = {
       ],
     },
     offsetPhotoStoreData: {
-      deviceLocationFindSettingYn: "", //디바이스 위치 찾기 버튼 설정 여부 설정안함: N / 설정함: Y
-      deviceLocationFindButtonText: "", //디바이스 위치 찾기 버튼 문구
+      deviceLocationFindSettingYn: "Y", //디바이스 위치 찾기 버튼 설정 여부 설정안함: N / 설정함: Y
+      deviceLocationFindButtonText: "셀픽 디바이스 찾기", //디바이스 위치 찾기 버튼 문구
       locationFindExposureType: "", //위치 찾기 노출 설정 지도보기: MAP / 팝업보기: POPUP
       locationFindPopupImgUrl: "", //위치 찾기 팝업 이미지 URL
-      freePrintContrlYn: "", //무료출력수 제어 설정안함: N / 설정함: Y
-      freePrintCustomerCount: "", //무료출력수 제어 설정 값
+      freePrintControlYn: "Y", //무료출력수 제어 설정안함: N / 설정함: Y
+      freePrintCustomerCount: "3", //무료출력수 제어 설정 값
 
       bannerList: [
         {

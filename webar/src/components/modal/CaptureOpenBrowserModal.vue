@@ -52,7 +52,7 @@
           <p>눌러주세요</p>
           <div class="button-container">
             <button class="round-button" @click="photoStore(), showSaveModal = false">포토함 이동</button>
-            <button class="round-button" @click="print">지금 출력</button>
+            <button class="round-button" @click="print(), showSaveModal = false">지금 출력</button>
           </div>
         </div>
       </div>

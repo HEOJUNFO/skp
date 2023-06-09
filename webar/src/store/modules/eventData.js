@@ -191,6 +191,26 @@ export const eventData = {
     filmResultFooterImgUrl({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgUrl', 'default');
     },
+    //photoStore
+    deviceLocationFindSettingYn({ photoStoreData }) {
+      return photoStoreData?.deviceLocationFindSettingYn ?? "N";
+    },
+    deviceLocationFindButtonText({ photoStoreData }) {
+      return photoStoreData?.deviceLocationFindButtonText ?? "";
+    },
+    locationFindExposureType({ photoStoreData }) {
+      return photoStoreData?.locationFindExposureType ?? "NONE";
+    },
+    locationFindPopupImgUrl({ photoStoreData }) {
+      return photoStoreData?.locationFindPopupImgUrl ?? "";
+    },
+    freePrintControlYn({ photoStoreData }) {
+      return photoStoreData?.freePrintControlYn ?? "N";
+    },
+    freePrintCustomerCount({ photoStoreData }) {
+      return photoStoreData?.freePrintCustomerCount ?? 10;
+    },
+
 
     templateType(state) {
       return state.eventData?.eventLogicalType;
