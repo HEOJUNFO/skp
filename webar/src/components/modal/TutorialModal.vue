@@ -42,7 +42,6 @@ export default {
       this.$emit('close');
     },
     next() {
-      console.log(this.currentIndex, this.tutorials.length - 1)
       if (this.currentIndex < this.tutorials.length - 1) {
         this.currentIndex++;
       } else {

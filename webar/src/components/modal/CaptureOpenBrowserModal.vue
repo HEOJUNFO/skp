@@ -140,7 +140,6 @@ export default {
     const filmResultFooterImgYn = computedPropertyGenerator('filmResultFooterImgSettingYn', true);
     const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
     const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
-    console.log(filmResultImgUrl.value)
 
     const formattedBoxContent = (hashTag) => {
       const hashtags = hashTag.split(' ');

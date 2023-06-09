@@ -56,7 +56,6 @@ export default {
 
     const tutorialYn = computed(() => {
       const istutorial = getters['eventData/tutorialYn'];
-      console.log(istutorial)
       return istutorial === 'Y';
     });
 

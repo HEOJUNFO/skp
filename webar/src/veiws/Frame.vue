@@ -346,7 +346,6 @@ export default {
     watchAndSelect(tabList, 'selectTab');
 
     window.stickerListUpdate = function (list) {
-      console.log(list)
       for (let i = 0; i < stickerList.value.length; i++) {
         // Check if the id of the current sticker equals the id of stickerListUpdate
         if (stickerList.value[i].id === list.id) {

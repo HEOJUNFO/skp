@@ -42,9 +42,7 @@ export default {
     methods: {
         async uploadImage(event) {
             let file = event.target.files[0];
-            console.log(file)
             if (!file) return;
-
             // Save the image to IndexedDB
             let id = await this.data.saveImage(file);
             this.imagesData.push({ id: id, url: URL.createObjectURL(file) });
