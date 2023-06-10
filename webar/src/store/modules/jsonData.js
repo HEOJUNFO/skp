@@ -1048,7 +1048,7 @@ export const jsonData = {
         filterContentsInfo: [             //  필터 콘텐츠 정보(array)
           {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "파티클1",            //	파일명	string	라이브러리 선택시 필수
+            photoFileName: "흑백",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "particleThumbnail.png",     //	썸네일 이미지 URL	string	
             photoOriginalFileUrl: "particleData.json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
@@ -1056,11 +1056,27 @@ export const jsonData = {
           },
           {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "필터1",            //	파일명	string	라이브러리 선택시 필수
+            photoFileName: "세피아",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "filterThumbnail.png",     //	썸네일 이미지 URL	string	
             photoOriginalFileUrl: "filterData.json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
+          },
+          { 
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "블러",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "filterThumbnail.png",     //	썸네일 이미지 URL	string
+            photoOriginalFileUrl: "filterData.json",     //	원본 이미지 URL	string
+            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 2,                      //	순서	int
+          },
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "콘트라스트",
+            photoThumbnailImgUrl: "filterThumbnail.png",     //	썸네일 이미지 URL	string          
+            photoOriginalFileUrl: "filterData.json",     //	원본 이미지 URL	string
+            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 3,                      //	순서	int
           },
         ],
 

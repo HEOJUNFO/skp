@@ -68,9 +68,9 @@ video {
   object-fit: cover;
   position: absolute;
 
-  /* filter: grayscale(100%);   */
+  filter: grayscale(100%);
   /* filter: sepia(100%); */
-  filter: blur(5px);
+  /* filter: blur(5px); */
   /* filter: contrast(200%); */
 
 }
