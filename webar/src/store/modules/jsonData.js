@@ -956,7 +956,7 @@ export const jsonData = {
         arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "축제1",                 //	탭메뉴 제목	String	
-        arFilterSettingYn: "N",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
+        arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
         arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
         arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
         filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	

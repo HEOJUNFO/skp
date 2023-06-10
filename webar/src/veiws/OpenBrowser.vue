@@ -482,9 +482,8 @@ export default {
 
 .image-view>span {
   white-space: nowrap;
-  overflow: hidden;
   max-width: 100%;
-  font-size: 0.9.5rem;
+  font-size: 0.9rem;
 }
 
 .button-container {
@@ -498,7 +497,7 @@ export default {
 }
 
 .tab {
-  margin: 0 10%;
+  margin: 0 6%;
 }
 
 .image-view.selected {
