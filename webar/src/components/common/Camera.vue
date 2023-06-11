@@ -68,10 +68,10 @@ video {
   object-fit: cover;
   position: absolute;
 
-  filter: grayscale(100%);
+  /* filter: grayscale(100%); */
   /* filter: sepia(100%); */
   /* filter: blur(5px); */
   /* filter: contrast(200%); */
-
+  filter: brightness(130%) contrast(90%) sepia(30%);
 }
 </style>
