@@ -26,10 +26,10 @@
         </span>
       </button>
       <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer">
-        <span v-if="timerButtonVisible === 2">타이머3</span>
-        <span v-else-if="timerButtonVisible === 3">타이머5</span>
-        <span v-else-if="timerButtonVisible === 4">타이머7</span>
-        <span v-else-if="timerButtonVisible === 1">타이머X</span>
+        <span v-if="timerButtonVisible === 2" style="font-size: 30px; font-weight: bold;">3</span>
+        <span v-else-if="timerButtonVisible === 3" style="font-size: 30px; font-weight: bold;">5</span>
+        <span v-else-if="timerButtonVisible === 4" style="font-size: 30px; font-weight: bold;">7</span>
+        <span v-else-if="timerButtonVisible === 1" style="font-size: 30px; font-weight: bold;">X</span>
       </button>
       <button v-if="!isCapturing" @click="flipCamera" style="margin-left: 100px; margin-right: 100px;">
         <img src="../assets/icon/right-left-button.png" alt="전환" style="width: 30px; height: 30px;" />
