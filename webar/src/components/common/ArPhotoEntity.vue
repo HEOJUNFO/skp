@@ -1,13 +1,13 @@
 
 <template>
   <template v-if="arData">
-    <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true" src="#button-texture" width="0.1"
-      height="0.1" position="0 0.6 -2" @mousedown="stickerListUpdate(arData)"></a-plane>
+    <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true"
+      src="#button-texture" width="0.1" height="0.1" position="0 0.6 -2" @mousedown="stickerListUpdate(arData)"></a-plane>
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
+    <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" class="clickable"
+      gesture-handler="locationBased: true" @animationcomplete="animationcomplete" />
 
     <a-box v-else-if="objectType === `CUBE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
@@ -18,8 +18,8 @@
     <a-entity v-else-if="objectType === `GIF`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
-    <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" animation-mixer />
+    <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" class="clickable"
+      gesture-handler="locationBased: true" @animationcomplete="animationcomplete" animation-mixer />
 
     <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>

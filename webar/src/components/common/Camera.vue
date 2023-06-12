@@ -70,8 +70,8 @@ video {
 
   /* filter: grayscale(100%); */
   /* filter: sepia(100%); */
-  /* filter: blur(5px); */
+  filter: blur(5px);
   /* filter: contrast(200%); */
-  filter: brightness(130%) contrast(90%) sepia(30%);
+  /* filter: brightness(130%) contrast(90%) sepia(30%); */
 }
 </style>

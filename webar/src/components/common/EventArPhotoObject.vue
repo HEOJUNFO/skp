@@ -1,13 +1,10 @@
 <template>
   <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="
-                                                                      enabled: true;
-                                                                      deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;
-                                                                      allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;" debug="false"
-    cursor="rayOrigin: mouse" raycaster="objects: .clickable" @deviceorientationpermissiongranted="permissionGranted"
-    @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
-    @loaded="loaded">
+    device-orientation-permission-ui="enabled: true;deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
+    debug="false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"
+    @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
+    @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
     <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
     <a-assets>
 
@@ -40,7 +37,7 @@
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
-    <a-entity position="0 2.25 -15" particle-system="color: #EF0000,#44CC00"></a-entity>
+    <a-entity position="0 2.25 -15" particle-system="preset: snow; size : 10; particleCount:500;"></a-entity>
 
     <a-entity v-if="selectCharacter" position="0 -1 0">
       <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
