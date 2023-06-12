@@ -8,7 +8,7 @@
         :tab-list="tabList" @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
         @reject:orientationpermission="rejectOrientationPermission"
         @request:orientationpermission="rquestOrientationPermission" />
-      <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
+      <capture-web-view-modal ref="captureModal" :image-url="imageUrl" />
     </template>
   </ar-photo-container>
 </template>
@@ -21,7 +21,7 @@ import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
 import Camera from "@/components/common/Camera";
 import TutorialModal from "@/components/modal/TutorialModal";
-import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
+import CaptureWebViewModal from "../../../components/modal/CaptureWebViewModal.vue";
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
 
 import useEventData from "@/composables/useEventData";
@@ -37,7 +37,7 @@ export default {
     EventArPhotoObject,
     ArPhotoContainer,
     TutorialModal,
-    CaptureOpenBrowserModal,
+    CaptureWebViewModal,
     BrowserCheckModal,
   },
   setup() {

@@ -73,7 +73,7 @@
       </div>
     </div>
     <print-open-browser-modal ref="printModal" />
-    <photo-store-open-browser-modal ref="photoStoreModal" @reCapture="back()" />
+    <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
   </vue-final-modal>
 </template>
   
@@ -82,13 +82,13 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
-import PhotoStoreOpenBrowserModal from "./PhotoStoreOpenBrowserModal.vue";
+import PhotoStoreModal from "./PhotoStoreModal.vue";
 
 export default {
   name: "EventCompleteModal",
   components: {
     PrintOpenBrowserModal,
-    PhotoStoreOpenBrowserModal,
+    PhotoStoreModal,
   },
   data() {
     return {

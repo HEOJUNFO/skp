@@ -3,14 +3,31 @@
     <div class="main-content">
       <button class="exit-button" @click="exit">X</button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
-      <button class="round-button">셀픽 디바이스 위치 찾기</button>
-      <button class="round-button" @click="print">출력하기</button>
+      <div class="prints-count">
+        <span style="margin-right: 2em;">출력 장수</span>
+        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
+        <span class="prints-number">{{ printNumber }}</span>
+        <button v-if="printNumber < 5" class="button-print2" @click="increasePrints">+</button>
+      </div>
+
+      <button class="round-button" @click="showDeviceModal = true">출력하기</button>
+      <div v-if="showErrorModal" class="modal">
+        <div class="modal-content">
+          <h2>디바이스번호 불일치</h2>
+          <br />
+          <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
+          <button class="round-button" @click="print(), showErrorModal = false">다시 출력요청</button>
+        </div>
+      </div>
+      <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
+        <button class="exit-button" @click="exit">X</button>
         <div class="modal-content">
           <p>키오스크 화면에 보이는</p>
           <p>기기번호를 입력해 주세요.</p>
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
-          <button class="round-button" @click="print">다시 출력요청</button>
+          <button class="round-button" @click="print">확인</button>
         </div>
       </div>
       <div v-if="showSuccessModal" class="modal2">
@@ -53,60 +70,91 @@
 </template>
   
 <script>
+
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
-  data() {
-    return {
-      deviceNumber: '',
-      showDeviceModal: false,
-      showSuccessModal: false,
-      showFailureModal: false,
-      freePrints: 5,
-      printStatus: 'printing'
-    }
-  },
-  methods: {
-    exit() {
-      this.showVModal = false;
-    },
-    print() {
-      if (!this.checkDeviceNumber(this.deviceNumber)) {
-        this.showDeviceModal = false;
-        setTimeout(() => {
-          this.showDeviceModal = true;
-        }, 100);
-        return;
-      }
-      if (this.freePrints > 0) {
-        this.freePrints--;
-        this.showSuccessModal = true;
-        setTimeout(() => {
-          this.printStatus = 'success';
-        }, 1000);
-      } else {
-        this.showFailureModal = true;
-      }
-    },
-    checkDeviceNumber(deviceNumber) {
-      return deviceNumber === '12345';
-    },
-  },
-  created() {
-    this.localImageUrl = this.$route.params.data
-  },
   setup() {
+    const { getters } = useStore();
     const showVModal = ref(false);
     const imageUrl = ref('');
+    const deviceLocationFindYn = ref(false);
+    const deviceLocationFindButtonText = ref('');
+    const freePrintControlYn = ref(false);
+    const freePrintCustomerCount = ref(10);
+    const deviceNumber = ref('');
+    const printNumber = ref(1);
+    const printStatus = ref('printing');
+    const showDeviceModal = ref(false);
+    const showSuccessModal = ref(false);
+    const showFailureModal = ref(false);
+    const showErrorModal = ref(false);
 
     const openModal = (url) => {
       imageUrl.value = url
       showVModal.value = true;
+      deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
+      deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
+      freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
+      freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
     };
+
+    const checkDeviceNumber = (deviceNumber) => {
+      return deviceNumber.value === '12345';
+    }
+
+    const increasePrints = () => {
+      if (printNumber.value < 5)
+        printNumber.value++;
+    }
+
+    const decreasePrints = () => {
+      if (printNumber.value > 1) {
+        printNumber.value--;
+      }
+    }
+
+    const print = () => {
+      if (!checkDeviceNumber(deviceNumber)) {
+        showErrorModal.value = true;
+        console.log('error')
+        return;
+      }
+      if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
+        showFailureModal.value = true;
+        return;
+      } else if (freePrintCustomerCount.value >= printNumber.value) {
+        freePrintCustomerCount.value -= printNumber.value;
+        showSuccessModal.value = true;
+      }
+      showSuccessModal.value = true;
+      setTimeout(() => {
+        printStatus.value = 'success';
+      }, 2000);
+    }
+
+    const exit = () => {
+      showVModal.value = false;
+    }
+
     return {
       showVModal,
       imageUrl,
       openModal,
+      deviceLocationFindYn,
+      deviceLocationFindButtonText,
+      print,
+      increasePrints,
+      decreasePrints,
+      exit,
+      showDeviceModal,
+      showFailureModal,
+      showSuccessModal,
+      printNumber,
+      deviceNumber,
+      printStatus,
+      showErrorModal,
     }
   },
 }
@@ -166,14 +214,16 @@ export default {
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  height: auto;
+  border: 1px solid #000;
+  border-radius: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .modal2 {
@@ -235,5 +285,49 @@ export default {
   margin: 20px 0;
   text-align: center;
   color: #000
+}
+
+.prints-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-left: 10%;
+  width: 80%;
+  height: 30px;
+}
+
+.prints-number {
+  border: 1px solid black;
+  padding: 2px 70px;
+
+}
+
+.button-print1 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.button-print2 {
+  background-color: gray;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 2px 4px;
 }
 </style>
