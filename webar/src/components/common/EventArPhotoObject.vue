@@ -1,11 +1,10 @@
 <template>
-  <a-scene gesture-detector mindar-face renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
+  <a-scene mindar-face gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
     color-space="sRGB" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: true;deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
     debug="false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
     @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
-    <!-- device-orientation-permission-ui enbled를 false로 하면 ios 12이상에서 motion seneor를 사용 할 수 없다. -->
     <a-assets>
 
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl" />
@@ -17,6 +16,26 @@
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
 
     </a-assets>
+
+    <a-entity v-if="selectCharacter" position="0 -1 0">
+      <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
+        :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
+    </a-entity>
+    <a-entity v-if="selectSticker" position="0 -1 0">
+      <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item"
+        :visible="selectSticker.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
+    </a-entity>
+    <!-- <a-entity v-if="selectFilter" position="0 -1 0">
+      <ar-photo-object v-for="item in filterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
+        :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
+        @timeout:object="timeout" />
+    </a-entity> -->
+    <a-entity v-if="selectTab" position="0 -1 0">
+      <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
+        :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
+    </a-entity>
 
     <a-entity v-if="isMindAR" mindar-face-target="anchorIndex: 168">
       <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
@@ -37,29 +56,14 @@
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
-    <a-entity position="0 2.25 -15" particle-system="preset: snow; size : 10; particleCount:500;"></a-entity>
+    <a-entity v-if="selectFilter.includes('star')" position="0 -13 -40"
+      particle-system="color: #FF0,#FF0; size:2;"></a-entity>
+    <a-entity v-if="selectFilter.includes('snow')" position="0 -13 -40"
+      particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
+    <a-entity v-if="selectFilter.includes('rain')" position="0 -13 -40"
+      particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
-    <a-entity v-if="selectCharacter" position="0 -1 0">
-      <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
-        :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
-        @timeout:object="timeout" />
-    </a-entity>
-    <a-entity v-if="selectSticker" position="0 -1 0">
-      <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item"
-        :visible="selectSticker.includes(item.id)" @animationcomplete:object="animationcomplete"
-        @timeout:object="timeout" />
-    </a-entity>
-    <a-entity v-if="selectFilter" position="0 -1 0">
-      <ar-photo-object v-for="item in filterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
-        :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
-        @timeout:object="timeout" />
-    </a-entity>
-    <a-entity v-if="selectTab" position="0 -1 0">
-      <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
-        :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
-    </a-entity>
-
-    <a-camera active="false" position="0 0 0" rotation-reader zoom="1" look-controls="enabled:false;"></a-camera>
+    <a-camera active="false" position="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-camera>
 
   </a-scene>
 </template>

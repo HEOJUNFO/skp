@@ -337,8 +337,13 @@ export default {
     function watchAndSelect(list, selectFuncName) {
       watch(list, () => {
         let selectedItems = list.value.filter(item => item.select === true);
-        let selectedIds = selectedItems.map(item => item.id);
-        iframeRef.value.contentWindow[selectFuncName](selectedIds);
+        if (selectFuncName === 'selectFilter') {
+          let selectedFileNames = selectedItems.map(item => item.name);
+          iframeRef.value.contentWindow[selectFuncName](selectedFileNames);
+        } else {
+          let selectedIds = selectedItems.map(item => item.id);
+          iframeRef.value.contentWindow[selectFuncName](selectedIds);
+        }
 
       }, { deep: true });
     }
