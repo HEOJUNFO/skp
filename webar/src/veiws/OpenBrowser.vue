@@ -31,8 +31,15 @@
         <span v-else-if="timerButtonVisible === 4" style="font-size: 30px; font-weight: bold;">7</span>
         <span v-else-if="timerButtonVisible === 1" style="font-size: 30px; font-weight: bold;">X</span>
       </button>
-      <button v-if="!isCapturing" @click="flipCamera" style="margin-left: 100px; margin-right: 100px;">
-        <img src="../assets/icon/right-left-button.png" alt="전환" style="width: 30px; height: 30px;" />
+      <button v-if="!isCapturing" @click="flipCamera">
+        <img src="../assets/icon/right-left-button.png" alt="전환"
+          style="width: 30px; height: 30px; margin-left: 100px; margin-right: 50px;" />
+      </button>
+      <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true">
+        <img src="../assets/icon/toggle-off-button.png" alt="뷰티off" style="width: 30px; height: 30px;" />
+      </button>
+      <button v-if="!isCapturing && isBeauty" @click="isBeauty = false">
+        <img src="../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 30px; height: 30px;" />
       </button>
       <button v-if="!isCapturing" @click="openExitModal">
         <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px;" />
@@ -131,10 +138,10 @@ export default {
     const isBarVisible = ref(false);
     const exitModalVisible = ref(false);
     const aspectRatio = ref(0);
-
     const longPressTimer = ref(null);
     const timerButtonVisible = ref(0);
     const isCapturing = ref(false);
+    const isBeauty = ref(false);
     const countdown = ref(null);
     const countdownInterval = ref(null);
     const isPhotoRatioSettingType = ref(null);
@@ -364,6 +371,12 @@ export default {
       }
     }
 
+    watch(isBeauty, () => {
+      if (iframeRef.value) {
+        iframeRef.value.contentWindow.beautyFilter(isBeauty.value);
+      }
+    });
+
     return {
       baseUrl: process.env.VUE_APP_PAGE_PATH
       , iframeRef
@@ -407,6 +420,7 @@ export default {
       , selectEffectTab
       , selectedFrameTab
       , selectedEffectTab
+      , isBeauty
     }
   }
 }

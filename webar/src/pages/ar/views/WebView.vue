@@ -130,6 +130,10 @@ export default {
       cameraRef.value.flipCamera();
     }
 
+    window.beautyFilter = function (isBeauty) {
+      cameraRef.value.beautyFilter(isBeauty);
+    }
+
     window.capture = function () {
       captureModal.value.openModal(capture());
       window.parent.toggleBarVisibility();

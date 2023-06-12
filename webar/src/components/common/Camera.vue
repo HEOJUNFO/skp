@@ -31,6 +31,14 @@ export default {
       }
     };
 
+    const beautyFilter = (isBeauty) => {
+      if (isBeauty) {
+        video.value.style.filter = "blur(5px)";
+      } else {
+        video.value.style.filter = "none";
+      }
+    }
+
     const resetCamera = async () => {
       try {
         await getUserMedia({ videoEl: video.value, facingMode });
@@ -54,7 +62,8 @@ export default {
       loadedmetadata,
       loadeddata,
       flipCamera,
-      resetCamera
+      resetCamera,
+      beautyFilter,
     }
   }
 }
@@ -67,11 +76,5 @@ video {
   display: block;
   object-fit: cover;
   position: absolute;
-
-  /* filter: grayscale(100%); */
-  /* filter: sepia(100%); */
-  filter: blur(5px);
-  /* filter: contrast(200%); */
-  /* filter: brightness(130%) contrast(90%) sepia(30%); */
 }
 </style>
