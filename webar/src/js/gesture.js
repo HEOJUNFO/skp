@@ -2,7 +2,7 @@ export function setGesture() {
   window.AFRAME.registerComponent("gesture-handler", {
       schema: {
         enabled: { default: false },
-        moveFactor: { default: 3 },
+        moveFactor: { default: 1 },
         rotateFactor: {default : 8},
         minScale: { default: 0.3 },
         maxScale: { default: 5 },

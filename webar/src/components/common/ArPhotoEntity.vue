@@ -23,18 +23,17 @@
 
     <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
-        raycaster> </a-box>
+      <a-box class="clickable" position="0 0 0" scale="3 3 3" renderOrder="0" raycaster visible="false"> </a-box>
+
     </a-gltf-model>
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="3 3 3" material="opacity: 0.0; transparent: true" renderOrder="0"
-        raycaster> </a-box>
+      <a-box class="clickable" position="0 0 0" scale="3 3 3" renderOrder="0" raycaster visible="false"> </a-box>
     </a-gltf-model>
 
     <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" renderOrder="1" @mousedown="setTrash"></a-plane>
+      @animationcomplete="animationcomplete" renderOrder="0" @mousedown="setTrash"></a-plane>
 
   </template>
 </template>
