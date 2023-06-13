@@ -366,12 +366,19 @@ export default {
     watchAndSelect(stickerList, 'selectSticker');
     watchAndSelect(tabList, 'selectTab');
 
+
+
     window.stickerListUpdate = function (list) {
       for (let i = 0; i < stickerList.value.length; i++) {
-        // Check if the id of the current sticker equals the id of stickerListUpdate
         if (stickerList.value[i].id === list.id) {
-          // If so, set the select value of the current sticker to false
           stickerList.value[i].select = false;
+        }
+      }
+    }
+    window.tabListUpdate = function (list) {
+      for (let i = 0; i < tabList.value.length; i++) {
+        if (tabList.value[i].id === list.id) {
+          tabList.value[i].select = false;
         }
       }
     }
