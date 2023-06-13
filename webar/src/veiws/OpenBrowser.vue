@@ -320,7 +320,6 @@ export default {
     const effectToggleBar = () => {
       isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
       effectTabs.value = getEffectTabs();
-
     }
 
     const selectImage = (images, imageId) => {
@@ -329,7 +328,6 @@ export default {
           image.select = false;
         });
       }
-
       const selectedImage = images.find(image => image.id === imageId);
       if (selectedImage) selectedImage.select = !selectedImage.select;
     }

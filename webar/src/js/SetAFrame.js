@@ -170,6 +170,25 @@ export function setAframe() {
     }
   });
 
+  window.AFRAME.registerComponent('frustum-culled', {
+    schema: {default: false},
+    init: function () {
+      this.el.addEventListener('model-loaded', this.update.bind(this));
+    },
+    update: function () {
+      var mesh = this.el.getObject3D('mesh');
+      var data = this.data;
+      if (!mesh) { return; }
+      mesh.traverse(function (node) {
+        if (node.isMesh) {
+          node.frustumCulled = data;
+        }
+      });
+    }
+  });
+  
+  
+
   //---------
 
   /*window.AFRAME.registerComponent('click-drag', {
