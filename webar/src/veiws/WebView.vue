@@ -12,11 +12,9 @@
         </div>
       </div>
     </div>
-    <div class="top-bar" :style="barStyle" v-show="isBarVisible">
-      <button v-if="!isCapturing && arFrameSettingYn === 'Y'">
-        <span style="color: rgba(0, 0, 0, 0)">4:6</span>
-      </button>
-      <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio">
+    <div class="top-bar" v-show="isBarVisible" style="background-color: white;">
+      <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio"
+        style="position: absolute; left: 0%;">
         <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">4:6</span>
         <span v-else-if="aspectRatio === 1" style="font-size: 30px; font-weight: bold;">1:1</span>
         <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">9:16</span>
@@ -25,24 +23,25 @@
           <img src="../assets/icon/print-button.png" alt="전환" style="width: 30px; height: 30px;" />
         </span>
       </button>
-      <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer">
+      <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer" style="position: absolute; left: 15%;">
         <span v-if="timerButtonVisible === 2" style="font-size: 30px; font-weight: bold;">3</span>
         <span v-else-if="timerButtonVisible === 3" style="font-size: 30px; font-weight: bold;">5</span>
         <span v-else-if="timerButtonVisible === 4" style="font-size: 30px; font-weight: bold;">7</span>
         <span v-else-if="timerButtonVisible === 1" style="font-size: 30px; font-weight: bold;">X</span>
       </button>
-      <button v-if="!isCapturing" @click="flipCamera">
+      <button @click="flipCamera">
         <img src="../assets/icon/right-left-button.png" alt="전환"
-          style="width: 30px; height: 30px; margin-left: 100px; margin-right: 50px;" />
+          style="width: 30px; height: 30px; margin-left: 160px; " />
       </button>
       <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true">
-        <img src="../assets/icon/toggle-off-button.png" alt="뷰티off" style="width: 30px; height: 30px;" />
+        <img src="../assets/icon/toggle-off-button.png" alt="뷰티off"
+          style="width: 30px; height: 30px; margin-left: 60px;" />
       </button>
       <button v-if="!isCapturing && isBeauty" @click="isBeauty = false">
-        <img src="../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 30px; height: 30px;" />
+        <img src="../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 30px; height: 30px; margin-left: 60px;" />
       </button>
       <button v-if="!isCapturing" @click="openExitModal">
-        <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px;" />
+        <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px; margin-left: 20px;" />
       </button>
     </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/webview`" frameborder="0"></iframe>
@@ -56,7 +55,9 @@
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
         <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px;" />
       </button>
-      <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
+      <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+        <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+      </button>
       <button v-if="!isCapturing" @click="effectToggleBar">
         <img src="../assets/icon/star-button.png" alt="이펙트" style="width: 45px; height: 40px;" />
         <p style="font-size: 17.5px; font-weight: bold;">이펙트</p>
@@ -83,7 +84,9 @@
           <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
         </button>
         <button style="color: rgba(0, 0, 0, 0)"> 더미</button>
-        <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
+        <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+        </button>
       </div>
     </div>
     <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
@@ -107,7 +110,9 @@
           <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
         </button>
         <button style="color: rgba(0, 0, 0, 0)"> 더미</button>
-        <button v-if="isCapturing" @click="stopCapture" class="capture-button">타이머 촬영 종료</button>
+        <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+        </button>
       </div>
     </div>
   </div>

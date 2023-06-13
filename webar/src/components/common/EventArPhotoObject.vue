@@ -1,8 +1,8 @@
 <template>
   <a-scene :mindar-face="isMindARImage == false ? '' : null"
     :mindar-image="isMindARImage ? 'imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; uiError:no; uiLoading:no; uiScanning:no' : null"
-    gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;"
-    color-space="sRGB" vr-mode-ui="enabled: false"
+    gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;" color-space="sRGB"
+    vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: true;deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
     debug="false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
@@ -17,8 +17,10 @@
       <a-asset-item id="earringModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
 
-      <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.png" />
-      <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+      <img id="card"
+        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.png" />
+      <a-asset-item id="avatarModel"
+        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
 
 
     </a-assets>
@@ -65,7 +67,7 @@
     <a-entity v-if="isMindARFace" mindar-image-target="targetIndex: 0">
       <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
       <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
-      animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+        animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
     </a-entity>
 
     <a-entity v-if="selectFilter.includes('star')" position="0 -13 -40"
@@ -77,7 +79,7 @@
 
     <a-camera active="false" position="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-camera>
 
-  
+
   </a-scene>
 </template>
   
@@ -98,7 +100,7 @@ export default {
   components: { ArPhotoObject },
 
   setup(props, { emit }) {
-    const isMindARFace = ref(true);
+    const isMindARFace = ref(false);
     const isMindARImage = ref(false);
 
     function defineWindowFuncAndRef(name) {
