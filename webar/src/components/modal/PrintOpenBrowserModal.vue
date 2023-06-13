@@ -173,9 +173,12 @@ export default {
 .image {
   width: 100%;
   height: auto;
+  position: relative;
+  top: -3%
 }
 
 .exit-button {
+  z-index: 3;
   position: absolute;
   top: 5px;
   right: 20px;
@@ -291,7 +294,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2%;
+  margin-bottom: 5%;
   margin-left: 10%;
   width: 80%;
   height: 30px;
