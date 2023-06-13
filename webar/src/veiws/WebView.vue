@@ -124,7 +124,7 @@ import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
-  name: "Frame",
+  name: "WebView",
   computed: {
     currentList: function () {
       switch (this.selectedEffectTab) {

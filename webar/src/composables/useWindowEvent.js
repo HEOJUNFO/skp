@@ -27,6 +27,7 @@ export default function useArObjectInfo() {
         if(urlGetter === 'eventData/characterContentsInfoList') {
           select = index === 0;
         }
+        console.log(item.tabMenuType)
        
         return {
           id: index + 1,

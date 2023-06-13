@@ -96,9 +96,12 @@
       </div>
       <div class="image-container">
         <div class="image-view" v-for="image in currentList" :key="image.id">
-          <img :src="image.src" @click="selectImage(currentList, image.id)" class="frame-image" />
-          <img v-show="image.select" src="../assets/icon/check-icon.png" alt="선택"
-            style="width: 40px; height: 40px; position: absolute; top: 25%;pointer-events: none;" />
+          <img v-if="image.type !== 'STICKER'" :src="image.src" @click="selectImage(currentList, image.id)"
+            class="frame-image" />
+          <img v-if="image.type === 'STICKER'" :src="image.src" @click="selectSticker(currentList, image.id)"
+            class="frame-image" />
+          <img v-show="image.select && image.type !== 'STICKER'" src="../assets/icon/check-icon.png" alt="선택"
+            style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
           <span>{{ image.name }}</span>
         </div>
       </div>
@@ -124,14 +127,14 @@ import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
-  name: "Frame",
+  name: "OpenBrowser",
   computed: {
     currentList: function () {
       switch (this.selectedEffectTab) {
         case 1: return this.tabList;
         case 2: return this.characterList;
         case 3: return this.filterList;
-        default: return this.stickerList;
+        default: return this.stickerThumbnailList;
       }
     }
   },
@@ -161,7 +164,8 @@ export default {
     const frameList = ref([]);
     const characterList = ref([]);
     const filterList = ref([]);
-    const stickerList = ref([]);
+    const stickerThumbnailList = ref([]);
+    const stickerObjectList = ref([]);
     const tabList = ref([]);
 
     const frameTabs = ref([
@@ -211,7 +215,7 @@ export default {
         frameList.value = iframeRef.value.contentWindow.createFrameList();
         characterList.value = iframeRef.value.contentWindow.createEffectList().characterList;
         filterList.value = iframeRef.value.contentWindow.createEffectList().filterList;
-        stickerList.value = iframeRef.value.contentWindow.createEffectList().stickerList;
+        stickerThumbnailList.value = iframeRef.value.contentWindow.createEffectList().stickerList;
         tabList.value = iframeRef.value.contentWindow.createEffectList().tabList;
       }
       aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
@@ -331,6 +335,14 @@ export default {
       const selectedImage = images.find(image => image.id === imageId);
       if (selectedImage) selectedImage.select = !selectedImage.select;
     }
+    let idCounter = 0;
+    const selectSticker = (stickers, stickerId) => {
+      let sticker = stickers.find(sticker => sticker.id === stickerId);
+      if (sticker) {
+        let newSticker = { ...sticker, id: idCounter++ };
+        stickerObjectList.value.push(newSticker);
+      }
+    }
 
     const frameStyle = computed(() => ({
       aspectRatio: aspectRatioValue.value,
@@ -361,13 +373,16 @@ export default {
     watchAndSelect(frameList, 'selectFrame');
     watchAndSelect(characterList, 'selectCharacter');
     watchAndSelect(filterList, 'selectFilter');
-    watchAndSelect(stickerList, 'selectSticker');
     watchAndSelect(tabList, 'selectTab');
 
+    watch(stickerObjectList, () => {
+      iframeRef.value.contentWindow.selectSticker(stickerObjectList.value);
+    }, { deep: true });
+
     window.stickerListUpdate = function (list) {
-      for (let i = 0; i < stickerList.value.length; i++) {
-        if (stickerList.value[i].id === list.id) {
-          stickerList.value[i].select = false;
+      for (let i = 0; i < stickerThumbnailList.value.length; i++) {
+        if (stickerThumbnailList.value[i].id === list.id) {
+          stickerThumbnailList.value[i].select = false;
         }
       }
     }
@@ -405,10 +420,11 @@ export default {
       , frameList
       , effectTabs
       , characterList
-      , stickerList
+      , stickerThumbnailList
       , filterList
       , tabList
       , selectImage
+      , selectSticker
       , stopCapture
       , captureImage
       , isCapturing

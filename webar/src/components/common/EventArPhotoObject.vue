@@ -30,10 +30,9 @@
         :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
-    <a-entity v-if="selectSticker" position="0 -1 0">
+    <a-entity position="0 -1 0">
       <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item"
-        :visible="selectSticker.includes(item.id)" @animationcomplete:object="animationcomplete"
-        @timeout:object="timeout" />
+        @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
     <!-- <a-entity v-if="selectFilter" position="0 -1 0">
       <ar-photo-object v-for="item in filterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
@@ -44,6 +43,14 @@
       <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
+
+    <a-entity v-if="selectFilter.includes('star')" position="0 -13 -40"
+      particle-system="color: #FF0,#FF0; size:2;"></a-entity>
+    <a-entity v-if="selectFilter.includes('snow')" position="0 -13 -40"
+      particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
+    <a-entity v-if="selectFilter.includes('rain')" position="0 -13 -40"
+      particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
+
 
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 168">
       <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
@@ -70,13 +77,6 @@
         animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
     </a-entity>
 
-    <a-entity v-if="selectFilter.includes('star')" position="0 -13 -40"
-      particle-system="color: #FF0,#FF0; size:2;"></a-entity>
-    <a-entity v-if="selectFilter.includes('snow')" position="0 -13 -40"
-      particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
-    <a-entity v-if="selectFilter.includes('rain')" position="0 -13 -40"
-      particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
-
     <a-camera active="false" position="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-camera>
 
 
@@ -89,7 +89,7 @@ import ArPhotoObject from "@/components/common/ArPhotoObject";
 
 export default {
   name: "EventArPhotoObject",
-  props: ['characterList', 'filterList', "stickerList", "tabList"],
+  props: ['characterList', 'filterList', "tabList"],
   emits: [
     'load:scene',
     'request:orientationpermission',
@@ -102,6 +102,7 @@ export default {
   setup(props, { emit }) {
     const isMindARFace = ref(false);
     const isMindARImage = ref(false);
+    const stickerList = ref([]);
 
     function defineWindowFuncAndRef(name) {
       const refVariable = ref([]);
@@ -113,8 +114,12 @@ export default {
 
     const selectCharacter = defineWindowFuncAndRef('selectCharacter');
     const selectFilter = defineWindowFuncAndRef('selectFilter');
-    const selectSticker = defineWindowFuncAndRef('selectSticker');
     const selectTab = defineWindowFuncAndRef('selectTab');
+
+    window.selectSticker = function (props) {
+      stickerList.value = props;
+      console.log('stickerList', stickerList.value);
+    }
 
     // 애니메이션 재생 완료
     const animationcomplete = (data) => {
@@ -161,7 +166,7 @@ export default {
       permissionRequested,
       selectCharacter,
       selectFilter,
-      selectSticker,
+      stickerList,
       selectTab,
       isMindARFace,
       isMindARImage,
