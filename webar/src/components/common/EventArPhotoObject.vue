@@ -117,8 +117,9 @@ export default {
     const selectTab = defineWindowFuncAndRef('selectTab');
 
     window.selectSticker = function (props) {
-      stickerList.value = props;
-      console.log('stickerList', stickerList.value);
+      stickerList.value.push(props);
+      console.log(stickerList.value);
+
     }
 
     // 애니메이션 재생 완료
