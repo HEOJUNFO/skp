@@ -97,7 +97,18 @@ export default {
       loadedVideo.value = true;
     }
 
-    const capture = () => {
+    async function loadImage(src) {
+      return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'Anonymous';
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.style = 'display: none';
+          img.src = src;
+      });
+    }
+
+    async function capture() {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
 
@@ -113,19 +124,30 @@ export default {
         style = window.getComputedStyle(element),
         top = style.getPropertyValue('top');
 
-      canvas.getContext('2d').drawImage(video, 0, parseFloat(top), v_width, v_height);
+      const ctx = canvas.getContext('2d');
+
+      ctx.drawImage(video, 0, parseFloat(top), v_width, v_height);
 
       if (beautyOn.value) {
-        gaussianBlur(canvas.getContext('2d'), v_width, v_height, 10);
+        gaussianBlur(ctx, v_width, v_height, 10);
       }
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
-      canvas.getContext('2d').drawImage(imgData, 0, 0, v_width, v_height);
+      ctx.drawImage(imgData, 0, 0, v_width, v_height);
+
+      const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);
+      const bottomSrc = document.querySelector('.frame-bottom').style.backgroundImage.slice(5, -2);
+
+      const frameTop = await loadImage(topSrc);
+      const frameBottom = await loadImage(bottomSrc);
+
+      ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height/2, 0, 0, v_width, v_height/2);
+      ctx.drawImage(frameBottom, 0, frameBottom.height/2, frameBottom.width, frameBottom.height/2, 0, v_height/2, v_width, v_height/2);
 
       imageUrl.value = canvas.toDataURL("image/png");
 
       return imageUrl.value;
 
-    };
+    }
 
     const toggleBarVisibility = () => {
       window.parent.toggleBarVisibility();
@@ -141,8 +163,9 @@ export default {
       beautyOn.value = isBeauty
     }
 
-    window.capture = function () {
-      captureModal.value.openModal(capture());
+    window.capture = async function () {
+      const data = await capture();
+      captureModal.value.openModal(data);
       window.parent.toggleBarVisibility();
       cameraRef.value.resetCamera();
     }
