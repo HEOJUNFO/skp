@@ -326,6 +326,7 @@ export const getObjectAttrs = (data) => {
     return {
       width,
       height,
+    ['alpha-test']: 0.5,
       src: data.file.toString(),
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),

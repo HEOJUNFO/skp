@@ -186,7 +186,26 @@ export function setAframe() {
       });
     }
   });
-  
+
+  window.AFRAME.registerComponent('alpha-test', {
+    schema: {default: 0.0},
+    init: function () {
+      this.el.addEventListener('model-loaded', this.update.bind(this));
+    },
+    update: function () {
+      var mesh = this.el.getObject3D('mesh');
+      var data = this.data;
+      if (!mesh) { return; }
+      mesh.traverse(function (node) {
+        if (node.isMesh) {
+          console.log(node.material)
+          node.material.alphaTest = data;
+          console.log(node.material)
+        }
+      });
+    }
+  });
+
   
 
   //---------
