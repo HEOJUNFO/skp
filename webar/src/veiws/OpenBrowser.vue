@@ -14,7 +14,7 @@
     </div>
     <div class="top-bar" v-show="isBarVisible" style="background-color: white;">
       <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio"
-        style="position: absolute; left: 0%;">
+        style="position: absolute; left: 0%; top:5%">
         <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">4:6</span>
         <span v-else-if="aspectRatio === 1" style="font-size: 30px; font-weight: bold;">1:1</span>
         <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">9:16</span>
@@ -23,25 +23,28 @@
           <img src="../assets/icon/print-button.png" alt="전환" style="width: 30px; height: 30px;" />
         </span>
       </button>
-      <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer" style="position: absolute; left: 15%;">
-        <span v-if="timerButtonVisible === 2" style="font-size: 30px; font-weight: bold;">3</span>
-        <span v-else-if="timerButtonVisible === 3" style="font-size: 30px; font-weight: bold;">5</span>
-        <span v-else-if="timerButtonVisible === 4" style="font-size: 30px; font-weight: bold;">7</span>
-        <span v-else-if="timerButtonVisible === 1" style="font-size: 30px; font-weight: bold;">X</span>
+      <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer"
+        style="position: absolute; left: 15%; top:0%">
+        <span v-if="timerButtonVisible === 2" style="font-size: 36px; font-weight: bold;">3</span>
+        <span v-else-if="timerButtonVisible === 3" style="font-size: 36px; font-weight: bold;">5</span>
+        <span v-else-if="timerButtonVisible === 4" style="font-size: 36px; font-weight: bold;">7</span>
+        <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;">X</span>
       </button>
       <button @click="flipCamera">
         <img src="../assets/icon/right-left-button.png" alt="전환"
-          style="width: 30px; height: 30px; margin-left: 160px; " />
+          style="width: 30px; height: 30px; position: absolute; left: 45%; top:15% " />
       </button>
       <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true">
         <img src="../assets/icon/toggle-off-button.png" alt="뷰티off"
-          style="width: 30px; height: 30px; margin-left: 60px;" />
+          style="width: 40px; height: 40px; position: absolute; left: 75%; top:0% " />
       </button>
       <button v-if="!isCapturing && isBeauty" @click="isBeauty = false">
-        <img src="../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 30px; height: 30px; margin-left: 60px;" />
+        <img src="../assets/icon/toggle-on-button.png" alt="뷰티on"
+          style="width: 40px; height: 40px; position: absolute; left: 75%; top:0% " />
       </button>
       <button v-if="!isCapturing" @click="openExitModal">
-        <img src="../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px; margin-left: 20px;" />
+        <img src="../assets/icon/close-button.png" alt="X"
+          style="width: 30px; height: 40px; position: absolute; left: 90%; top:0% " />
       </button>
     </div>
     <iframe ref="iframeRef" :src="`${baseUrl}/ar.html#/open-browser`" frameborder="0"></iframe>
@@ -49,18 +52,22 @@
       :style="barStyle">
       <button v-if="!isCapturing" @click="frameToggleBar">
         <img v-if="arFrameSettingYn === 'Y'" src="../assets/icon/frame-button.png" alt="프레임"
-          style="width: 40px; height: 40px;" />
-        <p style="font-size: 17.5px; font-weight: bold;" :style="frameButtonStyle">배경</p>
+          style="width: 40px; height: 40px; position: absolute; left: 10%; top:10%" />
+        <p style="font-size: 17.5px; font-weight: bold; position: absolute; left: 11%; top:100%"
+          :style="frameButtonStyle">배경</p>
       </button>
       <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-        <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px;" />
+        <img src="../assets/icon/circle-button.png" alt="촬영"
+          style="width: 55px; height: 60px;  position: absolute; left: 43%; top:10%" />
       </button>
       <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-        <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+        <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
+          style="width: 50px; height: 50px;  position: absolute; left: 43%; top:10%" />
       </button>
       <button v-if="!isCapturing" @click="effectToggleBar">
-        <img src="../assets/icon/star-button.png" alt="이펙트" style="width: 45px; height: 40px;" />
-        <p style="font-size: 17.5px; font-weight: bold;">이펙트</p>
+        <img src="../assets/icon/star-button.png" alt="이펙트"
+          style="width: 45px; height: 40px;  position: absolute; left: 80%; top:10%" />
+        <p style="font-size: 17.5px; font-weight: bold; position: absolute; left: 80%; top: 100%">이펙트</p>
       </button>
     </div>
     <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
@@ -78,14 +85,16 @@
       </div>
       <div class="button-container">
         <button @click="frameToggleBar">
-          <img src="../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
+          <img src="../assets/icon/bar-down-button.png" alt="내리기"
+            style="width: 40px; height: 40px;position:absolute; left: 5%; top:94%" />
         </button>
         <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-          <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+          <img src="../assets/icon/circle-button.png" alt="촬영"
+            style="width: 35px; height: 40px;position:absolute; left: 42%; top:95%" />
         </button>
-        <button style="color: rgba(0, 0, 0, 0)"> 더미</button>
         <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
+            style="width: 40px; height: 40px; position:absolute; left: 42%; top:95%" />
         </button>
       </div>
     </div>
@@ -107,14 +116,16 @@
       </div>
       <div class="button-container">
         <button @click="effectToggleBar">
-          <img src="../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
+          <img src="../assets/icon/bar-down-button.png" alt="내리기"
+            style="width: 40px; height: 40px; position:absolute; left: 5%; top:72% " />
         </button>
         <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-          <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+          <img src="../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;left: 42%; top:95%" />
         </button>
         <button style="color: rgba(0, 0, 0, 0)"> 더미</button>
         <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;" />
+          <img src="../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
+            style="width: 40px; height: 40px;left: 42%; top:95%" />
         </button>
       </div>
     </div>
@@ -455,15 +466,24 @@ export default {
 }
 
 .top-bar,
-.bottom-bar-1,
+.bottom-bar-1 {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 7%;
+  display: flex;
+  color: #fff;
+
+}
+
 .bottom-bar-2 {
   z-index: 1;
   position: absolute;
   width: 100%;
   display: flex;
+  color: #fff;
   justify-content: space-around;
   align-items: center;
-  color: #fff;
 }
 
 .bottom-bar-1 {

@@ -329,7 +329,7 @@ export const getObjectAttrs = (data) => {
       height,
     ['alpha-test']: 0.5,
       src: data.file.toString(),
-      position: getPosition({positionX: getRandomArbitrary(-0.4,0.4), positionY: getRandomArbitrary(0.6,1.6), positionZ: -2}),
+      position: getPosition({positionX: getRandomArbitrary(-0.4,0.4), positionY: getRandomArbitrary(0.5,1.5), positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),
       ['look-at']: '[gps-camera]',
     }
