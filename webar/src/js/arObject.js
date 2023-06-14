@@ -135,6 +135,7 @@ function getRandomPosition(num, min = -2, max = 2) {
   return !isNaN(parseFloat(num)) ? num : getRandomArbitrary(min, max);
 }
 
+
 /**
  * 개별적인 X,Y,Z를 취합해서 position string 생성
  * @param positionX
@@ -328,7 +329,7 @@ export const getObjectAttrs = (data) => {
       height,
     ['alpha-test']: 0.5,
       src: data.file.toString(),
-      position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
+      position: getPosition({positionX: getRandomArbitrary(-0.4,0.4), positionY: getRandomArbitrary(0.6,1.6), positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),
       ['look-at']: '[gps-camera]',
     }

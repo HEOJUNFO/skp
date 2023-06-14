@@ -2,7 +2,7 @@
 <template>
   <template v-if="arData">
     <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true"
-      src="#button-texture" width="0.1" height="0.1" position="0 0.6 -2" @mousedown="listUpdate(arData)"></a-plane>
+      src="#button-texture" width="0.1" height="0.1" position="0 0.4 -2" @mousedown="listUpdate(arData)"></a-plane>
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
