@@ -198,9 +198,7 @@ export function setAframe() {
       if (!mesh) { return; }
       mesh.traverse(function (node) {
         if (node.isMesh) {
-          console.log(node.material)
           node.material.alphaTest = data;
-          console.log(node.material)
         }
       });
     }

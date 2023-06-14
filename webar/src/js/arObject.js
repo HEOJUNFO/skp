@@ -321,6 +321,7 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'STICKER') {
+    console.log(data)
     const width = data.sizeX ? data.sizeX : 0.3;
     const height = data.sizeY ? data.sizeY : 0.3;
     return {

@@ -24,7 +24,6 @@ export default {
   setup(props, { emit }) {
     // props에서 데이터 파싱
     const { arData } = toRefs(props);
-    console.log('arData', arData.value)
     // stay object ref
     const stayObjectEl = ref(null);
     // 터치 flag

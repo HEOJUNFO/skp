@@ -31,7 +31,7 @@
         @timeout:object="timeout" />
     </a-entity>
     <a-entity position="0 -1 0">
-      <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item"
+      <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item" :visible=true
         @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
     <!-- <a-entity v-if="selectFilter" position="0 -1 0">
@@ -117,9 +117,12 @@ export default {
     const selectTab = defineWindowFuncAndRef('selectTab');
 
     window.selectSticker = function (props) {
-      stickerList.value.push(props);
+      props.forEach(prop => {
+        if (!stickerList.value.some(sticker => sticker.id === prop.id)) {
+          stickerList.value.push(prop);
+        }
+      });
       console.log(stickerList.value);
-
     }
 
     // 애니메이션 재생 완료
