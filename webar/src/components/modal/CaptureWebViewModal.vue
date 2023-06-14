@@ -348,7 +348,7 @@ export default {
   height: 30%;
   background-color: lightgray;
   padding-bottom: 4%;
-  padding-top: 2.5%;
+  padding-top: 2%;
 }
 
 .box {

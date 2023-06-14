@@ -462,6 +462,7 @@ export default {
 .frame-image {
   width: 100%;
   height: 100%;
+  margin-left: 10%;
 
 }
 
