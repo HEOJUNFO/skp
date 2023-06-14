@@ -3,18 +3,19 @@
 </template>
 
 <script>
-import {computed, onMounted, ref, toRefs} from "vue";
-import {useStore} from "vuex";
-import {useRoute, useRouter} from "vue-router";
+import { computed, onMounted, ref, toRefs } from "vue";
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
 import querystring from 'querystring'
 
 export default {
   name: "Landing",
   setup() {
+    console.log('Landing')
     const store = useStore();
-    const {getters, dispatch} = store;
+    const { getters, dispatch } = store;
     const route = useRoute();
-    const {eventId, attendCode} = toRefs(route.query);
+    const { eventId, attendCode } = toRefs(route.query);
     // const router = useRouter();
 
     const baseUrl = process.env.VUE_APP_PAGE_PATH
@@ -24,6 +25,7 @@ export default {
       `${baseUrl}/basic.html#/basic`,
       `${baseUrl}/ar.html#/mission`,
       `${baseUrl}/basic.html#/drag-n-drop`,
+      `${baseUrl}/ar.html#/open-browser`,
     ])
 
     const eventData = ref(null);
@@ -32,10 +34,10 @@ export default {
 
     const url = computed(() => {
       if (templateType.value) {
-        const type = ['BASIC', 'MISSION', 'BRIDGE', 'SCANNING','DRAG_DROP']
+        const type = ['BASIC', 'MISSION', 'BRIDGE', 'SCANNING', 'DRAG_DROP', 'FRAME']
         let query = `?` + querystring.stringify({
-          ...(eventId?.value && {eventId: eventId?.value}),
-          ...(attendCode?.value && {attendCode: attendCode?.value}),
+          ...(eventId?.value && { eventId: eventId?.value }),
+          ...(attendCode?.value && { attendCode: attendCode?.value }),
           type: 'landing'
         })
         return urls.value[type.findIndex(item => item === templateType.value)] + query
@@ -64,6 +66,7 @@ export default {
     onMounted(async () => {
       const eventValidation = window.localStorage.getItem('event_validation')
       const isLocal = window.location.port !== ''
+      console.log('isLocal', isLocal)
 
       if (!isLocal && !eventId?.value) {
         // TODO query 없음! 리턴 처리 or 창닫기 로직 백엔드와 개발해서 추가
@@ -80,7 +83,7 @@ export default {
       if (isLocal && !eventId?.value) {
         alert('[LOCAL]: eventId가 없습니다!');
         const router = useRouter();
-        await router.push({name: 'Landing', query: {eventId: ''}})
+        await router.push({ name: 'Landing', query: { eventId: '' } })
         return;
       }
 
@@ -91,9 +94,9 @@ export default {
         let params = {
           eventId: eventId.value,
           traceNo: webEventGetTraceNo(),
-          ...(latitude && {latitude}),
-          ...(longitude && {longitude}),
-          ...(attendCode?.value && {attendCode: attendCode?.value}),
+          ...(latitude && { latitude }),
+          ...(longitude && { longitude }),
+          ...(attendCode?.value && { attendCode: attendCode?.value }),
         }
         await dispatch('eventData/getEventData', params)
         // store에서 데이터 파싱
@@ -114,6 +117,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
