@@ -30,6 +30,7 @@ import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
 import gaussianBlur from "@/js/gaussianBlur";
+import loadImage from "../../../js/loadImage";
 
 export default {
   name: "OpenBrowser",
@@ -96,17 +97,6 @@ export default {
       loadedVideo.value = true;
     }
 
-    async function loadImage(src) {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.style = 'display: none';
-        img.src = src;
-      });
-    }
-
     async function capture() {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
@@ -165,8 +155,8 @@ export default {
     window.capture = async function () {
       const data = await capture();
       captureModal.value.openModal(data);
-      window.parent.toggleBarVisibility();
       cameraRef.value.resetCamera();
+      window.parent.toggleBarVisibility();
     }
 
     window.containTopValueToggle = function () {

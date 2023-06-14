@@ -30,6 +30,7 @@ import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
 import gaussianBlur from "@/js/gaussianBlur";
+import loadImage from "../../../js/loadImage";
 
 export default {
   name: "WebView",
@@ -97,17 +98,6 @@ export default {
       loadedVideo.value = true;
     }
 
-    async function loadImage(src) {
-      return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.crossOrigin = 'Anonymous';
-          img.onload = () => resolve(img);
-          img.onerror = reject;
-          img.style = 'display: none';
-          img.src = src;
-      });
-    }
-
     async function capture() {
       // video canvas create
       const video = document.querySelector('.event-wrapper video');
@@ -140,8 +130,8 @@ export default {
       const frameTop = await loadImage(topSrc);
       const frameBottom = await loadImage(bottomSrc);
 
-      ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height/2, 0, 0, v_width, v_height/2);
-      ctx.drawImage(frameBottom, 0, frameBottom.height/2, frameBottom.width, frameBottom.height/2, 0, v_height/2, v_width, v_height/2);
+      ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height / 2, 0, 0, v_width, v_height / 2);
+      ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
 
       imageUrl.value = canvas.toDataURL("image/png");
 

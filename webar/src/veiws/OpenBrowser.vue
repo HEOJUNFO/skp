@@ -314,7 +314,7 @@ export default {
         if (iframeRef.value) {
           iframeRef.value.contentWindow.capture();
         }
-        aspectRatioValue.value = '1 / 2.2'
+        // aspectRatioValue.value = '1 / 2.2'
       }
     };
 
