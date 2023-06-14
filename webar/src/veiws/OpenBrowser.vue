@@ -375,6 +375,15 @@ export default {
     watchAndSelect(filterList, 'selectFilter');
     watchAndSelect(tabList, 'selectTab');
 
+    watch(stickerObjectList, () => {
+      iframeRef.value.contentWindow.selectSticker(stickerObjectList.value);
+    }, { deep: true });
+
+    window.stickerListDeleteItem = (item) => {
+      const index = stickerObjectList.value.findIndex(sticker => sticker.id === item.id);
+      stickerObjectList.value.splice(index, 1);
+    }
+
     watch(isBeauty, () => {
       if (iframeRef.value) {
         iframeRef.value.contentWindow.beautyFilter(isBeauty.value);
