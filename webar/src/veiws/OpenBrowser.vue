@@ -375,26 +375,6 @@ export default {
     watchAndSelect(filterList, 'selectFilter');
     watchAndSelect(tabList, 'selectTab');
 
-    watch(stickerObjectList, () => {
-      iframeRef.value.contentWindow.selectSticker(stickerObjectList.value);
-    }, { deep: true });
-
-    window.stickerListUpdate = function (list) {
-      for (let i = 0; i < stickerThumbnailList.value.length; i++) {
-        if (stickerThumbnailList.value[i].id === list.id) {
-          stickerThumbnailList.value[i].select = false;
-        }
-      }
-    }
-
-    window.tabListUpdate = function (list) {
-      for (let i = 0; i < tabList.value.length; i++) {
-        if (tabList.value[i].id === list.id) {
-          tabList.value[i].select = false;
-        }
-      }
-    }
-
     watch(isBeauty, () => {
       if (iframeRef.value) {
         iframeRef.value.contentWindow.beautyFilter(isBeauty.value);

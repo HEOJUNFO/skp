@@ -117,13 +117,15 @@ export default {
     const selectTab = defineWindowFuncAndRef('selectTab');
 
     window.selectSticker = function (props) {
+      const propIds = new Set(props.map(prop => prop.id));
       props.forEach(prop => {
         if (!stickerList.value.some(sticker => sticker.id === prop.id)) {
           stickerList.value.push(prop);
         }
       });
-      console.log(stickerList.value);
+      stickerList.value = stickerList.value.filter(sticker => propIds.has(sticker.id));
     }
+
 
     // 애니메이션 재생 완료
     const animationcomplete = (data) => {

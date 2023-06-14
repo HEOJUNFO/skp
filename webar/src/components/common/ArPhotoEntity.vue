@@ -79,8 +79,7 @@ export default {
     }
 
     const listUpdate = (arData) => {
-      window.parent.stickerListUpdate(arData)
-      window.parent.tabListUpdate(arData)
+      window.parent.stickerListDeleteItem(arData)
     }
 
 
