@@ -347,6 +347,9 @@ export default {
   width: 40%;
   height: 30%;
   background-color: lightgray;
+  padding-bottom: 4%;
+  padding-top: 2.5%;
+
 }
 
 .box {
@@ -357,7 +360,7 @@ export default {
   border: 1px solid #000;
   border-radius: 15px;
   width: 80%;
-  height: 10%;
+  height: 15%;
   margin-left: 10%;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
