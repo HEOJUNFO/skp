@@ -72,10 +72,10 @@ export default {
 <style scoped>
 video {
   width: 100%;
-  height: 92%;
+  height: 100%;
   display: block;
   object-fit: cover;
   position: absolute;
-  top: 46px
+
 }
 </style>

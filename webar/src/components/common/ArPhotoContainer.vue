@@ -1,8 +1,8 @@
 <template>
   <div class="event-wrapper" :class="{ 'disable-click': disableClick }">
     <slot></slot>
-    <div v-if="arFrameSettingYn" class="frame-top"
-      :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${topValue}px` }"></div>
+    <div v-if="arFrameSettingYn" class="frame-top" :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
+    </div>
     <div v-if="arFrameSettingYn" class="frame-bottom" :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
@@ -53,16 +53,7 @@ export default {
       return isArFrameSetting === 'Y';
     });
 
-
     const topValue = ref(0);
-
-    window.selectFrame = function (props) {
-      changeSelectFrame(props);
-    }
-
-    const changeSelectFrame = (value) => {
-      selectFrame.value = value;
-    }
 
     const {
       loadingState,
@@ -108,9 +99,19 @@ export default {
       setClick,
       topValue,
       arFrameSettingYn,
+      selectFrame
     }
   }
 }
 </script>
   
-<style scoped></style>
+<style scoped>
+.event-wrapper {
+  width: 100%;
+  height: 93%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  top: 7%;
+}
+</style>

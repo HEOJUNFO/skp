@@ -66,6 +66,7 @@ export default {
   align-items: center;
   background-color: gray;
   color: #fff;
+  top: -0.1%
 }
 
 .tutorial-inner {

@@ -42,6 +42,7 @@
 <script>
 import { computed, onMounted, ref, toRefs, watch } from "vue";
 import { getObjectAttrs, getTouchAnimation } from "@/js/arObject";
+import { EventBus } from "@/js/EventBus";
 
 export default {
   name: "DragEntity",
@@ -88,7 +89,7 @@ export default {
     }
 
     const listUpdate = (arData) => {
-      window.parent.stickerListDeleteItem(arData)
+      EventBus.emit('deleteStickerItem', arData)
     }
 
     const animationcomplete = () => {

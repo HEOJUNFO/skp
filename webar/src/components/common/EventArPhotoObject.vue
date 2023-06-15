@@ -25,12 +25,12 @@
 
     </a-assets>
 
-    <a-entity v-if="selectCharacter" position="0 -1 0">
+    <a-entity v-if="selectCharacter" position="0 1 0">
       <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 -1 0">
+    <a-entity position="0 1 0">
       <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item" :visible=true
         @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
@@ -39,16 +39,16 @@
         :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity> -->
-    <a-entity v-if="selectTab" position="0 -1 0">
+    <a-entity v-if="selectTab" position="0 1 0">
       <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <a-entity v-if="selectFilter.includes('star')" position="0 -13 -40"
+    <a-entity v-if="selectFilter.includes('star')" position="0 -8 -40"
       particle-system="color: #FF0,#FF0; size:2;"></a-entity>
-    <a-entity v-if="selectFilter.includes('snow')" position="0 -13 -40"
+    <a-entity v-if="selectFilter.includes('snow')" position="0 -8 -40"
       particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
-    <a-entity v-if="selectFilter.includes('rain')" position="0 -13 -40"
+    <a-entity v-if="selectFilter.includes('rain')" position="0 -8 -40"
       particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
 
@@ -101,22 +101,14 @@ export default {
 
   setup(props, { emit }) {
     const isMindARFace = ref(false);
-    const isMindARImage = ref(false);
+    const isMindARImage = ref(true);
     const stickerList = ref([]);
 
-    function defineWindowFuncAndRef(name) {
-      const refVariable = ref([]);
-      window[name] = function (props) {
-        refVariable.value = props;
-      }
-      return refVariable;
-    }
+    const selectCharacter = ref([1]);
+    const selectFilter = ref([]);
+    const selectTab = ref([]);
 
-    const selectCharacter = defineWindowFuncAndRef('selectCharacter');
-    const selectFilter = defineWindowFuncAndRef('selectFilter');
-    const selectTab = defineWindowFuncAndRef('selectTab');
-
-    window.selectSticker = function (props) {
+    const selectSticker = (props) => {
       const propIds = new Set(props.map(prop => prop.id));
       props.forEach(prop => {
         if (!stickerList.value.some(sticker => sticker.id === prop.id)) {
@@ -176,6 +168,7 @@ export default {
       selectTab,
       isMindARFace,
       isMindARImage,
+      selectSticker
     }
   }
 }
