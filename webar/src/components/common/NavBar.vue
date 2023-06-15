@@ -163,7 +163,6 @@ export default {
         const countdown = ref(null);
         const countdownInterval = ref(null);
         const stickerObjectList = ref([]);
-        const appElement = ref(null);
 
         const frameTabs = ref([
             { id: 1, name: '배경' },
