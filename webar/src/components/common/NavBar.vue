@@ -210,9 +210,6 @@ export default {
 
             aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
             isBarVisible.value = !isBarVisible.value;
-            appElement.value = document.getElementById('iframe');
-            console.log(appElement.value);
-            appElement.value.style.width = '10%';
         }
 
         const toggleAspectRatio = () => {
