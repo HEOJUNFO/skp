@@ -8,6 +8,7 @@ export default function useArObjectInfo() {
   const filterList = ref(null);
   const stickerList = ref(null);
   const tabList = ref(null);
+  const frameList = ref(null);
 
 
     
@@ -16,6 +17,7 @@ export default function useArObjectInfo() {
         filterList.value = createList('eventData/filterContentsInfoList');
         stickerList.value = createList('eventData/stickerContentsInfoList');
         tabList.value = createList('eventData/tabContentsInfoList')
+        frameList.value = createFrameList();
     }
 
     function createList(urlGetter) {
@@ -99,6 +101,7 @@ export default function useArObjectInfo() {
     filterList,
     stickerList,
     tabList,
+    frameList,
     setList,
   };
 }

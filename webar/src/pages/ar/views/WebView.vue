@@ -1,23 +1,28 @@
 <template>
-  <ar-photo-container ref="containerRef">
-    <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false, toggleBarVisibility()"></tutorial-modal>
-    <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
-    <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
-    <template v-if="loadedVideo">
-      <event-ar-photo-object :character-list="characterList" :filter-list="filterList" :sticker-list="stickerList"
-        :tab-list="tabList" @load:scene="loadScene" @allow:orientationpermission="allowOrientationPermission"
-        @reject:orientationpermission="rejectOrientationPermission"
-        @request:orientationpermission="rquestOrientationPermission" />
-      <capture-web-view-modal ref="captureModal" :image-url="imageUrl" />
-    </template>
-  </ar-photo-container>
+  <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
+    :sticker-list="stickerList" :tab-list="tabList">
+    <ar-photo-container ref="containerRef">
+      <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false, toggleBarVisibility()"></tutorial-modal>
+      <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
+      <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
+      <template v-if="loadedVideo">
+        <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
+          :sticker-list="stickerList" :tab-list="tabList" @load:scene="loadScene"
+          @allow:orientationpermission="allowOrientationPermission"
+          @reject:orientationpermission="rejectOrientationPermission"
+          @request:orientationpermission="rquestOrientationPermission" />
+        <capture-web-view-modal ref="captureModal" :image-url="imageUrl" />
+      </template>
+    </ar-photo-container>
+  </nav-bar>
 </template>
   
 <script>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, provide } from "vue";
 import { useStore } from "vuex";
 
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
+import NavBar from "../../../components/common/NavBar.vue";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
 import Camera from "@/components/common/Camera";
 import TutorialModal from "@/components/modal/TutorialModal";
@@ -41,19 +46,21 @@ export default {
     TutorialModal,
     CaptureWebViewModal,
     BrowserCheckModal,
+    NavBar
   },
   setup() {
     const store = useStore();
-    console.log(store)
     const { dispatch, getters } = store;
     const templateType = ref(null);
     const loadedVideo = ref(false);
     const tutorialPopup = ref(false);
     const cameraRef = ref(null);
     const containerRef = ref(null);
+    const navbarRef = ref(null);
     const captureModal = ref(null);
     const imageUrl = ref(null);
     const beautyOn = ref(false);
+    const eventArPhotoObjectRef = ref(null);
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
     const isWebView = computed(() => navigator.userAgent.includes('WebView'));
@@ -90,6 +97,7 @@ export default {
       filterList,
       stickerList,
       tabList,
+      frameList,
       setList
     } = useWindowEvent();
 
@@ -140,43 +148,72 @@ export default {
     }
 
     const toggleBarVisibility = () => {
-      window.parent.toggleBarVisibility();
       containerRef.value.topValue = 40;
+      navbarRef.value.toggleBarVisibility();
     };
 
-    window.flipCamera = function () {
-      cameraRef.value.flipCamera();
-    }
-
-    window.beautyFilter = function (isBeauty) {
-      cameraRef.value.beautyFilter(isBeauty);
-      beautyOn.value = isBeauty
-    }
-
-    window.capture = async function () {
+    const captureing = async () => {
       const data = await capture();
       captureModal.value.openModal(data);
-      window.parent.toggleBarVisibility();
+      navbarRef.value.toggleBarVisibility();
       cameraRef.value.resetCamera();
     }
 
-    window.containTopValueToggle = function () {
-      if (containerRef.value.topValue === 40) {
-        containerRef.value.topValue = 0;
-      } else {
-        containerRef.value.topValue = 40;
+    const flipCamera = () => {
+      cameraRef.value.flipCamera();
+    }
+
+    const toggleBeautyFilter = () => {
+      beautyOn.value = !beautyOn.value;
+      cameraRef.value.beautyFilter(beautyOn.value);
+    }
+
+    const selectFrameChange = (props) => {
+      containerRef.value.selectFrame = props;
+    }
+
+    const selectCharacterChange = (props) => {
+      if (eventArPhotoObjectRef.value) {
+        eventArPhotoObjectRef.value.selectCharacter = props;
       }
     }
+
+    const selectTabChange = (props) => {
+      if (eventArPhotoObjectRef.value) {
+        eventArPhotoObjectRef.value.selectTab = props;
+      }
+    }
+
+    const selectFilterChange = (props) => {
+      if (eventArPhotoObjectRef.value) {
+        eventArPhotoObjectRef.value.selectFilter = props;
+      }
+    }
+    const selectStickerChange = (props) => {
+      if (eventArPhotoObjectRef.value) {
+        eventArPhotoObjectRef.value.selectSticker(props)
+      }
+    }
+
+    provide('toggleBarVisibility', toggleBarVisibility);
+    provide('captureing', captureing);
+    provide('flipCamera', flipCamera);
+    provide('toggleBeautyFilter', toggleBeautyFilter);
+    provide('selectFrameChange', selectFrameChange)
+    provide('selectTabChange', selectTabChange)
+    provide('selectCharacterChange', selectCharacterChange)
+    provide('selectFilterChange', selectFilterChange)
+    provide('selectStickerChange', selectStickerChange)
 
     onMounted(async () => {
       await getEventData();
       templateType.value = getters['eventData/templateType'];
       setList();
+
       startLoading();
 
       setTimeout(() => {
         completeLoading()
-
         if (tutorialYn.value) {
           tutorialPopup.value = true;
         }
@@ -185,6 +222,7 @@ export default {
         }
       }, 5000)
 
+
     });
 
     return {
@@ -192,6 +230,7 @@ export default {
       stickerList,
       filterList,
       tabList,
+      frameList,
       eventResult,
       templateType,
       loadedVideo,
@@ -202,6 +241,7 @@ export default {
       tutorialPopup,
       cameraRef,
       containerRef,
+      navbarRef,
       isNaverBrowser,
       capture,
       toggleBarVisibility,
@@ -211,6 +251,7 @@ export default {
       captureModal,
       imageUrl,
       isWebView,
+      eventArPhotoObjectRef,
     }
   }
 }

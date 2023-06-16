@@ -72,22 +72,22 @@
         </div>
       </div>
     </div>
-    <print-open-browser-modal ref="printModal" />
+    <print-web-view-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
   </vue-final-modal>
 </template>
   
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, inject } from "vue";
 import { useStore } from "vuex";
 
-import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
+import PrintWebViewModal from "./PrintWebViewModal.vue";
 import PhotoStoreModal from "./PhotoStoreModal.vue";
 
 export default {
   name: "EventCompleteModal",
   components: {
-    PrintOpenBrowserModal,
+    printWebViewModal: PrintWebViewModal,
     PhotoStoreModal,
   },
   data() {
@@ -184,9 +184,10 @@ export default {
       a.click();
     };
 
+    const toggleBarVisibility = inject('toggleBarVisibility');
     const back = () => {
-      window.parent.toggleBarVisibility()
-      window.parent.reCapture()
+      toggleBarVisibility();
+      // window.parent.reCapture()
       showVModal.value = false;
     }
 
@@ -347,9 +348,8 @@ export default {
   width: 40%;
   height: 30%;
   background-color: lightgray;
-  padding-bottom: 4%;
+  padding-bottom: 2%;
   padding-top: 2%;
-
 }
 
 .box {
@@ -360,7 +360,7 @@ export default {
   border: 1px solid #000;
   border-radius: 15px;
   width: 80%;
-  height: 15%;
+  height: 12%;
   margin-left: 10%;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
