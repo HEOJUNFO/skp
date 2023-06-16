@@ -172,28 +172,20 @@ export default {
       containerRef.value.selectFrame = props;
     }
 
-    const selectCharacterChange = (props) => {
+    const updateObjectValue = (property, props) => {
       if (eventArPhotoObjectRef.value) {
-        eventArPhotoObjectRef.value.selectCharacter = props;
+        if (typeof eventArPhotoObjectRef.value[property] === 'function') {
+          eventArPhotoObjectRef.value[property](props);
+        } else {
+          eventArPhotoObjectRef.value[property] = props;
+        }
       }
     }
 
-    const selectTabChange = (props) => {
-      if (eventArPhotoObjectRef.value) {
-        eventArPhotoObjectRef.value.selectTab = props;
-      }
-    }
-
-    const selectFilterChange = (props) => {
-      if (eventArPhotoObjectRef.value) {
-        eventArPhotoObjectRef.value.selectFilter = props;
-      }
-    }
-    const selectStickerChange = (props) => {
-      if (eventArPhotoObjectRef.value) {
-        eventArPhotoObjectRef.value.selectSticker(props)
-      }
-    }
+    const selectCharacterChange = props => updateObjectValue('selectCharacter', props);
+    const selectTabChange = props => updateObjectValue('selectTab', props);
+    const selectFilterChange = props => updateObjectValue('selectFilter', props);
+    const selectStickerChange = props => updateObjectValue('selectSticker', props);
 
     provide('toggleBarVisibility', toggleBarVisibility);
     provide('captureing', captureing);

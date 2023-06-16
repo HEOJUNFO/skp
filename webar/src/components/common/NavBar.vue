@@ -322,7 +322,6 @@ export default {
             let selectedItems = props.frameList.filter(item => item.select === true);
             let selectedIds = selectedItems.map(item => item.id);
             selectFrameChange(selectedIds);
-
         }, { deep: true });
         watch(() => props.characterList, () => {
             let selectedItems = props.characterList.filter(item => item.select === true);
@@ -477,15 +476,11 @@ export default {
 
 .bottom-bar-1 {
     top: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-
 }
 
 .bottom-bar-2 {
     top: 89%;
     padding-top: 1%;
-    padding-bottom: 1%;
 }
 
 .bottom-bar-2 {

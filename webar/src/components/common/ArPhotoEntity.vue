@@ -81,7 +81,7 @@ export default {
     const startLongPress = () => {
       longPressTimer.value = setTimeout(() => {
         setTrash();
-      }, 1500);
+      }, 1200);
     }
 
     const cancelLongPress = () => {
