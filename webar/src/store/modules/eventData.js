@@ -230,14 +230,18 @@ export const eventData = {
     // 이벤트 데이터 파싱
     async getEventData({ commit, dispatch }, params) {
       try {
+        console.log(params)
         const res = await getEventData(params);
         if (res.data.resultCode.toString() === "200") {
+          console.log("getEventData success")
           commit("SET_EVENT_DATA", res.data.result);
           return;
         }
+        console.log("getEventData fail", res.data.resultCode)
         // 에러처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
+        console.log("getEventData error")
         // alert(err);
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
         // return err

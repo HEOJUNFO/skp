@@ -67,6 +67,7 @@ export default {
     };
 
     onMounted(async () => {
+      console.log("onMounted")
       const eventValidation = arData?.value;
       // const eventValidation = window.localStorage.getItem('event_validation')
       const isLocal = window.location.port !== "";
@@ -86,7 +87,7 @@ export default {
         alert("[LOCAL]: eventId가 없습니다!");
         const router = useRouter();
         await router.push({ name: "Landing", query: { eventId: "" } });
-        return;
+        return
       }
 
       try {
@@ -100,17 +101,21 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        await dispatch("jsonData/setActionObjectFrame", params);
+        console.log("params", params);
+        await dispatch("eventData/getEventData", params);
+        console.log("eventValidation", eventValidation)
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         // 세션스토리지에 json데이터 저장
-
+        console.log("eventData.value", eventData.value);
         sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
-
+        console.log("sessionStorage.setItem");
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
+        console.log("eventValidationData", eventValidationData);
         await dispatch("url/setActionType", eventValidationData.activeType);
       } catch (err) {
-        await dispatch("url/redirectToMain");
+        console.log("err", err);
+        //await dispatch("url/redirectToMain");
         // return
       }
     });

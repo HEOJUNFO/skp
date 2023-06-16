@@ -783,7 +783,7 @@ export const jsonData = {
     offsetActionObjectFrame: {
     eventId: "dnd222", // 이벤트ID
     eventTitle: "test", // 이벤트명
-    eventLogicalType: "FRAME", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
+    eventLogicalType: "PHOTO_BASIC", // 기본형 : BASIC, 브릿지형 : BRIDGE, 미션클리어형 : MISSION, 이미지스캐닝형 : SCANNING, 드래그드롭형:DRAG_DROP
     arBgImage: "", // AR 백그라운드 이미지 URL
     arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
     
