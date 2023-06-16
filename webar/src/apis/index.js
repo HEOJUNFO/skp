@@ -18,6 +18,6 @@ export async function setPvLog(params) {
 }
 
 export async function getEventPhotoBox(params) {
-  const res = await _axios.post("/api/v1/web-event-front/ar-event-photo-box/detail", params);
+  const res = await _axios.post("/api/v1/web-event-front-photo/photobox/detail", params);
   return res;
 }
