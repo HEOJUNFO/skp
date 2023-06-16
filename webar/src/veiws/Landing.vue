@@ -103,7 +103,6 @@ export default {
         };
         console.log("params", params);
         await dispatch("eventData/getEventData", params);
-        console.log("eventValidation", eventValidation)
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         // 세션스토리지에 json데이터 저장
