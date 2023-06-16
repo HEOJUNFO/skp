@@ -184,3 +184,12 @@ button.sample-button-set-json {
 button.sample-button-set-json:active {
     transform: scale(0.99);
 }
+html.a-fullscreen .a-canvas {
+    width: 100%!important;
+    height: 73%!important;
+    top: 4%!important;
+    left: 0!important;
+    right: 0!important;
+    bottom: 0!important;
+    position: fixed!important;
+}

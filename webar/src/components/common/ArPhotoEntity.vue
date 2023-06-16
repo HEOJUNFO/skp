@@ -2,7 +2,7 @@
 <template>
   <template v-if="arData">
     <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true"
-      src="#button-texture" width="0.1" height="0.1" position="0 0.4 -2" @mousedown="listUpdate(arData)"></a-plane>
+      src="#button-texture" width="0.15" height="0.2" position="0 -0.3 -2" @mousedown="listUpdate(arData)"></a-plane>
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
@@ -81,7 +81,7 @@ export default {
     const startLongPress = () => {
       longPressTimer.value = setTimeout(() => {
         setTrash();
-      }, 2000);
+      }, 1500);
     }
 
     const cancelLongPress = () => {

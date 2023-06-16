@@ -105,7 +105,7 @@ export default {
     const isMindARImage = ref(true);
     const stickerList = ref([]);
 
-    const selectCharacter = ref([]);
+    const selectCharacter = ref([1]);
     const selectFilter = ref([]);
     const selectTab = ref([]);
 

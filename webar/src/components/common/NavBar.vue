@@ -447,7 +447,7 @@ export default {
 .bottom-bar-1 {
     position: absolute;
     width: 100%;
-    height: 10%;
+    height: 15%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";

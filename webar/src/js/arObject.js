@@ -322,14 +322,14 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'STICKER') {
-    const width = data.sizeX ? data.sizeX : 0.3;
-    const height = data.sizeY ? data.sizeY : 0.3;
+    const width = data.sizeX ? data.sizeX : 0.4;
+    const height = data.sizeY ? data.sizeY : 0.5;
     return {
       width,
       height,
     ['alpha-test']: 0.5,
       src: data.file.toString(),
-      position: getPosition({positionX: getRandomArbitrary(-0.4,0.4), positionY: getRandomArbitrary(0.5,1.5), positionZ: -2}),
+      position: getPosition({positionX: getRandomArbitrary(-0.5,0.5), positionY: getRandomArbitrary(-0.2,2), positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),
       ['look-at']: '[gps-camera]',
     }
