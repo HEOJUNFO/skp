@@ -6,7 +6,7 @@
             <div class="modal-content2">
                 <p>AR포토를 종료하고 메인페이지로</p>
                 <p>이동합니다.</p>
-                <div class="button-container">
+                <div class="button-container2">
                     <button class="round-button" @click="exit">나가기</button>
                     <button class="round-button" @click="exitModalVisible = false">취소</button>
                 </div>
@@ -593,5 +593,11 @@ export default {
     margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.button-container2 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 </style>
