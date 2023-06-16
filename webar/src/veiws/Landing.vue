@@ -26,6 +26,7 @@ export default {
       `${baseUrl}/basic.html#/basic`,
       `${baseUrl}/ar.html#/mission`,
       `${baseUrl}/basic.html#/drag-n-drop`,
+      `${baseUrl}/ar.html#/open-browser`,
     ]);
 
     const eventData = ref(null);
@@ -34,7 +35,7 @@ export default {
 
     const url = computed(() => {
       if (templateType.value) {
-        const type = ["BASIC", "MISSION", "BRIDGE", "SCANNING", "DRAG_DROP"];
+        const type = ["BASIC", "MISSION", "BRIDGE", "SCANNING", "DRAG_DROP", "PHOTO_BASIC"];
         let query =
           `?` +
           querystring.stringify({
@@ -99,7 +100,7 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        await dispatch("eventData/getEventData", params);
+        await dispatch("jsonData/setActionObjectFrame", params);
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         // 세션스토리지에 json데이터 저장
