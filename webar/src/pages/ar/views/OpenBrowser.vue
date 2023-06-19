@@ -34,7 +34,7 @@ import useResultData from "@/composables/useResultData";
 import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
-import gaussianBlur from "@/js/gaussianBlur";
+import grayscaleFilter from "../../../js/filter/grayscaleFilter";
 import loadImage from "../../../js/loadImage";
 
 export default {
@@ -127,7 +127,7 @@ export default {
       ctx.drawImage(video, 0, parseFloat(top), v_width, v_height);
 
       if (beautyOn.value) {
-        gaussianBlur(ctx, v_width, v_height, 10);
+        grayscaleFilter(ctx, v_width, v_height, 100);
       }
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       ctx.drawImage(imgData, 0, 0, v_width, v_height);

@@ -34,7 +34,7 @@ import useResultData from "@/composables/useResultData";
 import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
-import gaussianBlur from "@/js/gaussianBlur";
+import gaussianBlur from "@/js/filter/gaussianBlur";
 import loadImage from "../../../js/loadImage";
 
 export default {
