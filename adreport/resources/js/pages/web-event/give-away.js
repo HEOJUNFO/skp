@@ -3,24 +3,14 @@
  * common javascript file
  * License: SK planet wholly owned
  */
+if (!window.give) { window.give = {}; }
 (function ($, window, document, undefined) {
 
-    //https://localhost:8081/dist/adreport/web-event/give-away.html?eventId=00051&arEventWinningId=19&arEventWinningButtonId=17
-    // var qs = is.parseQuery();
-    // const eventId = qs.eventId;
-    // const arEventWinningButtonId = qs.arEventWinningButtonId;
-    // let arEventWinningId = qs.arEventWinningId;
-    // const eventLogWinningId = qs.eventLogWinningId;
-
-    // const eventId = sessionStorage.getItem("eventId");
-    // const arEventWinningButtonId = sessionStorage.getItem("arEventWinningButtonId");
-    // const arEventWinningId = sessionStorage.getItem("arEventWinningId");
-    // const eventLogWinningId = sessionStorage.getItem("eventLogWinningId");
     let eventId = "";
     let arEventWinningButtonId = "";
     let arEventWinningId = "";
     let eventLogWinningId = "";
-    let eventWinningData = sessionStorage.getItem("eventWinningData");
+    let eventWinningData = "";
     //SS-20187
     let isSubscription = false;
 
@@ -30,8 +20,32 @@
     let arAttendConditionCodeYn = false;
     //SS-20145
 
+    const osType = is.osType();
+    const isApp = is.isApp();
+
     //세션 스토리지 - eventBaseInfo 정보 가져오기
-    const eventBaseInfo = sessionStorage.getItem("eventBaseInfo");
+    let eventBaseInfo = "";
+
+    if (isApp) {
+        eventWinningData = $.jStorage.get("eventWinningData");
+        eventBaseInfo = $.jStorage.get("eventBaseInfo");
+        
+        const ocbUserInfo = is.requestLocalStorageInfo("USER");
+        if (ocbUserInfo) {
+            $.innerValueById("phoneNumber", ocbUserInfo.mdn);
+            $.innerValueById("userName", ocbUserInfo.userName);
+        }
+        const ocbAuthInfo = is.requestLocalStorageInfo("AUTH");
+        if (ocbAuthInfo) {
+            $.innerValueById("userBirth", ocbAuthInfo.birthday);
+        }
+    } else {
+        eventWinningData = sessionStorage.getItem("eventWinningData");
+        eventBaseInfo = sessionStorage.getItem("eventBaseInfo");
+    }
+    
+
+    let etcInputTmpl = Handlebars.compile($("#etcInputTemplate").html());
 
     //뒤로가기 버튼 이벤트 일때
     window.onpageshow = function(event) {
@@ -63,11 +77,13 @@
         }
     }
 
-    history.pushState(null, document.title, location.href);
-    window.addEventListener("popstate", function(event) {    //  뒤로가기 이벤트 등록
-        console.log("event", event);
-        is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", is.windowClose));
-    });
+    if (!isApp) {
+        history.pushState(null, document.title, location.href);
+        window.addEventListener("popstate", function(event) {    //  뒤로가기 이벤트 등록
+            console.log("event", event);
+            is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", is.windowClose));
+        });
+    }
     
     if (eventWinningData == undefined) {
         is.showCommonPopup(1, "giveAwayPageConnectionError", is.createCommonPopupBtnOpt(undefined, is.historyBack));
@@ -136,8 +152,6 @@
                             isSubscription = true;
                             $.innerText(".win_title", "경품 응모정보 입력");
                             $.innerText("#titleDesc", "경품 응모를 위해 다음 정보를 정확히 입력해 주세요.");
-                            //$('.win_title').html('경품 응모정보 입력');
-                            //$('#titleDesc').html('경품 응모를 위해 다음 정보를 정확히 입력해 주세요.');
 
                             let subscriptionRaffleDate = result.subscriptionRaffleDay;
                             let subscriptionRaffleTime = result.subscriptionRaffleTime;
@@ -148,8 +162,7 @@
                                 subscriptionRaffleMonth = subscriptionRaffleDateSplit[1];
                                 subscriptionRaffleDay = subscriptionRaffleDateSplit[2];
                             }
-                            subscriptionRaffleAlertMent =  subscriptionRaffleMonth +'월 ' + subscriptionRaffleDay + '일 ' + subscriptionRaffleTime +'시';
-                            //$('#subscriptionDesc').text('· '+ subscriptionRaffleAlertMent +' 후 당첨 이력 조회 페이지에서 당첨 결과를 확인해주세요.').show();
+                            let subscriptionRaffleAlertMent =  subscriptionRaffleMonth +'월 ' + subscriptionRaffleDay + '일 ' + subscriptionRaffleTime +'시';
                             $.innerText("#subscriptionDesc", subscriptionRaffleAlertMent +' 후 당첨 이력 조회 페이지에서 당첨 결과를 확인해주세요.')
                             
                         }
@@ -184,7 +197,6 @@
                     //응모가 아닐때
                     if (!arEventWinningInfo.subscriptionYn) {
                         $.innerText(".win_title", "경품 배송정보 입력");
-                        //$('.win_title').html('경품 배송정보 입력');
                     }
                     //제목영역 끝
                     
@@ -193,26 +205,22 @@
                         $.hideElement("#zipCodeLi");
                         $.hideElement("#addressLi");
                         $.hideElement("#addressDetailLi");
-                        // $("#zipCodeLi").hide();
-                        // $("#addressLi").hide();
-                        // $("#addressDetailLi").hide();
                     }
                     //이름 사용여부
                     if (!result.buttonInfo.deliveryNameYn) {
                         $.hideElement("#userNameLi");
                         $.hideElement("#userBirthLi");
-                        // $("#userNameLi").hide();
-                        // $("#userBirthLi").hide();
                     }
                     //전화번호 사용여부
                     if (!result.buttonInfo.deliveryPhoneNumberYn) {
                         $.hideElement("#phoneNumberLi");
-                        //$("#phoneNumberLi").hide();
                     }
                     //경품비밀번호 사용여부 - 2022-12-14 서베이고 개발건으로 주석 처리
                     // if (result.winningPasswordYn == "N") {
                     //     $("#givePasswordLi").hide();
                     // }
+
+                    $("#input-area").append(etcInputTmpl(result.arEventWinningButtonAddList));
                 }
             }
 
@@ -247,7 +255,13 @@
         if (eventBaseInfo) {
             let eventType = JSON.parse(eventBaseInfo).eventType;
             if (eventType === is.eventType.SURVEY) {
-                surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+
+                if (isApp) {
+                    const surveyGoData = is.aes256Decode($.jStorage.get("surveyGoData"));
+                    surveyLogAttendId = JSON.parse(surveyGoData).surveyLogAttendId;
+                } else {
+                    surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+                }
                 
                 //서베이고일때 예외처리
                 if (arAttendConditionCodeYn) {
@@ -266,7 +280,6 @@
             if (!attendCode) {
                 //세션정보 삭제
                 sessionStorage.clear();
-                //_confirmModalShow2("에러", "경품 저장에 대한 비정상 접근입니다. 운영자에게 문의하세요!");
                 is.showCommonPopup(1, "abnormalGiveAwayPageConnection");
                 return;
             }
@@ -296,7 +309,7 @@
                 return false;
             }
             //만나이 14세 이하 검증 
-            if (_calcAge(memberBirth) < 15) {
+            if (is.calcAge(memberBirth) < 15) {
                 is.showCommonPopup(1, "confirmFourteen");
                 return false;
             }
@@ -335,6 +348,25 @@
             }
         }
 
+        // 기타 입력필드 값 확인
+        if ($(".etc_input") && $(".etc_input").length > 0) {
+            let isInputFieldValue = true;
+            $(".etc_input").each(function () {
+                let $this = $(this);
+                let fieldValue = $this.val();
+
+                if (fieldValue) {
+                    isInputFieldValue = false;
+                    return;
+                }
+            });
+
+            if (isInputFieldValue) {
+                is.showCommonPopup(1, "confirmEtcInfo");
+                return false;
+            }
+        }
+
         //경품비밀번호 검증 - 2022-12-14 서베이고 개발건으로 주석 처리
         // if ($("#givePasswordLi").attr("style") == undefined) {
         //     //경품비밀번호 4자리 검증
@@ -363,8 +395,21 @@
             "eventLogWinningId": eventLogWinningId,
             "arEventWinningButtonId": arEventWinningButtonId,
             "surveyLogAttendId":surveyLogAttendId
+        };
+
+        if($(".etc_input") && $(".etc_input").length > 0) {
+            params.giveAwayDeliveryButtonAddInputList = [];
+
+            $(".etc_input").each(function () {
+                let $this = $(this);
+                let giveAwayDeliveryButtonAddInput = {};
+                giveAwayDeliveryButtonAddInput.arEventWinningButtonAddId = $this.data("arEventWinningButtonAddId");
+                giveAwayDeliveryButtonAddInput.fieldValue = $this.val();
+
+                params.giveAwayDeliveryButtonAddInputList.push(giveAwayDeliveryButtonAddInput);
+            });
         }
-        
+
         $.ajax({
             url: url,
             data: JSON.stringify(params),
@@ -376,10 +421,14 @@
             if (xhr.status === 200) {
                 //정상통신일떄
                 if (response.resultCode === 200) {
-                    //세션정보 삭제
-                    sessionStorage.clear();
-
-                    is.showCommonPopup(1, "successGiveAwaySave", is.createCommonPopupBtnOpt(undefined, is.windowClose));
+                    if (isApp) {
+                        //당첨정보 로컬 스토리지 삭제
+                        $.jStorage.deleteKey("eventWinningData");
+                    } else {
+                        //세션정보 삭제
+                        sessionStorage.clear();
+                    }
+                    is.showCommonPopup(1, "successGiveAwaySave", is.createCommonPopupBtnOpt("확인", isApp ? ocbApp.requestCloseWindow : is.windowClose));
                     return;
                 }
                 //당첨버튼 더블클릭 방지(SS-20192)
@@ -473,6 +522,11 @@
                     is.showCommonPopup(1, "giveAwaySaveErrorByNftLimit");
                     return;
                 }
+
+                if (Number(response.resultCode) === 863) {
+                    is.showCommonPopup(1, "giveAwaySaveErrorByEtcInfo");
+                    return;
+                }
                 
                 if (Number(response.resultCode) == 1201) {
                     is.showCommonPopup(1, "gifticonSendError");
@@ -509,6 +563,7 @@
             //에러 알림창
             is.showCommonPopup(1, "commonError");
         });
+        return;
     }
 
     // 우편번호 찾기 화면을 넣을 element
@@ -588,25 +643,25 @@
     }
 
     //만 나이 계산 함수
-    let _calcAge = function(birth) {
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = (date.getMonth() + 1);
-        let day = date.getDate();
+    // let _calcAge = function(birth) {
+    //     let date = new Date();
+    //     let year = date.getFullYear();
+    //     let month = (date.getMonth() + 1);
+    //     let day = date.getDate();
 
-        if (month < 10) month = '0' + month;
-        if (day < 10) day = '0' + day;
+    //     if (month < 10) month = '0' + month;
+    //     if (day < 10) day = '0' + day;
 
-        let monthDay = month + day;
+    //     let monthDay = month + day;
 
-        birth = birth.replace('-', '').replace('-', '');
+    //     birth = birth.replace('-', '').replace('-', '');
 
-        let birthdayy = birth.substr(0, 4);
-        let birthdaymd = birth.substr(4, 4);
-        let age = monthDay < birthdaymd ? year - birthdayy  : year - birthdayy;
+    //     let birthdayy = birth.substr(0, 4);
+    //     let birthdaymd = birth.substr(4, 4);
+    //     let age = monthDay < birthdaymd ? year - birthdayy  : year - birthdayy;
         
-        return age;
-    }
+    //     return age;
+    // }
 
     //모달 팝업 이벤트
     let _confirmModalShow = function(mentType) {
@@ -651,21 +706,38 @@
         }
     }
 
-    //저장버튼
-    $(document).on("click", "#saveBtn", function () {
-        _saveGiveAway();
-        return false;
-    });
+    const _closeModal = function() {
+        //DTWS-92 
+        $.hideElement("#modal"); 
+        window.close();
+    }
+
+    // ======================= 버튼 클릭 이벤트 바인딩 ===========================//
+    //저장버튼 클릭 이벤트
+    is.clickEvent("#saveBtn", _saveGiveAway);
 
     //다음 주소검색 팝업 클릭 이벤트
-    $(document).on("click", "#searchZipCode, #zipCode", function() {
-        _openZipCodePopup();
-    });
+    is.clickEvent("#searchZipCode, #zipCode", _openZipCodePopup);
 
-    //다움 주소검색 닫기 클릭 이벤트
-    $(document).on("click", "#btnCloseLayer", function() {
-        _closeDaumPostcode();
+    //다음 주소검색 닫기 클릭 이벤트
+    is.clickEvent("#searchZipCode, #zipCode", _closeDaumPostcode);
+
+    //다음 주소검색 닫기 클릭 이벤트
+    is.clickEvent("#searchZipCode, #zipCode", _closeDaumPostcode);
+    
+    //모달 확인버튼
+    is.clickEvent("#modalBtn", _closeModal);
+
+    //[DTWS-115]당첨정보입력페이지 뒤로가기 클릭 시 안내 팝업 미노출
+    is.clickEvent(".contents_input", history.pushState(null, document.title, location.href));
+
+    // 상단 우측 X 버튼 이벤트. DTWS-61
+    $(document).on("click", "#giveAwayClose", function() {
+        is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", is.windowClose));
     })
+
+    // ======================= 버튼 클릭 이벤트 바인딩 ===========================//
+
 
     //전화번호 입력 시 숫자만 입력되도록 처리
     $(document).on("keypress", "#phoneNumber", function(e) {
@@ -679,26 +751,7 @@
         }
     });
 
-    //모달 확인버튼
-    $(document).on("click", "#modalBtn", function() {
-        //DTWS-92 
-        $.hideElement("#modal"); 
-        window.close();
-    });
-
-    // 상단 우측 X 버튼 이벤트
-    $(document).on("click", "#giveAwayClose", function() {
-        //DTWS-61
-        is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", is.windowClose));
-    });
-
-    //[DTWS-115]당첨정보입력페이지 뒤로가기 클릭 시 안내 팝업 미노출
-    $(document).on("click", ".contents_input", function() {
-        history.pushState(null, document.title, location.href);
-    });
-
     $(document).on("keyup", "#userBirth", function() {
-    //$('#userBirth').keyup(function() {
         const inputValue = $(this).val();
         let RegExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;	//정규식 구문
         if (inputValue.length > 8) {
@@ -753,9 +806,43 @@
         return regPhone.test(phoneNumber);
     }
 
-    $(document).ready(function () {
-        _getWinningButtonDetail();
-    });
+    //뒤로가기 버튼 바인딩 시작 
+    var Register = new Object(); 
+    if (osType == 'aos') { 
+        //안드로이드 하단 백키 컨트롤
+        OcbAndroidJS.registerBackKeyListener('give.onBackKeyListener');
+        
+        Register.onBackKeyListener = function() {
+            var before = window.history.length; 
+            var after = window.history.length;
+            if (after > 1) {
+                 setTimeout(function() {
+                    is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", ocbApp.requestCloseWindow));
+                    return;
+                }, 100);  
+            } 
+        };
+    }
+
+    //상단 < 뒤로가기 버튼 이벤트 리스너
+    Register.onBackButtonListener = function() {
+        is.showCommonPopup(2, "closeGiveAwayPage", is.createCommonPopupBtnOpt("다시입력", undefined), is.createCommonPopupBtnOpt("당첨포기", ocbApp.requestCloseWindow));
+        return;
+    };
+
+    //상단 < 뒤로가기 버튼 클릭 이벤트
+    if (osType == 'aos') { 
+        OcbTitleViewJS.registerBackButtonListener('give.onBackButtonListener');
+    } else { 
+        OcbiOSTitleViewJS.registerBackButtonListener('give.onBackButtonListener');
+    }
+    //뒤로가기 버튼 바인딩 끝 
+    
+    window.give.onBackButtonListener = Register.onBackButtonListener;
+    window.give.onBackKeyListener = Register.onBackKeyListener;
+
+
+    _getWinningButtonDetail();
 
 
 }(jQuery, window, document));

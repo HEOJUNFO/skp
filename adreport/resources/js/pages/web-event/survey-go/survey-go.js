@@ -2,7 +2,20 @@
 
     const qs = is.parseQuery();
     let eventId = qs.eventId;
-    let surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+    let surveyLogAttendId = "";
+    const isApp = is.isApp();
+    
+    if (isApp) {
+        const surveyGoData = $.jStorage.get("surveyGoData");
+        if (surveyGoData) {
+            const surveyGoDataParse = JSON.parse(is.aes256Decode(surveyGoData));
+            surveyLogAttendId = surveyGoDataParse.surveyLogAttendId;
+            eventId = surveyGoDataParse.eventId;
+        }
+    } else {
+        surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+    }
+     
 
     const ERROR_CODE_NO_ATTEND_TARGET = 855,    // 성/연령별 참여조건이 아닙니다.
         ERROR_CODE_EXPIRED_SURVEY_LOG_ID = 856, // 이미 사용완료된 survey log id 입니다.
@@ -60,6 +73,8 @@
     let winningProcessStatus = PROCESS_STATUS_BEFORE;
 
     let winningProcessData;
+
+    
 
 
     let searchSurveyList = function () {
@@ -718,7 +733,12 @@
 
     let goMain = function () {
         sessionStorage.clear();
-        location.href = "/web-event/main.html" + "?eventId=" + eventId + "&isRedirect=true";
+        if (isApp) {
+            $.jStorage.deleteKey("eventWinningData");
+            ocbApp.requestCloseWindow();
+        } else {
+            location.href = "/web-event/main.html" + "?eventId=" + eventId + "&isRedirect=true";
+        }
     };
 
     let init = function (){
@@ -924,9 +944,16 @@
 
             console.log("eventWinningData : " + JSON.stringify(eventWinningData));
             sessionStorage.setItem("eventWinningData", JSON.stringify(eventWinningData));
-
-            let url = "/web-event/give-away.html";
-            parent.open(url, "_blank");
+            
+            //OCB앱일때
+            if (isApp) {
+                $.jStorage.set( "eventWinningData", JSON.stringify(eventWinningData) );
+                const url = is.getDomain() + "/web-event/give-away.html";
+                ocbApp.goLinkPage(url);
+            } else {
+                let url = "/web-event/give-away.html";
+                parent.open(url, "_blank");
+            }
         }
     });
 

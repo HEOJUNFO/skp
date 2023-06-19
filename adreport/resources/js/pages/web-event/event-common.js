@@ -146,6 +146,13 @@ if (!window.is) { window.is = {}; }
             attendCodeWrongError : {title : "에러알림", content : "참여번호가 정확하지 않습니다. 확인 후 AR참여버튼을 다시 클릭해 주세요."},
             usedCoupon : {title : "알림", content : "이미 사용이 완료된 쿠폰입니다."},
             notPossibleTimeEventSurvey : {title : "설문참여가 어려워요", content : "이벤트가 가능한 시간이 아닙니다."},
+            ocbUserInfoError : {title : "고객정보 조회실패", content : "이벤트 참여에 필요한 고객정보조회에 실패했습니다. OCB 고객센터로 문의 부탁드립니다."},
+            ocbPointSaveError : {title : "포인트 적립실패", content : "네트워크 지연이 발생해 포인트적립이 실패했습니다. (에러코드 : {errorCode}) playar_cs@skplanet.com으로 문의부탁드립니다."},
+            exposureOcbError : {title : "유효하지않은 경로", content : "OK캐쉬백 APP에서 참여시에만 정상적인 이벤트 노출이 가능합니다."},
+            exposureWebError : {title : "유효하지않은 경로", content : "오픈브라우저에서 참여시에만 정상적인 이벤트 노출이 가능합니다."},
+            serviceAttendErrorFourteen : {title : "알림", content : "아쉽지만 14세미만 사용자는 서비스이용이 어려워요."},
+            couponIdCopy : {title : "알림", content : "쿠폰 난수번호가 복사되었습니다."},
+            ocbAppGeoLocationError : {title : "에러알림", content : "OK캐시백 위치정보를 받아오는데 에러가 발생되었습니다."},
         };
         
         var title;
@@ -412,7 +419,7 @@ if (!window.is) { window.is = {}; }
             $("body").addClass("scr_lock");
         }
 
-        $(".commonPopup").show();
+        $("#alertPopup").show();
     };
 
     let _hideCommonPopup = function () {
@@ -521,10 +528,6 @@ if (!window.is) { window.is = {}; }
         }
     };
 
-    // $(document).on('click', '#alertPopupBtn', function(e) {
-    //     $('#alertPopup').hide();
-    // });
-
     $(document).on('click', '#noEventResultAlertPopupBtn', function() {
         history.back(-1);
     });
@@ -535,11 +538,21 @@ if (!window.is) { window.is = {}; }
     });
 
     const _historyBack = function () {
-        history.back(-1);
+        const isApp = $.jStorage.get("isApp");
+        if (isApp) {
+            ocbApp.requestCloseWindow();
+        } else {
+            history.back(-1);
+        }
     }
 
     const _windowClose = function() {
-        window.close();
+        const isApp = $.jStorage.get("isApp");
+        if (isApp) {
+            ocbApp.requestCloseWindow();
+        } else {
+            window.close();
+        }
     }
 
     const _reload = function() {
@@ -707,6 +720,8 @@ if (!window.is) { window.is = {}; }
     };
 
     let _getPvLogParams = function (num, pageId, order, code, type){
+        const isApp = $.jStorage.get("isApp");
+
         const BR_CODE_OCB = "1",
             BR_CODE_SYRUP = "2",
             BR_CODE_WEB = "3",
@@ -724,24 +739,43 @@ if (!window.is) { window.is = {}; }
         if (qs.eventId) {
             params.eventId = qs.eventId;
         } else {
-            let href = location.href;
-            if (href.indexOf("give-away.html") >= 0) {
-                let parseEventWinningData = JSON.parse(sessionStorage.getItem("skWebArJson"));
-                if (parseEventWinningData && parseEventWinningData.eventId) {
-                    params.eventId = parseEventWinningData.eventId;
-                } else {
+            if (qs.paramData) {
+                const paramData = JSON.parse(qs.paramData);
+                params.eventId = paramData.eventId;
+            } else {
+                let href = location.href;
+                if (href.indexOf("give-away.html") >= 0) {
+                    let parseEventWinningData;
+                    if (isApp) {
+                        parseEventWinningData = JSON.parse($.jStorage.get("eventWinningData"));
+                    } else {
+                        parseEventWinningData = JSON.parse(sessionStorage.getItem("skWebArJson"));
+                    }
+                     
+                    if (parseEventWinningData && parseEventWinningData.eventId) {
+                        params.eventId = parseEventWinningData.eventId;
+                    } else {
+                        return;
+                    }
+                } else if (href.indexOf("nft-repository.html") >= 0 || href.indexOf("nft-detail.html") > 0) {
+                    let eventSessionData = "";
+                    
+                    if (isApp) {
+                        let qs = is.parseQuery();
+                        eventSessionData = JSON.parse(qs.paramData);
+                    } else {
+                        eventSessionData = JSON.parse(sessionStorage.getItem('eventSessionData'));
+                    }
+                    
+                    if (eventSessionData && eventSessionData.eventId) {
+                        params.eventId = eventSessionData.eventId;
+                    } else {
+                        return;
+                    }
+                }
+                else {
                     return;
                 }
-            } else if (href.indexOf("nft-repository.html") >= 0 || href.indexOf("nft-detail.html") > 0) {
-                let eventSessionData = JSON.parse(sessionStorage.getItem('eventSessionData'));
-                if (eventSessionData && eventSessionData.eventId) {
-                    params.eventId = eventSessionData.eventId;
-                } else {
-                    return;
-                }
-            }
-            else {
-                return;
             }
         }
 
@@ -1226,6 +1260,7 @@ if (!window.is) { window.is = {}; }
     const _eventType = {
          AR      : "AR"
         ,SURVEY  : "SURVEY"
+        ,PHOTO   : "PHOTO"
     };
     Object.freeze(_eventType);
 
@@ -1282,12 +1317,400 @@ if (!window.is) { window.is = {}; }
     }
 
     const _isEqual = function(val1, val2) {
-        if (typeof (val1) === 'Number') {
+        if (typeof (val1) === 'number') {
             return (Number(val1) === Number(val2))
         } 
         if (typeof (val1) === 'string') {
             return (val1 === val2);
         }
+    }
+
+    /**
+     * 앱인지 웹인지 확인 하는 함수 
+     * @returns 앱 : true, 웹 : false
+     */
+    const _isApp = function() {
+        let isApp;
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf("ocbapp") > -1 || userAgent.indexOf("skp_ocb_and") > -1) {
+            isApp = true;
+        } else {
+            isApp = false;
+        }
+        $.jStorage.set("isApp", isApp);
+        return isApp;
+    }
+
+    let osType = 'aos';
+    const _osType = function() {
+        let tmpAppTypeHeader = navigator.userAgent;
+        if( tmpAppTypeHeader.indexOf("iPhone") > 0 || tmpAppTypeHeader.indexOf("iPad") > 0 ){
+            osType = 'ios'; 
+        }
+        return osType;
+    }
+
+    const aes256SecretKey = "0123456789abcdef0123456789abcdef"; // key 값 32 바이트
+
+    //aes256 암호화
+    const _aes256Encode = function(data) {
+        // [aes 인코딩 수행 실시 : cbc 모드]
+        const cipher = CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(aes256SecretKey), {
+            iv: CryptoJS.enc.Utf8.parse(""), // [Enter IV (Optional) 지정 방식]
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC // [cbc 모드 선택]
+        });
+        return cipher.toString();
+    }
+
+    //aes256 복호화
+    const _aes256Decode = function(data) {
+        // [aes 디코딩 수행 실시 : cbc 모드]
+        const cipher = CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(aes256SecretKey), {
+            iv: CryptoJS.enc.Utf8.parse(""), // [Enter IV (Optional) 지정 방식]
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC // [cbc 모드 선택]
+        });
+        return cipher.toString(CryptoJS.enc.Utf8);    		
+    }
+
+    //현재 도메인 가져오기 : ex> https://도메인
+    const _getDomain = function() {
+        const protocol = $(location).attr('protocol');
+        const hostName = $(location).attr('hostname');
+        return protocol + "//" + hostName;
+    }
+
+    const _removeDefaultSession = function() {
+        sessionStorage.removeItem("eventBaseInfo");
+        sessionStorage.removeItem("skWebArJson");
+        sessionStorage.removeItem("eventWinningData");
+    }
+
+    //메인페이지 이동 함수
+    const _goMain = function () {
+        const qs = is.parseQuery();
+        const eventId = qs.eventId;
+        const isApp = $.jStorage.get("isApp");
+        if (isApp) {
+            _resetLocalStorage();
+            location.href = "ocbt://com.skmc.okcashbag.home_google/main";
+        } else {
+            location.href = "/web-event/main.html" + "?eventId=" + eventId + "&isRedirect=true";
+        }
+    };
+
+    //만 나이 계산 함수
+    const _calcAge = function(birth) {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1);
+        let day = date.getDate();
+
+        if (month < 10) month = '0' + month;
+        if (day < 10) day = '0' + day;
+
+        let monthDay = month + day;
+
+        birth = birth.replace('-', '').replace('-', '');
+
+        let birthdayy = birth.substr(0, 4);
+        let birthdaymd = birth.substr(4, 4);
+        let age = monthDay < birthdaymd ? year - birthdayy  : year - birthdayy;
+        
+        return age;
+    }
+
+    //오브젝트가 null 인지 확인하는 함수
+    const _isEmptyObj = function(obj) {
+        return Object.keys(obj).length === 0;
+    }
+
+    /**
+     * OCB 로컬 스토리지 저장된 정보 가져오기 
+     * @param {*} type
+     * @returns
+     *  USER > "{"mbrId":"336019325","mdn":"01096663779"}"
+     *  AUTH > "{ "auth ": "1 ", "type ": "01 ", "pinstate ":0, "callbackToken ": "T2NhwEYCGTc-UA-1ODe-uzQ@f103f1e7", "session ": "9e04b93b46214b268ee2702f8f2f963f ", "birthday ": "19701031 ", "gender ": "male "}"
+     *  GPS  > "{ "wgsX  ":127.10367387253176,  "wgsY  ":37.402969038685065,  "address":"분당구 삼평동""}"
+     */
+    const _requestLocalStorageInfo = function(type) {
+        let localStorageInfo = "";
+        if (type) {
+            switch (type) {
+                case "USER" : localStorageInfo = $.jStorage.get("ocbUserInfo");
+                    break;
+                case "AUTH" : localStorageInfo = $.jStorage.get("ocbAuthInfo");
+                    break;
+                case "GPS" : localStorageInfo = $.jStorage.get("gpsInfo");
+                    break;
+                case "EVENT_ID" : localStorageInfo = $.jStorage.get("eventId");
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (localStorageInfo) {
+            return JSON.parse(localStorageInfo);
+        }
+    }
+
+    const _resetLocalStorage = function() {
+        $.jStorage.deleteKey("eventBaseInfo");
+        $.jStorage.deleteKey("eventId");
+        $.jStorage.deleteKey("exposureType");
+        $.jStorage.deleteKey("ocbAuthInfo");
+        $.jStorage.deleteKey("ocbUserInfo");
+        $.jStorage.deleteKey("surveyGoData");
+    }
+
+    const _clickEvent = function(element, callbackFunc) {
+        $(document).on("click", element, function(res) {
+            callbackFunc(res, $(this));
+        });
+    }
+
+    const _windowOpen = function(url) {
+        if (url) {
+            window.open(url);
+        } else {
+            console.log("error :: url undefined");
+        }
+    }
+
+    const _getArData = function(eventId) {
+        let arData = {};
+        arData.event_validation = _concatStr(eventId, "_", _webEventGetTraceNo());
+
+        const isApp = _isApp();
+        //앱일때
+        if (isApp) {
+            arData.activeType = "OCB";
+
+            const ocbGpsInfo = _requestLocalStorageInfo("GPS");
+            if (ocbGpsInfo)  {
+                arData.latitude = ocbGpsInfo.wgsY;
+                arData.longitude = ocbGpsInfo.wgsX;
+            } else {
+                ocbApp.requestOcbLog("ocbGpsInfo undefined");
+            }
+        } else {
+        //웹일때
+            arData.activeType = "WEB";
+            arData.latitude = window.localStorage.getItem("latitude");
+            arData.longitude = window.localStorage.getItem("longitude");
+            
+        }
+        const attendCode = is.getValueById("attendCode");
+        if (attendCode) {
+            $.hideElement("#attendCodePopupSection");
+            $.innerValueById("attendCode", "");
+            arData.attendCode = attendCode;
+        }
+
+        if (isApp) {
+            ocbApp.requestOcbLog("arData >> " + JSON.stringify(arData));
+        } else {
+            console.log("arData", arData);
+        }
+
+        return _aes256Encode(JSON.stringify(arData));
+    }
+
+    //참여하기버튼 로그 저장하기
+    const _saveAttendLog = function(eventId, successYn) {
+        const url = "/api/v1/web-event-front/attend-button-log/save";
+        const params = {
+            eventId : eventId,
+            successYn : successYn
+        };
+        
+        $.post({
+            url : url, 
+            data : JSON.stringify(params), 
+            contentType : 'application/json; charset=utf-8'
+        })
+    };
+
+    const _searchProxymity = async function(param, eventId, eventType, isSmsPopup) {
+        const isApp = _isApp();
+        
+        return new Promise(function(resolve) {
+            let pid = is.getValueById("pid");
+            if (!pid) {
+                //위치기반 이벤트이고 PID가 존재하지 않고 참여코드를 받는 이벤트일때 참여코드 검증 팝업 뷰 - 서베이고 고도화 작업 시 코드 추가
+                if (_isEqual(is.getValueById("arAttendConditionCodeYn"), "true")) {
+                    $.showElement("#attendCodePopupSection");
+                    return;
+                } else {
+                    if (isApp) {
+                        ocbApp.goLogicalPage();
+                        return;
+                    } else {
+                        //위치기반 이벤트이고 PID가 존재하지 않고 참여코드를 받지않는 이벤트일때 바로 구동 페이지로 이동 - 서베이고 고도화 작업 시 코드 추가
+                        resolve(eventType);
+                    }
+                }
+            }
+    
+            let url = "/api/v1/web-event-front/search/proximity";
+            $.post({
+                url : url, 
+                data : JSON.stringify(param), 
+                contentType : _httpHeder.APPLICATION_JSON_UTF8
+            })
+            .done(function(response, text, xhr) {
+                //통신 200
+                if (xhr.status === 200) {
+                    //api 결과 코드 값이 200
+                    if (response.resultCode === 200) {
+                        let result = response.result;
+                        
+                        //pid와 위치기반 api eventId가 틀리면 예외처리
+                        if (!_isEqual(pid, result.eventId)) {
+                            _saveAttendLog(eventId, "N");
+                            _alertPopup("notMatchEventLocation", eventType);
+                            return;
+                        }
+        
+                        //gps기반 참여가능한 위치가 아닐때
+                        if (_isEqual(result.eventExist, "N")) {
+                            console.log("{pid >> " + pid + "}");
+                            _saveAttendLog(eventId, "N");
+                            _alertPopup("errorEventLocation", eventType);
+                            return;
+                        }
+                        //gps기반 이벤트가 있을때
+                        if (_isEqual(result.eventExist, "Y")) {
+                            let locationMessageAttend = is.getValueById("locationMessageAttend");
+                            //위치기반 매칭 멘트가 있으면 멘트 팝업
+                            if (locationMessageAttend !== "") {
+                                $.innerValueById("locationMessagePopupYn", "Y"); 
+                                _alertPopup("successAccessLocation", eventType);
+                                return;
+                            } else {
+                                //위치기반 매칭 멘트가 없으면 바로 참여코드 팝업
+                                if (_isEqual(is.getValueById("arAttendConditionCodeYn"), "true")) {
+                                    console.log("참여코드 정보 받기 :: 참여코드 검증 화면 보여준다");
+                                    $.showElement("#attendCodePopupSection");
+                                    return;
+                                } 
+                                //웹일때
+                                if (!isApp) {
+                                    if (isSmsPopup) {
+                                        is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
+                                        return false;
+                                    }
+                                } 
+                            }
+                        }
+                        
+                        if (_isEqual(is.getValueById("arAttendConditionCodeYn"), "false")) {
+                            if (isApp) {
+                                ocbApp.goLogicalPage();
+                            } else {
+                                //웹일때 
+                                //AR 또는 포트 이벤트 일때
+                                if (_isEqual(eventType, _eventType.AR) || _isEqual(eventType, _eventType.PHOTO)) {
+                                    console.log("위치 서비스고 참여코드 서비스 안할때 바로 ar화면으로 이동");
+                                }
+                                //서베이고 일때
+                                if (_isEqual(eventType, _eventType.SURVEY)) {
+                                    console.log("위치 서비스고 참여코드 서비스 안할때 바로 서베이고화면으로 이동");
+                                }
+                                resolve(eventType);
+                            }
+                        }
+                    }
+                }
+                //통신에러
+                if (xhr.status !== 200) {
+                    is.showCommonPopup(1, "commonError");
+                    //return;
+                }
+            })
+            .fail(function(){
+                is.showCommonPopup(1, "commonError");
+            });
+        });
+        
+    }
+
+    //커스텀 알림 팝업 
+    const _alertPopup = function(mentType, eventType) {
+
+        if (mentType !== undefined) {
+            var ment = is.ment(mentType);
+            var resultJsonObj = JSON.parse(ment);
+            var title = resultJsonObj.title;
+            var content = resultJsonObj.content;
+
+            //참여가능 시간이 아닐때 멘트
+            if (mentType === "notPossibleTimeEvent") {
+                //커스텀한 메세지가 있는지 확인
+                const attendHourMisMessage = is.getValueById("attendHourMisMessage");
+                
+                if (attendHourMisMessage) {
+                    content = attendHourMisMessage;
+                } 
+
+                //AR
+                if (eventType === is.eventType.AR) {
+                    title = "참여실패!";
+                }
+                //서베이고
+                if (eventType === is.eventType.SURVEY) {
+                    title = "설문참여가 어려워요";
+                } 
+
+            }
+            
+            //위치 미매칭 멘트
+            if (mentType === "errorEventLocation"){
+                //커스텀한 메세지가 있는지 확인
+                const locationMessageNotAttend = is.getValueById("locationMessageNotAttend");
+                
+                if (locationMessageNotAttend) {
+                    content = locationMessageNotAttend;
+                }
+                
+                //AR
+                if (eventType === is.eventType.AR) {
+                    title = "위치참여실패!";
+                } 
+                //서베이고
+                if (eventType === is.eventType.SURVEY) {
+                    title = "설문참여가 어려워요";
+                }
+            }
+
+            //위치 매칭 멘트
+            if (mentType === "successAccessLocation") {
+                const locationMessageAttend = is.getValueById("locationMessageAttend");
+
+                if (locationMessageAttend != "") {
+                    content = locationMessageAttend;
+                }
+
+                title = "위치참여성공!";
+                
+                //확인 버튼 ID attribute 주입
+                $("#alertPopup2 .confirm").attr("id", "locationMessageBtn");
+            }
+
+            //팝업 뷰
+            $.showElement("#alertPopup2");
+            $.innerText("#alertPopupTitle2", title);
+            $.innerHtmlById("alertPopupContents2", content);
+        }
+    };
+
+    const _concatStr = function() {
+        let str = "";
+        for (let i of arguments) {
+            str += i;
+        }
+        return str;
     }
 
     Handlebars.registerHelper({
@@ -1356,6 +1779,14 @@ if (!window.is) { window.is = {}; }
         return false;
     });
 
+    Handlebars.registerHelper("ifNotMatchValue", function (conditional, options) {
+        if (options.hash.value !== conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    });
+
     is.indexToOrderNo = _indexToOrderNo;
     is.webEventGetTraceNo = _webEventGetTraceNo;
     is.webEventRequestParams = _webEventRequestParams;
@@ -1380,6 +1811,7 @@ if (!window.is) { window.is = {}; }
     is.postFetchLoading = _postFetchLoading;
     is.createCommonPopupBtnOpt = _createCommonPopupBtnOpt;
     is.showCommonPopup = _showCommonPopup;
+    is.showCustomCommonPopup = _showCustomCommonPopup;
     is.hideCommonPopup = _hideCommonPopup;
     is.historyBack = _historyBack;
     is.windowClose = _windowClose;
@@ -1388,4 +1820,22 @@ if (!window.is) { window.is = {}; }
     is.closeSmsPopup = _closeSmsPopup;
     is.isEqual = _isEqual;
     is.timer = timer;
+    is.isApp = _isApp;
+    is.getDomain = _getDomain;
+    is.aes256Encode = _aes256Encode;
+    is.aes256Decode = _aes256Decode;
+    is.osType = _osType;
+    is.removeDefaultSession = _removeDefaultSession;
+    is.goMain = _goMain;
+    is.isEmptyObj = _isEmptyObj;
+    is.calcAge = _calcAge;
+    is.resetLocalStorage = _resetLocalStorage;
+    is.requestLocalStorageInfo = _requestLocalStorageInfo;
+    is.clickEvent = _clickEvent;
+    is.windowOpen = _windowOpen;
+    is.getArData = _getArData;
+    is.saveAttendLog = _saveAttendLog;
+    is.alertPopup = _alertPopup;
+    is.searchProxymity = _searchProxymity;
+    is.concatStr = _concatStr;
 }( jQuery, window, document ));

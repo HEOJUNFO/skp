@@ -11,11 +11,16 @@
      * request param data
      */
     let qs = is.parseQuery();
-    const eventId = qs.eventId;
+    let eventId = qs.eventId;
     const lat = qs.lat;
     const lon = qs.lon;
     let redirect = qs.redirect;
     let trcd = qs.trCd;
+    let isApp = is.isApp();
+
+    if (isApp) {
+        $.jStorage.deleteKey("gpsInfo");
+    }
 
     /*
      * 전역 상수 값 정의 시작
@@ -62,35 +67,40 @@
     let eventType;
     let isSmsPopup = false;
     let smsAuthCode = "";
+    let winningSearchType = "";
 
     //const SMS_MENU_TYPE = "MAIN_ATTEND";
 
     const header = is.getHttpHeader;
+    
+    let ocbPointSaveType = "NONE";
 
     /*
      * 전역 상수 값 정의 끝
      */
 
-    sessionStorage.clear();
+    //sessionStorage.clear();
+    is.removeDefaultSession();
 
     //브라우저 뒤로가기 버튼 클릭 이벤트 계약상태 예외처리 
     window.onpageshow = function(event) {
-        sessionStorage.clear();
+        is.removeDefaultSession();
         if ( event.persisted || (window.performance && window.performance.navigation.type === 2)) {
             //구매중, 승인대기, 반려 일떄는 접속불가 처리
-            if ( ($("#contractStatus").val() === is.getEventStatusDefine("paying").statusCode)   //구매중
-                    || ($("#contractStatus").val() === is.getEventStatusDefine("accessPrepare").statusCode)  //승인대기
-                    || ($("#contractStatus").val() === is.getEventStatusDefine("reject").statusCode) //반려 
-                ) {
-            // if ($("#contractStatus").val() === "00" || $("#contractStatus").val() === "01" || $("#contractStatus").val() === "02" ) {
-                is.showCommonPopup(1, "noConnectPage", is.createCommonPopupBtnOpt(undefined, is.historyBack));
-            }
+            const contractStatus = is.getValueById("contractStatus");
+            if (is.isEqual(contractStatus, is.getEventStatusDefine("paying").statusCode) //구매중
+                    || is.isEqual(contractStatus, is.getEventStatusDefine("accessPrepare").statusCode) //승인대기
+                    || is.isEqual(contractStatus, is.getEventStatusDefine("reject").statusCode)    //반려 
+                ) 
+                {
+                    is.showCommonPopup(1, "noConnectPage", is.createCommonPopupBtnOpt(undefined, is.historyBack));    
+                }
         }
     };
 
     //카카오톡 링크로 들어올때 크롬으로 리다이렉션하기
     window.onload = function(){ 
-        sessionStorage.clear();
+        is.removeDefaultSession();
         if(navigator.userAgent.match(/inapp|NAVER|KAKAOTALK|Snapchat|Line|WirtschaftsWoche|Thunderbird|Instagram|everytimeApp|WhatsApp|Electron|wadiz|AliApp|zumapp|iPhone(.*)Whale|Android(.*)Whale|kakaostory|band|twitter|DaumApps|DaumDevice\/mobile|FB_IAB|FB4A|FBAN|FBIOS|FBSS|SamsungBrowser\/[^1-9]/)){ 
             document.body.innerHTML = "";
             var tartgetUrl =  window.location.host + window.location.pathname + window.location.search;
@@ -138,10 +148,10 @@
             contentType: header.APPLICATION_JSON_UTF8
         }).done(function(res, textStatus, xhr) {
             
-            if (xhr.status === 200) {
+            if (is.isEqual(xhr.status, 200)) {
                 let resultCode = Number(res.resultCode);
                 //서비스 종료이고 종료일이 60일이 지났을때 접속불가 처리
-                if (resultCode === 806) {
+                if (is.isEqual(resultCode, 806)) {
                     is.showCommonPopup(1, "noConnectPage", is.createCommonPopupBtnOpt(undefined, is.historyBack));
                     return;
                 }
@@ -167,16 +177,40 @@
                 eventBaseInfoData.attendConditionTargetYn = result.eventBaseInfo.attendConditionTargetYn;   
                 
                 //이벤트 기본정로를 세션 스토리지에 저장
-                sessionStorage.setItem("eventBaseInfo", JSON.stringify(eventBaseInfoData));
+                if (isApp) {
+                    $.jStorage.set("eventBaseInfo", JSON.stringify(eventBaseInfoData));
+                } else {
+                    sessionStorage.setItem("eventBaseInfo", JSON.stringify(eventBaseInfoData));
+                }
 
                 //결과코드 값 
                 $.innerValueById("resultCode", res.resultCode);
 
                 let eventBaseInfo = result.eventBaseInfo;
 
+                //구동 방식이 OCB일때
+                if (isApp) {
+                    if (is.isEqual(eventBaseInfo.eventExposureType, "OPEN")) {
+                        is.showCommonPopup(1, "exposureWebError", is.createCommonPopupBtnOpt("나가기", is.historyBack));
+                        return;
+                    }
+                } else {
+                    if (is.isEqual(eventBaseInfo.eventExposureType, "OCB")) {
+                        is.showCommonPopup(1, "exposureOcbError", is.createCommonPopupBtnOpt("나가기", is.historyBack));
+                        return;
+                    }
+                }
+                
+
                 eventContractStatus = eventBaseInfo.contractStatus;
                 eventRealEndDate = eventBaseInfo.realEventEndDate;
                 diffServiceEndDateTodayCount = result.diffServiceEndDateTodayCount;
+                winningSearchType = eventBaseInfo.winningSearchType;
+                ocbPointSaveType = eventBaseInfo.ocbPointSaveType;
+               
+                if (isApp) {
+                    ocbApp.setTitle(eventBaseInfo.eventTitle);
+                }
                 
                 //이벤트 정보가 없으면 에러 알림창
                 if (!eventBaseInfo) {
@@ -189,21 +223,28 @@
                 $.innerValueById("contractStatus", contractStatus);
 
                 //구매중, 승인대기, 반려 일떄는 접속불가 처리
-                if (contractStatus === "00" || contractStatus === "01" || contractStatus === "02") {
+                if ( is.isEqual(contractStatus, is.getEventStatusDefine("paying").statusCode) 
+                        || is.isEqual(contractStatus, is.getEventStatusDefine("accessPrepare").statusCode) 
+                        || is.isEqual(contractStatus, is.getEventStatusDefine("reject").statusCode) 
+                ) {
                     is.showCommonPopup(1, "noConnectPage", is.createCommonPopupBtnOpt(undefined, is.historyBack));
                     return;
                 }
+                
                 //서비스예정, 서비스일시중지
-                if (contractStatus === "03" || contractStatus === "05") {
-                    //TODO 준비중 화면 보여준다
+                if ( is.isEqual(contractStatus, is.getEventStatusDefine("serviceSchedule").statusCode) 
+                        || is.isEqual(contractStatus, is.getEventStatusDefine("servicePause").statusCode) 
+                ) {
+                    //준비중 화면 보여준다
                     $.hideElement(".event_wrap");
                     $.hideElement(".footer");
                     $.showElement("#servicePrepareSection");
                     $.innerHtmlById("eventHeaderTitle", "&nbsp; " + eventBaseInfo.eventTitle);
                     return;
                 }
+
                 //계약종료
-                if (contractStatus === "07") {
+                if ( is.isEqual(contractStatus, is.getEventStatusDefine("contractEnd").statusCode) ) {
                     //TODO 종료화면 보여준다
                     $.hideElement(".event_wrap");
                     $.hideElement(".footer");
@@ -278,8 +319,10 @@
                 $.innerValueById("pid", eventBaseInfo.pid);
 
                 //SMS 인증 사용 여부
-                isSmsPopup = eventBaseInfo.attendConditionMdnYn;
-
+                if (!isApp) {
+                    isSmsPopup = eventBaseInfo.attendConditionMdnYn;
+                }
+                
                 //화면구성할 정보(array)
                 let eventHtmlInfo = result.eventHtmlInfo;
                 //값이 없으면 히든 처리
@@ -318,9 +361,9 @@
     //참여하기 버튼
     $("#attendBtn").click(function() {
         const resultCode = Number($.getValueById("resultCode"));
-        
+
         //서비스가 종료일떄
-        if (is.getValueById("contractStatus") === "06") {
+        if (is.isEqual(is.getValueById("contractStatus"), "06")) {
             //이벤트 종료일 60일 이하는 참여불가 에러 처리
             if ( diffServiceEndDateTodayCount > 60 ) {
                 is.showCommonPopup(1, "expiredDateEventAttend");
@@ -330,20 +373,20 @@
             return;
         }
         //이벤트가 가능한 상태가 아닐때
-        if (resultCode === 806) {
+        if (is.isEqual(resultCode, 806)) {
             _saveAttendButtonLog(eventId, "N");
             is.showCommonPopup(1, "notPoossibleStatusEvent");
             return;
         }
         //이벤트가 가능한 시간이 아닐때
-        if (resultCode === 807) {
+        if (is.isEqual(resultCode, 807)) {
             _saveAttendButtonLog(eventId, "N");
             _alertPopup("notPossibleTimeEvent");
             //is.showCustomCommonPopup(1, "notPossibleTimeEvent");
             return;
         }
         
-        if (resultCode === 999) {
+        if (is.isEqual(resultCode, 999)) {
             _saveAttendButtonLog(eventId, "N");
             is.showCommonPopup(1, "unknownError");
             return;
@@ -363,30 +406,39 @@
         var agreeLocationInfoYn = sessionStorage.getItem("agreeLocationInfoYn");
 
         //위치 서비스 사용했을때
-        if (locationSettingYn == "true") {
-            navigator.geolocation.getCurrentPosition(_geoLocationSuccess, _geolocationError, GEO_LOCATION_OPTIONS);
+        if (is.isEqual(locationSettingYn, "true")) {
+            if (isApp) {
+                //OCB앱일때 - 디바이스 셋팅 정보 가져오기 > gps 확인 후 구동페이지 이동
+                ocbApp.checkDeviceSetting();
+            } else {
+                //웹일때
+                navigator.geolocation.getCurrentPosition(_geoLocationSuccess, _geolocationError, GEO_LOCATION_OPTIONS);
+            }
             return false;
         } 
         
         //위치 서비스 사용 안했을때
-        if (locationSettingYn == "false") {
+        if (is.isEqual(locationSettingYn, "false")) {
             //참여코드 검증 
-            if (arAttendConditionCodeYn == "true") {
+            if (is.isEqual(arAttendConditionCodeYn, "true")) {
                 console.log("위치정보 이벤트 X >> 참여코드 정보 받기");
                 $.showElement("#attendCodePopupSection");
             } 
             //참여코드 검증없이 이동
-            if (arAttendConditionCodeYn == "false" || arAttendConditionCodeYn == "") {
+            if (is.isEqual(arAttendConditionCodeYn, "false") || arAttendConditionCodeYn == "") {
                 console.log("위치 서비스도 안하고 참여코드 서비스도 안할때 바로 ar화면으로 이동");
-                if (eventType === is.eventType.AR) {
-                    //핸드폰인증일때
-                    if (isSmsPopup) {
-                        is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
-                        return false;
+                if (is.isEqual(eventType, is.eventType.AR) || is.isEqual(eventType, is.eventType.PHOTO)) {
+                    //OCB 앱일때 
+                    if (!isApp) {
+                        //핸드폰인증일때
+                        if (isSmsPopup) {
+                            is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
+                            return false;
+                        }
                     }
                     _goArPage();
                 }
-                if (eventType === is.eventType.SURVEY) {
+                if (is.isEqual(eventType, is.eventType.SURVEY)) {
                     console.log("서베이고 구동 페이지로 이동");
                     //핸드폰인증일때
                     if (isSmsPopup) {
@@ -415,17 +467,17 @@
             method : "POST",
             contentType: header.APPLICATION_JSON_UTF8
         }).done(function(res, textStatus, xhr) {
-            if (xhr.status === 200) {
-                if (res.resultCode === 200) {
+            if (is.isEqual(xhr.status, 200)) {
+                if (is.isEqual(res.resultCode, 200)) {
                     console.log("참여코드 검증 res :: {} " + JSON.stringify(res));
 
-                    if (eventType === is.eventType.AR) {
+                    if (is.isEqual(eventType, is.eventType.AR) || is.isEqual(eventType, is.eventType.PHOTO)) {
                         //AR 페이지로 이동
                         console.log("코드검증 성공 AR페이지로 이동!");
                         _goArPage();
                         return;
                     }
-                    if (eventType === is.eventType.SURVEY) {
+                    if (is.isEqual(eventType, is.eventType.SURVEY)) {
                         //서베이고 페이지로 이동
                         console.log("코드검증 성공 서베이고 페이지로 이동!");
                         _goSurveyGoPage();
@@ -434,7 +486,7 @@
                 }
                 
                 //참여코드가 존재하지 않을때
-                if (res.resultCode === 808) {
+                if (is.isEqual(res.resultCode, 808)) {
                    _attendCodePopupErrorEvent($("#attendCodeMisMatchMessage").val(), res.resultCode);
                    //참여번호가 에러 세번 전까지는 틀린 개수 증가 
                    if (Number(attendCodeWrongCnt) < 2) {
@@ -452,20 +504,20 @@
                     }
                 }
                 //이미 사용된 참여코드일때
-                if (res.resultCode === 809) {
+                if (is.isEqual(res.resultCode, 809)) {
                     _saveAttendButtonLog(eventId, "N");
                     _attendCodePopupErrorEvent("이미 참여가 완료된 참여 번호 입니다. 다른 참여 번호를 입력하세요.", res.resultCode);
                     return;
                 }
                 //참여코드 참여회수 초과일때(전체기간, 일일기간안에 참여회수가 초과되었을때 에러처리)
-                if (res.resultCode === 819) {
+                if (is.isEqual(res.resultCode, 819)) {
                     _saveAttendButtonLog(eventId, "N");
                     _attendCodePopupErrorEvent("참여번호의 참여가능 회수가 초과되었습니다.", res.resultCode);
                     return
                 }
             }
 
-            if (xhr.status !== 200) {
+            if (!is.isEqual(xhr.status, 200)) {
                 //에러 알림창
                 is.showCommonPopup(1, "commonError");
                 return;
@@ -484,28 +536,85 @@
             is.showCommonPopup(1, "expiredDateWinningSearch");
             return;
         }
-        location.href = "/web-event/event-winning-history.html?eventId=" + eventId;
+        if (isApp) {
+            let paramData = {};
+            paramData.eventId = eventId;
+            const ocbUrl =  is.concatStr(is.getDomain(), "/web-event/event-winning-history.html?paramData=", encodeURIComponent(JSON.stringify(paramData)));
+            ocbApp.goLinkPage(ocbUrl);
+        } else {
+            location.href = is.concatStr("/web-event/event-winning-history.html?eventId=", eventId);
+        }
     });
 
-     //NFT 당첨내역 화면 이동 버튼
-     $(document).on("click", "[name=nftHistoryBtn]", function () {
-        location.href = "/web-event/nft/nft-history.html?eventId=" + eventId + "&winningType=NFT";
+     //NFT 당첨내역 화면 이동 함수
+    const _goNftHistory = function() {
+        if (isApp) {
+            const ocbUserInfo = $.jStorage.get("ocbUserInfo");
+            const ocbUserInfoParse = JSON.parse(ocbUserInfo);
+            if (is.isEqual(winningSearchType, "MDN")) {
+                _searchOcbCouponHistory(eventId, ocbUserInfoParse.mdn, "", "NFT");
+            } else {
+                let paramData = {};
+                paramData.eventId = eventId;
+                paramData.winningType = "NFT";
+                const ocbUrl = is.concatStr(is.getDomain(), "/web-event/event-winning-history.html?paramData=", encodeURIComponent(JSON.stringify(paramData)));
+                ocbApp.goLinkPage(ocbUrl);
+            }
+        } else {
+            location.href = is.concatStr("/web-event/nft/nft-history.html?eventId=", eventId, "&winningType=NFT");
+        }
+    }
+
+    //쿠폰 당첨내역 화면 이동 함수
+    const _goCouponHistory = function() {
+        let url = is.concatStr("/web-event/nft/nft-history.html?eventId=", eventId, "&winningType=NFTCP");
+        if (isApp) {
+            const ocbUserInfo = JSON.parse($.jStorage.get("ocbUserInfo"));
+            if (is.isEqual(winningSearchType, "MDN")) {
+                _searchOcbCouponHistory(eventId, ocbUserInfo.mdn, "", "NFTCP");
+            } else {
+                let paramData = {};
+                paramData.eventId = eventId;
+                paramData.winningType = "NFTCP";
+                const ocbUrl = is.concatStr(is.getDomain(), "/web-event/event-winning-history.html?paramData=", encodeURIComponent(JSON.stringify(paramData)));
+                ocbApp.goLinkPage(ocbUrl);
+            }
+        } else {
+            location.href = url;
+        }
+    };
+
+    const _locationMessageBtnEvent = function() {
+        $.hideElement("#alertPopup2");
+        if (isSmsPopup) {
+            is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
+        } else {
+            if (is.isEqual(eventType, is.eventType.AR) || is.isEqual(eventType, is.eventType.PHOTO)) {
+                _goArPage();
+            }
+            if (is.isEqual(eventType, is.eventType.SURVEY)) {
+                _goSurveyGoPage();
+            }
+        }
+    }
+
+    //NFT 보관함 버튼 이벤트
+    is.clickEvent("[name=nftHistoryBtn]", _goNftHistory);
+    //쿠폰 보관함 버튼 이벤트
+    is.clickEvent("[name=couponHistoryBtn]", _goCouponHistory);
+    //사진보관함 버튼 이벤트
+    $(document).on("click", "[name=photoRepositoryBtn]", function(res) {
+        alert("사진보관함 페이지 이동");
     });
 
-    //쿠폰 당첨내역 화면 이동 버튼
-    $(document).on("click", "[name=couponHistoryBtn]", function () {
-        location.href = "/web-event/nft/nft-history.html?eventId=" + eventId + "&winningType=NFTCP";
-    });
-
-    //공유하기 버튼 이벤트 
-    $(document).on("click", '.share', function() {
-        _kakaoLinitInit();
-    });
-
+    //공유하기 버튼 이벤트
+    is.clickEvent(".share", _kakaoLinitInit);
     //참여번호 팝업 > 취소버튼 
-    $(document).on("click", "#attendCodeCancelBtn", function(){
-        $("#attendCodePopupSection").hide();
-    });
+    is.clickEvent("#attendCodeCancelBtn", $.hideElement("#attendCodePopupSection"));
+
+    is.clickEvent("#locationMessageBtn", _locationMessageBtnEvent);
+
+    is.clickEvent("#locationMessageNotBtn", $.hideElement("#alertPopup"));
 
    /*
     *  버튼 이벤트 끝
@@ -516,120 +625,23 @@
     */
     const _updateBrower = function() {
         if (DEVICE_TYPE != "") {
-            if (DEVICE_TYPE === "android") {
+            if (is.isEqual(DEVICE_TYPE, "android")) {
                 window.location= ANDROID_MARKET_URL;
             }
-            if (DEVICE_TYPE === "ios") {
-                var thisUrl = window.location.host + window.location.pathname + window.location.search;
+            if (is.isEqual(DEVICE_TYPE, "ios")) {
+                var thisUrl = is.concatStr(window.location.host, window.location.pathname, window.location.search);
                 //크롬 앱으로 연결(ios)
-                location.href = "googlechrome://" + thisUrl;
+                location.href = is.concatStr("googlechrome://", thisUrl);
             }
         }
     }
 
-    //커스텀 알림 팝업 
-    let _alertPopup = function(mentType) {
-
-        if (mentType !== undefined) {
-            var ment = is.ment(mentType);
-            var resultJsonObj = JSON.parse(ment);
-            var title = resultJsonObj.title;
-            var content = resultJsonObj.content;
-
-            //참여가능 시간이 아닐때 멘트
-            if (mentType === "notPossibleTimeEvent") {
-                //커스텀한 메세지가 있는지 확인
-                const attendHourMisMessage = is.getValueById("attendHourMisMessage");
-                
-                if (attendHourMisMessage) {
-                    content = attendHourMisMessage;
-                } 
-
-                //AR
-                if (eventType === is.eventType.AR) {
-                    title = "참여실패!";
-                }
-                //서베이고
-                if (eventType === is.eventType.SURVEY) {
-                    title = "설문참여가 어려워요";
-                } 
-
-            }
-            
-            //위치 미매칭 멘트
-            if (mentType === "errorEventLocation"){
-                //커스텀한 메세지가 있는지 확인
-                const locationMessageNotAttend = is.getValueById("locationMessageNotAttend");
-                
-                if (locationMessageNotAttend) {
-                    content = locationMessageNotAttend;
-                }
-                
-                //AR
-                if (eventType === is.eventType.AR) {
-                    title = "위치참여실패!";
-                } 
-                //서베이고
-                if (eventType === is.eventType.SURVEY) {
-                    title = "설문참여가 어려워요";
-                }
-            }
-
-            //위치 매칭 멘트
-            if (mentType === "successAccessLocation") {
-                const locationMessageAttend = is.getValueById("locationMessageAttend");
-
-                if (locationMessageAttend != "") {
-                    content = locationMessageAttend;
-                }
-
-                title = "위치참여성공!";
-                
-                //확인 버튼 ID attribute 주입
-                $("#alertPopup2 .confirm").attr("id", "locationMessageBtn");
-            }
-
-            //팝업 뷰
-            $.showElement("#alertPopup2");
-            $.innerText("#alertPopupTitle2", title);
-            $.innerHtmlById("alertPopupContents2", content);
-        }
-    };
-
-    $(document).on("click", "#locationMessageBtn", function() {
-        $.hideElement("#alertPopup2");
-        if (isSmsPopup) {
-            is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
-        } else {
-            if (eventType === is.eventType.AR) {
-                _goArPage();
-            }
-            if (eventType === is.eventType.SURVEY) {
-                _goSurveyGoPage();
-            }
-        }
-    });
-
-    $(document).on("click", "#locationMessageNotBtn", function() {
-        $.hideElement("#alertPopup");
-    });
-
-
     //AR 페이지 이동
     let _goArPage = function() {
-        var arUrlPath = "/webar/index.html#/?eventId=" + eventId;
+        var arUrlPath = is.concatStr("/webar/index.html#/?eventId=", eventId);
 
-        //localStorage 값 셋팅
-        window.localStorage.setItem("event_validation", eventId + "_" + is.webEventGetTraceNo());
-        //페이지 이동 url 연동해야함
-        let attendCode = is.getValueById("attendCode");
-        
-        //참여번호가 있는지 확인
-        if (attendCode) {
-            $.hideElement("#attendCodePopupSection");
-            $.innerValueById("attendCode", "");
-            arUrlPath += "&attendCode=" + attendCode
-        }
+        //AR 구동에 필요한 파라미터 값 JSON 형식으로 만들어서 암호화
+        arUrlPath += is.concatStr("&arData=", is.getArData(eventId));
 
         //SMS 인증일때 핸드폰번호로 참여가능한 회수 확인
         if (isSmsPopup) {
@@ -640,8 +652,14 @@
             //팝업 닫기
             $.hideElement("#smsAuthPopupSection");
         }
+
+        if (!isApp) {
+            location.href = arUrlPath;
+        } else {
+            arUrlPath = is.concatStr(is.getDomain(), arUrlPath);
+            ocbApp.startOpenBrower(arUrlPath);
+        }
         
-        location.href = arUrlPath;
     };
 
     //모바일, PC 인지 체크
@@ -672,9 +690,13 @@
 
     //gps 성공 콜백 
     let _geoLocationSuccess = function(pos) {
-        var crd = pos.coords;
-        let latitude = crd.latitude;
-        let longitude = crd.longitude;
+
+        let latitude;
+        let longitude;
+
+        let crd   = pos.coords;
+        latitude  = crd.latitude;
+        longitude = crd.longitude;
 
         if ((lat != undefined)) {
             latitude = lat;
@@ -684,118 +706,34 @@
         }
         
         console.log(latitude +", " + longitude);
-                //판교역 위경도
-        //37.3956807, 127.1121295
+
+        //37.3956807, 127.1121295 (판교역)
         //37.3501718, 127.1091773 (미금역)
 
         //위경도 로컬 스토리지 셋팅
         window.localStorage.setItem("latitude", latitude);
         window.localStorage.setItem("longitude", longitude);
 
-        let pid = is.getValueById("pid");
-
-        if (!pid) {
-            //위치기반 이벤트이고 PID가 존재하지 않고 참여코드를 받는 이벤트일때 참여코드 검증 팝업 뷰 - 서베이고 고도화 작업 시 코드 추가
-            if (is.getValueById("arAttendConditionCodeYn") === "true") {
-                $.showElement("#attendCodePopupSection");
-                return;
-            } else {
-                //위치기반 이벤트이고 PID가 존재하지 않고 참여코드를 받지않는 이벤트일때 바로 구동 페이지로 이동 - 서베이고 고도화 작업 시 코드 추가
-                if (eventType === is.eventType.AR) {
-                    _goArPage();
-                    return;
-                } 
-                if (eventType === is.eventType.SURVEY) {
-                    _goSurveyGoPage();
-                    return;
-                }
-            }
-        } 
-
-        //위치기반 이벤트 조회 api 조회
-        let url = "/api/v1/web-event-front/search/proximity";
-        let proximityParams = {
+        const proximityParams = {
             eventId : eventId,
             latitude : latitude,
             longitude : longitude
         };
-        
-        console.log("proximityParams {} " + JSON.stringify(proximityParams));
 
-        $.post({
-            url : url, 
-            data : JSON.stringify(proximityParams), 
-            contentType : header.APPLICATION_JSON_UTF8
-        })
-        .done(function(response, text, xhr) {
-            //console.log("result :: " + JSON.stringify(response));
-            //통신 200
-            if (xhr.status === 200) {
-                //api 결과 코드 값이 200
-                if (response.resultCode === 200) {
-                    let result = response.result;
-                    
-                    //pid와 위치기반 api eventId가 틀리면 예외처리
-                    if (pid !== result.eventId) {
-                        _saveAttendButtonLog(eventId, "N");
-                        _alertPopup("notMatchEventLocation");
-                        return;
-                    }
-    
-                    //gps기반 참여가능한 위치가 아닐때
-                    if (result.eventExist === "N") {
-                        console.log("{pid >> " + pid + "}");
-                        _saveAttendButtonLog(eventId, "N");
-                        _alertPopup("errorEventLocation");
-                        return;
-                    }
-                    //gps기반 이벤트가 있을때
-                    if (result.eventExist === "Y") {
-                        let locationMessageAttend = $("#locationMessageAttend").val();
-                        //위치기반 매칭 멘트가 있으면 멘트 팝업
-                        if (locationMessageAttend !== "") {
-                            $("#locationMessagePopupYn").val("Y");
-                            _alertPopup("successAccessLocation");
-                            return;
-                        } else {
-                            //위치기반 매칭 멘트가 없으면 바로 참여코드 팝업
-                            if ($("#arAttendConditionCodeYn").val() === "true") {
-                                console.log("참여코드 정보 받기 :: 참여코드 검증 화면 보여준다");
-                                $("#attendCodePopupSection").show();
-                                return;
-                            } 
-                            if (isSmsPopup) {
-                                is.smsPopup(is.smsMenuType.MAIN_ATTEND, eventType);
-                                return false;
-                            }
-                            
-                        }
-                    }
-                    
-                    if ($("#arAttendConditionCodeYn").val() === "false") {
-                        //AR 이벤트 일때
-                        if (eventType === is.eventType.AR) {
-                            console.log("위치 서비스고 참여코드 서비스 안할때 바로 ar화면으로 이동");
-                            _goArPage();
-                        }
-                        //서베이고 일때
-                        if (eventType === is.eventType.SURVEY) {
-                            console.log("위치 서비스고 참여코드 서비스 안할때 바로 서베이고화면으로 이동");
-                            _goSurveyGoPage();
-                        }
-                    }
+        //proxymity api 확인 후 구동 페이지 이동 로직
+        (async function() {
+            const returnEventType = await is.searchProxymity(proximityParams, eventId, eventType, isSmsPopup, _goArPage, _goSurveyGoPage);
+            if (returnEventType) {
+                //AR 또는 포토일때
+                if (returnEventType === is.eventType.AR || returnEventType === is.eventType.PHOTO) {
+                    _goArPage();
+                }
+                //서베이고
+                if (returnEventType === is.eventType.SURVEY) {
+                    _goSurveyGoPage();
                 }
             }
-            //통신에러
-            if (xhr.status !== 200) {
-                is.showCommonPopup(1, "commonError");
-                //return;
-            }
-            
-        })
-        .fail(function(){
-            is.showCommonPopup(1, "commonError");
-        });
+        })();
     };
 
     //위치정보 가져올때 에러
@@ -832,17 +770,14 @@
 
             case err.POSITION_UNAVAILABLE:
                 alert("위치정보를 사용할 수 없습니다.");
-                //alert("이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!");
                 break;
 
             case err.TIMEOUT:
                 alert("위치정보를 받아오는 시간이 초과되었습니다.");
-                //alert("이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!");
                 break;
 
             case err.UNKNOWN_ERROR:
                 alert("위치정보를 받아올때 알 수 없는 에러가 발생되었습니다.");
-                //alert("이 문장은 알 수 없는 오류가 발생했을 때 나타납니다!");
                 break;
             
         }
@@ -906,7 +841,6 @@
                     //업데이트 버전체크
                     var version = reg.exec(agent)[1];
                     var isUpdate = _isUpdateVersion(CHROME_VERSION, version.toString());
-                    // console.log("브라우저 버전 업데이트를 해야하나 ?? : " + isUpdate);
                 
                     //업데이트가 필요하면 return
                     if (isUpdate) {
@@ -923,12 +857,10 @@
         } else if ( agent.indexOf("safari") !== -1 ) {
             reg = /safari\/(\S+)/;
             console.log("IOS ?? :  " + isIos);
-            //alert(reg.exec(agent)[1]);
             var version = reg.exec(agent)[1];
 
             //IOS11 사파리 버전 앞자리는 604
             var isUpdate = _isUpdateVersion(SAFARI_VERION, version.toString());
-            // console.log("브라우저 버전 업데이트를 해야하나 ?? : " + isUpdate);
             DEVICE_TYPE = "ios";
 
             //업데이트가 필요하면 return
@@ -1020,17 +952,23 @@
 
     //서베이고 페이지로 이동
     let _goSurveyGoPage = function () {
-        const phoneNumber = is.getValueById("mdn");
+        let phoneNumber = "";
         const attendCode  = is.getValueById("attendCode");
 
-        //SMS 인증일때 핸드폰번호로 참여가능한 회수 확인
-        if (isSmsPopup) {
-            let isValidate = _validateArPhoneNumber();
-            if (!isValidate) {
-                return false;
+        if (isApp) {
+            const ocbUserInfo = JSON.parse(sessionStorage.getItem("ocbUserInfo"));
+            phoneNumber = ocbUserInfo.mdn;
+        } else {
+            phoneNumber = is.getValueById("mdn");
+            //SMS 인증일때 핸드폰번호로 참여가능한 회수 확인
+            if (isSmsPopup) {
+                let isValidate = _validateArPhoneNumber();
+                if (!isValidate) {
+                    return false;
+                }
             }
         }
-        
+
         const apiUrl = "/api/v1/survey-go-mobile/survey-attend/possible"
         const param = {
             eventId:eventId,
@@ -1046,6 +984,9 @@
         })
         .done(function(response, text, xhr) {
             console.log("result :: " + JSON.stringify(response));
+            //서베이고 넘겨줄 값 암호화 선언
+            const surveyGoData = {};
+
             //통신 200
             if (xhr.status === 200) {
                 console.log("_goSurveyGoPage >> ", response.result);
@@ -1062,6 +1003,9 @@
 
                     //참여코드가 있으면 참여코드 팝업 삭제, 참여코드 필드 값 공백으로 셋팅
                     if (attendCode) {
+                        //서베이고 넘겨줄 값 '참여코드'
+                        surveyGoData.attendCode = attendCode;
+
                         //참여코드 세션스토리지 저장
                         sessionStorage.setItem("attendCode", attendCode);
                         $.hideElement("#attendCodePopupSection");
@@ -1071,9 +1015,26 @@
                     const result = response.result;
                     
                     if (result.isSurveyAttend && result.surveyLogAttendId) {
-                        sessionStorage.setItem("surveyLogAttendId", result.surveyLogAttendId);  //서베이고 참여 인덱스값
+                        //서베이고 넘겨줄 값 '핸드폰번호'
+                        surveyGoData.userMdn = phoneNumber;
+                        //서베이고 넘겨줄 값 '참여 인덱스값'
+                        surveyGoData.surveyLogAttendId = result.surveyLogAttendId;
+                        surveyGoData.eventId = eventId;
 
-                        location.href = "/web-event/survey-go/survey-go.html?eventId=" + eventId;
+                        sessionStorage.setItem("surveyLogAttendId", result.surveyLogAttendId);  //서베이고 참여 인덱스값
+                                            
+                        if (isApp) {
+                            if (ocbPointSaveType === "PREV") {
+                                $.jStorage.set("surveyGoData", is.aes256Encode(JSON.stringify(surveyGoData)));
+                                ocbApp.requestOcbPointSave();
+                                return;
+                            } else {
+                                let apiUrl = is.getDomain() + "/web-event/survey-go/survey-go.html?eventId=" + eventId; 
+                                ocbApp.goLinkPage(apiUrl);
+                            }
+                        } else {
+                            location.href = "/web-event/survey-go/survey-go.html?eventId=" + eventId;
+                        }
                         return false;
                     } else {
                         is.showCommonPopup(1, "errorAttendSurvey");
@@ -1158,15 +1119,101 @@
         return isValidate;
     }
 
+    let _searchOcbCouponHistory = function(eventId, phoneNumber, attendCode, winningType) {
+        const url = "/api/v1/web-event-front/winning/search";
+        const reqParam = {
+            eventId : eventId,
+            phoneNumber : phoneNumber,
+            attendCode : attendCode
+        };
+
+        $.post({
+            url : url, 
+            data : JSON.stringify(reqParam), 
+            contentType : "application/json; charset=utf-8"
+        })
+        .done(function(res, text, xhr) {
+            if (xhr.status <= 204) {
+                if (res.resultCode === 200) {
+                    let result = res.result;
+                    
+                    if (result) {
+                        const nftWinningIncludeYn = result.nftWinningIncludeYn;
+                        const nftCouponWinningIncludeYn = result.nftCouponWinningIncludeYn;
+                        const eventSessionData = {
+                            eventId: eventId,
+                            //phoneNumber : isSmsSend ? is.getValueById("mdn") : is.getValueById("phoneNumber"),   //sms인증이면 sms인증팝업 영역의 전화번호 영역의 값을 가져오고, sms인증이 아닌 기본 검색이면 기본영역의 전화번호 영역의 값을 가져온다.
+                            phoneNumber : phoneNumber,   //sms인증이면 sms인증팝업 영역의 전화번호 영역의 값을 가져오고, sms인증이 아닌 기본 검색이면 기본영역의 전화번호 영역의 값을 가져온다.
+                            isPhoneNumber : phoneNumber ? true : false,
+                            isAttendCode : attendCode ? true : false,
+                            attendCode : attendCode,
+                            winningType : winningType
+                        };
+                        sessionStorage.setItem("eventSessionData", JSON.stringify(eventSessionData));
+
+                        var url = "nft-repository.html?winningType=" + winningType;
+                        var ocbTargetUrl = is.getDomain() + "/web-event/nft/nft-repository.html?paramData=" + encodeURIComponent(JSON.stringify(eventSessionData));
+
+                        //NFT 목록 화면으로 이동
+                        if (is.isEqual(nftWinningIncludeYn, "Y") || is.isEqual(nftCouponWinningIncludeYn, "Y")) {
+                            if (isApp) {
+                                ocbApp.goLinkPage(ocbTargetUrl);  
+                              } else {
+                                location.href = url;
+                            }
+                        }
+                        if (is.isEqual(winningType, "NFT")) {
+                            if (is.isEqual(nftWinningIncludeYn, "N")) {
+                                if (isApp) {
+                                    ocbApp.goLinkPage(ocbTargetUrl);  
+                                } else {
+                                    location.href = url;
+                                }
+                            } 
+                        }
+                        if (is.isEqual(winningType, "NFTCP")) {
+                            if (is.isEqual(nftCouponWinningIncludeYn, "N")) {
+                                if (isApp) {
+                                    ocbApp.goLinkPage(ocbTargetUrl);  
+                                } else {
+                                    location.href = url;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //통신에러일떄
+            if (xhr.status > 204) {
+                is.showCommonPopup(1, "commonError");
+                return false;
+            }
+        })
+        .fail(function() {
+            is.showCommonPopup(1, "commonError");
+        });
+    };
+
     /*
     * private 함수 끝
     */
-   
 
     $(document).ready(function () {
         is.putPvLogPageView("0", "/main");
+
+        //OCB 앱일때
+        if (isApp) {
+            //OCB인증 콜
+            ocbApp.requestOcbAuth();
+        } else {
+            $.showElement(".moweb_header");
+            $.showElement("#mainSection");
+        }
+
         search(eventId, redirect);
+
         //최초진입시 brower local storage 삭제
         window.localStorage.removeItem("event_validation");
     });
+
 }(jQuery, window, document));
