@@ -1,12 +1,12 @@
 //function import from src/apis/index.js
-import { getEventData, getEventResult } from "@/apis";
+import { getEventData, getEventResult, getEventPhotoBox } from "@/apis";
 
 export const eventData = {
   namespaced: true,
   state: () => ({
     eventData: {},
     eventResult: {},
-    photoStoreData: {},
+    photoBoxData: {},
     isEventFinish: false,
   }),
   mutations: {
@@ -16,8 +16,8 @@ export const eventData = {
     ["SET_EVENT_RESULT"](state, payload) {
       state.eventResult = payload;
     },
-    ["SET_PHOTO_STORE_DATA"](state, payload) {
-      state.photoStoreData = payload;
+    ["SET_PHOTO_BOX_DATA"](state, payload) {
+      state.photoBoxData = payload;
     },
     ["isEventFinish"](state, payload) {
       state.isEventFinish = payload;
@@ -26,6 +26,9 @@ export const eventData = {
   getters: {
     eventData({ eventData }) {
       return eventData;
+    },
+    photoBoxData({ photoBoxData }) {
+      return photoBoxData;
     },
     // 3d객체 정보
     arObjectInfoList({ eventData }) {
@@ -63,8 +66,8 @@ export const eventData = {
       const { arObjectInfo } = eventData;
       return Array.isArray(arObjectInfo) ? arObjectInfo.reduce(getAssetData, []) : [];
     },
-    bannerList({ photoStoreData }) {
-      const { bannerList } = photoStoreData;
+    bannerList({ photoBoxData }) {
+      const { bannerList } = photoBoxData;
       return Array.isArray(bannerList) ? bannerList.map(getBannerData) : [];
     },
     // stamp 정보
@@ -195,24 +198,23 @@ export const eventData = {
     filmResultFooterImgUrl({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgUrl', 'default');
     },
-    //photoStore
-    deviceLocationFindSettingYn({ photoStoreData }) {
-      return photoStoreData?.deviceLocationFindSettingYn ?? "N";
+    deviceLocationFindSettingYn({ photoBoxData }) {
+      return photoBoxData?.deviceLocationFindSettingYn ?? "N";
     },
-    deviceLocationFindButtonText({ photoStoreData }) {
-      return photoStoreData?.deviceLocationFindButtonText ?? "";
+    deviceLocationFindButtonText({ photoBoxData }) {
+      return photoBoxData?.deviceLocationFindButtonText ?? "";
     },
-    locationFindExposureType({ photoStoreData }) {
-      return photoStoreData?.locationFindExposureType ?? "NONE";
+    locationFindExposureType({ photoBoxData }) {
+      return photoBoxData?.locationFindExposureType ?? "NONE";
     },
-    locationFindPopupImgUrl({ photoStoreData }) {
-      return photoStoreData?.locationFindPopupImgUrl ?? "";
+    locationFindPopupImgUrl({ photoBoxData }) {
+      return photoBoxData?.locationFindPopupImgUrl ?? "";
     },
-    freePrintControlYn({ photoStoreData }) {
-      return photoStoreData?.freePrintControlYn ?? "N";
+    freePrintControlYn({ photoBoxData }) {
+      return photoBoxData?.freePrintControlYn ?? "N";
     },
-    freePrintCustomerCount({ photoStoreData }) {
-      return photoStoreData?.freePrintCustomerCount ?? 10;
+    freePrintCustomerCount({ photoBoxData }) {
+      return photoBoxData?.freePrintCustomerCount ?? 10;
     },
 
 
@@ -247,6 +249,24 @@ export const eventData = {
         // return err
       }
     },
+    //포토함 데이터 파싱
+    async getEventPhotoBox({ commit, dispatch }, params) {
+      try {
+        const res = await getEventPhotoBox(params);
+        console.log("getEventPhotoBox", res.data.resultCode)
+        if (res.data.resultCode.toString() === "200") {
+          commit("SET_EVENT_PHOTOBOX", res.data.result);
+          return;
+        }
+        // 에러 처리
+        dispatch("ajaxStatus/setResponse", res.data, { root: true });
+      } catch ({ status: resultCode, statusText: resultMessage }) {
+        // alert(err);
+        dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
+        // return err
+      }
+    },
+
     // 이벤트 결과 파싱
     async getEventResult({ commit, dispatch }, params) {
       try {

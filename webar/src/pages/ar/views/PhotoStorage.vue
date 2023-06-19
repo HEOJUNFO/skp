@@ -29,7 +29,6 @@ import { useStore } from 'vuex';
 
 import ImageStorage from '../../../js/ImageStorage.js';
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
-import useEventData from '../../../composables/useEventData';
 import router from '../router';
 
 export default {
@@ -74,7 +73,7 @@ export default {
         },
     },
     setup() {
-        const { getters, dispatch } = useStore();
+        const { getters } = useStore();
         const showVModal = ref(false);
         const bannerList = ref([]);
         const currentBanner = ref([])
@@ -82,9 +81,6 @@ export default {
         const printModal = ref(null);
         let intervalId = null;
 
-        const {
-            getEventData
-        } = useEventData({ dispatch });
 
         const changeBanner = () => {
             const nextIndex = (bannerList.value.indexOf(currentBanner.value) + 1) % bannerList.value.length;
@@ -100,12 +96,11 @@ export default {
         }
 
         onMounted(async () => {
-            await getEventData();
 
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
-            bannerON.value = true;
+            if (bannerList.value.length > 0) { bannerON.value = true; }
             intervalId = setInterval(changeBanner, 2000);
         });
 

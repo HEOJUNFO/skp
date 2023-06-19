@@ -1271,7 +1271,7 @@ export const jsonData = {
     setPhotoStoreData({ state, commit }) {
       const storeData = localStorage.getItem(state.storageNames[7]);
       const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetPhotoStoreData);
-      commit("eventData/SET_PHOTO_STORE_DATA", data, { root: true });
+      commit("eventData/SET_PHOTO_BOX_DATA", data, { root: true });
     },
   }
 };
