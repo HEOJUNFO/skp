@@ -44,11 +44,11 @@
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <a-entity v-if="selectFilter.includes('star')" position="0 -8 -40"
+    <a-entity v-if="selectFilter.includes('star')" position="0 -15 -40"
       particle-system="color: #FF0,#FF0; size:2;"></a-entity>
-    <a-entity v-if="selectFilter.includes('snow')" position="0 -8 -40"
+    <a-entity v-if="selectFilter.includes('snow')" position="0 -15 -40"
       particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
-    <a-entity v-if="selectFilter.includes('rain')" position="0 -8 -40"
+    <a-entity v-if="selectFilter.includes('rain')" position="0 -15 -40"
       particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
 
