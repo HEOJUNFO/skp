@@ -11,7 +11,7 @@ import Landing from "@/veiws/Landing";
 import SampleLanding from "../veiws/SampleLanding";
 import OpenBrowser from "@/veiws/OpenBrowser";
 import WebView from "@/veiws/WebView"
-import PhotoStorage from "@/veiws/PhotoStorage";
+import PhotoBox from "@/veiws/PhotoBox";
 
 
 
@@ -26,7 +26,7 @@ export const routes = [
     {path: '/json-editor/', component: JsonEditor, name: 'Json Editor'},
     {path: '/open-browser', component: OpenBrowser, name: 'OpenBrowser'},
     {path: '/webview', component: WebView, name: 'WebView'},
-    {path: '/photo-storage', component: PhotoStorage, name: 'PhotoStorage'},
+    {path: '/photo-box', component: PhotoBox, name: 'PhotoBox'},
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
 

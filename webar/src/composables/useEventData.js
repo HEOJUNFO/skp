@@ -48,7 +48,7 @@ export default function useEventData() {
                 await dispatch("jsonData/setActionObjectFrame");
                 await dispatch("jsonData/setPhotoStoreData");
             }
-            if (parent.location.hash.indexOf("photo-storage") > -1) {
+            if (parent.location.hash.indexOf("photo-box") > -1) {
                 await dispatch("jsonData/setPhotoStoreData");
             }
 
