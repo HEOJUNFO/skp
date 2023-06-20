@@ -44,23 +44,23 @@ export const eventData = {
     // asset 정보
     frameContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.frameContentsInfo.map(getContentsData) ?? [];
+      return   photoContentsInfo?.frameContentsInfo?.map(getContentsData) ?? [];
     },
     characterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.characterContentsInfo.map(getContentsData) ?? [];
+      return   photoContentsInfo?.characterContentsInfo?.map(getContentsData) ?? [];
     },
     tabContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  photoContentsInfo?.tabContentsInfo.map(getContentsData) ?? [];
+      return  photoContentsInfo?.tabContentsInfo?.map(getContentsData) ?? [];
     },
     filterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.filterContentsInfo.map(getContentsData) ?? [];
+      return   photoContentsInfo?.filterContentsInfo?.map(getContentsData) ?? [];
     },
     stickerContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.stickerContentsInfo.map(getContentsData) ?? [];
+      return   photoContentsInfo?.stickerContentsInfo?.map(getContentsData) ?? [];
     },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
