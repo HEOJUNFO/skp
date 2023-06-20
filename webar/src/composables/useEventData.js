@@ -15,7 +15,7 @@ export default function useEventData() {
 
     const getEventData = async () => {
         const {type} = query;
-        if (type === "landing" || type === "sample-landing") {
+        if (type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview") {
             // 랜딩 페이지 일때 session storage에서 데이터 파싱
             await dispatch("eventData/getStroageEventData");
         } else {
@@ -41,7 +41,7 @@ export default function useEventData() {
                 await dispatch("jsonData/setActionObjectDragNDrop");
             }
             if (parent.location.hash.indexOf("open-browser") > -1) {
-                await dispatch("jsonData/setActionObjectFrame");
+                // await dispatch("jsonData/setActionObjectFrame");
                 await dispatch("jsonData/setPhotoStoreData");
             }
             if (parent.location.hash.indexOf("webview") > -1) {

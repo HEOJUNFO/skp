@@ -67,7 +67,6 @@ export default {
     };
 
     onMounted(async () => {
-      console.log("onMounted")
       const eventValidation = arData?.value;
       // const eventValidation = window.localStorage.getItem('event_validation')
       const isLocal = window.location.port !== "";
@@ -101,8 +100,8 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        console.log("params", params);
-        await dispatch("eventData/getEventData", params);
+        await dispatch("jsonData/setActionObjectFrame");
+
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         // 세션스토리지에 json데이터 저장

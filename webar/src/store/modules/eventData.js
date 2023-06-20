@@ -44,23 +44,23 @@ export const eventData = {
     // asset 정보
     frameContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].frameContentsInfo.map(getContentsData) : [];
+      return   photoContentsInfo?.frameContentsInfo.map(getContentsData) ?? [];
     },
     characterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].characterContentsInfo.map(getContentsData) : [];
+      return   photoContentsInfo?.characterContentsInfo.map(getContentsData) ?? [];
     },
     tabContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].tabContentsInfo.map(getContentsData) : [];
+      return  photoContentsInfo?.tabContentsInfo.map(getContentsData) ?? [];
     },
     filterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].filterContentsInfo.map(getContentsData) : [];
+      return   photoContentsInfo?.filterContentsInfo.map(getContentsData) ?? [];
     },
     stickerContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  Array.isArray(photoContentsInfo) ? photoContentsInfo[0].stickerContentsInfo.map(getContentsData) : [];
+      return   photoContentsInfo?.stickerContentsInfo.map(getContentsData) ?? [];
     },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
@@ -287,6 +287,7 @@ export const eventData = {
     async getStroageEventData({ commit }) {
       return new Promise((resolve) => {
         const storageData = sessionStorage.getItem("skWebArJson");
+        console.log(JSON.parse(storageData))
         commit("SET_EVENT_DATA", JSON.parse(storageData));
         resolve(storageData);
       });
@@ -517,8 +518,6 @@ function getBannerData(item) {
 }
 
 function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {
-  if (Array.isArray(eventData?.photoLogicalInfo)){
-    return eventData?.photoLogicalInfo[0][propertyName] ?? defaultValue;
-  }
+    return eventData?.photoLogicalInfo?.[propertyName]?? defaultValue; 
 }
 

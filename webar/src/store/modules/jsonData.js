@@ -950,7 +950,7 @@ export const jsonData = {
           inactiveThumbnailUrl: "", //	리소스 url 값
         },
       ],
-      photoLogicalInfo: [{
+      photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
         arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
@@ -972,8 +972,8 @@ export const jsonData = {
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
         filmResultFooterImgSettingYn: "Y",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
         filmResultFooterImgUrl: "https://blog.kakaocdn.net/dn/CNxUY/btqw7dnElRU/HuVZgvpT6J8n4aEYFathEk/img.jpg",	      // 	하단 이미지 url	String	하단 이미지 url
-      }],
-      photoContentsInfo: [{
+      },
+      photoContentsInfo: {
 
         frameContentsInfo: [              // 프레임 콘텐츠 정보(array)
           {
@@ -1109,7 +1109,7 @@ export const jsonData = {
             sort: 1,                      //	순서	int	
           },
         ],
-      }],
+      },
     },
     actionObjectBasic: null,
     actionObjectMission: null,
