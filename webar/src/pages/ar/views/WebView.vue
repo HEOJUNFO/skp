@@ -70,6 +70,11 @@ export default {
       return istutorial === 'Y';
     });
 
+    const loadingYn = computed(() => {
+      const isLoading = store.getters['eventData/loadingImgYn'];
+      return isLoading === 'Y';
+    });
+
     const {
       getEventData
     } = useEventData({ dispatch });
@@ -211,8 +216,7 @@ export default {
         else {
           toggleBarVisibility();
         }
-      }, 5000)
-
+      }, loadingYn.value ? 5000 : 0)
 
     });
 

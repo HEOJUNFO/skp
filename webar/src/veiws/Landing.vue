@@ -100,6 +100,7 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
+        console.log("params", params);
         await dispatch("jsonData/setActionObjectFrame");
 
         // store에서 데이터 파싱
