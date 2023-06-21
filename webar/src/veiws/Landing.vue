@@ -100,15 +100,12 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        console.log("params", params);
         await dispatch("jsonData/setActionObjectFrame");
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         // 세션스토리지에 json데이터 저장
-        console.log("eventData.value", eventData.value);
         sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
-        console.log("sessionStorage.setItem");
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
         console.log("eventValidationData", eventValidationData);
         await dispatch("url/setActionType", eventValidationData.activeType);
