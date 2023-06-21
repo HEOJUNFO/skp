@@ -1,5 +1,5 @@
 <template>
-  <a-scene stats :mindar-face="isMindARImage == false ? '' : null"
+  <a-scene embedded stats :mindar-face="isMindARImage == false ? '' : null"
     :mindar-image="isMindARImage ? 'imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; uiError:no; uiLoading:no; uiScanning:no' : null"
     gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false;" color-space="sRGB"
     vr-mode-ui="enabled: false"

@@ -250,7 +250,7 @@ export default {
 
 .image {
   width: auto;
-  height: 33%;
+  height: 60%;
 }
 
 .buttons {

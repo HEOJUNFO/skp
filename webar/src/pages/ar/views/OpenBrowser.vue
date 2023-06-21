@@ -11,7 +11,7 @@
           @allow:orientationpermission="allowOrientationPermission"
           @reject:orientationpermission="rejectOrientationPermission"
           @request:orientationpermission="rquestOrientationPermission" />
-        <capture-web-view-modal ref="captureModal" :image-url="imageUrl" />
+        <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
       </template>
     </ar-photo-container>
   </nav-bar>
@@ -26,7 +26,7 @@ import NavBar from "../../../components/common/NavBar.vue";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
 import Camera from "@/components/common/Camera";
 import TutorialModal from "@/components/modal/TutorialModal";
-import CaptureWebViewModal from "../../../components/modal/CaptureWebViewModal.vue";
+import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
 
 import useEventData from "@/composables/useEventData";
@@ -44,7 +44,7 @@ export default {
     EventArPhotoObject,
     ArPhotoContainer,
     TutorialModal,
-    CaptureWebViewModal,
+    CaptureOpenBrowserModal,
     BrowserCheckModal,
     NavBar
   },

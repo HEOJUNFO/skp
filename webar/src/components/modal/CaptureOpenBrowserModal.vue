@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <print-web-view-modal ref="printModal" />
+    <print-open-browser-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
   </vue-final-modal>
 </template>
@@ -81,13 +81,13 @@
 import { ref, computed, inject } from "vue";
 import { useStore } from "vuex";
 
-import PrintWebViewModal from "./PrintWebViewModal.vue";
+import PrintOpenBrowserModal from "./PrintOpenBrowserModal.vue";
 import PhotoStoreModal from "./PhotoStoreModal.vue";
 
 export default {
   name: "EventCompleteModal",
   components: {
-    printWebViewModal: PrintWebViewModal,
+    PrintOpenBrowserModal,
     PhotoStoreModal,
   },
   data() {
@@ -246,11 +246,12 @@ export default {
   background-color: #fff;
   background-blend-mode: multiply;
   padding-top: 10%;
+  overflow-y: scroll;
 }
 
 .image {
   width: auto;
-  height: 33%;
+  height: 60%;
 }
 
 .buttons {
