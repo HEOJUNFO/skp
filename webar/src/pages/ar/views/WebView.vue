@@ -51,7 +51,6 @@ export default {
   setup() {
     const store = useStore();
     const { dispatch, getters } = store;
-    const templateType = ref(null);
     const loadedVideo = ref(false);
     const tutorialPopup = ref(false);
     const cameraRef = ref(null);
@@ -203,7 +202,6 @@ export default {
 
     onMounted(async () => {
       await getEventData();
-      templateType.value = getters['eventData/templateType'];
       setList();
 
       startLoading();
@@ -227,7 +225,6 @@ export default {
       tabList,
       frameList,
       eventResult,
-      templateType,
       loadedVideo,
       loadingState,
       loadVideo,
