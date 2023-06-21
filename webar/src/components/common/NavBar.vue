@@ -253,7 +253,6 @@ export default {
         }
 
         const exit = () => {
-
             router.back();
         };
 
