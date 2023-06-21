@@ -48,8 +48,8 @@
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">X</button>
           <p>휴대폰 갤러리에 저장되었습니다</p>
-          <p>지금 출력을 원하시면 출력 하기를</p>
-          <p>눌러주세요</p>
+          <p>지금 출력을 원하시면</p>
+          <p>출력 하기를 눌러주세요</p>
           <div class="button-container">
             <button class="round-button" @click="photoStore(), showSaveModal = false">포토함 이동</button>
             <button class="round-button" @click="print(), showSaveModal = false">지금 출력</button>

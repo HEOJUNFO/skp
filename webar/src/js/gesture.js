@@ -4,7 +4,7 @@ export function setGesture() {
         enabled: { default: false },
         moveFactor: { default: 2.5 },
         rotateFactor: {default : 8},
-        minScale: { default: 0.3 },
+        minScale: { default: 0.6 },
         maxScale: { default: 5 },
         locationBased: { default: false},
       },
