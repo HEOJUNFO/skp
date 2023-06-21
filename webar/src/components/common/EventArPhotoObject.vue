@@ -102,7 +102,7 @@ export default {
   components: { ArPhotoObject },
 
   setup(props, { emit }) {
-    const isMindARFace = ref(false);
+    const isMindARFace = ref(true);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
 
