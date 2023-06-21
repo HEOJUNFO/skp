@@ -12,6 +12,8 @@ import SampleLanding from "../veiws/SampleLanding";
 import OpenBrowser from "@/veiws/OpenBrowser";
 import WebView from "@/veiws/WebView"
 import PhotoBox from "@/veiws/PhotoBox";
+import ImgTracking from "@/veiws/ImgTracking";
+
 
 
 
@@ -27,6 +29,8 @@ export const routes = [
     {path: '/open-browser', component: OpenBrowser, name: 'OpenBrowser'},
     {path: '/webview', component: WebView, name: 'WebView'},
     {path: '/photo-box', component: PhotoBox, name: 'PhotoBox'},
+    {path: '/img-tracking', component: ImgTracking, name: 'ImgTracking'},
+    
     {path: '/sample-landing', component: SampleLanding, name: 'SampleLanding'},
 ]
 

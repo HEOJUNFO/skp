@@ -3,16 +3,24 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, toRefs  } from "vue";
 import { getUserMedia } from "@/js/getUserMedia";
 
 export default {
   name: "Camera",
+  props: {
+    facingMode: {
+      type: String,
+      default: 'user',
+    },
+  },
   emits: ['loadeddata', 'loadedmetadata', 'reject:video'],
   setup(props, { emit }) {
     const video = ref(null);
+    const { facingMode } = toRefs(props)
 
-    let facingMode = "user";
+    let myFacingMode = facingMode.value;
+  
     // meta data load
     const loadedmetadata = () => {
       emit('loadedmetadata');
@@ -22,10 +30,10 @@ export default {
       emit('loadeddata');
     }
     const flipCamera = async () => {
-      facingMode = facingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
+      myFacingMode = myFacingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
 
       try {
-        await getUserMedia({ videoEl: video.value, facingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
       } catch (err) {
         emit('reject:video')
       }
@@ -41,7 +49,7 @@ export default {
 
     const resetCamera = async () => {
       try {
-        await getUserMedia({ videoEl: video.value, facingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
       } catch (err) {
         emit('reject:video')
       }
@@ -50,7 +58,7 @@ export default {
 
     onMounted(async () => {
       try {
-        await getUserMedia({ videoEl: video.value, facingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
       } catch (err) {
         // alert('카메라 사용을 허용하지 않으셨습니다. 이벤트 페이지로 돌아갑니다.')
         emit('reject:video')
