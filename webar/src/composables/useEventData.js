@@ -18,6 +18,7 @@ export default function useEventData() {
         if (type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview") {
             // 랜딩 페이지 일때 session storage에서 데이터 파싱
             await dispatch("eventData/getStroageEventData");
+            await dispatch("jsonData/setPhotoBoxData");
         } else {
             // 샘플 페이지용 - jsonData store의 데이터를 사용
             if (parent.location.hash.indexOf("basic") > -1) {
@@ -42,14 +43,14 @@ export default function useEventData() {
             }
             if (parent.location.hash.indexOf("open-browser") > -1) {
                 // await dispatch("jsonData/setActionObjectFrame");
-                await dispatch("jsonData/setPhotoStoreData");
+                await dispatch("jsonData/setPhotoBoxData");
             }
             if (parent.location.hash.indexOf("webview") > -1) {
                 await dispatch("jsonData/setActionObjectFrame");
-                await dispatch("jsonData/setPhotoStoreData");
+                await dispatch("jsonData/setPhotoBoxData");
             }
             if (parent.location.hash.indexOf("photo-box") > -1) {
-                await dispatch("jsonData/setPhotoStoreData");
+                await dispatch("jsonData/setPhotoBoxData");
             }
 
         }

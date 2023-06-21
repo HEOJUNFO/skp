@@ -740,7 +740,7 @@ export const jsonData = {
         },
       ],
     },
-    offsetPhotoStoreData: {
+    offsetPhotoBoxData: {
       deviceLocationFindSettingYn: "Y", //디바이스 위치 찾기 버튼 설정 여부 설정안함: N / 설정함: Y
       deviceLocationFindButtonText: "셀픽 디바이스 찾기", //디바이스 위치 찾기 버튼 문구
       locationFindExposureType: "", //위치 찾기 노출 설정 지도보기: MAP / 팝업보기: POPUP
@@ -1118,7 +1118,7 @@ export const jsonData = {
     resultData: null,
     actionObjectDragNDrop: null,
     actionObjectFrame : null,
-    photoStoreData: null,
+    photoBoxData: null,
     storageNames: [
       "skWebArActionObjectBasic",
       "skWebArActionObjectMission",
@@ -1127,7 +1127,7 @@ export const jsonData = {
       "skWebArResultData",
       "skWebArActionObjectDragNDrop",
       "skWebArActionObjectFrame",
-      "skWebArPhotoStoreData",
+      "skWebArPhotoBoxData",
     ],
   }),
   mutations: {
@@ -1157,8 +1157,8 @@ export const jsonData = {
     ["SET_RESULT_DATA"](state, payload) {
       state.resultData = payload;
     },
-    ["SET_PHOTO_STORE_DATA"](state, payload) {
-      state.photoStoreData = payload;
+    ["SET_PHOTO_BOX_DATA"](state, payload) {
+      state.photoBoxData = payload;
     }
   },
   getters: {
@@ -1190,8 +1190,8 @@ export const jsonData = {
     actionObjectFrame(state) {
       return state.actionObjectFrame;
     },
-    photoStoreData(state) {
-      return state.photoStoreData;
+    photoBoxData(state) {
+      return state.photoBoxData;
     }
   },
   actions: {
@@ -1204,7 +1204,7 @@ export const jsonData = {
       dispatch("resetImageResultData");
       dispatch("resetActionObjectDragNDrop");
       dispatch("resetActionObjectFrame");
-      dispatch("resetPhotoStoreData");
+      dispatch("resetPhotoBoxData");
     },
     resetActionObjectBasic({ state, commit }) {
       commit("SET_ACTION_OBJECT_BASIC", _.cloneDeep(state.offsetActionObjectBasic));
@@ -1227,8 +1227,8 @@ export const jsonData = {
     resetActionObjectFrame({ state, commit }) {
       commit("SET_ACTION_OBJECT_FRAME", _.cloneDeep(state.offsetActionObjectFrame));
     },
-    resetPhotoStoreData({ state, commit }) {
-      commit("SET_PHOTO_STORE_DATA", _.cloneDeep(state.offsetPhotoStoreData));
+    resetPhotoBoxData({ state, commit }) {
+      commit("SET_PHOTO_BOX_DATA", _.cloneDeep(state.offsetPhotoBoxData));
     },
 
     setActionObjectBasic({ state, commit }) {
@@ -1268,9 +1268,9 @@ export const jsonData = {
       const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetActionObjectFrame);
       commit("eventData/SET_EVENT_DATA", data, { root: true });
     },
-    setPhotoStoreData({ state, commit }) {
+    setPhotoBoxData({ state, commit }) {
       const storeData = localStorage.getItem(state.storageNames[7]);
-      const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetPhotoStoreData);
+      const data = storeData && storeData !== "" ? JSON.parse(storeData) : _.cloneDeep(state.offsetPhotoBoxData);
       commit("eventData/SET_PHOTO_BOX_DATA", data, { root: true });
     },
   }

@@ -3,6 +3,10 @@
         <button class="exit-button" @click="exit(), stopInterval()">X</button>
         <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
         <button class="box-button" @click="triggerFileInput">사진 업로드</button>
+        <div v-if="imagesData.length === 0" class="empty-message">
+            <p>저장되거나 공유된 사진이 없습니다.</p>
+            <p>AR포토 촬영하고 다양한 혜택을 받으세요.</p>
+        </div>
         <div class="image-group">
             <div v-for="i in visibleImages" :key="i.id" class="image-container">
                 <img :src="i.url" alt="Uploaded image" @click="imgClick(i.url)">
