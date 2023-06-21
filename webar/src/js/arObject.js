@@ -311,7 +311,7 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'CHARACTER') {
-     const scale = getScale({sizeX: 0.2, sizeY: 0.2, sizeZ: 0.2});
+     const scale = getScale({sizeX: 0.05, sizeY: 0.05, sizeZ: 0.05});
     return {
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,
@@ -322,14 +322,14 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'STICKER') {
-    const width = data.sizeX ? data.sizeX : 0.4;
-    const height = data.sizeY ? data.sizeY : 0.5;
+    const width = data.sizeX ? data.sizeX : 0.2;
+    const height = data.sizeY ? data.sizeY : 0.25;
     return {
       width,
       height,
     ['alpha-test']: 0.5,
       src: data.file.toString(),
-      position: getPosition({positionX: getRandomArbitrary(-0.5,0.5), positionY: getRandomArbitrary(-0.2,2), positionZ: -2}),
+      position: getPosition({positionX: getRandomArbitrary(-0.3,0.3), positionY: getRandomArbitrary(0.2,1.2), positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),
       ['look-at']: '[gps-camera]',
     }

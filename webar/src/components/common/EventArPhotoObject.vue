@@ -44,11 +44,11 @@
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <a-entity v-if="selectFilter.includes('star')" position="0 -15 -40"
+    <a-entity v-if="selectFilter.includes('star')" position="0 -8 -40"
       particle-system="color: #FF0,#FF0; size:2;"></a-entity>
-    <a-entity v-if="selectFilter.includes('snow')" position="0 -15 -40"
+    <a-entity v-if="selectFilter.includes('snow')" position="0 -8 -40"
       particle-system="preset: snow; size:10; particleCount: 1000;"></a-entity>
-    <a-entity v-if="selectFilter.includes('rain')" position="0 -15 -40"
+    <a-entity v-if="selectFilter.includes('rain')" position="0 -8 -40"
       particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
 
@@ -77,8 +77,10 @@
         animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
     </a-entity>
 
-    <a-camera active="false" camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-camera>
-    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-entity>
+    <a-camera active="false" camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
+      look-controls="enabled:false;"></a-camera>
+    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
+      look-controls="enabled:false;"></a-entity>
 
   </a-scene>
 </template>
@@ -101,7 +103,7 @@ export default {
 
   setup(props, { emit }) {
     const isMindARFace = ref(false);
-    const isMindARImage = ref(true);
+    const isMindARImage = ref(false);
     const stickerList = ref([]);
 
     const selectCharacter = ref([1]);
