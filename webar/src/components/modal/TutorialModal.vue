@@ -3,7 +3,6 @@
     <div class="tutorial-inner">
       <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
         <img :src="tutorial.image" alt="튜토리얼가이드 이미지 필요!!" />
-        <p>{{ tutorial.description }}</p>
       </div>
 
       <div class="navigation">
@@ -29,10 +28,10 @@ export default {
     return {
       tutorials: [
         // 여기에 튜토리얼 이미지와 설명을 추가하십시오
-        { image: '/path/to/image1.jpg', description: 'tutorial 1' },
-        { image: '/path/to/image2.jpg', description: 'tutorial 2' },
-        { image: '/path/to/image3.jpg', description: 'tutorial 3' },
-        { image: '/path/to/image4.jpg', description: 'tutorial 4' },
+        { image: require('../../assets/img/test1.png'), description: 'tutorial 1' },
+        { image: require('../../assets/img/test_2.png'), description: 'tutorial 2' },
+        { image: require('../../assets/img/test_3.png'), description: 'tutorial 3' },
+        { image: require('../../assets/img/test_4.png'), description: 'tutorial 4' },
       ],
       currentIndex: 0,
     };
@@ -73,6 +72,7 @@ export default {
   text-align: center;
   margin-bottom: 1em;
   background-color: #fff;
+  width: 50%;
 }
 
 .navigation {

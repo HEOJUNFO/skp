@@ -5,7 +5,6 @@
 * 로컬 : vuex에 있는 데이터를 사용
 *
 * */
-
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
 
@@ -15,11 +14,17 @@ export default function useEventData() {
 
     const getEventData = async () => {
         const {type} = query;
-        if (type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview") {
+        const isLocal = window.location.port !== "";
+
+        if(!isLocal) {  
+            await dispatch("eventData/getStroageEventData");
+            await dispatch("jsonData/setPhotoBoxData");
+        }
+        if (type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview" && isLocal) {
             // 랜딩 페이지 일때 session storage에서 데이터 파싱
             await dispatch("eventData/getStroageEventData");
             await dispatch("jsonData/setPhotoBoxData");
-        } else {
+        } else if(isLocal) {
             // 샘플 페이지용 - jsonData store의 데이터를 사용
             if (parent.location.hash.indexOf("basic") > -1) {
                 // basic object

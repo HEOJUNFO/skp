@@ -99,7 +99,6 @@ export default {
             imageUrl.value = url
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
-            console.log(bannerList.value)
             currentBanner.value = bannerList.value[0];
             bannerON.value = true;
             intervalId = setInterval(changeBanner, 2000);
