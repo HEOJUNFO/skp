@@ -168,7 +168,7 @@ export default {
   height: 100%;
   position: absolute;
   background-color: #fff;
-
+  overflow-y: scroll;
 }
 
 .image {

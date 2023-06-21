@@ -245,7 +245,7 @@ export default {
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
-  padding-top: 10%;
+  padding-top: 5%;
   overflow-y: scroll;
 }
 
