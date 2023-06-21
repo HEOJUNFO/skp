@@ -77,9 +77,7 @@
         animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
     </a-entity>
 
-    <a-camera active="false"></a-camera>
-    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
-      look-controls="enabled:false;"></a-entity>
+    <a-camera active="false" camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:false;"></a-camera>
 
   </a-scene>
 </template>
