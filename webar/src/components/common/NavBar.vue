@@ -535,6 +535,7 @@ export default {
 
 .tab {
     margin: 0 6%;
+    font-size: 15px;
 }
 
 .image-view.selected {
