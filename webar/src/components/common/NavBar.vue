@@ -60,63 +60,68 @@
                 <p style="font-size: 17.5px; font-weight: bold; ">이펙트</p>
             </button>
         </div>
-        <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
-            <div class="tab-container">
-                <button class="tab" v-for="tab in frameTabs" :key="tab.id"
-                    :class="{ selected: selectedFrameTab === tab.id }" @click="selectFrameTab(tab.id)">{{ tab.name
-                    }}</button>
-            </div>
-            <div class="image-container">
-                <div class="image-view" v-for="image in frameList" :key="image.id">
-                    <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
-                    <img v-show="image.select" src="../../assets/icon/check-icon.png" alt="선택"
-                        style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
-                    <span>{{ image.name }}</span>
+        <transition name="fade">
+            <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+                <div class="tab-container">
+                    <button class="tab" v-for="tab in frameTabs" :key="tab.id"
+                        :class="{ selected: selectedFrameTab === tab.id }" @click="selectFrameTab(tab.id)">{{ tab.name
+                        }}</button>
+                </div>
+                <div class="image-container">
+                    <div class="image-view" v-for="image in frameList" :key="image.id">
+                        <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
+                        <img v-show="image.select" src="../../assets/icon/check-icon.png" alt="선택"
+                            style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
+                        <span>{{ image.name }}</span>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button @click="frameToggleBar">
+                        <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
+                    </button>
+                    <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
+                        <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+                    </button>
+                    <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+                        <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
+                            style="width: 40px; height: 40px; " />
+                    </button>
                 </div>
             </div>
-            <div class="button-container">
-                <button @click="frameToggleBar">
-                    <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
-                </button>
-                <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-                    <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
-                </button>
-                <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                    <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
-                        style="width: 40px; height: 40px; " />
-                </button>
-            </div>
-        </div>
-        <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
-            <div class="tab-container">
-                <button class="tab" v-for="tab in effectTabs" :key="tab.id"
-                    :class="{ selected: selectedEffectTab === tab.id }" @click="selectEffectTab(tab.id)">{{ tab.name
-                    }}</button>
-            </div>
-            <div class="image-container">
-                <div class="image-view" v-for="image in currentList" :key="image.id">
-                    <img v-if="image.type !== 'STICKER'" :src="image.src" @click="selectImage(currentList, image.id)"
-                        class="frame-image" />
-                    <img v-if="image.type === 'STICKER'" :src="image.src" @click="selectSticker(currentList, image.id)"
-                        class="frame-image" />
-                    <img v-show="image.select && image.type !== 'STICKER'" src="../../assets/icon/check-icon.png" alt="선택"
-                        style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
-                    <span>{{ image.name }}</span>
+        </transition>
+        <transition name="fade">
+            <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+                <div class="tab-container">
+                    <button class="tab" v-for="tab in effectTabs" :key="tab.id"
+                        :class="{ selected: selectedEffectTab === tab.id }" @click="selectEffectTab(tab.id)">{{ tab.name
+                        }}</button>
+                </div>
+                <div class="image-container">
+                    <div class="image-view" v-for="image in currentList" :key="image.id">
+                        <img v-if="image.type !== 'STICKER'" :src="image.src" @click="selectImage(currentList, image.id)"
+                            class="frame-image" />
+                        <img v-if="image.type === 'STICKER'" :src="image.src" @click="selectSticker(currentList, image.id)"
+                            class="frame-image" />
+                        <img v-show="image.select && image.type !== 'STICKER'" src="../../assets/icon/check-icon.png"
+                            alt="선택"
+                            style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
+                        <span>{{ image.name }}</span>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button @click="effectToggleBar">
+                        <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
+                    </button>
+                    <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
+                        <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
+                    </button>
+                    <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+                        <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
+                            style="width: 40px; height: 40px; " />
+                    </button>
                 </div>
             </div>
-            <div class="button-container">
-                <button @click="effectToggleBar">
-                    <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
-                </button>
-                <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-                    <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
-                </button>
-                <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                    <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
-                        style="width: 40px; height: 40px; " />
-                </button>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
   
@@ -450,6 +455,7 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
     color: #fff;
+    top: 100%;
 }
 
 .frame-button {
@@ -471,20 +477,24 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-}
-
-.bottom-bar-1 {
-    top: 100%;
-}
-
-.bottom-bar-2 {
     top: 89%;
     padding-top: 1%;
+    flex-direction: column;
 }
 
-.bottom-bar-2 {
-    flex-direction: column;
+.fade-enter-from,
+.fade-leave-to {
+    transform: translateY(39%);
+}
 
+.fade-enter-active,
+.fade-leave-active {
+    transition: transform 1s ease-in-out;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    transform: translateY(0%);
 }
 
 .tab-container {
