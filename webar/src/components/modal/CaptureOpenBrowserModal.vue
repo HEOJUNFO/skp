@@ -5,13 +5,13 @@
       <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
       <div class="buttons">
         <button @click="back">
-          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 30px; height: 30px;" />
+          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 70px; height: 70px;" />
         </button>
         <button @click="saveImage(), showSaveModal = true">
-          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 30px; height: 30px;" />
+          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 70px; height: 70px;" />
         </button>
         <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
-          <img src="../../assets/icon/share-button.png" alt="공유" style="width: 30px; height: 30px;" />
+          <img src="../../assets/icon/share-button.png" alt="공유" style="width: 70px; height: 70px;" />
         </button>
       </div>
       <div v-if="hashTagYn" class="box">
@@ -245,7 +245,7 @@ export default {
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
-  padding-top: 5%;
+  padding-top: 10%;
   overflow-y: scroll;
 }
 
@@ -258,20 +258,21 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+  height: 10%;
+  margin-top: 10%;
+  margin-bottom: 20%;
 }
 
 .box-button {
   display: block;
   margin-left: 10%;
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+  margin-top: 10%;
   width: 80%;
-  height: 5%;
+  height: 7.5%;
   border: 1px solid #000;
   border-radius: 15px;
   background-color: #fff;
+  font-size: 20px;
 }
 
 .modal {
