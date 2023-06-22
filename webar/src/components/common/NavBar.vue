@@ -29,16 +29,16 @@
                 <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;">X</span>
             </button>
             <button @click="flipCamera()" class="flip-button">
-                <img src="../../assets/icon/right-left-button.png" alt="전환" style="width: 35px; height: 35px;  " />
+                <img src="../../assets/icon/right-left-button.png" alt="전환" style="width: 40px; height: 40px;  " />
             </button>
             <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true" class="beauty-button">
-                <img src="../../assets/icon/toggle-off-button.png" alt="뷰티off" style="width: 40px; height: 40px;  " />
+                <img src="../../assets/icon/toggle-off-button.png" alt="뷰티off" style="width: 45px; height: 45px;  " />
             </button>
             <button v-if="!isCapturing && isBeauty" @click="isBeauty = false" class="beauty-button">
-                <img src="../../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 40px; height: 40px; " />
+                <img src="../../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 45px; height: 45px; " />
             </button>
             <button v-if="!isCapturing" @click="exitModalVisible = true" class="exit-button">
-                <img src="../../assets/icon/close-button.png" alt="X" style="width: 30px; height: 40px; " />
+                <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
             </button>
         </div>
         <slot></slot>
@@ -420,7 +420,7 @@ export default {
 .top-bar {
     position: absolute;
     width: 100%;
-    height: 7%;
+    height: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "aspect timer flip beauty exit";
@@ -455,7 +455,7 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
     color: #fff;
-    top: 100%;
+    top: 103%;
 }
 
 .frame-button {
@@ -477,7 +477,7 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    top: 89%;
+    top: 92%;
     padding-top: 1%;
     flex-direction: column;
 }
