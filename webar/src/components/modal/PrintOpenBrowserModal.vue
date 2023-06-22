@@ -142,6 +142,12 @@ export default {
       showVModal.value = false;
     }
 
+    const webBack = () => {
+      console.log('back3')
+      window.onpopstate = null;
+      exit();
+    }
+
     return {
       showVModal,
       imageUrl,
@@ -159,6 +165,7 @@ export default {
       deviceNumber,
       printStatus,
       showErrorModal,
+      webBack,
     }
   },
 }
@@ -308,7 +315,7 @@ export default {
 .prints-number {
   border: 1px solid black;
   padding: 2px 70px;
-
+  height: 60%;
 }
 
 .button-print1 {
@@ -323,6 +330,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 2px 4px;
+  height: 80%;
 }
 
 .button-print2 {
@@ -337,5 +345,6 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 2px 4px;
+  height: 80%;
 }
 </style>

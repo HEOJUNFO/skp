@@ -308,6 +308,7 @@ export default {
 .prints-number {
   border: 1px solid black;
   padding: 2px 70px;
+  height: 60%;
 
 }
 
@@ -323,6 +324,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 2px 4px;
+  height: 80%;
 }
 
 .button-print2 {
@@ -337,5 +339,6 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 2px 4px;
+  height: 80%;
 }
 </style>

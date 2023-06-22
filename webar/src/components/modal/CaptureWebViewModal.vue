@@ -270,12 +270,12 @@ export default {
 
 .box-button {
   display: block;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 10%;
-  width: 80%;
+  width: 90%;
   height: 7.5%;
   border: 1px solid #000;
-  border-radius: 15px;
+  border-radius: 25px;
   background-color: #fff;
   font-size: 20px;
 }

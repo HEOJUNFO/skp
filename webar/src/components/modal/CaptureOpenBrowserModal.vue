@@ -192,7 +192,6 @@ export default {
     const toggleBarVisibility = inject('toggleBarVisibility');
     const back = () => {
       toggleBarVisibility();
-      // window.parent.reCapture()
       showVModal.value = false;
     }
 
@@ -206,6 +205,17 @@ export default {
             alert('공유기능을 지원하지 않는 브라우저입니다.'));
       } else {
         alert('공유기능을 지원하지 않는 브라우저입니다.');
+      }
+    }
+
+    const webBack = () => {
+      if (printModal.value.showVModal) {
+        console.log('print')
+        printModal.value.webBack();
+      }
+      else {
+        console.log('back2')
+        back();
       }
     }
 
@@ -235,7 +245,8 @@ export default {
       photoGiveAwayButtonText,
       filmResultFooterImgYn,
       filmResultFooterImgUrl,
-      filmResultImgUrl
+      filmResultImgUrl,
+      webBack,
     }
   }
 }
@@ -270,12 +281,12 @@ export default {
 
 .box-button {
   display: block;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 10%;
-  width: 80%;
+  width: 90%;
   height: 7.5%;
   border: 1px solid #000;
-  border-radius: 15px;
+  border-radius: 25px;
   background-color: #fff;
   font-size: 20px;
 }
