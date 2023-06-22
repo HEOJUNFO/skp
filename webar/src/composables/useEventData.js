@@ -20,7 +20,7 @@ export default function useEventData() {
             await dispatch("eventData/getStroageEventData");
             await dispatch("jsonData/setPhotoBoxData");
         }
-        if (type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview" && isLocal) {
+        if ((type === "landing" || type === "sample-landing" || type === "open-browser" || type === "webview" )&& isLocal) {
             // 랜딩 페이지 일때 session storage에서 데이터 파싱
             await dispatch("eventData/getStroageEventData");
             await dispatch("jsonData/setPhotoBoxData");
@@ -47,7 +47,7 @@ export default function useEventData() {
                 await dispatch("jsonData/setActionObjectDragNDrop");
             }
             if (parent.location.hash.indexOf("open-browser") > -1) {
-                // await dispatch("jsonData/setActionObjectFrame");
+                await dispatch("jsonData/setActionObjectFrame");
                 await dispatch("jsonData/setPhotoBoxData");
             }
             if (parent.location.hash.indexOf("webview") > -1) {

@@ -53,22 +53,22 @@
 
 
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 168">
-      <a-gltf-model rotation="0 -0 0" position="0 0.2 0" scale="0.012 0.012 0.012" src="#glassesModel"
-        class="glasses1-entity" visible="true"></a-gltf-model>
+      <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
+        visible="true"></a-gltf-model>
     </a-entity>
 
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 127">
-      <a-gltf-model rotation="-0.1 -0 0" position="-0.4 0 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
+      <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 356">
-      <a-gltf-model rotation="0.1 -0 0" position="0.4 0 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
+      <a-gltf-model rotation="0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 1">
-      <a-sphere color="red" position="0 0.2 0" radius="0.1"></a-sphere>
+      <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
 
     <a-entity v-if="isMindARFace" mindar-image-target="targetIndex: 0">
