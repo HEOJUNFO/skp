@@ -26,7 +26,9 @@
                 <span v-if="timerButtonVisible === 2" style="font-size: 36px; font-weight: bold;">3</span>
                 <span v-else-if="timerButtonVisible === 3" style="font-size: 36px; font-weight: bold;">5</span>
                 <span v-else-if="timerButtonVisible === 4" style="font-size: 36px; font-weight: bold;">7</span>
-                <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;">X</span>
+                <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;">
+                    <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+                </span>
             </button>
             <button @click="flipCamera()" class="flip-button">
                 <img src="../../assets/icon/right-left-button.png" alt="전환" style="width: 40px; height: 40px;  " />

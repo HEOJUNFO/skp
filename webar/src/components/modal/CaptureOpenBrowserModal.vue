@@ -26,7 +26,9 @@
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showModal" class="modal">
         <div class="modal-content">
-          <button class="close-button" @click="showModal = false">X</button>
+          <button class="close-button" @click="showModal = false">
+            <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          </button>
           <img :src="modalImageUrl" alt="Image for Modal" />
           <p>{{ modalText }}</p>
           <div><button class="round-button">당첨정보입력</button></div>
@@ -36,7 +38,6 @@
       </div>
       <div v-if="showReCaptureModal" class="modal">
         <div class="modal-content2">
-          <button class="close-button2" @click="showReCaptureModal = false">X</button>
           <p>정말 당첨을 포기하시겠습니까?</p>
           <div class="button-container">
             <button class="round-button" @click="back">포기</button>
@@ -46,7 +47,9 @@
       </div>
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
-          <button class="close-button2" @click="showSaveModal = false">X</button>
+          <button class="close-button2" @click="showSaveModal = false">
+            <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+          </button>
           <p>휴대폰 갤러리에 저장되었습니다</p>
           <p>지금 출력을 원하시면</p>
           <p>출력 하기를 눌러주세요</p>
@@ -58,7 +61,9 @@
       </div>
       <div v-if="showAgreeModal" class="modal">
         <div class="modal-content2">
-          <button class="close-button2" @click="showAgreeModal = false">X</button>
+          <button class="close-button2" @click="showAgreeModal = false">
+            <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+          </button>
           <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
           <br>
           <p class="text">{{ agreePopupText }}</p>
@@ -301,7 +306,7 @@ export default {
 .modal-content2 {
   position: relative;
   background-color: rgba(0, 0, 0, 0);
-  padding: 20px;
+  padding: 5%;
   border-radius: 10px;
   width: 60%;
   text-align: center;
@@ -320,8 +325,8 @@ export default {
 
 .close-button2 {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 2px;
+  right: 5px;
   border: none;
   background-color: transparent;
   font-size: 1em;
@@ -332,7 +337,8 @@ export default {
   border-radius: 25px;
   width: 100%;
   height: 50px;
-  margin: 10px;
+  margin-left: 5%;
+  margin-top: 10%;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;

@@ -1,7 +1,9 @@
 <template>
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
-      <button class="exit-button" @click="exit">X</button>
+      <button class="exit-button" @click="exit">
+        <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+      </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="prints-count">
         <span style="margin-right: 2em;">출력 장수</span>
@@ -22,7 +24,9 @@
       </div>
       <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="exit">X</button>
+        <button class="exit-button" @click="exit">
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        </button>
         <div class="modal-content">
           <p>키오스크 화면에 보이는</p>
           <p>기기번호를 입력해 주세요.</p>

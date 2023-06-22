@@ -1,6 +1,8 @@
 <template>
     <div class="main-content">
-        <button class="exit-button" @click="exit(), stopInterval()">X</button>
+        <button class="exit-button" @click="exit(), stopInterval()">
+            <img src="../../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        </button>
         <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
         <button class="box-button" @click="triggerFileInput">사진 업로드</button>
         <div v-if="imagesData.length === 0" class="empty-message">
@@ -169,7 +171,7 @@ export default {
     border-radius: 30px;
     width: 80%;
     height: 60px;
-    margin-top: 10px;
+    margin-top: 10%;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
@@ -179,7 +181,7 @@ export default {
     display: inline-block;
     width: 40%;
     height: 30px;
-    margin-top: 10px;
+    margin-top: 10%;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
@@ -190,7 +192,7 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    margin-top: 1%;
+    margin-top: 10%;
 }
 
 .banner-container {
