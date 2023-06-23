@@ -84,8 +84,7 @@
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="modal-content2">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.11809253692626953%2C51.50806404384205%2C-0.1011505126953125%2C51.51390692907637&amp;layer=mapnik"></iframe>
+          <div id="map" style="width:100%;height:100%; vertical-align: middle;"></div>
         </div>
       </div>
 
@@ -99,6 +98,22 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
+  // mounted() {
+  //   let script = document.createElement('script');
+  //   script.onload = () => this.initMap();
+  //   script.src = "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID";
+  //   document.head.appendChild(script);
+  // },
+  // methods: {
+  //   initMap() {
+  //     var mapOptions = {
+  //       center: new naver.maps.LatLng(37.3595704, 127.105399),
+  //       zoom: 10
+  //     };
+
+  //     this.map = new naver.maps.Map('map', mapOptions);
+  //   }
+  // },
   setup() {
     const { getters } = useStore();
     const showVModal = ref(false);
@@ -189,6 +204,7 @@ export default {
         exit();
       }
     }
+
 
     return {
       locationFind,
