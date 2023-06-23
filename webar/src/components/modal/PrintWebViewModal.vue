@@ -1,7 +1,7 @@
 <template>
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
-      <button class="exit-button" @click="exit">
+      <button v-if=!showDeviceModal class="exit-button" @click="exit()">
         <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
@@ -24,7 +24,7 @@
       </div>
       <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="exit">
+        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="modal-content">
@@ -142,7 +142,21 @@ export default {
       showVModal.value = false;
     }
 
+    const webBack = () => {
+      if (showDeviceModal.value) {
+        showDeviceModal.value = false;
+        showFailureModal.value = false;
+        showSuccessModal.value = false;
+        showErrorModal.value = false;
+        window.onpopstate = null;
+      } else {
+        window.onpopstate = null;
+        exit();
+      }
+    }
+
     return {
+      webBack,
       showVModal,
       imageUrl,
       openModal,

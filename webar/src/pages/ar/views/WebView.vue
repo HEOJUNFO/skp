@@ -200,6 +200,29 @@ export default {
     provide('selectFilterChange', selectFilterChange)
     provide('selectStickerChange', selectStickerChange)
 
+    const originalOnPopState = function () {
+      history.go(1);
+      if (captureModal.value.showVModal) {
+        captureModal.value.webBack();
+        window.onpopstate = null;
+        setTimeout(() => {
+          window.onpopstate = originalOnPopState;
+        }, 10);
+      }
+    };
+
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      history.go(1);
+      if (captureModal.value.showVModal) {
+        captureModal.value.webBack();
+        window.onpopstate = null;
+        setTimeout(() => {
+          window.onpopstate = originalOnPopState;
+        }, 10);
+      }
+    };
+
     onMounted(async () => {
       await getEventData();
       setList();

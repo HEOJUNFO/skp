@@ -210,11 +210,12 @@ export default {
 
     const webBack = () => {
       if (printModal.value.showVModal) {
-        console.log('print')
         printModal.value.webBack();
       }
+      else if (photoStoreModal.value.showVModal) {
+        photoStoreModal.value.webBack();
+      }
       else {
-        console.log('back2')
         back();
       }
     }

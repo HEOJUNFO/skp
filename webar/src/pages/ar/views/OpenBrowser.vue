@@ -208,7 +208,7 @@ export default {
         window.onpopstate = null;
         setTimeout(() => {
           window.onpopstate = originalOnPopState;
-        }, 1000);
+        }, 10);
       }
     };
 
@@ -220,7 +220,7 @@ export default {
         window.onpopstate = null;
         setTimeout(() => {
           window.onpopstate = originalOnPopState;
-        }, 1000);
+        }, 10);
       }
     };
 

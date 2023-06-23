@@ -209,7 +209,20 @@ export default {
       }
     }
 
+    const webBack = () => {
+      if (printModal.value.showVModal) {
+        printModal.value.webBack();
+      }
+      else if (photoStoreModal.value.showVModal) {
+        photoStoreModal.value.webBack();
+      }
+      else {
+        back();
+      }
+    }
+
     return {
+      webBack,
       print,
       photoStore,
       openModal,

@@ -70,9 +70,6 @@ export default {
         showMoreImages() {
             this.visibleImages = this.imagesData;
         },
-        exit() {
-            this.showVModal = false;
-        },
         triggerFileInput() {
             this.$refs.fileInput.click();
         },
@@ -115,7 +112,22 @@ export default {
             printModal.value.openModal(imgUrl);
         }
 
+        const exit = () => {
+            showVModal.value = false;
+        }
+
+        const webBack = () => {
+            if (printModal.value.showVModal) {
+                printModal.value.webBack();
+            } else {
+                window.onpopstate = null;
+                exit();
+                stopInterval();
+            }
+        }
+
         return {
+            exit,
             showVModal,
             imageUrl,
             openModal,
@@ -125,6 +137,7 @@ export default {
             stopInterval,
             imgClick,
             printModal,
+            webBack,
         }
     },
 }
