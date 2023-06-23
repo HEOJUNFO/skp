@@ -1,7 +1,7 @@
 <template>
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
-      <button v-if=!showDeviceModal class="exit-button" @click="exit()">
+      <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
         <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
@@ -22,7 +22,8 @@
           <button class="round-button" @click="print(), showErrorModal = false">다시 출력요청</button>
         </div>
       </div>
-      <button v-if="deviceLocationFindYn" class="round-button">{{ deviceLocationFindButtonText }}</button>
+      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
+      }}</button>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
@@ -69,6 +70,25 @@
         </div>
       </div>
 
+      <div v-if="showLocationPopup" class="modal2">
+        <button class="exit-button" @click="showLocationPopup = false">
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        </button>
+        <div class="modal-content2">
+          <img :src="locationFindPopupImgUrl" class="image" alt="Image from URL" />
+        </div>
+      </div>
+
+      <div v-if="showLocationMap" class="modal2">
+        <button class="exit-button" @click="showLocationMap = false">
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        </button>
+        <div class="modal-content2">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.11809253692626953%2C51.50806404384205%2C-0.1011505126953125%2C51.51390692907637&amp;layer=mapnik"></iframe>
+        </div>
+      </div>
+
     </div>
   </vue-final-modal>
 </template>
@@ -94,12 +114,18 @@ export default {
     const showSuccessModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
+    const locationFindExposureType = ref('MAP');
+    const locationFindPopupImgUrl = ref('');
+    const showLocationPopup = ref(false);
+    const showLocationMap = ref(false);
 
     const openModal = (url) => {
       imageUrl.value = url
       showVModal.value = true;
       deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
       deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
+      locationFindExposureType.value = getters['eventData/locationFindExposureType'];
+      locationFindPopupImgUrl.value = getters['eventData/locationFindPopupImgUrl'];
       freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
     };
@@ -142,6 +168,15 @@ export default {
       showVModal.value = false;
     }
 
+    const locationFind = () => {
+      console.log(locationFindExposureType.value)
+      if (locationFindExposureType.value === 'MAP') {
+        showLocationMap.value = true;
+      } else {
+        showLocationPopup.value = true;
+      }
+    }
+
     const webBack = () => {
       if (showDeviceModal.value) {
         showDeviceModal.value = false;
@@ -173,6 +208,10 @@ export default {
       deviceNumber,
       printStatus,
       showErrorModal,
+      locationFind,
+      showLocationPopup,
+      showLocationMap,
+      locationFindPopupImgUrl
     }
   },
 }
@@ -199,7 +238,7 @@ export default {
 .exit-button {
   z-index: 3;
   position: absolute;
-  top: 5px;
+  top: 0px;
   right: 20px;
   font-size: 2rem;
 }
@@ -265,6 +304,12 @@ export default {
   padding: 20px;
   border-radius: 5px;
   text-align: center;
+}
+
+.modal-content2 {
+  background-color: #fff;
+  width: 90%;
+  height: 90%;
 }
 
 .highlight-text {
