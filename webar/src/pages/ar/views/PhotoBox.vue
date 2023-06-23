@@ -60,9 +60,16 @@ export default {
             // Save the image to IndexedDB
             let id = await this.data.saveImage(file);
             let newImage = { id: id, url: URL.createObjectURL(file) };
-            this.imagesData.push(newImage);
+
+            this.imagesData.unshift(newImage);
+
+            if (this.imagesData.length > 30) {
+                this.imagesData.pop();
+            }
             if (this.imagesData.length <= 6) {
-                this.visibleImages.push(newImage);
+                this.visibleImages.unshift(newImage);
+            } else {
+                this.visibleImages = this.imagesData.slice(0, 6);
             }
         },
         showMoreImages() {
