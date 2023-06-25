@@ -65,15 +65,18 @@
 
         <div v-show="(isSecondFrameBarVisible || isSecondEffectBarVisible) && isBarVisible" class="bottom-bar-11"
             :style="barStyle">
-            <button @click="frameToggleBar">
-                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 45px; height: 45px;" />
+            <button v-show="isSecondFrameBarVisible" @click="frameToggleBar">
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 35px;" />
+            </button>
+            <button v-show="isSecondEffectBarVisible" @click="effectToggleBar">
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 35px;" />
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
                 <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 35px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
+                <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: auto; height: 35px; " />
             </button>
         </div>
 
@@ -92,18 +95,6 @@
                         <span>{{ image.name }}</span>
                     </div>
                 </div>
-                <!-- <div class="button-container">
-                    <button @click="frameToggleBar">
-                        <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
-                    </button>
-                    <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-                        <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
-                    </button>
-                    <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                        <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
-                            style="width: 40px; height: 40px; " />
-                    </button>
-                </div> -->
             </div>
         </transition>
         <transition name="fade">
@@ -125,18 +116,6 @@
                         <span>{{ image.name }}</span>
                     </div>
                 </div>
-                <!-- <div class="button-container">
-                    <button @click="effectToggleBar">
-                        <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
-                    </button>
-                    <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture">
-                        <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 35px; height: 40px;" />
-                    </button>
-                    <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                        <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
-                            style="width: 40px; height: 40px; " />
-                    </button>
-                </div> -->
             </div>
         </transition>
     </div>
@@ -250,10 +229,27 @@ export default {
 
         const frameToggleBar = () => {
             isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
+            triggerAnimation();
         }
         const effectToggleBar = () => {
             isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
             effectTabs.value = getEffectTabs();
+            triggerAnimation();
+        }
+
+        function triggerAnimation() {
+            // 이미지를 선택합니다.
+            const images = document.querySelectorAll(".bottom-bar-1 button img");
+
+            // 각 이미지에 대해 .animate-img 클래스를 추가합니다.
+            images.forEach((img) => {
+                img.classList.add("animate-img");
+
+                // 애니메이션이 끝난 후 .animate-img 클래스를 제거합니다.
+                img.addEventListener('animationend', () => {
+                    img.classList.remove("animate-img");
+                });
+            });
         }
 
         const selectImage = (images, imageId) => {
@@ -551,15 +547,13 @@ export default {
     }
 }
 
-.bottom-bar-1 button img {
+.animate-img {
     animation: img-scale-up 0.5s ease-out;
-    /* 애니메이션 이름, 지속 시간, 가속도 함수를 지정합니다. */
 }
 
 
 .bottom-bar-11 button img {
     animation: img-scale-down 0.5s ease-out;
-    /* 애니메이션 이름, 지속 시간, 가속도 함수를 지정합니다. */
 }
 
 .tab-container {
