@@ -52,7 +52,7 @@
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
-                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: 55px; height: 60px; " />
+                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 70px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
                 <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
@@ -62,6 +62,21 @@
                 <p style="font-size: 17.5px; font-weight: bold; ">이펙트</p>
             </button>
         </div>
+
+        <div v-show="(isSecondFrameBarVisible || isSecondEffectBarVisible) && isBarVisible" class="bottom-bar-11"
+            :style="barStyle">
+            <button @click="frameToggleBar">
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 45px; height: 45px;" />
+            </button>
+            <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
+                class="capture-button">
+                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 35px; " />
+            </button>
+            <button v-if="isCapturing" @click="stopCapture" class="capture-button">
+                <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
+            </button>
+        </div>
+
         <transition name="fade">
             <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
                 <div class="tab-container">
@@ -77,7 +92,7 @@
                         <span>{{ image.name }}</span>
                     </div>
                 </div>
-                <div class="button-container">
+                <!-- <div class="button-container">
                     <button @click="frameToggleBar">
                         <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
                     </button>
@@ -88,7 +103,7 @@
                         <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
                             style="width: 40px; height: 40px; " />
                     </button>
-                </div>
+                </div> -->
             </div>
         </transition>
         <transition name="fade">
@@ -110,7 +125,7 @@
                         <span>{{ image.name }}</span>
                     </div>
                 </div>
-                <div class="button-container">
+                <!-- <div class="button-container">
                     <button @click="effectToggleBar">
                         <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: 40px; height: 40px;" />
                     </button>
@@ -121,7 +136,7 @@
                         <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료"
                             style="width: 40px; height: 40px; " />
                     </button>
-                </div>
+                </div> -->
             </div>
         </transition>
     </div>
@@ -450,6 +465,7 @@ export default {
 }
 
 .bottom-bar-1 {
+    z-index: 3;
     position: absolute;
     width: 100%;
     height: 15%;
@@ -460,7 +476,20 @@ export default {
     top: 103%;
 }
 
+.bottom-bar-11 {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    height: 7.5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "frame capture effect";
+    color: #fff;
+    top: 110%;
+}
+
 .frame-button {
+
     grid-area: frame;
 }
 
@@ -479,24 +508,58 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    top: 92%;
+    top: 83%;
     padding-top: 1%;
     flex-direction: column;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-    transform: translateY(39%);
+    transform: scaleY(0);
+    transform-origin: bottom;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: transform 1s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 }
 
 .fade-enter-to,
 .fade-leave-from {
-    transform: translateY(0%);
+    transform: scaleY(1);
+    transform-origin: bottom;
+}
+
+@keyframes img-scale-down {
+    0% {
+        transform: scale(2.0);
+    }
+
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+@keyframes img-scale-up {
+    0% {
+        transform: scale(0.5);
+    }
+
+    100% {
+        transform: scale(1.0);
+
+    }
+}
+
+.bottom-bar-1 button img {
+    animation: img-scale-up 0.5s ease-out;
+    /* 애니메이션 이름, 지속 시간, 가속도 함수를 지정합니다. */
+}
+
+
+.bottom-bar-11 button img {
+    animation: img-scale-down 0.5s ease-out;
+    /* 애니메이션 이름, 지속 시간, 가속도 함수를 지정합니다. */
 }
 
 .tab-container {
