@@ -79,13 +79,12 @@
         </div>
       </div>
 
-      <div v-if="showLocationMap" class="modal2">
+      <div v-show="showLocationMap" class="modal2">
         <button class="exit-button" @click="showLocationMap = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="modal-content2">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.11809253692626953%2C51.50806404384205%2C-0.1011505126953125%2C51.51390692907637&amp;layer=mapnik"></iframe>
+          <div id="map"></div>
         </div>
       </div>
 
@@ -118,6 +117,31 @@ export default {
     const locationFindPopupImgUrl = ref('');
     const showLocationPopup = ref(false);
     const showLocationMap = ref(false);
+
+    const map = ref(null);
+    const markerLatLng = ref(null);
+    const maker = ref(null);
+
+    const initMap = () => {
+      if (typeof window.naver === "undefined") {
+        return;
+      }
+
+      const mapOptions = {
+        center: new window.naver.maps.LatLng(37.402736699419854, 127.10324709161416),
+        zoom: 18,
+      };
+
+      map.value = new window.naver.maps.Map("map", mapOptions);
+      markerLatLng.value = [{ lat: 37.402736699419854, lng: 127.10324709161416 }, { lat: 37.40237809926164, lng: 127.10375484175874 }]
+      maker.value = markerLatLng.value.map((latLng) => {
+        return new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(latLng.lat, latLng.lng),
+          map: map.value,
+        });
+      });
+
+    };
 
     const openModal = (url) => {
       imageUrl.value = url
@@ -169,9 +193,11 @@ export default {
     }
 
     const locationFind = () => {
-      console.log(locationFindExposureType.value)
       if (locationFindExposureType.value === 'MAP') {
         showLocationMap.value = true;
+        initMap();
+        map.value.setSize(new window.naver.maps.Size(window.innerWidth * 0.9, window.innerHeight * 0.9));
+
       } else {
         showLocationPopup.value = true;
       }

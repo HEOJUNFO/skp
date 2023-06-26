@@ -52,7 +52,7 @@
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
-                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 70px; " />
+                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 80px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
                 <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
@@ -66,17 +66,17 @@
         <div v-show="(isSecondFrameBarVisible || isSecondEffectBarVisible) && isBarVisible" class="bottom-bar-11"
             :style="barStyle">
             <button v-show="isSecondFrameBarVisible" @click="frameToggleBar">
-                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 35px;" />
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 40px;" />
             </button>
             <button v-show="isSecondEffectBarVisible" @click="effectToggleBar">
-                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 35px;" />
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 40px;" />
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
-                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 35px; " />
+                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 40px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
-                <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: auto; height: 35px; " />
+                <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: auto; height: 40px; " />
             </button>
         </div>
 

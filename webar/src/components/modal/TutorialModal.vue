@@ -100,7 +100,7 @@ export default {
 
 .close-button {
   position: absolute;
-  bottom: 25%;
+  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
