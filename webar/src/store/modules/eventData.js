@@ -70,6 +70,10 @@ export const eventData = {
       const { bannerList } = photoBoxData;
       return Array.isArray(bannerList) ? bannerList.map(getBannerData) : [];
     },
+    deviceGpsList({ photoBoxData }) {
+      const { deviceGpsList } = photoBoxData;
+      return Array.isArray(deviceGpsList) ? deviceGpsList.map(getDeviceGpsData) : [];
+    },
     // stamp 정보
     stampPanelInfo({ eventData }) {
       const { arObjectInfo, arEventLogicalInfo, eventLogicalType, arScanningImageInfo } = eventData;
@@ -514,6 +518,19 @@ function getBannerData(item) {
     bannerImgUrl: bannerImgUrl,
     bannerTargetUrl: bannerTargetUrl,
     bannerSort: bannerSort,
+  };
+}
+
+function getDeviceGpsData(item) {
+  const {deviceGpsId, sort, deviceName, gpsName, thirdPartyType, deviceGpsLatitude, deviceGpsLongitude} = item;
+  return {
+    itemID: deviceGpsId,
+    sort: sort,
+    deviceName: deviceName,
+    gpsName: gpsName,
+    thirdPartyType: thirdPartyType,
+    deviceGpsLatitude: deviceGpsLatitude,
+    deviceGpsLongitude: deviceGpsLongitude,
   };
 }
 

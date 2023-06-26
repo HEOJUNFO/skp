@@ -108,6 +108,7 @@ export default {
     const locationFindPopupImgUrl = ref('');
     const freePrintControlYn = ref(false);
     const freePrintCustomerCount = ref(10);
+    const deviceGpsList = ref([]);
     const deviceNumber = ref('');
     const printNumber = ref(1);
     const printStatus = ref('printing');
@@ -132,7 +133,12 @@ export default {
       };
 
       map.value = new window.naver.maps.Map("map", mapOptions);
-      markerLatLng.value = [{ lat: 37.402736699419854, lng: 127.10324709161416 }, { lat: 37.40237809926164, lng: 127.10375484175874 }]
+      markerLatLng.value = deviceGpsList.value.map((gps) => {
+        return {
+          lat: gps.deviceGpsLatitude,
+          lng: gps.deviceGpsLongitude,
+        };
+      });
       maker.value = markerLatLng.value.map((latLng) => {
         return new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(latLng.lat, latLng.lng),
@@ -152,6 +158,7 @@ export default {
       locationFindPopupImgUrl.value = getters['eventData/locationFindPopupImgUrl'];
       freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
+      deviceGpsList.value = getters['eventData/deviceGpsList'];
     };
 
     const checkDeviceNumber = (deviceNumber) => {

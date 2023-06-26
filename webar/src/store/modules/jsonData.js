@@ -771,12 +771,22 @@ export const jsonData = {
       ],
       deviceGpsList: [
         {
-          deviceGpsId: "", //인덱스 번호
-          sort: "", //순서
-          gpsName: "", //위치명
-          thirdPartyType:"", // 업체종류(셀픽,...) 셀픽: SELPIC
-          deviceGpsLatitude: "", //위도
-          deviceGpsLongitude: "", //경도
+          deviceGpsId: "0", //인덱스 번호
+          sort: "0", //순서
+          deviceName:"디바이스1", //디바이스명
+          gpsName: "위치1", //위치명
+          thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
+          deviceGpsLatitude: "37.402736699419854", //위도
+          deviceGpsLongitude: "127.10324709161416", //경도
+        },
+        {
+          deviceGpsId: "1", //인덱스 번호
+          sort: "1", //순서
+          deviceName:"디바이스2", //디바이스명
+          gpsName: "위치2", //위치명
+          thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
+          deviceGpsLatitude: "37.40237809926164", //위도
+          deviceGpsLongitude: "127.10375484175874", //경도
         }
       ],
     },
