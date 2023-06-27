@@ -37,7 +37,7 @@ export default {
                 await dispatch("eventData/getEventPhotoBox", params);
 
                 eventData.value = getters["eventData/photoBoxData"];
-                sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
+                sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(eventData.value));
             } catch (error) {
                 console.log("error", error)
                 // await dispatch("url/redirectToMain");

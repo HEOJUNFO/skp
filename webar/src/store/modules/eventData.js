@@ -296,6 +296,14 @@ export const eventData = {
         resolve(storageData);
       });
     },
+    async getStroagePhotoBoxData({ commit }) {
+      return new Promise((resolve) => {
+        const storageData = sessionStorage.getItem("skPhotoBoxJson");
+        console.log(JSON.parse(storageData))
+        commit("SET_PHOTO_BOX_DATA", JSON.parse(storageData));
+        resolve(storageData);
+      });
+    },
     // session storage에 저장된 이벤트 결과 데이터 파싱
     async getStroageEventResultData({ commit }) {
       return new Promise((resolve) => {

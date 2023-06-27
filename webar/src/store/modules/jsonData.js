@@ -797,7 +797,7 @@ export const jsonData = {
     arBgImage: "", // AR 백그라운드 이미지 URL
     arSkinImage: "https://dt-static.syrup.co.kr/webar/images/EVENT_554813.png", // AR 스킨 이미지 URL
     
-    loadingImgYn: "Y", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
+    loadingImgYn: "N", // 로딩 이미지 설정여부 	String	설정안함 : N / 설정함 : Y
     loadingImgUrl: "/img/loading01_114x120.gif", // 로딩 이미지 url	String
 
       arObjectInfo: [

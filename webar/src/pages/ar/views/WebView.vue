@@ -30,7 +30,6 @@ import CaptureWebViewModal from "../../../components/modal/CaptureWebViewModal.v
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
 
 import useEventData from "@/composables/useEventData";
-import useResultData from "@/composables/useResultData";
 import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
@@ -77,10 +76,6 @@ export default {
     const {
       getEventData
     } = useEventData({ dispatch });
-
-    const {
-      eventResult,
-    } = useResultData({ getters, dispatch });
 
     const {
       loadingState,
@@ -252,7 +247,6 @@ export default {
       filterList,
       tabList,
       frameList,
-      eventResult,
       loadedVideo,
       loadingState,
       loadVideo,
