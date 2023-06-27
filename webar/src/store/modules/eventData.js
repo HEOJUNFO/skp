@@ -244,9 +244,9 @@ export const eventData = {
         // 에러처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        // alert(err);
+
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-        // return err
+
       }
     },
     //포토함 데이터 파싱
@@ -260,9 +260,9 @@ export const eventData = {
         // 에러 처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        // alert(err);
+ 
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-        // return err
+
       }
     },
 
@@ -277,9 +277,9 @@ export const eventData = {
         // 에러 처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        // alert(err);
+
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-        // return err
+
       }
     },
     // session storage에 저장된 오브젝트 데이터 파싱
