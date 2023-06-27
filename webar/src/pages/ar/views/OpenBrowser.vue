@@ -20,6 +20,7 @@
 <script>
 import { onMounted, ref, computed, provide } from "vue";
 import { useStore } from "vuex";
+import { Dropbox } from 'dropbox';
 
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
 import NavBar from "../../../components/common/NavBar.vue";
@@ -141,6 +142,33 @@ export default {
       ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
 
       imageUrl.value = canvas.toDataURL("image/png");
+
+      const ACCESS_TOKEN = 'sl.BhHEP2SkO64WQwrXHUo3PYBHzVK7bF5kxX5kPn4JcZzmDK7S7k3j4YlRubwax2Zmud2GF5oUW9rzf1vktat2CHCv2gqbgex9_ccSj--L6724srmMfUH_g-tgcHCmQrBwTPeG4j1b';  // Dropbox 앱의 액세스 토큰을 여기에 넣으세요.
+
+      // Dropbox 객체를 생성합니다.
+      const dbx = new Dropbox({ accessToken: ACCESS_TOKEN });
+
+      // Blob으로 이미지 데이터를 변환합니다.
+      let imageBlob = await fetch(imageUrl.value)
+        .then(res => res.blob());
+      console.log(imageBlob)
+
+      dbx.filesUpload({ path: '/image.png', contents: imageBlob, mode: 'overwrite' })
+        .then(function (response) {
+          // 업로드한 파일의 경로를 사용하여 일시적인 링크를 생성합니다.
+          dbx.filesGetTemporaryLink({ path: response.result.path_lower })
+            .then(function (linkResponse) {
+              console.log(linkResponse.result.link);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+
 
       return imageUrl.value;
 
