@@ -28,6 +28,7 @@ export const eventData = {
       return eventData;
     },
     photoBoxData({ photoBoxData }) {
+      console.log("photoBoxData", photoBoxData)
       return photoBoxData;
     },
     // 3d객체 정보
@@ -259,7 +260,7 @@ export const eventData = {
         const res = await getEventPhotoBox(params);
         console.log("getEventPhotoBox", res.data.resultCode)
         if (res.data.resultCode.toString() === "200") {
-          commit("SET_EVENT_PHOTOBOX", res.data.result);
+          commit("SET_PHOTO_BOX_DATA", res.data.result);
           return;
         }
         // 에러 처리
