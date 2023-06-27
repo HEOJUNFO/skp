@@ -2,7 +2,9 @@
   <a-scene embedded :mindar-face="isMindARImage == false ? 'uiError:no; uiLoading:no; uiScanning:no;' : null"
     :mindar-image="isMindARImage ? 'imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; uiError:no; uiLoading:no; uiScanning:no' : null"
     gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false; " color-space="sRGB"
-    vr-mode-ui="enabled: false"
+    vr-mode-ui="enabled: false" gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;
+                         basisTranscoderPath:https://cdn.jsdelivr.net/npm/super-three@0.141.0/examples/js/libs/basis/;;
+                         meshoptDecoderPath: https://unpkg.com/meshoptimizer@~0.18.1/meshopt_decoder.js;"
     device-orientation-permission-ui="enabled: true;deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
     debug="false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
@@ -16,6 +18,10 @@
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
       <a-asset-item id="earringModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
+      <a-asset-item id="avatarModel1" src="../../assets/img/Bell_NorthernSoulSpin.gltf"></a-asset-item>
+      <a-asset-item id="avatarModel2" src="../../assets/Bell_SambaDance.gltf"></a-asset-item>
+      <!-- <a-asset-item id="avatarModel3"
+        src="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"></a-asset-item> -->
 
       <img id="card"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.png" />
@@ -67,6 +73,11 @@
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
+    <a-entity gltf-model="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"
+      animation-mixer></a-entity>
+
+
+
     <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 1">
       <a-sphere color="red" radius="0.1"></a-sphere>
     </a-entity>
@@ -79,8 +90,10 @@
 
     <a-camera active="false" camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
       look-controls="enabled:false;"></a-camera>
-    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
-      look-controls="enabled:false;"></a-entity>
+    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5" look-controls="enabled:true;"
+      wasd-controls="enabled:true;"></a-entity>
+
+
 
   </a-scene>
 </template>
