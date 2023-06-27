@@ -32,7 +32,7 @@
           <img :src="modalImageUrl" alt="Image for Modal" />
           <p>{{ modalText }}</p>
           <div><button class="round-button">당첨정보입력</button></div>
-          <div><button class="round-button" @click="openReCaptureModal">다시촬영</button></div>
+          <div><button class="round-button">URL이동</button></div>
           <div><button class="round-button" @click="exit">AR닫기</button></div>
         </div>
       </div>
