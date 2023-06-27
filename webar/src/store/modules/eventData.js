@@ -28,7 +28,6 @@ export const eventData = {
       return eventData;
     },
     photoBoxData({ photoBoxData }) {
-      console.log("photoBoxData", photoBoxData)
       return photoBoxData;
     },
     // 3d객체 정보
@@ -237,18 +236,14 @@ export const eventData = {
     // 이벤트 데이터 파싱
     async getEventData({ commit, dispatch }, params) {
       try {
-        console.log(params)
         const res = await getEventData(params);
         if (res.data.resultCode.toString() === "200") {
-          console.log("getEventData success")
           commit("SET_EVENT_DATA", res.data.result);
           return;
         }
-        console.log("getEventData fail", res.data.resultCode)
         // 에러처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        console.log("getEventData error")
         // alert(err);
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
         // return err
@@ -258,7 +253,6 @@ export const eventData = {
     async getEventPhotoBox({ commit, dispatch }, params) {
       try {
         const res = await getEventPhotoBox(params);
-        console.log("getEventPhotoBox", res.data.resultCode)
         if (res.data.resultCode.toString() === "200") {
           commit("SET_PHOTO_BOX_DATA", res.data.result);
           return;

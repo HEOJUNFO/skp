@@ -30,6 +30,7 @@ export default {
     ]);
 
     const eventData = ref(null);
+    const photoBoxData = ref(null);
 
     const templateType = computed(() => eventData?.value?.eventLogicalType);
 
@@ -100,19 +101,21 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        console.log(params);
         await dispatch("jsonData/setActionObjectFrame");
+        await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
+        photoBoxData.value = getters["eventData/photoBoxData"];
         // 세션스토리지에 json데이터 저장
         sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
+        sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
         console.log("eventValidationData", eventValidationData);
         await dispatch("url/setActionType", eventValidationData.activeType);
       } catch (err) {
-        console.log("err", err);
-        //await dispatch("url/redirectToMain");
+        console.log(err);
+        // await dispatch("url/redirectToMain");
         // return
       }
     });
