@@ -212,11 +212,13 @@ export default {
     }
 
     const webBack = () => {
-      if (showDeviceModal.value) {
+      if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
         showDeviceModal.value = false;
         showFailureModal.value = false;
         showSuccessModal.value = false;
         showErrorModal.value = false;
+        showLocationMap.value = false;
+        showLocationPopup.value = false;
         window.onpopstate = null;
       } else {
         window.onpopstate = null;
