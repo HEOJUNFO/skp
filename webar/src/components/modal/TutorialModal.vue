@@ -56,7 +56,7 @@ export default {
   
 <style scoped>
 .tutorial-popup {
-  z-index: 10000;
+  z-index: 3;
   position: fixed;
   width: 100%;
   height: 100%;

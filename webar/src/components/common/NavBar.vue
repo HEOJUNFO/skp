@@ -467,7 +467,6 @@ export default {
 }
 
 .bottom-bar-1 {
-    z-index: 3;
     position: absolute;
     width: 100%;
     height: 15%;
