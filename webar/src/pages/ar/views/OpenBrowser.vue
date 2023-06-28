@@ -33,7 +33,6 @@ import useEventData from "@/composables/useEventData";
 import useLoading from "@/composables/useLoading";
 import useEventHandlers from "@/composables/useEventHandlers";
 import useWindowEvent from "@/composables/useWindowEvent";
-import grayscaleFilter from "../../../js/filter/grayscaleFilter";
 import loadImage from "../../../js/loadImage";
 
 export default {
@@ -125,9 +124,6 @@ export default {
 
       ctx.drawImage(video, 0, parseFloat(top), v_width, v_height);
 
-      if (beautyOn.value) {
-        grayscaleFilter(ctx, v_width, v_height, 100);
-      }
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
@@ -141,6 +137,26 @@ export default {
       ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
 
       imageUrl.value = canvas.toDataURL("image/png");
+
+      //gray scale 비동기
+      async function processImage(type) {
+        try {
+          const image = await window.Jimp.read(imageUrl.value);
+
+          if (typeof image[type] === "function") {
+            const src = await image[type]().getBase64Async('image/png');
+            imageUrl.value = src;
+          } else {
+            console.error(`Invalid image type: ${type}`);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      if (beautyOn.value) {
+        await processImage('greyscale');
+      }
 
       return imageUrl.value;
 
