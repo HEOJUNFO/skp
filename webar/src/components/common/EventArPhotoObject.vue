@@ -11,7 +11,9 @@
 
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl" />
       <img id="button-texture" src="../../assets/icon/trash-button.png">
-
+      <a-asset-item id="headModel" 
+        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/face-tracking/assets/sparkar/headOccluder.glb"></a-asset-item>
+  
       <a-asset-item id="glassesModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
       <a-asset-item id="earringModel"
@@ -52,24 +54,21 @@
       particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
 
-    <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 168">
-      <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
-        visible="true"></a-gltf-model>
-    </a-entity>
+    <a-entity v-if="isMindARFace" position="0 1 0">
+      <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model mindar-face-occluder position="0 -0.25 0" rotation="0 0 0" scale="0.08 0.08 0.08" src="#headModel" visible="true"></a-gltf-model>
+      </a-entity>
 
-    <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 127">
-      <a-gltf-model rotation="-0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
-        class="earring-entity" visible="true"></a-gltf-model>
-    </a-entity>
+      <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel" class="glasses1-entity"
+          visible="true"></a-gltf-model>
+      </a-entity>
 
-    <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 356">
-      <a-gltf-model rotation="0.1 -0 0" position="0 -0.3 -0.3" scale="0.05 0.05 0.05" src="#earringModel"
-        class="earring-entity" visible="true"></a-gltf-model>
+      <a-entity mindar-face-target="anchorIndex: 1">
+        <a-sphere color="red" radius="0.1"></a-sphere>
+      </a-entity>
     </a-entity>
-
-    <a-entity v-if="isMindARFace" mindar-face-target="anchorIndex: 1">
-      <a-sphere color="red" radius="0.1"></a-sphere>
-    </a-entity>
+    
 
     <a-entity v-if="isMindARFace" mindar-image-target="targetIndex: 0">
       <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
