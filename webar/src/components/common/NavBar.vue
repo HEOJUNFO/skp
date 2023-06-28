@@ -347,7 +347,13 @@ export default {
         }, { deep: true });
         watch(() => props.tabList, () => {
             let selectedItems = props.tabList.filter(item => item.select === true);
-            let selectedIds = selectedItems.map(item => item.id);
+            let selectedIds = selectedItems.map(item => {
+                if (item.type === 'PARTICLE') {
+                    return item.name;
+                } else {
+                    return item.id;
+                }
+            });
             selectTabChange(selectedIds);
         }, { deep: true });
         watch(() => props.filterList, () => {

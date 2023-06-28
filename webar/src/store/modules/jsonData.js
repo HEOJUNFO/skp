@@ -1054,6 +1054,14 @@ export const jsonData = {
             photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },
+          {
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "star",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://img.freepik.com/premium-vector/star-vector-icon-star-symbol-isolated-white-background-element-customer-product-rating-review-flat-icon-apps-websites-achievements-games_646072-218.jpg",     //	썸네일 이미지 URL	string	
+            photoOriginalFileUrl: "particleData.json",     //	원본 이미지 URL	string	
+            photoContentTabMenuType: "PARTICLE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 2,                      //	순서	int	
+          },
         ],
         filterContentsInfo: [             //  필터 콘텐츠 정보(array)
           {
