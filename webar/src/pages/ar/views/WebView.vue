@@ -105,9 +105,7 @@ export default {
     }
 
     async function capture() {
-      // video canvas create
       const video = document.querySelector('.event-wrapper video');
-
       const canvas = document.createElement("canvas");
       video.pause();
       let v_width = video.clientWidth * 2;
@@ -116,13 +114,25 @@ export default {
       canvas.width = v_width;
       canvas.height = v_height;
 
-      let element = video,
-        style = window.getComputedStyle(element),
-        top = style.getPropertyValue('top');
-
       const ctx = canvas.getContext('2d');
 
-      ctx.drawImage(video, 0, parseFloat(top), v_width, v_height);
+      let videoRatio = video.videoWidth / video.videoHeight;
+      let canvasRatio = v_width / v_height;
+
+      let sx, sy, sw, sh;
+      if (videoRatio > canvasRatio) {
+        sh = video.videoHeight;
+        sw = sh * canvasRatio;
+        sy = 0;
+        sx = (video.videoWidth - sw) / 2;
+      } else {
+        sw = video.videoWidth;
+        sh = sw / canvasRatio;
+        sx = 0;
+        sy = (video.videoHeight - sh) / 2;
+      }
+
+      ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
 
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
@@ -159,7 +169,6 @@ export default {
       }
 
       return imageUrl.value;
-
     }
 
     const toggleBarVisibility = () => {

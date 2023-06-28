@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { onMounted, ref, toRefs  } from "vue";
+import { onMounted, ref, toRefs } from "vue";
 import { getUserMedia } from "@/js/getUserMedia";
 
 export default {
@@ -20,7 +20,7 @@ export default {
     const { facingMode } = toRefs(props)
 
     let myFacingMode = facingMode.value;
-  
+
     // meta data load
     const loadedmetadata = () => {
       emit('loadedmetadata');
