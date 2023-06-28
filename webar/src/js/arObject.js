@@ -311,7 +311,7 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'CHARACTER') {
-     const scale = getScale({sizeX: 0.2, sizeY: 0.2, sizeZ: 0.2});
+     const scale = getScale({sizeX: 0.1, sizeY: 0.1, sizeZ: 0.1});
     return {
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,
@@ -322,8 +322,8 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'STICKER') {
-    const width = data.sizeX ? data.sizeX : 0.6;
-    const height = data.sizeY ? data.sizeY : 0.75;
+    const width = data.sizeX ? data.sizeX : 0.3;
+    const height = data.sizeY ? data.sizeY : 0.35;
     return {
       width,
       height,
