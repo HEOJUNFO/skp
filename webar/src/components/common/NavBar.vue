@@ -348,7 +348,7 @@ export default {
         watch(() => props.tabList, () => {
             let selectedItems = props.tabList.filter(item => item.select === true);
             let selectedIds = selectedItems.map(item => {
-                if (item.type === 'PARTICLE') {
+                if (item.type === 'PARTICLE' || item.type === "FILTER") {
                     return item.name;
                 } else {
                     return item.id;

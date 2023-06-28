@@ -86,7 +86,7 @@
 </template>
   
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import ArPhotoObject from "@/components/common/ArPhotoObject";
 
 export default {
@@ -102,7 +102,7 @@ export default {
   components: { ArPhotoObject },
 
   setup(props, { emit }) {
-    const isMindARFace = ref(true);
+    const isMindARFace = ref(false);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
 
@@ -119,6 +119,16 @@ export default {
       });
       stickerList.value = stickerList.value.filter(sticker => propIds.has(sticker.id));
     }
+
+    watch(() => selectFilter, () => {
+      if (selectFilter.value.includes('face')) {
+        isMindARFace.value = true;
+        console.log('isMindARFace', isMindARFace.value)
+      } else {
+        isMindARFace.value = false;
+      }
+
+    }, { deep: true })
 
 
     // 애니메이션 재생 완료

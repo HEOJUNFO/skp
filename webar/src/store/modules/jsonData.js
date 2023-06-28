@@ -1088,6 +1088,14 @@ export const jsonData = {
             photoContentTabMenuType: "PARTICLE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 2,                      //	순서	int
           },
+          { 
+            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
+            photoFileName: "face",            //	파일명	string	라이브러리 선택시 필수
+            photoThumbnailImgUrl: "https://cdn-icons-png.flaticon.com/512/1231/1231006.png",     //	썸네일 이미지 URL	string
+            photoOriginalFileUrl: "filterData.json",     //	원본 이미지 URL	string
+            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
+            sort: 3,                      //	순서	int
+          },
         ],
 
         characterContentsInfo: [          // 캐릭터 콘텐츠 정보(array)
