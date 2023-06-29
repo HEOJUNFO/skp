@@ -7,7 +7,7 @@
             <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
             <button class="box-button" @click="triggerFileInput">사진 업로드</button>
             <br />
-            <div v-if="imagesData.length === 0" class="empty-message">
+            <div v-if="imagesData.length === 0" class="empty-message" style="margin-top: 5%;">
                 <p>저장되거나 공유된 사진이 없습니다.</p>
                 <p>AR포토 촬영하고 다양한 혜택을 받으세요.</p>
             </div>
