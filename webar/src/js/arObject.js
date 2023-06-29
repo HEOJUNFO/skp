@@ -316,7 +316,7 @@ export const getObjectAttrs = (data) => {
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,
       ['frustum-culled']: false,
-      animation: getStayAnimation("ROTATION", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
+      animation: getStayAnimation("", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
       src: data.file.toString()
       // ['animation-mixer']: data['animation-mixer']
     }
