@@ -27,12 +27,12 @@
 
     </a-assets>
 
-    <a-entity v-if="selectCharacter" position="0 1 0">
+    <a-entity v-if="selectCharacter" position="0 -1 0">
       <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity>
-    <a-entity position="0 1 0">
+    <a-entity position="0 -1 0">
       <ar-photo-object v-for="item in stickerList" :key="`arphotoobject_${item.id}`" :ar-data="item" :visible=true
         @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
@@ -41,7 +41,7 @@
         :visible="selectFilter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />
     </a-entity> -->
-    <a-entity v-if="selectTab" position="0 1 0">
+    <a-entity v-if="selectTab" position="0 -1 0">
       <ar-photo-object v-for="item in tabList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
@@ -54,7 +54,7 @@
       particle-system="preset: rain; size:3; particleCount: 500; color: #60C1FF; "></a-entity>
 
 
-    <a-entity v-if="isMindARFace" position="0 1 0">
+    <a-entity v-if="isMindARFace" position="0 0 0">
       <a-entity mindar-face-target="anchorIndex: 168">
         <a-gltf-model mindar-face-occluder position="0 -0.25 0" rotation="0 0 0" scale="0.08 0.08 0.08" src="#headModel" visible="true"></a-gltf-model>
       </a-entity>
@@ -76,10 +76,9 @@
         animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
     </a-entity>
 
-    <a-camera active="false" camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
+    <a-camera active="false" camera position="0 0 0" rotation="0 0 0" rotation-reader zoom="1.5"
       look-controls="enabled:false;"></a-camera>
-    <a-entity camera position="0 1.6 0" rotation="0 0 0" rotation-reader zoom="1.5"
-      look-controls="enabled:false;"></a-entity>
+
 
   </a-scene>
 </template>
