@@ -22,28 +22,9 @@
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
         </transition>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button" @click="showModal = true">{{ photoGiveAwayButtonText }}</button>
+      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
+      }}</button>
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
-      <div v-if="showModal" class="modal">
-        <div class="modal-content">
-          <button class="close-button" @click="showModal = false">
-            <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
-          </button>
-          <img :src="modalImageUrl" alt="Image for Modal" />
-          <p>{{ modalText }}</p>
-          <div><button class="round-button">당첨정보입력</button></div>
-          <div><button class="round-button" @click="openReCaptureModal">다시촬영</button></div>
-        </div>
-      </div>
-      <div v-if="showReCaptureModal" class="modal">
-        <div class="modal-content2">
-          <p>정말 당첨을 포기하시겠습니까?</p>
-          <div class="button-container">
-            <button class="round-button" @click="back(), showReCaptureModal = false">포기</button>
-            <button class="round-button" @click="showReCaptureModal = false">취소</button>
-          </div>
-        </div>
-      </div>
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">
@@ -78,6 +59,7 @@
     </div>
     <print-open-browser-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
+    <event-complete-modal ref="completeModalEl" :result-info="eventResult" @close:modal="closeComplete" />
   </vue-final-modal>
 </template>
   
@@ -87,12 +69,16 @@ import { useStore } from "vuex";
 
 import PrintOpenBrowserModal from "./PrintOpenBrowserModal.vue";
 import PhotoStoreModal from "./PhotoStoreModal.vue";
+import EventCompleteModal from "./EventCompleteModal.vue";
+
+import useResultData from "@/composables/useResultData";
 
 export default {
-  name: "EventCompleteModal",
+  name: "CaptureOpenBrowserModal",
   components: {
     PrintOpenBrowserModal,
     PhotoStoreModal,
+    EventCompleteModal,
   },
   data() {
     return {
@@ -107,21 +93,22 @@ export default {
   },
   setup() {
     const store = useStore();
-    const { getters } = store;
+    const { getters, dispatch } = store;
     const showVModal = ref(false);
     const imageurl = ref('');
     const isCopyCilp = ref(false);
     const printModal = ref(null);
     const photoStoreModal = ref(null);
-    const showModal = ref(false);
-    const showReCaptureModal = ref(false);
+    const completeModalEl = ref(null);
     const showSaveModal = ref(false);
     const showAgreeModal = ref(false);
 
-    const openReCaptureModal = () => {
-      showModal.value = false;
-      showReCaptureModal.value = true;
-    };
+    const {
+      eventResult,
+      getEventResultData,
+      setEventResult
+    } = useResultData({ getters, dispatch });
+
 
     const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
       return computed(() => {
@@ -229,15 +216,26 @@ export default {
       else if (photoStoreModal.value.showVModal) {
         photoStoreModal.value.webBack();
       }
-      else if (showModal.value || showAgreeModal.value || showSaveModal.value || showReCaptureModal.value) {
-        showModal.value = false;
+      else if (showAgreeModal.value || showSaveModal.value) {
         showAgreeModal.value = false;
         showSaveModal.value = false;
-        showReCaptureModal.value = false;
       }
       else {
         back();
       }
+    }
+
+    const openCompletePopup = async (itemID) => {
+      await getEventResultData({ itemID });
+      // store에서 데이터 추출
+      setEventResult()
+      // 이벤트 완료 팝업
+      console.log(eventResult)
+      completeModalEl.value.openModal();
+    }
+
+    const closeComplete = () => {
+      console.log('closeComplete')
     }
 
     return {
@@ -268,11 +266,12 @@ export default {
       filmResultFooterImgUrl,
       filmResultImgUrl,
       webBack,
-      showReCaptureModal,
-      openReCaptureModal,
       showSaveModal,
       showAgreeModal,
-      showModal
+      completeModalEl,
+      openCompletePopup,
+      eventResult,
+      closeComplete
     }
   }
 }

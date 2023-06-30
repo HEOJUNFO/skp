@@ -13,9 +13,11 @@ export default function useResultData() {
   const eventResult = ref(null);
 
   const getEventResultData = async ({ itemID }) => {
+    const isLocal = window.location.port !== "";
+
     // 샘플페이지 & 개별 페이지
     const { type } = query;
-    if (type === "sample-landing" || type !== "landing") {
+    if (type === "sample-landing" || type !== "landing" || isLocal) {
       // session storage에서 결과 팝업 데이터 가져옴 ( 없으면 store에 저장된 페이지 로딩 )
       await dispatch("jsonData/setImageResultData");
       return;
@@ -49,6 +51,7 @@ export default function useResultData() {
 
   const setEventResult = () => {
     eventResult.value = getters["eventData/eventResult"];
+    console.log("eventResult", eventResult.value)
   };
 
   return {
