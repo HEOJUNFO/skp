@@ -229,6 +229,12 @@ export default {
       else if (photoStoreModal.value.showVModal) {
         photoStoreModal.value.webBack();
       }
+      else if (this.showModal.value || showReCaptureModal.value || showSaveModal.value || showReCaptureModal) {
+        this.showModal.value = false;
+        showReCaptureModal.value = false;
+        showSaveModal.value = false;
+        showReCaptureModal.value = false;
+      }
       else {
         back();
       }
