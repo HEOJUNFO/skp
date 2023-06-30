@@ -73,7 +73,7 @@
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
-    <a-entity gltf-model="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"
+    <a-entity position="0 1 0" gltf-model="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"
       animation-mixer></a-entity>
 
 
