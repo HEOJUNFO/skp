@@ -39,7 +39,7 @@
         <div class="modal-content2">
           <p>정말 당첨을 포기하시겠습니까?</p>
           <div class="button-container">
-            <button class="round-button" @click="back">포기</button>
+            <button class="round-button" @click="back(), showReCaptureModal = false">포기</button>
             <button class="round-button" @click="showReCaptureModal = false">취소</button>
           </div>
         </div>
@@ -194,17 +194,32 @@ export default {
       showVModal.value = false;
     }
 
-    const share = () => {
-      if (navigator.share) {
-        navigator.share({
-          url: imageurl.value
-        })
-          .then(() => console.log('Successful share'))
-          .catch((error) => console.log('Error sharing', error),
-            alert('공유기능을 지원하지 않는 브라우저입니다.'));
-      } else {
-        alert('공유기능을 지원하지 않는 브라우저입니다.');
+    const share = async () => {
+      const blob = await (await fetch(imageurl.value)).blob();
+
+      const filesArray = [
+        new File(
+          [blob],
+          'image.png',
+          {
+            type: blob.type
+          }
+        )
+      ];
+
+      const shareData = {
+        files: filesArray
+      };
+      console.log(shareData);
+      if (!navigator.share) {
+        alert('공유하기 기능을 지원하지 않는 브라우저입니다.');
+        return;
       }
+      navigator.share(shareData)
+        .then(() => {
+          console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
     }
 
     const webBack = () => {
