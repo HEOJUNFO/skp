@@ -97,24 +97,14 @@ export default {
   },
   data() {
     return {
-      showModal: false,
       modalImageUrl: 'path/to/image.jpg',
       modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
-      showReCaptureModal: false,
-      showSaveModal: false,
-      showAgreeModal: false,
     }
   },
   methods: {
     exit() {
       this.$router.go(-1)
     },
-
-    openReCaptureModal() {
-      this.showModal = false;
-      this.showReCaptureModal = true;
-    },
-
   },
   setup() {
     const store = useStore();
@@ -124,6 +114,15 @@ export default {
     const isCopyCilp = ref(false);
     const printModal = ref(null);
     const photoStoreModal = ref(null);
+    const showModal = ref(false);
+    const showReCaptureModal = ref(false);
+    const showSaveModal = ref(false);
+    const showAgreeModal = ref(false);
+
+    const openReCaptureModal = () => {
+      showModal.value = false;
+      showReCaptureModal.value = true;
+    };
 
     const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
       return computed(() => {
@@ -231,9 +230,9 @@ export default {
       else if (photoStoreModal.value.showVModal) {
         photoStoreModal.value.webBack();
       }
-      else if (this.showModal.value || showReCaptureModal.value || showSaveModal.value || showReCaptureModal) {
-        this.showModal.value = false;
-        showReCaptureModal.value = false;
+      else if (showModal.value || showAgreeModal.value || showSaveModal.value || showReCaptureModal.value) {
+        showModal.value = false;
+        showAgreeModal.value = false;
         showSaveModal.value = false;
         showReCaptureModal.value = false;
       }
@@ -269,7 +268,12 @@ export default {
       photoGiveAwayButtonText,
       filmResultFooterImgYn,
       filmResultFooterImgUrl,
-      filmResultImgUrl
+      filmResultImgUrl,
+      showReCaptureModal,
+      openReCaptureModal,
+      showSaveModal,
+      showAgreeModal,
+      showModal
     }
   }
 }
