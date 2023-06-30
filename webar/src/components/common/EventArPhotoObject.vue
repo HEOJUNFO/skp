@@ -18,10 +18,6 @@
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
       <a-asset-item id="earringModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
-      <a-asset-item id="avatarModel1" src="../../assets/img/Bell_NorthernSoulSpin.gltf"></a-asset-item>
-      <a-asset-item id="avatarModel2" src="../../assets/Bell_SambaDance.gltf"></a-asset-item>
-      <!-- <a-asset-item id="avatarModel3"
-        src="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"></a-asset-item> -->
 
       <img id="card"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.png" />
@@ -73,8 +69,12 @@
         class="earring-entity" visible="true"></a-gltf-model>
     </a-entity>
 
+    <a-entity position="0 1 0" gltf-model="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_Mini.gltf"
+      animation-mixer></a-entity>
     <a-entity position="0 1 0" gltf-model="https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Bell_NorthernSoulSpin_V5.gltf"
       animation-mixer></a-entity>
+
+
 
 
 
