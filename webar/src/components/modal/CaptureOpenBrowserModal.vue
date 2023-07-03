@@ -49,7 +49,8 @@
           <p class="text">{{ agreePopupText }}</p>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
           <br>
-          <input type="text" :placeholder="agreePopupInputText" class="input-text" />
+          <br>
+          <input type="text" :placeholder="agreePopupInputText" class="input-text" v-model="inputText" />
           <br>
           <div class="button-container">
             <button class="round-button" @click="share">동의하기</button>
@@ -64,14 +65,16 @@
 </template>
   
 <script>
-import { ref, computed, inject } from "vue";
+import { ref, computed, inject, toRefs } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
 import PrintOpenBrowserModal from "./PrintOpenBrowserModal.vue";
 import PhotoStoreModal from "./PhotoStoreModal.vue";
 import EventCompleteModal from "./EventCompleteModal.vue";
 
 import useResultData from "@/composables/useResultData";
+import useLogPersonAgree from "@/composables/useLogPersonAgree";
 
 export default {
   name: "CaptureOpenBrowserModal",
@@ -92,6 +95,9 @@ export default {
     },
   },
   setup() {
+    const route = useRoute();
+    const { eventId } = toRefs(route.query);
+    const inputText = ref('');
     const store = useStore();
     const { getters, dispatch } = store;
     const showVModal = ref(false);
@@ -108,6 +114,10 @@ export default {
       getEventResultData,
       setEventResult
     } = useResultData({ getters, dispatch });
+
+    const {
+      putLogPersonAgree
+    } = useLogPersonAgree();
 
 
     const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
@@ -182,6 +192,12 @@ export default {
     }
 
     const share = async () => {
+      if (shareAgreePopupYn) {
+        putLogPersonAgree({
+          eventId: eventId.value,
+          agreeId: inputText.value,
+        });
+      }
       const blob = await (await fetch(imageurl.value)).blob();
 
       const filesArray = [
@@ -263,6 +279,7 @@ export default {
       completeModalEl,
       openCompletePopup,
       eventResult,
+      inputText,
     }
   }
 }

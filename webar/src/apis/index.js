@@ -17,9 +17,12 @@ export async function setPvLog(params) {
   return res;
 }
 
+export async function setLogPersonAgree(params) {
+  const res = await _axios.post("/api/v1/web-event-open/log-person-agree/save", params);
+  return res;
+}
+
 export async function getEventPhotoBox(params) {
-  console.log("getEventPhotoBox", params)
   const res = await _axios.post("/api/v1/web-event-front-photo/photobox/detail", params);
-  console.log("getEventPhotoBox", res)
   return res;
 }
