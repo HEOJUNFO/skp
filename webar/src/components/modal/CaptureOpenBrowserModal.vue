@@ -231,6 +231,9 @@ export default {
       else if (photoStoreModal.value.showVModal) {
         photoStoreModal.value.webBack();
       }
+      else if (completeModalEl.value.showModal) {
+        completeModalEl.value.closeModal();
+      }
       else if (showAgreeModal.value || showSaveModal.value) {
         showAgreeModal.value = false;
         showSaveModal.value = false;
@@ -245,6 +248,8 @@ export default {
       setEventResult()
       completeModalEl.value.openModal();
     }
+
+
 
     return {
       print,
