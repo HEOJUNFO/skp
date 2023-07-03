@@ -59,7 +59,7 @@
     </div>
     <print-open-browser-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
-    <event-complete-modal ref="completeModalEl" :result-info="eventResult" @close:modal="closeComplete" />
+    <event-complete-modal ref="completeModalEl" :result-info="eventResult" />
   </vue-final-modal>
 </template>
   
@@ -197,7 +197,6 @@ export default {
       const shareData = {
         files: filesArray
       };
-      console.log(shareData);
       if (!navigator.share) {
         alert('공유하기 기능을 지원하지 않는 브라우저입니다.');
         return;
@@ -227,15 +226,8 @@ export default {
 
     const openCompletePopup = async (itemID) => {
       await getEventResultData({ itemID });
-      // store에서 데이터 추출
       setEventResult()
-      // 이벤트 완료 팝업
-      console.log(eventResult)
       completeModalEl.value.openModal();
-    }
-
-    const closeComplete = () => {
-      console.log('closeComplete')
     }
 
     return {
@@ -271,7 +263,6 @@ export default {
       completeModalEl,
       openCompletePopup,
       eventResult,
-      closeComplete
     }
   }
 }
