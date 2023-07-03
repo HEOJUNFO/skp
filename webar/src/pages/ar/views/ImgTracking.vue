@@ -3,7 +3,7 @@
     :sticker-list="stickerList" :tab-list="tabList">
     <ar-photo-container ref="containerRef">
       <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false, toggleBarVisibility()"></tutorial-modal>
-      <browser-check-modal v-if="isNaverBrowser && isWebView" @close="isNaverBrowser = false"></browser-check-modal>
+      <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" :facing-mode="fmode" />
       <template v-if="loadedVideo">
         <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
@@ -68,7 +68,6 @@ export default {
     const eventArPhotoObjectRef = ref(null);
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
-    const isWebView = computed(() => navigator.userAgent.includes('WebView'));
 
     const tutorialYn = computed(() => {
       const istutorial = getters['eventData/tutorialYn'];
@@ -250,7 +249,6 @@ export default {
       rejectOrientationPermission,
       captureModal,
       imageUrl,
-      isWebView,
       eventArPhotoObjectRef,
     }
   }
