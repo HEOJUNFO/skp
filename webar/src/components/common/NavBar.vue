@@ -517,7 +517,7 @@ export default {
 
 .fade-enter-from,
 .fade-leave-to {
-    transform: scaleY(0);
+    transform: scaleY(0.5) translateY(50%);
     transform-origin: bottom;
 }
 
@@ -528,7 +528,7 @@ export default {
 
 .fade-enter-to,
 .fade-leave-from {
-    transform: scaleY(1);
+    transform: scaleY(1) translateY(0%);
     transform-origin: bottom;
 }
 
