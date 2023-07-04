@@ -1,5 +1,5 @@
 //function import from src/apis/index.js
-import { getEventData, getEventResult, getEventPhotoBox } from "@/apis";
+import { getEventData, getEventResult, getEventPhotoBox, getEventPrint } from "@/apis";
 
 export const eventData = {
   namespaced: true,
@@ -7,6 +7,7 @@ export const eventData = {
     eventData: {},
     eventResult: {},
     photoBoxData: {},
+    printData: {},
     isEventFinish: false,
   }),
   mutations: {
@@ -19,6 +20,9 @@ export const eventData = {
     ["SET_PHOTO_BOX_DATA"](state, payload) {
       state.photoBoxData = payload;
     },
+    ["SET_PRINT_DATA"](state, payload) {
+      state.printData = payload;
+    },
     ["isEventFinish"](state, payload) {
       state.isEventFinish = payload;
     },
@@ -29,6 +33,9 @@ export const eventData = {
     },
     photoBoxData({ photoBoxData }) {
       return photoBoxData;
+    },
+    printData({ printData }) {
+      return printData;
     },
     // 3d객체 정보
     arObjectInfoList({ eventData }) {
@@ -244,9 +251,7 @@ export const eventData = {
         // 에러처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-
       }
     },
     //포토함 데이터 파싱
@@ -260,12 +265,22 @@ export const eventData = {
         // 에러 처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
- 
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-
       }
     },
-
+    async getEventPrint({ commit, dispatch }, params) {
+      try {
+        const res = await getEventPrint(params);
+        if (res.data.resultCode.toString() === "200") {
+          commit("SET_PRINT_DATA", res.data.result);
+          return;
+        }
+        // 에러 처리
+        dispatch("ajaxStatus/setResponse", res.data, { root: true });
+      } catch ({ status: resultCode, statusText: resultMessage }) {
+        dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
+      }
+    },
     // 이벤트 결과 파싱
     async getEventResult({ commit, dispatch }, params) {
       try {
@@ -286,7 +301,6 @@ export const eventData = {
     async getStroageEventData({ commit }) {
       return new Promise((resolve) => {
         const storageData = sessionStorage.getItem("skWebArJson");
-        console.log(JSON.parse(storageData))
         commit("SET_EVENT_DATA", JSON.parse(storageData));
         resolve(storageData);
       });
@@ -294,8 +308,14 @@ export const eventData = {
     async getStroagePhotoBoxData({ commit }) {
       return new Promise((resolve) => {
         const storageData = sessionStorage.getItem("skPhotoBoxJson");
-        console.log(JSON.parse(storageData))
         commit("SET_PHOTO_BOX_DATA", JSON.parse(storageData));
+        resolve(storageData);
+      });
+    },
+    async getStroagePrintData({ commit }) {
+      return new Promise((resolve) => {
+        const storageData = sessionStorage.getItem("skWebArPrintJson");
+        commit("SET_PRINT_DATA", JSON.parse(storageData));
         resolve(storageData);
       });
     },
