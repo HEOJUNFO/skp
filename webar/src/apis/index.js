@@ -1,7 +1,6 @@
 import { _axios } from "@/plugins/axios";
 
 export async function getEventData(params) {
-  console.log("getEventData", params)
   const res = await _axios.post("/api/v1/web-event-front/ar-event-meta/detail", params);
   console.log("getEventData", res)
   return res;
@@ -9,6 +8,17 @@ export async function getEventData(params) {
 
 export async function getEventResult(params) {
   const res = await _axios.post("/api/v1/web-event-front/winning-process", params);
+  return res;
+}
+
+export async function getEventPrint(params) {
+  const res = await _axios.post("/api/v1/web-event-front-photo/print/selectPrintCount", params);
+  console.log(res)
+  return res;
+}
+
+export async function getEventPhotoBox(params) {
+  const res = await _axios.post("/api/v1/web-event-front-photo/photobox/detail", params);
   return res;
 }
 
@@ -22,7 +32,3 @@ export async function setLogPersonAgree(params) {
   return res;
 }
 
-export async function getEventPhotoBox(params) {
-  const res = await _axios.post("/api/v1/web-event-front-photo/photobox/detail", params);
-  return res;
-}
