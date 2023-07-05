@@ -32,3 +32,9 @@ export async function setLogPersonAgree(params) {
   return res;
 }
 
+export async function setSavePrintStatus(params) {
+  const res = await _axios.post("/api/v1/web-event-front-photo/print/savePrintStatus", params);
+  console.log(res)
+  return res;
+}
+

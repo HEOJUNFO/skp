@@ -94,11 +94,16 @@
   
 <script>
 
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from "vue-router";
+
+import useSavePrintStatus from '../../composables/useSavePrintStatus';
 
 export default {
   setup() {
+    const route = useRoute();
+    const { eventId } = toRefs(route.query);
     const { getters } = useStore();
     const showVModal = ref(false);
     const imageUrl = ref('');
@@ -122,6 +127,10 @@ export default {
     const map = ref(null);
     const markerLatLng = ref(null);
     const maker = ref(null);
+
+    const {
+      putSavePrintStatus
+    } = useSavePrintStatus();
 
     const initMap = () => {
       if (typeof window.naver === "undefined") {
@@ -178,6 +187,12 @@ export default {
     }
 
     const print = () => {
+      putSavePrintStatus({
+        eventId: eventId.value,
+        ocbMbrId: 'test',
+        clintUniqueKey: 'test',
+        printResultStatus: 'TRY',
+      })
       if (!checkDeviceNumber(deviceNumber)) {
         showErrorModal.value = true;
         console.log('error')
@@ -193,6 +208,12 @@ export default {
       showSuccessModal.value = true;
       setTimeout(() => {
         printStatus.value = 'success';
+        putSavePrintStatus({
+          eventId: eventId.value,
+          ocbMbrId: 'test',
+          clintUniqueKey: 'test',
+          printResultStatus: 'SUCCESS',
+        })
       }, 2000);
     }
 

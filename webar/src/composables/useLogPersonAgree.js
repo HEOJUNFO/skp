@@ -2,7 +2,6 @@ import { setLogPersonAgree } from "@/apis";
 
 const useLogPersonAgree =  () => {
     const putLogPersonAgree = async (params) => {
-        console.log("putLogPersonAgree", params)
         try {
             const res = await setLogPersonAgree(params);
             if (res.resultCode === 200) {
