@@ -183,7 +183,8 @@ export default {
     }
 
     const flipCamera = () => {
-      cameraRef.value.flipCamera();
+      let mode = cameraRef.value.flipCamera();
+      mode.then(result => result == 'user' ? eventArPhotoObjectRef.value.isFlipCamera = true : eventArPhotoObjectRef.value.isFlipCamera = false);
     }
 
     const toggleBeautyFilter = () => {

@@ -30,6 +30,7 @@ export default {
       emit('loadeddata');
     }
     const flipCamera = async () => {
+      let mode = 'user'
       myFacingMode = myFacingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
 
       try {
@@ -37,6 +38,14 @@ export default {
       } catch (err) {
         emit('reject:video')
       }
+
+      if (myFacingMode === 'user') {
+        mode = 'user'
+      } else {
+        mode = 'environment'
+      }
+
+      return mode;
     };
 
     const beautyFilter = (isBeauty) => {

@@ -54,7 +54,7 @@
       particle-system="preset: rain; size:3; particleCount: 300; color: #60C1FF; "></a-entity>
 
 
-    <a-entity v-if="isMindARFace" position="0 0 0">
+    <a-entity v-if="isMindARFace && isFlipCamera" position="0 0 0">
       <a-entity mindar-face-target="anchorIndex: 168">
         <a-gltf-model mindar-face-occluder position="0 -0.25 0" rotation="0 0 0" scale="0.08 0.08 0.08" src="#headModel"
           visible="true"></a-gltf-model>
@@ -71,7 +71,7 @@
     </a-entity>
 
 
-    <a-entity v-if="isMindARFace" mindar-image-target="targetIndex: 0">
+    <a-entity v-if="isMindARFace && isFlipCamera" mindar-image-target="targetIndex: 0">
       <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
       <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
         animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
@@ -102,6 +102,7 @@ export default {
 
   setup(props, { emit }) {
     const isMindARFace = ref(false);
+    const isFlipCamera = ref(true);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
 
@@ -178,6 +179,7 @@ export default {
       stickerList,
       selectTab,
       isMindARFace,
+      isFlipCamera,
       isMindARImage,
       selectSticker
     }
