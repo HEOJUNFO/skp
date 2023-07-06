@@ -482,7 +482,7 @@ export default {
     z-index: 2;
     position: absolute;
     width: 100%;
-    height: 7.5%;
+    height: 7.5vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
@@ -517,7 +517,7 @@ export default {
 
 .fade-enter-from,
 .fade-leave-to {
-    transform: scaleY(0.5) translateY(50%);
+    transform: scaleY(0.5) translateY(75%);
     transform-origin: bottom;
 }
 
