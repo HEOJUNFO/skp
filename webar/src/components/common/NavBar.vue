@@ -81,7 +81,7 @@
         </div>
 
         <transition name="fade">
-            <div v-if="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+            <div v-show="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in frameTabs" :key="tab.id"
                         :class="{ selected: selectedFrameTab === tab.id }" @click="selectFrameTab(tab.id)">{{ tab.name
@@ -98,7 +98,7 @@
             </div>
         </transition>
         <transition name="fade">
-            <div v-if="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+            <div v-show="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in effectTabs" :key="tab.id"
                         :class="{ selected: selectedEffectTab === tab.id }" @click="selectEffectTab(tab.id)">{{ tab.name
