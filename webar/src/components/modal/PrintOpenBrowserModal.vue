@@ -197,6 +197,10 @@ export default {
         showErrorModal.value = true;
         return;
       }
+      else {
+        showErrorModal.value = false;
+      }
+
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
         showFailureModal.value = true;
         return;

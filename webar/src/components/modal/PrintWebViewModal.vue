@@ -197,6 +197,8 @@ export default {
         showErrorModal.value = true;
         console.log('error')
         return;
+      } else {
+        showErrorModal.value = false;
       }
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
         showFailureModal.value = true;
