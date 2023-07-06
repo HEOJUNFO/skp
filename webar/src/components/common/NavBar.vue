@@ -293,7 +293,7 @@ export default {
         }
 
         const capture = () => {
-            if (timerButtonVisible.value === 0) {
+            if (timerButtonVisible.value === 0 || timerButtonVisible.value === 1) {
                 // No timer, just capture immediately
                 captureImage();
             } else {
@@ -317,7 +317,7 @@ export default {
         const captureing = inject('captureing');
 
         const captureImage = () => {
-            if (isCapturing.value || timerButtonVisible.value === 0) {
+            if (isCapturing.value || timerButtonVisible.value === 0 || timerButtonVisible.value === 1) {
                 captureing();
                 // aspectRatioValue.value = '1 / 2.2'
             }

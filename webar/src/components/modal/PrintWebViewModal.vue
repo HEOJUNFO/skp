@@ -19,7 +19,7 @@
           <br />
           <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
-          <button class="round-button" @click="print(), showErrorModal = false">다시 출력요청</button>
+          <button class="round-button" @click="print()">다시 출력요청</button>
         </div>
       </div>
       <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
@@ -172,7 +172,7 @@ export default {
     };
 
     const checkDeviceNumber = (deviceNumber) => {
-      return deviceNumber.value === '12345';
+      return deviceNumber.value === '0000' || deviceNumber.value === '0001';
     }
 
     const increasePrints = () => {
