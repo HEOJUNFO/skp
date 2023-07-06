@@ -52,7 +52,7 @@
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
-                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 80px; " />
+                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 70px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
                 <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
@@ -69,7 +69,7 @@
                 <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 40px;" />
             </button>
             <button v-show="isSecondEffectBarVisible" @click="effectToggleBar">
-                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 40px;" />
+                <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 35px;" />
             </button>
             <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
                 class="capture-button">
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </transition>
-        <div class="block-bar"></div>
+        <div class="block-bar" v-show="isBarVisible"></div>
     </div>
 </template>
   
@@ -482,7 +482,7 @@ export default {
     z-index: 3;
     position: absolute;
     width: 100%;
-    height: 15vh;
+    height: 30vh;
     top: 119%;
     pointer-events: none;
     background-color: #fff;
@@ -520,7 +520,7 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    top: 83%;
+    top: 82%;
     padding-top: 1%;
     flex-direction: column;
 }
