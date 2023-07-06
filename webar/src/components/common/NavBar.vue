@@ -118,6 +118,7 @@
                 </div>
             </div>
         </transition>
+        <div class="block-bar"></div>
     </div>
 </template>
   
@@ -474,8 +475,17 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
-    color: #fff;
     top: 103%;
+}
+
+.block-bar {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    height: 15vh;
+    top: 119%;
+    pointer-events: none;
+    background-color: #fff;
 }
 
 .bottom-bar-11 {
@@ -486,7 +496,6 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
-    color: #fff;
     top: 110%;
 }
 
@@ -504,6 +513,7 @@ export default {
 }
 
 .bottom-bar-2 {
+    z-index: 1;
     position: absolute;
     width: 100%;
     display: flex;
@@ -517,7 +527,7 @@ export default {
 
 .fade-enter-from,
 .fade-leave-to {
-    transform: scaleY(0.5) translateY(75%);
+    transform: translateY(150%);
     transform-origin: bottom;
 }
 
@@ -528,7 +538,7 @@ export default {
 
 .fade-enter-to,
 .fade-leave-from {
-    transform: scaleY(1) translateY(0%);
+    transform: translateY(0%);
     transform-origin: bottom;
 }
 
@@ -610,7 +620,7 @@ export default {
 
 .tab {
     margin: 0 6%;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .image-view.selected {
