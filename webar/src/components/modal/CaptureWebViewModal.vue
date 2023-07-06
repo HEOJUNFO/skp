@@ -11,7 +11,7 @@
           <img src="../../assets/icon/save-button.png" alt="저장" style="width: 70px; height: 70px;" />
         </button>
         <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
-          <img src="../../assets/icon/share-button.png" alt="공유" style="width: 70px; height: 70px;" />
+          <i class="fa-solid fa-share-nodes fa-6x" style="color:black ;"></i>
         </button>
       </div>
       <div v-if="hashTagYn" class="box">

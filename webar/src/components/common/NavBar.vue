@@ -23,21 +23,23 @@
                 </span>
             </button>
             <button v-if="timerButtonVisible && !isCapturing" @click="toggleTimer" class="timer-button">
-                <span v-if="timerButtonVisible === 2" style="font-size: 36px; font-weight: bold;">3</span>
-                <span v-else-if="timerButtonVisible === 3" style="font-size: 36px; font-weight: bold;">5</span>
-                <span v-else-if="timerButtonVisible === 4" style="font-size: 36px; font-weight: bold;">7</span>
-                <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;">
-                    <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+                <span v-if="timerButtonVisible === 2" style="font-size: 36px; font-weight: bold; color:black">3</span>
+                <span v-else-if="timerButtonVisible === 3" style="font-size: 36px; font-weight: bold;  color:black">5</span>
+                <span v-else-if="timerButtonVisible === 4" style="font-size: 36px; font-weight: bold;  color:black">7</span>
+                <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;  color:black">
+                    <i class="fa-solid fa-stopwatch fa-1x"></i>
+                    <i class="fa-solid fa-slash fa-stack-1x fa-1x"></i>
                 </span>
             </button>
             <button @click="flipCamera()" class="flip-button">
-                <img src="../../assets/icon/right-left-button.png" alt="전환" style="width: 40px; height: 40px;  " />
+                <i class="fa-solid fa-rotate fa-3x" style="color:black"></i>
             </button>
             <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true" class="beauty-button">
-                <img src="../../assets/icon/toggle-off-button.png" alt="뷰티off" style="width: 45px; height: 45px;  " />
+                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:black"></i>
             </button>
             <button v-if="!isCapturing && isBeauty" @click="isBeauty = false" class="beauty-button">
-                <img src="../../assets/icon/toggle-on-button.png" alt="뷰티on" style="width: 45px; height: 45px; " />
+                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:black"></i>
+                <i class="fa-solid fa-slash fa-stack-1x fa-3x" style="color:black"></i>
             </button>
             <button v-if="!isCapturing" @click="exitModalVisible = true" class="exit-button">
                 <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
