@@ -89,11 +89,6 @@ export default {
       modalText: '배송(당첨)정보 입력 후 경품이 지급됩니다. SNS 공유완료시에 추첨을 통해 더 많은 혜택을 드려요.',
     }
   },
-  methods: {
-    exit() {
-      this.$router.go(-1)
-    },
-  },
   setup() {
     const route = useRoute();
     const { eventId } = toRefs(route.query);
@@ -187,6 +182,7 @@ export default {
     const back = () => {
       toggleBarVisibility();
       showVModal.value = false;
+      document.querySelector('.main-content').scrollTop = 0;
     }
 
     const share = async () => {
