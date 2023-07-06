@@ -147,24 +147,19 @@ export default {
 
       imageUrl.value = canvas.toDataURL("image/png");
 
-      //gray scale 비동기
-      async function processImage(type) {
+      async function processImage() {
         try {
           const image = await window.Jimp.read(imageUrl.value);
-
-          if (typeof image[type] === "function") {
-            const src = await image[type]().getBase64Async('image/png');
-            imageUrl.value = src;
-          } else {
-            console.error(`Invalid image type: ${type}`);
-          }
+          const processedImage = image.brightness(0.1).contrast(0.1).saturate(0.1).blur(2);
+          const src = await processedImage.getBase64Async('image/png');
+          imageUrl.value = src;
         } catch (err) {
           console.error(err);
         }
       }
 
       if (beautyOn.value) {
-        await processImage('greyscale');
+        await processImage();
       }
 
       return imageUrl.value;

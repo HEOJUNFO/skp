@@ -50,7 +50,7 @@ export default {
 
     const beautyFilter = (isBeauty) => {
       if (isBeauty) {
-        video.value.style.filter = "grayscale(100%)";
+        video.value.style.filter = "brightness(110%) contrast(110%) saturate(110%) blur(2px)";
       } else {
         video.value.style.filter = "none";
       }
