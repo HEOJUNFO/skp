@@ -207,9 +207,8 @@ export default {
 }
 
 .banner-container {
-    width: 45%;
+    width: 100%;
     height: auto;
-    margin: 1%;
 }
 
 .banner-container img {
