@@ -152,7 +152,7 @@ export default {
           const image = await window.Jimp.read(imageUrl.value);
           let processedImage = image.brightness(0.3);
           processedImage = processedImage.contrast(0.1);
-          processedImage = processedImage.blur(2);
+          processedImage = processedImage.blur(1);
 
 
           const src = await processedImage.getBase64Async('image/png');
