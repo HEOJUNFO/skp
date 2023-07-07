@@ -150,8 +150,8 @@ export default {
       async function processImage() {
         try {
           const image = await window.Jimp.read(imageUrl.value);
-          let processedImage = image.brightness(0.25);
-          processedImage = processedImage.contrast(0.14);
+          let processedImage = image.brightness(0.3);
+          processedImage = processedImage.contrast(0.1);
           processedImage = processedImage.blur(2);
 
 
