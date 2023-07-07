@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <link href="../css/frame.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    <script type="text/javascript" src="../js/playArApi.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="window.close()" ><b>&#x2190;</b></span>
+            <span id="title">응원 사진 공유 이벤트</span>
+        </div>
+
+        <div id="content-2" class="container" style="">
+            <div class="content">
+                <p id="selectPhotoDesc">사진을 선택해주세요</p>
+                <img id="previewImage" src="">
+            </div>
+            <div class="footer">
+                <input class="input" type="text" id="fname" name="fname" value="" placeholder="이벤트 참여 인스타그램ID 입력"><br>
+                <input class="input" type="tel" id="lname" name="lname" value="" placeholder="휴대폰 번호 입력(경품 발송용)">
+
+                <div class="check">
+                    <input style="transform: scale(1.5);" type="checkbox" id="chkbox1" name="chkbox1" value="no">
+                    <label style="padding-left: 2px;" for="chkbox1">(필수)개인정보 수집 이용 동의</label>
+                </div>
+                <p onclick="onPopup()" style="padding-left: 35px; color: red; text-decoration: underline;">자세히보기</p><br>
+                
+                <button id="btnEvent" class="btn" type="button">동의하고 해시태그 복사</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm hide">
+        <div onclick="history.back()" ></div>
+        <div>
+            <div id="confirmMessage" style="word-break: keep-all;"></div>
+            <div>
+                <input id="confirmYes" type="button" value="확인" />
+                <input id="confirmNo" type="button" value="닫기" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+
+            checkInput();
+
+        }
+
+        document.querySelector("#fname").addEventListener("input", checkInput);
+        document.querySelector("#lname").addEventListener("input", checkInput);
+
+        function setBtnState(isDsabled) {
+
+            let btn     = document.querySelector("#btnEvent");
+
+            if(isDsabled) {
+                btn.disabled = true;
+                btn.style.backgroundColor = 'gray';
+            }
+            else {
+                btn.disabled = false;
+                btn.style.backgroundColor = '#3d85f7';
+            }
+        }
+
+        function checkInput() {
+
+                let fname = document.querySelector("#fname");
+                let lname = document.querySelector("#lname");
+
+                if( fname.value && lname.value ) {
+                    setBtnState(false);
+                } 
+                else {
+                    setBtnState(true);
+                }
+                
+            }
+
+            
+
+
+        var checkPathName = getOpenerPath();
+        if( checkPathName == "/frame.html") {
+            document.querySelector("#previewImage").src = window.opener.getPreviewImage();
+            document.querySelector("#previewImage").style.display = "none";
+        }       
+        else{
+            document.querySelector("#previewImage").style.display = "none";
+        }
+        
+        var shareTime=0;
+
+        document.querySelector("#btnEvent").addEventListener("click", async function() {
+
+            let confirm;
+            let fnameValue  = document.querySelector("#fname").value;
+            let lnameValue  = document.querySelector("#lname").value;
+            let checked     = document.querySelector("#chkbox1").checked;
+
+            if( fnameValue == "testid" ) {
+                confirm = await ui.confirm('이미 동의한 인스타그램ID입니다.', "", "공유하기");
+            }
+            else if( checked == true ) {
+                confirm = await ui.confirm('동의 및 해시태그 복사가 완료되었습니다. \n\n공유 게시글을 업로드하면 \n이벤트 참여가 완료됩니다.', "", "공유하기");
+            }
+            else {
+                confirm = await ui.confirm('개인정보 수집 이용에 동의하시겠습니까?\n만약 동의 거부하시면, 이벤트 참여 및 경품 당첨이 불가합니다.', "거부하기", "동의하기");
+            }
+
+            if(confirm == false) {
+                console.log("개인정보동의");
+
+                reqAgree(fnameValue, lnameValue);
+            }
+
+            copyClipBoard();
+
+            // 공유하기
+            if(shareTime+1000 > Date.now()) return;
+                shareTime = Date.now();
+
+                const canvasElement = document.getElementById('previewImage');
+                const blob = await (await fetch(canvasElement.src)).blob();
+                
+                const filesArray = [
+                new File(
+                    [blob],
+                    'image.png',
+                    {
+                        type: blob.type
+                    }
+                )
+                ];
+
+                const shareData = {
+                    files: filesArray
+                };
+
+                if (!(navigator.canShare(shareData))) {
+                    alert('공유를 지원하지 않는 브라우저 입니다.');
+                };
+
+                navigator.share(shareData);
+        });
+
+        function onPopup() {
+
+            document.querySelector("#fname").value = "";
+            document.querySelector("#lname").value = "";
+
+            location.href = "event_desc.html";
+        }   
+
+        function closePrint(toggle,open = false){
+            var checkPathName = getOpenerPath();
+
+            if( checkPathName == "/frame.html") {
+                if(toggle == true)
+                {
+                    window.opener.toggleArSkin(true);
+                }
+
+                window.close();
+                return ;
+            }
+            
+            if( open == true ){
+                var url     = window.location.href;
+                var link    = "../frame.html";
+                window.open(link);
+            }
+        }
+
+        function getOpenerPath() {
+            // 다른 경로 포함되도 뒷 경로만 남기기 위한 슬라이스
+            if(window.opener == null) return null;
+
+            var url = window.opener.location.pathname;
+            var checkPathName = url.slice(url.lastIndexOf("/"));
+
+            return checkPathName;
+        }
+
+        function saveImage() {
+            // 이미지 태그 선택
+            const image = document.querySelector('#previewImage');
+
+            // 이미지를 Base64 문자열로 인코딩하여 가져오기
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            ctx.drawImage(image, 0, 0);
+            const dataURL = canvas.toDataURL("image/jpeg");
+
+            // 로컬 스토리지에 저장하기
+            localStorage.clear();
+            localStorage.setItem('printImage', dataURL);
+        }
+
+        const ui = {
+            confirm: async (message,yesBtn,noBtn) => createConfirm(message,yesBtn,noBtn)
+        }
+
+        const createConfirm = (message,yesBtn,noBtn) => {
+
+            return new Promise((complete, failed)=>{
+                document.querySelector('#confirmMessage').innerText = message;
+        
+                let yes = document.querySelector('#confirmYes');
+                let no = document.querySelector('#confirmNo');
+                let popup = document.querySelector('.confirm');
+
+                yes.value = yesBtn;
+                no.value = noBtn;
+                no.classList.remove('hide');
+
+                if(yesBtn == ""){
+                    yes.classList.add('hide');
+                }
+
+                if(noBtn == ""){
+                    no.classList.add('hide');
+                }
+
+                yes.addEventListener("click", function(){
+                    yes.removeEventListener('click', arguments.callee);
+                    no.removeEventListener('click', arguments.callee);
+                    popup.classList.add('hide');
+                    history.back();
+                    complete(true);
+                });
+
+                no.addEventListener("click", function(){
+                    yes.removeEventListener('click', arguments.callee);
+                    no.removeEventListener('click', arguments.callee);
+                    popup.classList.add('hide');
+                    history.back();
+                    complete(false);
+                });
+            
+                popup.classList.remove('hide');
+            });
+        }
+
+        function copyClipBoard(){
+
+            let tagList = [
+                "#정선가리왕산",
+                "#AR포카",
+            ];
+            copy(tagList.join('\n'));
+
+        }
+
+        function copy(copyText) {                
+            var tmpTextarea = document.createElement('textarea');
+            tmpTextarea.value = copyText;
+
+            document.body.appendChild(tmpTextarea);
+            tmpTextarea.select();
+            tmpTextarea.setSelectionRange(0, 9999);  // 셀렉트 범위 설정
+
+            document.execCommand('copy');
+            document.body.removeChild(tmpTextarea);                            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <input id="kiosk-id" style="display: none;">
+    <div class="container">
+        <div class="header">
+            <span id="title">사진 출력하기</span>
+        </div>
+
+        <div id="content-4" class="container" style="">
+            <div class="content loading">
+                <h3 style="font-size: 1.1em;">사진 출력이 요청되었습니다.</h3>
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <span class="loading-text">준비중</span>
+                </div>
+            </div>
+            <div class="content success" style="display: none;">
+                <img id="previewImage" src="" style="width: auto; height: 30vh;">
+                <h3 style="font-size: 1.5em;">출력완료</h3>
+                <h3>출력 디바이스에서 반드시 사진을<br>수령하세요</h3>
+            </div>
+            <div class="content fail" style="display: none;">
+                <h class="big-red-exclamation">!</h>
+                <h3>디바이스(통신) 오류로 출력이<br>불가능합니다.</h3>
+                <!-- <h3>주변의 현장안내 직원에게<br>문의해주세요.</h3> -->
+            </div>
+            <div class="footer" style="display: none;">
+                <button id="btnClose"class="btn">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // get parameter
+        var tempUserKey = null;
+        init();
+
+        function init(){
+            let params = new URLSearchParams(location.search);
+            let kioskID = params.get('kioskID');
+            tempUserKey = params.get('userKey');
+
+            // 로컬 스토리지에서 이미지 가져오기
+            const dataURL = localStorage.getItem('printImage');
+
+            // 이미지 태그 선택
+            const image = document.querySelector('#previewImage');
+            
+            // 이미지 태그에 Base64 문자열로 디코딩된 이미지 삽입
+            image.src = dataURL;
+
+            document.querySelector('#kiosk-id').value = kioskID;
+            document.querySelector("#btnClose").addEventListener("click", function() {
+                window.close();
+            });
+
+            if(kioskID == null || tempUserKey == null || kioskID.length == 0 || tempUserKey.length == 0){
+                alert("잘못된 요청입니다.");
+                changeUploadStatus('fail');
+                return ;
+            }
+
+            GetUserHistory(checkHistory)
+        }
+        
+
+        function changeUploadStatus(status) {
+            let statusList = ['loading', 'success', 'fail'];
+            let footer = document.querySelector("#content-4 .footer");
+            if(status == 'loading') 
+                footer.style.display = "none";
+            else
+                footer.style.display = "";
+
+
+            for(let i = 0; i < statusList.length; i++){
+                if(statusList[i] == status){
+                    document.querySelector("#content-4 .content."+statusList[i]).style.display = "";
+                    continue;
+                }
+
+                document.querySelector("#content-4 .content."+statusList[i]).style.display = "none";
+            }
+        }
+
+        function getOpenerPath() {
+            // 다른 경로 포함되도 뒷 경로만 남기기 위한 슬라이스
+            if(window.opener == null) return null;
+
+            var url = window.opener.location.pathname;
+            var checkPathName = url.slice(url.lastIndexOf("/"));
+
+            return checkPathName;
+
+        }
+
+        function ImgUpload(kioskID) {
+            const base64ImageData = localStorage.getItem('printImage');
+            // Base64 형식의 데이터를 Blob 객체로 변환  
+            let byteString  = atob(base64ImageData.split(",")[1]);
+            let arrayBuffer = new ArrayBuffer(byteString.length);
+            let intArray    = new Uint8Array(arrayBuffer);
+
+            for (let i = 0; i < byteString.length; i++) {
+                intArray[i] = byteString.charCodeAt(i);
+            }
+            let blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+
+            var url = "https://go.selpic.co.kr/skapi/upload";
+            // 인화 업로드 
+            var formData = new FormData();
+            
+            formData.append("robot_id", kioskID );      //키오스크 아이디
+            formData.append("user_id",  tempUserKey);                       //회원 키
+            formData.append("file",  blob, "img.jpeg" );                    // 이미지 확장지 jpg 필수 
+
+            console.log(formData.get("robot_id"));
+            console.log(formData.get("user_id"));
+            console.log(formData.get("file"));
+
+            $.ajax({
+                url:url,
+                type: "POST",
+                enctype:'multipart/form-data',            
+                contentType: 'multipart/form-data',  
+                dataType: 'json',     
+                mimeType: 'multipart/form-data',
+                processData	: false,
+                contentType	: false,
+                crossDomain: true,
+                data		: formData, 
+                url: url, 
+                success:function(data)
+                {     
+                    console.log(data);
+
+                    if ( data.upload != true){
+                        changeUploadStatus('fail');
+                    }
+                    else{
+                        GetUserHistory(uploadLoading);
+                    }
+                },
+                error:function(error)
+                { 
+                    alert("network error."); 
+                    changeUploadStatus('fail');
+                    return;
+                }  
+            });
+
+        }
+
+        function CheckKiosk() {
+            let kioskID = $("#kiosk-id").val();
+
+            if(kioskID == "0000") {
+                setTimeout(function(){
+                    changeUploadStatus('fail');
+                }, 3000);
+                return ;
+            }
+            else if(kioskID == "0001") {
+                setTimeout(function(){
+                    changeUploadStatus('success');
+                }, 3000);
+                return ;
+            }
+            //  테스트기기
+            else if(kioskID == "0044") {
+                kioskID = "H150" + kioskID;
+            }
+            //  행사기기
+            else if(kioskID == "0393" || kioskID == "0394" ) {
+                kioskID = "A230" + kioskID;
+            }
+            else if(kioskID == "0132") {
+                kioskID = "A190" + kioskID;
+            }
+
+            //  키오스크 번호는 4자리 숫자인데 코드는 H150???? 이런식으로 붙음
+            //  셀픽에서 H150없이도 출력 가능하도록 API 업데이트 해줌
+            var url = "https://go.selpic.co.kr/skapi/kiosk/"+kioskID; 
+            //키오스크 상태 확인 
+            // GET https://go.selpic.co.kr/skapi/kiosk/{키오스크 코드}
+
+            $.ajax({
+                type: "GET", 
+                url: url,
+                dataType:"JSON",
+                success:function(data)
+                {     
+                    //  성공해서 이미지 업로드
+                    if ( data.status != 'normal'){
+                        changeUploadStatus('fail');
+                    }
+                    else{
+                        ImgUpload(kioskID);
+                    }
+                },
+                error:function(error)
+                {
+                    //  실패
+                    alert("network error."); 
+                    changeUploadStatus('fail');
+                    return;
+                }  
+            });
+
+        }
+
+        function checkUploadStatus(data)
+        {
+            let info = data[0];
+
+            let x = document.getElementsByClassName("loading-text")[0];
+            x.innerText="";
+
+            switch(info.status) {
+                case 'S': //완료
+                    changeUploadStatus('success');
+                    break;
+                case 'F': //실패
+                    changeUploadStatus('fail');
+                    break;
+                case 'W': //업로드
+                    changeUploadStatus('loading');
+                    x.innerText="전송중";
+                    break;
+                case 'P': //인쇄중
+                    changeUploadStatus('loading');
+                    x.innerText="출력중";
+                    break;
+            }
+
+            if(info.status == 'W' || info.status == 'P') {
+
+                setTimeout(function(){
+                    GetUserHistory(uploadLoading);
+                }, 2000);
+
+            }
+        }
+
+        function uploadLoading(data)
+        {     
+            if(data.length <= 0){
+                changeUploadStatus('fail');
+                return ;
+            }
+
+            checkUploadStatus(data);
+        }
+
+        function checkHistory(data) {
+            if(data.length <= 0){
+                changeUploadStatus('loading');
+                CheckKiosk();
+                return ;
+            }
+            else{
+                checkUploadStatus(data)
+            }
+        }
+
+        function GetUserHistory(callbackFunc) {
+
+            //  유저키는 각각 유니크키여야 하고 이걸 만드는 코드가 필요
+            var url = "https://go.selpic.co.kr/skapi/order/"+ tempUserKey;
+            // 인화 상태 확인 
+            // GET https://go.selpic.co.kr/skapi/order/{회원 키}
+
+            $.ajax({
+                type: "GET", 
+                url: url,
+                dataType:"JSON",
+                success : callbackFunc,
+                error:function(error)
+                {
+                    alert("network error."); 
+                    return;
+                }  
+            });
+
+        }
+
+    </script>
+</body>
+</html>

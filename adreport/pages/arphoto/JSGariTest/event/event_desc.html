@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <link href="../css/frame.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="history.back()" ><b>&#x2190;</b></span>
+            <span id="title">(필수)개인정보 수집 이용 동의</span>
+        </div>
+
+        <div id="content-3" class="container" style="">
+            <div class="terms-popup popup" style="background-color: transparent;"> 
+                <div onclick="history.back()" style="z-index: -1; height: 100%; width: 100%; position: absolute;"></div>
+                <div class="inner" style="background-color: white; padding: 5%; position: relative;">
+                    <i class="fa-solid fa-xmark" onclick="history.back()" style="padding: 0px;right: 0px;/* position: absolute; */font-size: 1.5rem;float: right;"></i>
+                    <div>
+                        <p>SK플래닛(주) 귀중</p><br>
+                    </div>
+    
+                    <table style="width: 100%;">
+                        <tr>
+                          <th scope="col">개인정보 수집<br>이용목적</td>
+                          <th scope="col">개인정보 수집<br>항목</td>
+                          <th scope="col">보유, 이용기간</td>
+                        </tr>
+                        <tr>
+                          <td>이벤트 참여자<br> 확인, 경품 지급 안내<br>홍보 동영상 제작 활용</td>
+                          <td>인스타그램ID<br>사진, 전화번호</td>
+                          <td style="color: red;">이벤트 종료 후<br> 60일까지 보관후 지체없이 파기</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p>*고객님은 동의 거부 권리가 있으며, 동의 거부시 이벤트 참여가 불가합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    </script>
+</body>
+</html>

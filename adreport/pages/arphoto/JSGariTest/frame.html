@@ -1,0 +1,240 @@
+﻿<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="no">
+        <meta name="apple-mobile-web-app-capable" content="no">
+
+        <script type="text/javascript" src="./js/frame.js"></script>
+        <script type="text/javascript" src="./js/checkBrowser.js"></script>
+        <script type="text/javascript" src="./js/playArApi.js"></script>
+        <script src="./js/cdnPathconvert.js"></script>
+        
+        <script src="https://kit.fontawesome.com/7de141b858.js" crossorigin="anonymous"></script>
+
+        <link href="./css/frame.css" rel="stylesheet">
+        <link href="./css/icons.css" rel="stylesheet">
+
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+        <!-- 변수명 모아 넣기 스크립트 -->
+        <script src="./js/cdnPathconvert.js"></script>
+        <script>
+            window.addEventListener('DOMContentLoaded', function(){
+
+                document.querySelector("#block-rotImg").src = topPath + blockFolderPath + blockFileName;
+                document.querySelector("#tutorialImg").src = topPath + tutorialFolderPath + tutorialFileName;
+                
+                var imageElement = document.querySelector("#lodingImg");
+
+                imageElement.addEventListener('load', function() {
+                
+                    // 이미지의 원래 크기 가져오기
+                    var originalWidth = imageElement.width;
+                    var originalHeight = imageElement.height;
+
+                    // 이미지 크기 조정
+                    imageElement.width = originalWidth * loadingScaleFactor;
+                    imageElement.height = originalHeight * loadingScaleFactor;
+                
+                });
+
+                imageElement.src = topPath + lodingFolderPath + lodingFileName;
+
+                console.log(document.querySelector("#block-rotImg").src);
+                console.log(document.querySelector("#tutorialImg").src);
+                console.log(document.querySelector("#lodingImg").src);
+            });
+
+        </script>
+
+        <script>
+            var value   = 0;
+            var oldCnt  = 0;
+            var interval = setInterval(()=>
+            {
+                value += 0.7;
+                document.getElementById('loadingBar').value = value;
+
+                var cnt = value/20%3;
+
+                if(cnt != oldCnt)
+                {
+                    document.getElementById('loadingBarMent').innerHTML = "AR 준비중";
+
+                    for(var i = 0; i < cnt; i++)
+                    {
+                        document.getElementById('loadingBarMent').innerHTML += ".";
+                    }
+                }
+
+                if(value >= 100)
+                    clearInterval(interval);
+            }, 20);
+        </script>
+    </head>
+
+<!-- 
+    <div>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+    <div>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <i class="fa-solid fa-slash"></i>
+    </div> -->
+
+    <body>
+        <div id="top-ui" style="width: 100%; height:8vh; align-items: center; justify-content: center; background-color: white;">
+            <div style="width: 100%; height:100%; display: flex;">
+                <div class="icon-box del-cookie">
+                </div>
+                <div class="icon-box" style="z-index:0;">
+                    <div id="btn-flip" class="icon-flip">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                </div>
+                <div id="btn-exit" class="icon-box" style="display: flex; align-items: center;">
+                    <div class="icon-exit"><i class="fa-solid fa-xmark"></i></div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="main" style="display: none;">
+           
+            <div class="aria" style="width: 1px; min-width: 100%; height:1px; position: relative; margin: auto;">
+                <img id="capture-img" alt="test.png" style="width: 100%; height: 100%; display: none;">
+                <div class="block-capture" style="display: none;"></div>
+
+                <div id="bkg-eventer" style="display: none;"> </div>
+            </div>
+    
+            <div id="bottom-ui">
+                <div id="ar-ui" class="ui-container">                    
+                    <div id="skin-list" class="item-container" style="display: none;">
+                    </div>
+
+                    <div id="model-list" class="item-container" style="display: none;">
+                    </div>
+                    
+                    <div class="ar-controller">
+                        <div id="btn-skin" class="icon-box">
+                            <div class="icon-group">
+                                <div class="icon-group-content">
+                                    <i class="fa-regular fa-image content"><p>프레임</p></i>
+                                    <i class="fa-solid fa-angle-down check hide"></i>
+                                    
+                                </div>
+                                <div class="tut icon-tutorial-skin">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="35" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                        <circle cx="50" cy="50" r="30" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                    </svg>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div id="btn-camera" class="icon-box">
+                            <div class="icon-inner">
+                                <i class="fa-regular fa-circle" style="font-size: 5.1rem;"></i>
+                            </div>
+                        </div>
+
+                        <div id="btn-model" class="icon-box">
+                            <div class="icon-group">
+                                <div class="icon-group-content">
+                                    <i class="fa-regular fa-user content"><p>캐릭터</p></i>
+                                    <i class="fa-solid fa-angle-down check hide"></i>
+                                    
+                                </div>
+                                <div class="tut icon-tutorial-skin">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="35" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                        <circle cx="50" cy="50" r="30" fill="none" stroke-width="2" stroke="#675DD0"></circle>
+                                    </svg>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div id="capture-ui" class="ui-container" style="display:none; background-color: white;">
+
+                    <!-- <div id="btn-print" style="flex:3;" class="icon-box2">
+                        <div class="icon-inner">
+                            <div class="icon-print">
+                                ㅤ사진 출력하기ㅤ
+                            </div>
+                        </div>    
+                    </div>                     -->
+
+                    <div id="btn-print" style="flex:1;" class="icon-box2">
+                        <div class="icon-inner">
+                            <i class="fa-solid fa-print"></i>
+                            <!-- <i class="fa-solid fa-share-nodes"></i> -->
+                            <p class="icon-name">출력하기</p>
+                        </div>
+                    </div>
+
+                    <div id="btn-download" style="flex:1;" class="icon-box2">
+                        <div class="icon-inner">
+                            <i class="fa-solid fa-download"></i>
+                            <p class="icon-name">저장</p>
+                        </div>
+                    </div>
+
+                    <div id="btn-gift" style="flex:1;" class="icon-box2">
+                        <div class="icon-inner icon-gift-skin">
+                            <i class="fa-solid fa-gift"></i>
+                            <p class="icon-name">경품 이벤트</p>    
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="block-rot" style="display: none; z-index: 99999;"> 
+            <img id="block-rotImg" src="" style="height:50vh;">
+        </div>
+
+        <div id="tutorial" class="tutorial" style="z-index: 99;"> 
+            <div class="tutorial-inner">
+                <img id="tutorialImg" style="height: 40%;" src="">
+                <p>안녕! 반가워</p>
+                <p>맘에 드는 <span style="color:#FFC040">사진프레임</span>과</p>
+                <p><span style="color:#FFC040">캐릭터</span>를 선택해서</p>
+                <p>지금부터 사진 촬영을 시작해볼까?</p>
+            </div>
+        </div>
+
+        <div id="loading-page" style="z-index: 9999;">
+            <div class="loading-inner">
+                <p>2023 정선 가리왕산<br>국민 응원 캠페인에<br>동참해주세요!</p>
+                <progress value="0" max="100" id="loadingBar"></progress>
+                <p id="loadingBarMent">AR 준비중</p>
+            </div>
+            <div id="loadingSpriteAni2">
+                <img id="lodingImg" src="">
+            </div>
+        </div>
+
+    
+        <div class="confirm hide">
+            <div onclick="history.back()" ></div>
+            <div>
+                <div id="confirmMessage" style="word-break: keep-all;"></div>
+                <div>
+                    <input id="confirmYes" type="button" value="확인" />
+                    <input id="confirmNo" type="button" value="닫기" />
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>App UI</title>
+    <link href="../css/print.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="../js/checkBrowser.js"></script>
+    
+    <!-- 변수명 모아 넣기 스크립트 -->
+    <script src="../js/cdnPathconvert.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-btn" onclick="history.back()" ><b>&#x2190;</b></span>
+            <span id="title">기기번호</span>
+        </div>
+
+        <div id="content-3" class="container" style="">
+            <div class="content">
+                <p>키오스크 화면에 보이는<br>기기번호를 입력해주세요<br> </p>
+                <input id="kiosk-id" type="number" maxlength="4" class="idInput" placeholder="기기번호 입력">
+            </div>
+            <div class="footer">
+                <button id="btnStartPrint"class="btn">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var kioskList = ["0000","0001","0044", "0393", "0394", "0132"];
+
+        function uuidv4() {
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
+        document.getElementById("kiosk-id").value = '';
+
+        document.querySelector("#btnStartPrint").addEventListener("click", function() {
+            let kioskID = document.getElementById("kiosk-id").value;
+            if( kioskID === '' ){
+                alert("올바른 키오스크 번호를 입력해주세요.");
+                return;
+            }
+
+            // 키오스크 리스트에 있는지 확인    
+            let isExist = false;
+            for(let i = 0; i < kioskList.length; i++){
+                if(kioskList[i] == kioskID){
+                    isExist = true; 
+                    break;
+                }
+            }
+
+            if(!isExist){
+                alert("행사장에서 사용되지 않는 키오스크 번호입니다.");
+                return;
+            }
+
+            document.getElementById("kiosk-id").value = '';
+            let userKey = uuidv4().replace(/-/gi, '');
+            location.href = "print_4.html?kioskID=" + kioskID+"&userKey="+userKey
+        });
+        
+
+
+    </script>
+</body>
+</html>
