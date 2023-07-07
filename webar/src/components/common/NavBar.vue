@@ -26,20 +26,19 @@
                 <span v-if="timerButtonVisible === 2" style="font-size: 36px; font-weight: bold; color:black">3</span>
                 <span v-else-if="timerButtonVisible === 3" style="font-size: 36px; font-weight: bold;  color:black">5</span>
                 <span v-else-if="timerButtonVisible === 4" style="font-size: 36px; font-weight: bold;  color:black">7</span>
-                <span v-else-if="timerButtonVisible === 1" style="font-size: 36px; font-weight: bold;  color:black">
-                    <i class="fa-solid fa-stopwatch fa-1x"></i>
-                    <i class="fa-solid fa-slash fa-stack-1x fa-1x"></i>
+                <span v-else-if="timerButtonVisible === 1" style="color:black">
+                    <i class="fa-solid fa-stopwatch fa-3x "></i>
+                    <i class="fa-solid fa-slash fa-stack-1x fa-3x"></i>
                 </span>
             </button>
             <button @click="flipCamera()" class="flip-button">
                 <i class="fa-solid fa-rotate fa-3x" style="color:black"></i>
             </button>
             <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true" class="beauty-button">
-                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:black"></i>
+                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:rgb(200, 200, 200)"></i>
             </button>
             <button v-if="!isCapturing && isBeauty" @click="isBeauty = false" class="beauty-button">
-                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:black"></i>
-                <i class="fa-solid fa-slash fa-stack-1x fa-3x" style="color:black"></i>
+                <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:hsl(60, 100%, 46%)"></i>
             </button>
             <button v-if="!isCapturing" @click="exitModalVisible = true" class="exit-button">
                 <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
@@ -52,8 +51,7 @@
                 <img src="../../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px; " />
                 <p style="font-size: 17.5px; font-weight: bold; " :style="frameButtonStyle">배경</p>
             </button>
-            <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
-                class="capture-button">
+            <button v-if="!isCapturing" @click="capture" class="capture-button">
                 <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 68px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
@@ -73,8 +71,7 @@
             <button v-show="isSecondEffectBarVisible" @click="effectToggleBar">
                 <img src="../../assets/icon/bar-down-button.png" alt="내리기" style="width: auto; height: 34px;" />
             </button>
-            <button v-if="!isCapturing" @touchstart="startLongPress" @touchend="cancelLongPress" @click="capture"
-                class="capture-button">
+            <button v-if="!isCapturing" @click="capture" class="capture-button">
                 <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 40px; " />
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
@@ -162,8 +159,8 @@ export default {
         const arCharacterSettingYn = ref('N');
         const arTabSettingYn = ref('N');
         const tabMenuTitle = ref('축제');
-        const timerButtonVisible = ref(0);
-        const longPressTimer = ref(null);
+        const timerButtonVisible = ref(1);
+
         const countdown = ref(null);
         const countdownInterval = ref(null);
         const stickerObjectList = ref([]);
@@ -213,6 +210,7 @@ export default {
 
             aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
             isBarVisible.value = !isBarVisible.value;
+            effectTabs.value = getEffectTabs();
         }
 
         const toggleAspectRatio = () => {
@@ -236,7 +234,6 @@ export default {
         }
         const effectToggleBar = () => {
             isSecondEffectBarVisible.value = !isSecondEffectBarVisible.value;
-            effectTabs.value = getEffectTabs();
             triggerAnimation();
         }
 
@@ -276,16 +273,6 @@ export default {
         const exit = () => {
             router.back();
         };
-
-        const startLongPress = () => {
-            longPressTimer.value = setTimeout(() => {
-                timerButtonVisible.value = 1;
-            }, 1000);
-        }
-
-        const cancelLongPress = () => {
-            clearTimeout(longPressTimer.value);
-        }
 
         const toggleTimer = () => {
             timerButtonVisible.value = (timerButtonVisible.value + 1) % 5;
@@ -404,8 +391,6 @@ export default {
             effectToggleBar,
             isSecondFrameBarVisible,
             isSecondEffectBarVisible,
-            startLongPress,
-            cancelLongPress,
             toggleTimer,
             capture,
             stopCapture,
@@ -435,7 +420,8 @@ export default {
 .frame-image {
     width: 100%;
     height: 100%;
-    margin-left: 10%;
+    margin-left: 2%;
+    border: 1px solid #000;
 
 }
 
@@ -617,7 +603,7 @@ export default {
 }
 
 .tab.selected {
-    background-color: #ccc;
+    color: rgb(216, 4, 120)
 }
 
 .tab {
@@ -625,16 +611,12 @@ export default {
     font-size: 18px;
 }
 
-.image-view.selected {
-    border: 2px solid blue;
-}
-
 .countdown {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 3em;
+    font-size: 10em;
     color: #fff;
     z-index: 2;
 }

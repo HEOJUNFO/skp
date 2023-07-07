@@ -228,7 +228,7 @@ export default {
       if (locationFindExposureType.value === 'MAP') {
         showLocationMap.value = true;
         initMap();
-        map.value.setSize(new window.naver.maps.Size(window.innerWidth * 0.9, window.innerHeight * 0.9));
+        map.value.setSize(new window.naver.maps.Size(window.innerWidth * 1, window.innerHeight * 1));
       } else {
         showLocationPopup.value = true;
       }
@@ -368,8 +368,8 @@ export default {
 
 .modal-content2 {
   background-color: #fff;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 }
 
 .highlight-text {
