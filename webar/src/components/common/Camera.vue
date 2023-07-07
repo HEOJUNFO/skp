@@ -50,7 +50,7 @@ export default {
 
     const beautyFilter = (isBeauty) => {
       if (isBeauty) {
-        video.value.style.filter = 'brightness(135%) contrast(70%) blur(0.8px)';
+        video.value.style.filter = 'brightness(135%) contrast(70%) blur(0.5px)';
 
       } else {
         video.value.style.filter = "none";
