@@ -35,7 +35,7 @@
       <a-box class="clickable" position="0 0 0" scale="0.3 0.3 0.3" renderOrder="0" raycaster visible="false"> </a-box>
     </a-plane>
     <a-plane ref="trashRef" id="close-button" class="clickable" gesture-handler="locationBased: true" src="#trash-texture"
-      width="0.3" height="0.3" alpha-test="0.5" visible="false" @mousedown="listUpdate(arData)"></a-plane>
+      width="0.2" height="0.2" alpha-test="0.5" visible="false" @mousedown="listUpdate(arData)"></a-plane>
 
 
   </template>
@@ -109,9 +109,9 @@ export default {
       const threshold = 0.05;
       if (distance < threshold && !wasTrashSet) {
         console.log('playTouchEffect', wasTrashSet)
-
+        const stickerWidth = stickerRef.value.components.geometry.attrValue.width;
         const stickerHeight = stickerRef.value.components.geometry.attrValue.height;
-        const trashPos = endPos.clone().add(new THREE.Vector3(0, stickerHeight * 0.6, 0));
+        const trashPos = endPos.clone().add(new THREE.Vector3(stickerWidth * 0.35, stickerHeight * 0.4, 0));
         trashRef.value.object3D.position.copy(trashPos);
 
         setTrash();
