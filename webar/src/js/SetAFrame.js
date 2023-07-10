@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export function setAframe() {
   /*
   window.AFRAME.registerComponent('play-on-click', {
@@ -203,6 +205,42 @@ export function setAframe() {
       });
     }
   });
+
+  window.AFRAME.registerComponent('outline', {
+    init: function () {
+        var el = this.el;
+
+        var mesh = el.getObject3D('mesh');
+        var box = new THREE.Box3().setFromObject(mesh);
+        var size = box.getSize(new THREE.Vector3());
+
+        var geometry = new THREE.BoxGeometry(size.x * 1, size.y * 0.5, size.z * 1.05);
+        var edges = new THREE.EdgesGeometry(geometry);
+
+        this.outlineObjects = [];
+
+        var numLines = 10;
+
+        for (var i = 0; i < numLines; i++) {
+            var lineMaterial = new THREE.LineBasicMaterial({color: 0x808080});
+            var line = new THREE.LineSegments(edges, lineMaterial);
+            var offset = i * 0.0005; 
+            line.position.x += offset;
+            line.position.y += offset;
+            line.position.z += offset;
+            this.outlineObjects.push(line);
+            el.object3D.add(line);
+            line.visible = false;
+        }
+    },
+ 
+    setTrash: function(boolen) {
+        for (var i = 0; i < this.outlineObjects.length; i++) {
+            this.outlineObjects[i].visible = boolen;
+        }
+    }
+});
+
 
   
 

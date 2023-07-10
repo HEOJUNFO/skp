@@ -307,7 +307,7 @@ export default {
   display: inline-block;
   border-radius: 30px;
   width: 80%;
-  height: 60px;
+  height: 8vh;
   margin-top: 10px;
   border: 2px solid #000;
   background-color: #fff;

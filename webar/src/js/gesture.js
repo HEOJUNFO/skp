@@ -62,18 +62,6 @@ export function setGesture() {
         this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
       },
       handleMove: function (event) {
-        /*
-        if (this.isVisible) {
-    
-          let vecters = AFRAME.scenes[0].components['main-scene'].getCameraVector(this.el.object3D);
-          let xAxis =  vecters.right;
-          let yAxis =  vecters.up;
-    
-          // 커스텀
-          this.rotation(this.el.object3D, xAxis, event.detail.positionChange.y * this.data.rotationFactor); 
-          this.rotation(this.el.object3D, yAxis, event.detail.positionChange.x * this.data.rotationFactor); 
-        }*/
-    
         if (this.isVisible) {
     
           this.el.object3D.position.x += event.detail.positionChange.x * this.data.moveFactor;

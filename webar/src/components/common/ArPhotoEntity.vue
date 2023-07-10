@@ -1,8 +1,6 @@
 
 <template>
   <template v-if="arData">
-    <a-plane v-if="isTrash" id="close-button" class="clickable" gesture-handler="locationBased: true"
-      src="#button-texture" width="0.2" height="0.2" position="0 0 -2" @mousedown="listUpdate(arData)"></a-plane>
     <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" />
 
@@ -29,12 +27,16 @@
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="3 3 3" renderOrder="0" raycaster visible="false"> </a-box>
+      <a-box class="clickable" position="0 0 0" scale="2.3 2.3 2.3" renderOrder="0" raycaster visible="false"> </a-box>
     </a-gltf-model>
 
-    <a-plane v-else-if="objectType === `STICKER`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" renderOrder="0" @mousedown="startLongPress"
-      @mouseup="cancelLongPress"></a-plane>
+    <a-plane ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
+      gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress" @mouseup="cancelLongPress">
+      <a-box class="clickable" position="0 0 0" scale="0.3 0.3 0.3" renderOrder="0" raycaster visible="false"> </a-box>
+    </a-plane>
+    <a-plane ref="trashRef" id="close-button" class="clickable" gesture-handler="locationBased: true" src="#trash-texture"
+      width="0.3" height="0.3" alpha-test="0.5" visible="false" @mousedown="listUpdate(arData)"></a-plane>
+
 
   </template>
 </template>
@@ -43,6 +45,7 @@
 import { computed, onMounted, ref, toRefs, watch } from "vue";
 import { getObjectAttrs, getTouchAnimation } from "@/js/arObject";
 import { EventBus } from "@/js/EventBus";
+import * as THREE from "three";
 
 export default {
   name: "DragEntity",
@@ -62,8 +65,9 @@ export default {
   },
   emits: ['animationcomplete:object', 'timeout:object'],
   setup(props, { emit }) {
-    const isTrash = ref(false);
-    const longPressTimer = ref(null);
+    const stickerRef = ref(null);
+    const trashRef = ref(null);
+    let startPos = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
     const objectType = computed(() => arData.value.type);
@@ -75,17 +79,43 @@ export default {
     })
 
     const setTrash = () => {
-      isTrash.value = !isTrash.value;
+      if (trashRef.value.object3D.visible) {
+        trashRef.value.object3D.visible = false;
+        stickerRef.value.components.outline.setTrash(false);
+      }
+      else {
+        trashRef.value.object3D.visible = true;
+        stickerRef.value.components.outline.setTrash(true);
+      }
     }
 
+    let wasTrashSet = false;
+
     const startLongPress = () => {
-      longPressTimer.value = setTimeout(() => {
+      startPos = stickerRef.value.object3D.position.clone();
+      if (trashRef.value.object3D.visible) {
         setTrash();
-      }, 1200);
+        wasTrashSet = true;
+      } else {
+        wasTrashSet = false;
+      }
     }
 
     const cancelLongPress = () => {
-      clearTimeout(longPressTimer.value);
+      console.log('cancelLongPress', wasTrashSet)
+      const endPos = stickerRef.value.object3D.position;
+      const distance = startPos.distanceTo(endPos);
+
+      const threshold = 0.05;
+      if (distance < threshold && !wasTrashSet) {
+        console.log('playTouchEffect', wasTrashSet)
+
+        const stickerHeight = stickerRef.value.components.geometry.attrValue.height;
+        const trashPos = endPos.clone().add(new THREE.Vector3(0, stickerHeight * 0.6, 0));
+        trashRef.value.object3D.position.copy(trashPos);
+
+        setTrash();
+      }
     }
 
     const listUpdate = (arData) => {
@@ -127,8 +157,9 @@ export default {
       playTouchEffect,
       startLongPress,
       cancelLongPress,
-      isTrash,
-      listUpdate
+      listUpdate,
+      stickerRef,
+      trashRef,
     }
   }
 }
