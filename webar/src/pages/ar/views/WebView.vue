@@ -182,8 +182,7 @@ export default {
     }
 
     const flipCamera = () => {
-      let mode = cameraRef.value.flipCamera();
-      mode.then(result => result == 'user' ? eventArPhotoObjectRef.value.isFlipCamera = true : eventArPhotoObjectRef.value.isFlipCamera = false);
+      cameraRef.value.flipCamera();
     }
 
     const toggleBeautyFilter = () => {
@@ -261,7 +260,7 @@ export default {
         else {
           toggleBarVisibility();
         }
-      }, loadingYn.value ? 5000 : 0)
+      }, loadingYn.value ? 3000 : 0)
 
     });
 

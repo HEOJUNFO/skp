@@ -85,7 +85,7 @@ export default {
         setTimeout(() => {
           completeLoading()
 
-        }, loadingYn.value ? 5000 : 0)
+        }, loadingYn.value ? 3000 : 0)
       }
     })
 

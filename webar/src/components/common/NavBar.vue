@@ -31,7 +31,7 @@
                     <i class="fa-solid fa-slash fa-stack-1x fa-3x"></i>
                 </span>
             </button>
-            <button @click="flipCamera()" class="flip-button">
+            <button @click="flipCamera(), isFlipCamera = !isFlipCamera" class="flip-button">
                 <i class="fa-solid fa-rotate fa-3x" style="color:black"></i>
             </button>
             <button v-if="!isCapturing && !isBeauty" @click="isBeauty = true" class="beauty-button">
@@ -160,6 +160,7 @@ export default {
         const arTabSettingYn = ref('N');
         const tabMenuTitle = ref('축제');
         const timerButtonVisible = ref(1);
+        const isFlipCamera = ref(true);
 
         const countdown = ref(null);
         const countdownInterval = ref(null);
@@ -364,6 +365,15 @@ export default {
             selectStickerChange(stickerObjectList.value);
         }, { deep: true });
 
+        watch(isFlipCamera, () => {
+            if (isFlipCamera.value === false) {
+                let selectedItems = props.filterList.filter(item => item.file && item.file.endsWith('.json'));
+                selectedItems.forEach(item => {
+                    item.select = false;
+                });
+            }
+        }, { deep: true });
+
         EventBus.on('deleteStickerItem', (item) => {
             const index = stickerObjectList.value.findIndex(sticker => sticker.id === item.id);
             stickerObjectList.value.splice(index, 1);
@@ -412,6 +422,7 @@ export default {
             selectEffectTab,
             selectImage,
             selectSticker,
+            isFlipCamera
         }
     }
 }

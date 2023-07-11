@@ -77,7 +77,6 @@ export default {
 
   setup(props, { emit }) {
     const isMindARFace = ref(false);
-    const isFlipCamera = ref(true);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
 
@@ -96,51 +95,62 @@ export default {
     }
 
     let entitiesCreated = {};
+
     watch(() => selectFilter, () => {
-      selectFilter.value.forEach((file) => {
-        if (file.includes('json')) {
-          const fileName = file.split('/').pop().split('.')[0];
-          fetch(file)
-            .then(response => response.json())
-            .then(json => {
-              isMindARFace.value = true;
-              if (!entitiesCreated[fileName]) {  // If entities not created before for this file, create them
-                generateEntity(json, fileName).forEach(entity => {
-                  document.querySelector('a-scene').insertAdjacentHTML('beforeend', entity);
-                });
-                entitiesCreated[fileName] = true;
-              }
-            });
-        }
-        else {
-          isMindARFace.value = false;
+      const files = selectFilter.value;
+      if (files.length === 0 || !files.some(file => file.includes('json'))) {
+        isMindARFace.value = false;
+        updateVisibilityOfFaceEntities(false);
+        return;
+      }
+      Object.keys(entitiesCreated).forEach((key) => {
+        if (!files.some(file => file.split('/').pop().split('.')[0] === key)) {
+          updateVisibilityOfFaceEntities(false, key);
         }
       });
-      if (selectFilter.value.length === 0) {
-        isMindARFace.value = false;
-      }
+
+      files.forEach((file) => {
+        if (!file.includes('json')) return;
+
+        const fileName = file.split('/').pop().split('.')[0];
+        fetch(file)
+          .then(response => response.json())
+          .then(json => {
+            isMindARFace.value = true;
+            if (!entitiesCreated[fileName]) {
+              generateEntity(json, fileName).forEach(entity => {
+                document.querySelector('a-scene').insertAdjacentHTML('beforeend', entity);
+              });
+              entitiesCreated[fileName] = true;
+            } else {
+              updateVisibilityOfFaceEntities(true, fileName);
+            }
+          });
+      });
     }, { deep: true });
 
-    function generateEntity(jsonData) {
+    function generateEntity(jsonData, fileName) {
       return jsonData.map(data => {
         const position = `${data.position.x} ${data.position.y} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
         const scale = `${data.scale.x} ${data.scale.y} ${data.scale.z}`;
 
-        return `<a-entity class='face' mindar-face-target="anchorIndex: ${data.facePosition}">
+        return `<a-entity class='face' id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
         <a-gltf-model position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
           visible="true"></a-gltf-model>
       </a-entity>`;
       });
     }
 
-    watch([() => isFlipCamera, () => isMindARFace], () => {
+    function updateVisibilityOfFaceEntities(isVisible, fileName) {
       const faceEntities = document.querySelectorAll('.face');
       faceEntities.forEach((entity) => {
-        let modelElement = entity.querySelector('a-gltf-model');
-        modelElement.setAttribute('visible', isMindARFace.value && isFlipCamera.value);
+        if (!fileName || entity.id === fileName) {
+          let modelElement = entity.querySelector('a-gltf-model');
+          modelElement.setAttribute('visible', isVisible);
+        }
       });
-    }, { deep: true });
+    }
 
     // 애니메이션 재생 완료
     const animationcomplete = (data) => {
@@ -190,7 +200,6 @@ export default {
       stickerList,
       selectTab,
       isMindARFace,
-      isFlipCamera,
       isMindARImage,
       selectSticker
     }
