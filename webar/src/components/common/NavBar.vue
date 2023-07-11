@@ -348,7 +348,15 @@ export default {
         }, { deep: true });
         watch(() => props.filterList, () => {
             let selectedItems = props.filterList.filter(item => item.select === true);
-            let selectedFileNames = selectedItems.map(item => item.name);
+
+            let selectedFileNames = selectedItems.map(item => {
+                if (item.file && item.file.endsWith('.json')) {
+                    return item.file;
+                }
+                else {
+                    return item.name;
+                }
+            });
             selectFilterChange(selectedFileNames);
         }, { deep: true });
 

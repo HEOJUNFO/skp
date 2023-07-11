@@ -47,39 +47,14 @@
     </a-entity>
 
     <a-entity v-if="selectFilter.includes('star') || selectTab.includes('star')" position="0 -8 -15"
-      particle-system="color: #FF0,#FF0; size:1;"></a-entity>
+      particle-system="color: #FF0,#FF0; size:1; texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/star2.png;"></a-entity>
     <a-entity v-if="selectFilter.includes('snow') || selectTab.includes('snow')" position="0 -8 -15"
-      particle-system="preset: snow; size:10; particleCount: 500;"></a-entity>
+      particle-system="preset: snow; size:10; particleCount: 500;texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/smokeparticle.png;"></a-entity>
     <a-entity v-if="selectFilter.includes('rain') || selectTab.includes('rain')" position="0 -8 -15"
-      particle-system="preset: rain; size:3; particleCount: 300; color: #60C1FF; "></a-entity>
-
-
-    <a-entity v-if="isMindARFace && isFlipCamera" position="0 0 0">
-      <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model mindar-face-occluder position="0 -0.25 0" rotation="0 0 0" scale="0.08 0.08 0.08" src="#headModel"
-          visible="true"></a-gltf-model>
-      </a-entity>
-
-      <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model rotation="0 -0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel"
-          class="glasses1-entity" visible="true"></a-gltf-model>
-      </a-entity>
-
-      <a-entity mindar-face-target="anchorIndex: 1">
-        <a-sphere color="red" radius="0.1"></a-sphere>
-      </a-entity>
-    </a-entity>
-
-
-    <a-entity v-if="isMindARFace && isFlipCamera" mindar-image-target="targetIndex: 0">
-      <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-      <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
-        animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
-    </a-entity>
+      particle-system="preset: rain; size:3; particleCount: 300; color: #60C1FF;texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/raindrop.png; "></a-entity>
 
     <a-camera active="false" camera position="0 0 0" rotation="0 0 0" rotation-reader zoom="1.5"
       look-controls="enabled:false;"></a-camera>
-
 
   </a-scene>
 </template>
@@ -120,16 +95,52 @@ export default {
       stickerList.value = stickerList.value.filter(sticker => propIds.has(sticker.id));
     }
 
+    let entitiesCreated = {};
     watch(() => selectFilter, () => {
-      if (selectFilter.value.includes('face')) {
-        isMindARFace.value = true;
-        console.log('isMindARFace', isMindARFace.value)
-      } else {
+      selectFilter.value.forEach((file) => {
+        if (file.includes('json')) {
+          const fileName = file.split('/').pop().split('.')[0];
+          fetch(file)
+            .then(response => response.json())
+            .then(json => {
+              isMindARFace.value = true;
+              if (!entitiesCreated[fileName]) {  // If entities not created before for this file, create them
+                generateEntity(json, fileName).forEach(entity => {
+                  document.querySelector('a-scene').insertAdjacentHTML('beforeend', entity);
+                });
+                entitiesCreated[fileName] = true;
+              }
+            });
+        }
+        else {
+          isMindARFace.value = false;
+        }
+      });
+      if (selectFilter.value.length === 0) {
         isMindARFace.value = false;
       }
+    }, { deep: true });
 
-    }, { deep: true })
+    function generateEntity(jsonData) {
+      return jsonData.map(data => {
+        const position = `${data.position.x} ${data.position.y} ${data.position.z}`;
+        const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
+        const scale = `${data.scale.x} ${data.scale.y} ${data.scale.z}`;
 
+        return `<a-entity class='face' mindar-face-target="anchorIndex: ${data.facePosition}">
+        <a-gltf-model position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
+          visible="true"></a-gltf-model>
+      </a-entity>`;
+      });
+    }
+
+    watch([() => isFlipCamera, () => isMindARFace], () => {
+      const faceEntities = document.querySelectorAll('.face');
+      faceEntities.forEach((entity) => {
+        let modelElement = entity.querySelector('a-gltf-model');
+        modelElement.setAttribute('visible', isMindARFace.value && isFlipCamera.value);
+      });
+    }, { deep: true });
 
     // 애니메이션 재생 완료
     const animationcomplete = (data) => {
