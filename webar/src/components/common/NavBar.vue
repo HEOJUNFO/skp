@@ -215,6 +215,7 @@ export default {
         }
 
         const toggleAspectRatio = () => {
+            console.log(document.querySelector('iframe'))
             aspectRatio.value = (aspectRatio.value + 1) % 5
             if (aspectRatio.value === 0) {
                 aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
@@ -380,9 +381,15 @@ export default {
         });
 
 
-        const frameStyle = computed(() => ({
-            aspectRatio: aspectRatioValue.value,
-        }));
+        const frameStyle = computed(() => {
+            if (arFrameSettingYn.value === 'N') {
+                return {
+                    aspectRatio: aspectRatioValue.value,
+                };
+            } else {
+                return {};
+            }
+        });
 
         const barStyle = computed(() => ({
             backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
@@ -432,7 +439,7 @@ export default {
 .NavBar {
     position: absolute;
     width: 100%;
-    height: auto;
+    height: 100vh;
     background: #f9f9f9;
 }
 
@@ -447,7 +454,7 @@ export default {
 .top-bar {
     position: absolute;
     width: 100%;
-    height: 10%;
+    height: 7.5vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "aspect timer flip beauty exit";
@@ -478,19 +485,20 @@ export default {
     z-index: 2;
     position: absolute;
     width: 100%;
-    height: 15vh;
+    height: 10vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
-    top: 103%;
+    background-color: #fff;
+    bottom: 0vh;
 }
 
 .block-bar {
-    z-index: 3;
+    z-index: 0;
     position: absolute;
     width: 100%;
     height: 30vh;
-    top: 119%;
+    bottom: 0vh;
     pointer-events: none;
     background-color: #fff;
 }
@@ -503,7 +511,8 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
-    top: 110%;
+    bottom: 0vh;
+    background-color: #fff;
 }
 
 .frame-button {
@@ -527,9 +536,9 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    top: 82%;
-    padding-top: 1%;
+    bottom: 7.5vh;
     flex-direction: column;
+    background-color: #fff;
 }
 
 .fade-enter-from,

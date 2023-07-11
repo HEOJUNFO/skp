@@ -107,11 +107,12 @@ export default {
   
 <style scoped>
 .event-wrapper {
+  z-index: 1;
   width: 100%;
-  height: 93%;
+  height: 83%;
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  top: 10%;
+  top: 7.5vh;
 }
 </style>

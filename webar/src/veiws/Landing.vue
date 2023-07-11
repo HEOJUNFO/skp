@@ -1,5 +1,5 @@
 <template>
-  <iframe :src="url" v-show="url" @load="loadComplete"></iframe>
+  <iframe class="iframe" :src="url" v-show="url" @load="loadComplete"></iframe>
 </template>
 
 <script>
