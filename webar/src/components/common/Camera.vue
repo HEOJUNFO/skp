@@ -1,9 +1,10 @@
 <template>
-  <video ref="video" @loadedmetadata="loadedmetadata" @loadeddata="loadeddata" playsinline />
+  <video ref="video" @loadedmetadata="loadedmetadata" @loadeddata="loadeddata"
+    :class="{ flipped: cameraSettings.isFlipped }" playsinline />
 </template>
 
 <script>
-import { onMounted, ref, toRefs } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import { getUserMedia } from "@/js/getUserMedia";
 
 export default {
@@ -17,41 +18,34 @@ export default {
   emits: ['loadeddata', 'loadedmetadata', 'reject:video'],
   setup(props, { emit }) {
     const video = ref(null);
-    const { facingMode } = toRefs(props)
 
-    let myFacingMode = facingMode.value;
+    const cameraSettings = reactive({
+      facingMode: props.facingMode,
+      isFlipped: props.facingMode === 'user',
+    })
 
     // meta data load
     const loadedmetadata = () => {
       emit('loadedmetadata');
     }
-    // 미디어의 첫번째 프레임이 로딩 완료된 시점
+    // first frame loaded
     const loadeddata = () => {
       emit('loadeddata');
     }
     const flipCamera = async () => {
-      let mode = 'user'
-      myFacingMode = myFacingMode === 'user' ? 'environment' : 'user'; // switch between front ("user") and rear ("environment") cameras
+      cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';
+      cameraSettings.isFlipped = !cameraSettings.isFlipped;
 
       try {
-        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
         emit('reject:video')
       }
-
-      if (myFacingMode === 'user') {
-        mode = 'user'
-      } else {
-        mode = 'environment'
-      }
-
-      return mode;
     };
 
     const beautyFilter = (isBeauty) => {
       if (isBeauty) {
         video.value.style.filter = 'brightness(135%) contrast(70%) blur(0.5px)';
-
       } else {
         video.value.style.filter = "none";
       }
@@ -59,7 +53,7 @@ export default {
 
     const resetCamera = async () => {
       try {
-        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
         emit('reject:video')
       }
@@ -68,9 +62,8 @@ export default {
 
     onMounted(async () => {
       try {
-        await getUserMedia({ videoEl: video.value, facingMode: myFacingMode });
+        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
-        // alert('카메라 사용을 허용하지 않으셨습니다. 이벤트 페이지로 돌아갑니다.')
         emit('reject:video')
       }
     })
@@ -82,6 +75,7 @@ export default {
       flipCamera,
       resetCamera,
       beautyFilter,
+      cameraSettings,
     }
   }
 }
@@ -94,6 +88,9 @@ video {
   display: block;
   object-fit: cover;
   position: absolute;
+}
 
+.flipped {
+  transform: scaleX(-1);
 }
 </style>
