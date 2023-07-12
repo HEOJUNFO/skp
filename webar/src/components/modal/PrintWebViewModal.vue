@@ -307,7 +307,7 @@ export default {
   border-radius: 30px;
   width: 80%;
   height: 8vh;
-  margin-top: 10px;
+  margin-top: 1vh;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;
@@ -417,8 +417,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-top: 1.5vh;
+  margin-bottom: 0.5vh;
   margin-left: 10%;
   width: 80%;
   height: 3vh;
@@ -438,11 +438,12 @@ export default {
   color: white;
   text-align: center;
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   transition-duration: 0.4s;
   cursor: pointer;
-  padding: 2px 4px;
-  height: 80%;
+  padding: 0px 4px;
+  height: 2.55vh;
 }
 
 .button-print2 {
@@ -453,10 +454,11 @@ export default {
   color: white;
   text-align: center;
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   transition-duration: 0.4s;
   cursor: pointer;
-  padding: 2px 4px;
-  height: 80%;
+  padding: 0px 4px;
+  height: 2.55vh;
 }
 </style>
