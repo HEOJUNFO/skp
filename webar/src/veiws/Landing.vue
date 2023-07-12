@@ -62,21 +62,12 @@ export default {
       }
     };
 
-    window.adjustSizeToRatio = function (inputRatio = '8.7/4') {
-      // 입력받은 비율
+    window.adjustSizeToRatio = function (inputRatio) {
       const ratio = eval(inputRatio);
-
-      // 현재 윈도우의 너비를 가져옵니다.
       let windowWidth = window.innerWidth;
-      console.log(windowWidth)
-
-      // 비율에 맞는 높이를 계산합니다.
       let targetHeight = windowWidth * ratio;
-
-      // 높이를 계산된 값으로 조정하고 너비는 100%로 유지합니다.
       iframeHeight.value = targetHeight + 'px';
     }
-
 
     const frameStyle = computed(() => {
 
@@ -86,7 +77,6 @@ export default {
       };
 
     });
-
 
     const webEventGetTraceNo = function () {
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
