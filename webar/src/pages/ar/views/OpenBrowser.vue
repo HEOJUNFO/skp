@@ -58,6 +58,7 @@ export default {
     const imageUrl = ref(null);
     const beautyOn = ref(false);
     const eventArPhotoObjectRef = ref(null);
+    const faceMode = ref('user');
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
 
@@ -131,7 +132,13 @@ export default {
         sy = (video.videoHeight - sh) / 2;
       }
 
+      ctx.save();
+      if (faceMode.value === 'user') {
+        ctx.scale(-1, 1);
+        ctx.translate(-v_width, 0);
+      }
       ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
+      ctx.restore();
 
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
@@ -182,7 +189,10 @@ export default {
     }
 
     const flipCamera = () => {
-      cameraRef.value.flipCamera();
+      let mode = cameraRef.value.flipCamera();
+      mode.then((res) => {
+        faceMode.value = res;
+      })
     }
 
     const toggleBeautyFilter = () => {

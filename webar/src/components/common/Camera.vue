@@ -33,6 +33,7 @@ export default {
       emit('loadeddata');
     }
     const flipCamera = async () => {
+      let mode = 'user'
       cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';
       cameraSettings.isFlipped = !cameraSettings.isFlipped;
 
@@ -41,6 +42,13 @@ export default {
       } catch (err) {
         emit('reject:video')
       }
+
+      if (cameraSettings.facingMode === 'user') {
+        mode = 'user'
+      } else {
+        mode = 'environment'
+      }
+      return mode;
     };
 
     const beautyFilter = (isBeauty) => {
