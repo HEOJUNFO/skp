@@ -19,7 +19,6 @@ export default {
     const { aes256Decode } = cryptoUtil();
     const iframeHeight = ref('100%')
     const iframeRef = ref(null);
-    // const router = useRouter();
 
     const baseUrl = process.env.VUE_APP_PAGE_PATH;
     const urls = ref([
@@ -56,15 +55,12 @@ export default {
       window.localStorage.removeItem("event_validation");
     });
 
-
-
     const loadComplete = () => {
       if (url.value !== null) {
         // iframe loading complete
         // TODO ifame이 로딩되기 전에 화면 가림 처리?
       }
     };
-
 
     window.adjustSizeToRatio = function (inputRatio = '8.7/4') {
       // 입력받은 비율
@@ -133,10 +129,14 @@ export default {
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
 
-        // await dispatch("jsonData/setActionObjectFrame");
-        // await dispatch("jsonData/setPhotoBoxData");
-        await dispatch("eventData/getEventData", params);
-        await dispatch("eventData/getEventPhotoBox", params);
+        //로컬 테스트용
+        console.log("params", params);
+        await dispatch("jsonData/setActionObjectFrame");
+        await dispatch("jsonData/setPhotoBoxData");
+
+        // 배포용
+        // await dispatch("eventData/getEventData", params);
+        // await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
