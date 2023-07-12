@@ -1,5 +1,5 @@
 <template>
-  <iframe class="iframe" :src="url" v-show="url" @load="loadComplete"></iframe>
+  <iframe class="iframe" :src="url" v-show="url" @load="loadComplete" :style="frameStyle"></iframe>
 </template>
 
 <script>
@@ -17,6 +17,7 @@ export default {
     const route = useRoute();
     const { eventId, attendCode, arData } = toRefs(route.query);
     const { aes256Decode } = cryptoUtil();
+    const iframeHeight = ref('100%')
     // const router = useRouter();
 
     const baseUrl = process.env.VUE_APP_PAGE_PATH;
@@ -54,12 +55,30 @@ export default {
       window.localStorage.removeItem("event_validation");
     });
 
+
+
     const loadComplete = () => {
       if (url.value !== null) {
         // iframe loading complete
         // TODO ifame이 로딩되기 전에 화면 가림 처리?
       }
     };
+
+    window.aspectRatioChange = function (ratio) {
+      let splitRatio = ratio.split(" / ");
+      let height = (parseFloat(splitRatio[0]) / parseFloat(splitRatio[1])) * 100;
+      iframeHeight.value = height;
+    };
+
+    const frameStyle = computed(() => {
+
+      return {
+        width: "100%",
+        height: iframeHeight.value,
+      };
+
+    });
+
 
     const webEventGetTraceNo = function () {
       const timezoneOffset = new Date().getTimezoneOffset() * 60000;
@@ -124,6 +143,7 @@ export default {
     return {
       url,
       loadComplete,
+      frameStyle
     };
   },
 };

@@ -485,7 +485,7 @@ export default {
     z-index: 2;
     position: absolute;
     width: 100%;
-    height: 10vh;
+    height: 12.5vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";

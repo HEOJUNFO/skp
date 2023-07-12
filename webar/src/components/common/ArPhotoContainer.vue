@@ -85,7 +85,7 @@ export default {
         setTimeout(() => {
           completeLoading()
 
-        }, loadingYn.value ? 3000 : 0)
+        }, loadingYn.value ? 2000 : 0)
       }
     })
 
@@ -109,7 +109,7 @@ export default {
 .event-wrapper {
   z-index: 1;
   width: 100%;
-  height: 83%;
+  height: 80%;
   max-width: 600px;
   margin: 0 auto;
   position: relative;
