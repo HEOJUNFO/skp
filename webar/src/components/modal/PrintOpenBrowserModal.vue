@@ -282,7 +282,7 @@ export default {
   text-align: center;
   z-index: 2;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   background-color: #fff;
   overflow-y: scroll;
@@ -290,9 +290,9 @@ export default {
 
 .image {
   width: 100%;
-  height: auto;
+  height: 75vh;
   position: relative;
-  top: -3%
+  top: 0vh
 }
 
 .exit-button {
@@ -418,10 +418,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   margin-left: 10%;
   width: 80%;
-  height: 30px;
+  height: 3vh;
 }
 
 .prints-number {

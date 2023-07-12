@@ -751,23 +751,16 @@ export const jsonData = {
       bannerList: [
         {
           arNftBannerId: "0", //인덱스 번호
-          bannerImgUrl: "https://blog.kakaocdn.net/dn/CNxUY/btqw7dnElRU/HuVZgvpT6J8n4aEYFathEk/img.jpg", //배너 이미지 URL
+          bannerImgUrl: "https://www.pngkit.com/png/detail/51-514276_rocket-ship-icon-rocket-ship-clipart-png.png", //배너 이미지 URL
           bannerTargetUrl: "https://www.naver.com", //배너 클릭시 이동 URL
           bannerSort: "0", //배너 정렬 순서
         },
         {
           arNftBannerId: "1", //인덱스 번호
-          bannerImgUrl: "https://blog.kakaocdn.net/dn/I81mL/btqOeBlgX7S/hlI2ssuZfmGbvUG2ncC4LK/img.png", //배너 이미지 URL
+          bannerImgUrl: "https://www.seekpng.com/png/full/44-442130_logo-disney-film-logo-png.png", //배너 이미지 URL
           bannerTargetUrl: "https://www.google.co.kr", //배너 클릭시 이동 URL
           bannerSort: "1", //배너 정렬 순서
         },
-        {
-          arNftBannerId: "2", //인덱스 번호
-          bannerImgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Daum_communication_logo.svg/2560px-Daum_communication_logo.svg.png", //배너 이미지 URL
-          bannerTargetUrl: "https://www.daum.net", //배너 클릭시 이동 URL
-          bannerSort: "2", //배너 정렬 순서
-        }
-
       ],
       deviceGpsList: [
         {
@@ -963,7 +956,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "축제1",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y

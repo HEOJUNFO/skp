@@ -1,5 +1,5 @@
 <template>
-    <div class="NavBar" :style="frameStyle">
+    <div class="NavBar">
         <div v-if="isCapturing" class="countdown">{{ countdown }}
         </div>
         <div v-if="exitModalVisible" class="modal">
@@ -150,7 +150,7 @@ export default {
         const isBeauty = ref(false);
         const arFrameSettingYn = ref('Y');
         const aspectRatio = ref(0);
-        const aspectRatioValue = ref('4 / 6');
+        const aspectRatioValue = ref('8.7 / 4');
         const isPhotoRatioSettingType = ref('BASIC');
         const isSecondFrameBarVisible = ref(false);
         const isSecondEffectBarVisible = ref(false);
@@ -209,26 +209,32 @@ export default {
             arTabSettingYn.value = getters['eventData/photoTabMenuAddSettingYn'];
             tabMenuTitle.value = getters['eventData/tabMenuTitle'];
 
-            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
+            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '2 / 1';
+
             isBarVisible.value = !isBarVisible.value;
             effectTabs.value = getEffectTabs();
         }
 
         const toggleAspectRatio = () => {
-            console.log(document.querySelector('iframe'))
             aspectRatio.value = (aspectRatio.value + 1) % 5
             if (aspectRatio.value === 0) {
-                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '4 / 6' : '1 / 2';
+                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '2 / 1';
             } else if (aspectRatio.value === 1) {
-                aspectRatioValue.value = '1 / 1'
+                aspectRatioValue.value = '1.3 / 1'
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '9 / 16'
+                aspectRatioValue.value = '16 / 9'
             } else if (aspectRatio.value === 3) {
-                aspectRatioValue.value = '1 / 2'
+                aspectRatioValue.value = '8.7 / 4'
             } else if (aspectRatio.value === 4) {
-                aspectRatioValue.value = '814 / 1218'
+                aspectRatioValue.value = '1218 / 814'
             }
         };
+
+        watch(aspectRatioValue, () => {
+            if (arFrameSettingYn.value === 'N') {
+                window.parent.adjustSizeToRatio(aspectRatioValue.value);
+            }
+        }, { deep: true, immediate: true });
 
         const frameToggleBar = () => {
             isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
@@ -398,6 +404,7 @@ export default {
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
         }));
+
         return {
             frameStyle,
             barStyle,

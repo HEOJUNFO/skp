@@ -287,34 +287,34 @@ export default {
   text-align: center;
   z-index: 2;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
-  padding-top: 10%;
+  padding-top: 4vh;
   overflow-y: scroll;
 }
 
 .image {
   width: auto;
-  height: 60%;
+  height: 65vh;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  height: 10%;
-  margin-top: 10%;
-  margin-bottom: 20%;
+  height: 10vh;
+  margin-top: 3vh;
+  margin-bottom: 6vh;
 }
 
 .box-button {
   display: block;
   margin-left: 5%;
-  margin-top: 10%;
+  margin-top: 5vh;
   width: 90%;
-  height: 7.5%;
+  height: 7vh;
   border: 1px solid #000;
   border-radius: 25px;
   background-color: #fff;
@@ -403,17 +403,16 @@ export default {
 
 .box {
   display: flex;
-  margin-top: 10px;
   flex-direction: column;
   align-items: center;
   border: 1px solid #000;
   border-radius: 15px;
   width: 80%;
-  height: 12%;
+  height: 12vh;
   margin-left: 10%;
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
-  gap: 10%;
+  padding-top: 2.5vh;
+  padding-bottom: 1.5vh;
+  gap: 1vh;
   background-color: #fff;
 }
 

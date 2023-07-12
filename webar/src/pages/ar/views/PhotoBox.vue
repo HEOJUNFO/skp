@@ -5,7 +5,7 @@
         </button>
         <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
         <button class="box-button" @click="triggerFileInput">사진 업로드</button>
-        <div v-if="imagesData.length === 0" class="empty-message" style="margin-top: 5%;">
+        <div v-if="imagesData.length === 0" class="empty-message" style="margin-top: 1vh;">
             <p>저장되거나 공유된 사진이 없습니다.</p>
             <p>AR포토 촬영하고 다양한 혜택을 받으세요.</p>
         </div>
@@ -141,7 +141,7 @@ export default {
     text-align: center;
     z-index: 2;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     background-color: #fff;
 }
@@ -151,10 +151,10 @@ export default {
     flex-wrap: wrap;
     justify-content: flex-start;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 1vh;
     margin-right: 1%;
     align-items: stretch;
-    max-height: 400px;
+    max-height: 60vh;
     overflow-y: auto;
 }
 
@@ -162,7 +162,7 @@ export default {
     width: 32%;
     height: auto;
     margin-left: 1%;
-    margin-bottom: 1%;
+    margin-bottom: 1vh;
 }
 
 .image-container img {
@@ -181,8 +181,8 @@ export default {
     display: inline-block;
     border-radius: 30px;
     width: 80%;
-    height: 60px;
-    margin-top: 10%;
+    height: 10vh;
+    margin-top: 1vh;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
@@ -191,8 +191,8 @@ export default {
 .box-button {
     display: inline-block;
     width: 40%;
-    height: 30px;
-    margin-top: 10%;
+    height: 5vh;
+    margin-top: 1vh;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
@@ -203,12 +203,13 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    margin-top: 10%;
+    margin-top: 1vh;
 }
 
 .banner-container {
     width: 100%;
-    height: auto;
+    height: 10vh;
+    margin-top: 1vh;
 }
 
 .banner-container img {
