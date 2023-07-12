@@ -46,7 +46,7 @@ export const ajaxStatus = {
         //   break;
         default:
           alert('잠깜만요!\n시스템점검으로 서비스접속이 불안정합니다.\n잠시후에 다시 접속해주세요')
-          dispatch('url/redirectToMain', null, {root: true})
+          //dispatch('url/redirectToMain', null, {root: true})
           break;
       }
 

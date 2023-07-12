@@ -101,9 +101,11 @@ export default {
           ...(longitude && { longitude }),
           ...(attendCode?.value && { attendCode: attendCode?.value }),
         };
-        console.log(params)
-        await dispatch("jsonData/setActionObjectFrame");
-        await dispatch("jsonData/setPhotoBoxData");
+
+        // await dispatch("jsonData/setActionObjectFrame");
+        // await dispatch("jsonData/setPhotoBoxData");
+        await dispatch("eventData/getEventData", params);
+        await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
