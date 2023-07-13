@@ -974,7 +974,7 @@ export const jsonData = {
         photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
         filmResultFooterImgSettingYn: "Y",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
-        filmResultFooterImgUrl: "https://blog.kakaocdn.net/dn/CNxUY/btqw7dnElRU/HuVZgvpT6J8n4aEYFathEk/img.jpg",	      // 	하단 이미지 url	String	하단 이미지 url
+        filmResultFooterImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDU5LkV7fe41e322ad0d2ec7d5537c4590a167.png  ",	      // 	하단 이미지 url	String	하단 이미지 url
       },
       photoContentsInfo: {
 

@@ -24,7 +24,7 @@
       </div>
       <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
       }}</button>
-      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
+      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 2vh" />
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">
@@ -397,7 +397,7 @@ export default {
   width: 40%;
   height: 30%;
   background-color: lightgray;
-  padding-bottom: 2%;
+  padding-bottom: 6%;
   padding-top: 2%;
 }
 
@@ -411,7 +411,7 @@ export default {
   height: 12vh;
   margin-left: 10%;
   padding-top: 2.5vh;
-  padding-bottom: 1.5vh;
+  padding-bottom: 3.5vh;
   gap: 1vh;
   background-color: #fff;
 }
