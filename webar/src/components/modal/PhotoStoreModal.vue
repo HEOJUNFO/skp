@@ -32,76 +32,77 @@
 </template>
     
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 import ImageStorage from '../../js/ImageStorage.js';
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
 
 export default {
-    data() {
-        return {
-            imagesData: [],
-            visibleImages: [],
-        }
-    },
     components: {
         PrintOpenBrowserModal,
     },
-    async created() {
-        this.data = new ImageStorage('TempDB', 'TempImg');
-        await this.data.openDatabase();
-        this.imagesData = await this.data.getAll();
-        this.visibleImages = this.imagesData.slice(0, 6);
-    },
-    methods: {
-        async uploadImage(event) {
-            let file = event.target.files[0];
-            if (!file) return;
-            // Save the image to IndexedDB
-            let id = await this.data.saveImage(file);
-            let newImage = { id: id, url: URL.createObjectURL(file) };
+    setup(props, { emit }) {
+        const imagesData = ref([]);
+        const visibleImages = ref([]);
+        const data = new ImageStorage('TempDB', 'TempImg');
 
-            this.imagesData.unshift(newImage);
-
-            if (this.imagesData.length > 30) {
-                this.imagesData.pop();
-            }
-            if (this.imagesData.length <= 6) {
-                this.visibleImages.unshift(newImage);
-            } else {
-                this.visibleImages = this.imagesData.slice(0, 6);
-            }
-        },
-        showMoreImages() {
-            this.visibleImages = this.imagesData;
-        },
-        triggerFileInput() {
-            this.$refs.fileInput.click();
-        },
-        reCapture() {
-            this.showVModal = false;
-            this.$emit('reCapture');
-        },
-    },
-    setup() {
         const { getters } = useStore();
         const showVModal = ref(false);
         const imageUrl = ref('');
         const bannerList = ref([]);
-        const currentBanner = ref([])
+        const currentBanner = ref([]);
         const bannerON = ref(false);
         const printModal = ref(null);
+        const fileInput = ref(null);
         let intervalId = null;
 
+        onMounted(async () => {
+            await data.openDatabase();
+
+            imagesData.value = await data.getAll();
+            visibleImages.value = imagesData.value.slice(0, 6);
+        });
+
+        const uploadImage = async (event) => {
+            let file = event.target.files[0];
+            if (!file) return;
+
+            let id = await data.saveImage(file);
+            let newImage = { id: id, url: URL.createObjectURL(file) };
+
+            imagesData.value.unshift(newImage);
+
+            if (imagesData.value.length > 30) {
+                imagesData.value.pop();
+            }
+            if (imagesData.value.length <= 6) {
+                visibleImages.value.unshift(newImage);
+            } else {
+                visibleImages.value = imagesData.value.slice(0, 6);
+            }
+        };
+
+        const showMoreImages = () => {
+            visibleImages.value = imagesData.value;
+        };
+
+        const triggerFileInput = () => {
+            fileInput.value.click();
+        };
+
+        const reCapture = () => {
+            showVModal.value = false;
+            emit('reCapture')
+        };
 
         const changeBanner = () => {
             const nextIndex = (bannerList.value.indexOf(currentBanner.value) + 1) % bannerList.value.length;
             currentBanner.value = bannerList.value[nextIndex];
         }
 
-        const openModal = (url) => {
-            imageUrl.value = url
+        const openModal = async (url) => {
+            imageUrl.value = url;
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
@@ -109,8 +110,22 @@ export default {
                 bannerON.value = true;
             }
 
-            intervalId = setInterval(changeBanner, 2000);
+            const blob = await fetch(url).then(r => r.blob());
 
+            let id = await data.saveImage(blob);
+            let newImage = { id: id, url: URL.createObjectURL(blob) };
+
+            imagesData.value.unshift(newImage); // Use imagesData.value instead of this.imagesData
+            if (imagesData.value.length > 30) {
+                imagesData.value.pop();
+            }
+            if (imagesData.value.length <= 6) {
+                visibleImages.value.unshift(newImage); // Use visibleImages.value instead of this.visibleImages
+            } else {
+                visibleImages.value = imagesData.value.slice(0, 6); // Use visibleImages.value instead of this.visibleImages
+            }
+
+            intervalId = setInterval(changeBanner, 2000);
         };
 
         const stopInterval = () => {
@@ -136,6 +151,12 @@ export default {
         }
 
         return {
+            imagesData,
+            visibleImages,
+            uploadImage,
+            showMoreImages,
+            triggerFileInput,
+            reCapture,
             exit,
             showVModal,
             imageUrl,
@@ -147,7 +168,8 @@ export default {
             imgClick,
             printModal,
             webBack,
-        }
+            fileInput,
+        };
     },
 }
 </script>
