@@ -109,14 +109,14 @@ export function setGesture() {
         if (this.data.enabled) {
           this.el.sceneEl.addEventListener("onefingermove", this.handleMove);
           this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
-          this.el.sceneEl.addEventListener("onefingerrotY", this.handleRotationY);
-          this.el.sceneEl.addEventListener("onefingerrotX", this.handleRotationX);
+          // this.el.sceneEl.addEventListener("onefingerrotY", this.handleRotationY);
+          // this.el.sceneEl.addEventListener("onefingerrotX", this.handleRotationX);
 
         } else {
           this.el.sceneEl.removeEventListener("onefingermove", this.handleMove);
           this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-          this.el.sceneEl.removeEventListener("onefingerrotY", this.handleRotationY);
-          this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
+          // this.el.sceneEl.removeEventListener("onefingerrotY", this.handleRotationY);
+          // this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
         }
       }
     });

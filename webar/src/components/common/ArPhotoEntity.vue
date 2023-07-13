@@ -34,8 +34,9 @@
       gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress" @mouseup="cancelLongPress">
       <a-box class="clickable" position="0 0 0" scale="0.3 0.3 0.3" renderOrder="0" raycaster visible="false"> </a-box>
     </a-plane>
-    <a-plane ref="trashRef" id="close-button" class="clickable" gesture-handler="locationBased: true" src="#trash-texture"
-      width="0.2" height="0.2" alpha-test="0.5" visible="false" @mousedown="listUpdate(arData)"></a-plane>
+    <a-plane ref="trashRef" id="close-button" position="0 0.1 -2" class="clickable" gesture-handler="locationBased: true"
+      src="#trash-texture" width="0.2" height="0.2" alpha-test="0.5" visible="false"
+      @mousedown="listUpdate(arData)"></a-plane>
 
 
   </template>
@@ -45,7 +46,6 @@
 import { computed, onMounted, ref, toRefs, watch } from "vue";
 import { getObjectAttrs, getTouchAnimation } from "@/js/arObject";
 import { EventBus } from "@/js/EventBus";
-import * as THREE from "three";
 
 export default {
   name: "DragEntity",
@@ -108,11 +108,7 @@ export default {
 
       const threshold = 0.05;
       if (distance < threshold && !wasTrashSet) {
-        console.log('playTouchEffect', wasTrashSet)
-        const stickerWidth = stickerRef.value.components.geometry.attrValue.width;
-        const stickerHeight = stickerRef.value.components.geometry.attrValue.height;
-        const trashPos = endPos.clone().add(new THREE.Vector3(stickerWidth * 0.35, stickerHeight * 0.4, 0));
-        trashRef.value.object3D.position.copy(trashPos);
+
 
         setTrash();
       }

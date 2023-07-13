@@ -227,7 +227,6 @@ export function setAframe() {
             var offset = i * 0.0005; 
             line.position.x += offset;
             line.position.y += offset;
-            line.position.z += offset;
             this.outlineObjects.push(line);
             el.object3D.add(line);
             line.visible = false;
