@@ -8,7 +8,7 @@
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
     <div v-if="loadingYn" class="loading">
-      <img :src="loadingUrl" alt="로딩 이미지">
+      <img :src="loadingUrl" alt="로딩 이미지" style="width: 100%; height: 100vh;">
     </div>
   </template>
   <!-- 가로모드 -->
@@ -114,10 +114,5 @@ export default {
   margin: 0 auto;
   position: relative;
   top: 7.5vh;
-}
-
-.loading {
-  width: 100%;
-  height: 100vh;
 }
 </style>
