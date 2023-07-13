@@ -105,10 +105,10 @@
                 </div>
                 <div class="image-container">
                     <div class="image-view" v-for="image in currentList" :key="image.id">
-                        <img v-if="image.type !== 'STICKER'" :src="image.src" @click="selectImage(currentList, image.id)"
+                        <img v-show="image.type !== 'STICKER'" :src="image.src" @click="selectImage(currentList, image.id)"
                             class="frame-image" />
-                        <img v-if="image.type === 'STICKER'" :src="image.src" @click="selectSticker(currentList, image.id)"
-                            class="frame-image" />
+                        <img v-show="image.type === 'STICKER'" :src="image.src"
+                            @click="selectSticker(currentList, image.id)" class="frame-image" />
                         <img v-show="image.select && image.type !== 'STICKER'" src="../../assets/icon/check-icon.png"
                             alt="선택"
                             style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
@@ -599,7 +599,6 @@ export default {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    margin-bottom: 1%;
 }
 
 .image-container {
@@ -644,6 +643,7 @@ export default {
 .tab {
     margin: 0 6%;
     font-size: 18px;
+    padding-top: 4px;
 }
 
 .countdown {
