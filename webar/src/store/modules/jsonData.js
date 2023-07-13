@@ -748,20 +748,7 @@ export const jsonData = {
       freePrintControlYn: "Y", //무료출력수 제어 설정안함: N / 설정함: Y
       freePrintCustomerCount: "3", //무료출력수 제어 설정 값
 
-      bannerList: [
-        {
-          arNftBannerId: "0", //인덱스 번호
-          bannerImgUrl: "https://www.pngkit.com/png/detail/51-514276_rocket-ship-icon-rocket-ship-clipart-png.png", //배너 이미지 URL
-          bannerTargetUrl: "https://www.naver.com", //배너 클릭시 이동 URL
-          bannerSort: "0", //배너 정렬 순서
-        },
-        {
-          arNftBannerId: "1", //인덱스 번호
-          bannerImgUrl: "https://www.seekpng.com/png/full/44-442130_logo-disney-film-logo-png.png", //배너 이미지 URL
-          bannerTargetUrl: "https://www.google.co.kr", //배너 클릭시 이동 URL
-          bannerSort: "1", //배너 정렬 순서
-        },
-      ],
+   
       deviceGpsList: [
         {
           deviceGpsId: "0", //인덱스 번호

@@ -105,7 +105,10 @@ export default {
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
-            bannerON.value = true;
+            if (bannerList.value.length > 1) {
+                bannerON.value = true;
+            }
+
             intervalId = setInterval(changeBanner, 2000);
 
         };
