@@ -143,15 +143,16 @@ export default {
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
-      const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);
-      const bottomSrc = document.querySelector('.frame-bottom').style.backgroundImage.slice(5, -2);
+      if (document.querySelector('.frame-top') && document.querySelector('.frame-bottom')) {
+        const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);
+        const bottomSrc = document.querySelector('.frame-bottom').style.backgroundImage.slice(5, -2);
 
-      const frameTop = await loadImage(topSrc);
-      const frameBottom = await loadImage(bottomSrc);
+        const frameTop = await loadImage(topSrc);
+        const frameBottom = await loadImage(bottomSrc);
 
-      ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height / 2, 0, 0, v_width, v_height / 2);
-      ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
-
+        ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height / 2, 0, 0, v_width, v_height / 2);
+        ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
+      }
       imageUrl.value = canvas.toDataURL("image/png");
 
       async function processImage() {
@@ -271,7 +272,7 @@ export default {
         else {
           toggleBarVisibility();
         }
-      }, loadingYn.value ? 2000 : 0)
+      }, loadingYn.value ? 3000 : 0)
 
     });
 

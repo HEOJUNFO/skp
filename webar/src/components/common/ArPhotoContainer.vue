@@ -7,7 +7,7 @@
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
-    <div v-if="loadingYn" class="loading loading2">
+    <div v-if="loadingYn" class="loading">
       <img :src="loadingUrl" alt="로딩 이미지">
     </div>
   </template>
@@ -85,7 +85,7 @@ export default {
         setTimeout(() => {
           completeLoading()
 
-        }, loadingYn.value ? 2000 : 0)
+        }, loadingYn.value ? 3000 : 0)
       }
     })
 
@@ -114,5 +114,10 @@ export default {
   margin: 0 auto;
   position: relative;
   top: 7.5vh;
+}
+
+.loading {
+  width: 100%;
+  height: 100vh;
 }
 </style>
