@@ -952,8 +952,8 @@ export const jsonData = {
         filmResultImgUrl: "",             //	촬영 결과 이미지 url	String	
         hashTagSettingYn: "Y",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
         hashTagValue: "#AR포토개발 #모두화이팅",	                // 	해시태그 값 	String	콤마 , 로 구분자
-        shareAgreePopupSettingYn: "N",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
-        agreePopupText: "해당사진은 (이벤트명) 홍보 저작물 제작에 활용될수 있음을 동의 합니다.",	  // 	동의 팝업 문구	String	
+        shareAgreePopupSettingYn: "Y",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
+        agreePopupText: "안녕하세요. Play AR입니다. \n 인스타 이벤트 참여를 위해서는 개인정보사용 동의가 필요합니다.",	  // 	동의 팝업 문구	String	
         agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
         agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
         photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y

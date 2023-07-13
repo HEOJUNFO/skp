@@ -5,13 +5,13 @@
       <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
       <div class="buttons">
         <button @click="back">
-          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 70px; height: 70px;" />
+          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 60px; height: 60px;" />
         </button>
         <button @click="saveImage(), showSaveModal = true">
-          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 70px; height: 70px;" />
+          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 60px; height: 60px;" />
         </button>
         <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
-          <i class="fa-solid fa-share-nodes fa-6x" style="color:black ;"></i>
+          <i class="fa-solid fa-share-nodes fa-5x" style="color:black ;"></i>
         </button>
       </div>
       <div v-if="hashTagYn" class="box">
@@ -46,7 +46,9 @@
           </button>
           <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
           <br>
-          <p class="text">{{ agreePopupText }}</p>
+          <div class="text">
+            <pre>{{ formattedText }}</pre>
+          </div>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
           <br>
           <br>
@@ -126,6 +128,7 @@ export default {
     const hashTagValue = computedPropertyGenerator('hashTagValue', false);
     const shareAgreePopupYn = computedPropertyGenerator('shareAgreePopupSettingYn', true);
     const agreePopupText = computedPropertyGenerator('agreePopupText', false);
+    let formattedText = agreePopupText.value
     const agreePopupDetailLinkUrl = computedPropertyGenerator('agreePopupDetailLinkUrl', false);
     const agreePopupInputText = computedPropertyGenerator('agreePopupInputText', false);
     const photoPrintYn = computedPropertyGenerator('photoPrintSettingYn', true);
@@ -280,6 +283,7 @@ export default {
       openCompletePopup,
       eventResult,
       inputText,
+      formattedText
     }
   }
 }
@@ -450,9 +454,11 @@ export default {
   z-index: 100;
 }
 
-.text {
+.text pre {
   word-wrap: break-word;
   max-width: 23ch;
+  white-space: pre-wrap;
+
 }
 
 .link {
