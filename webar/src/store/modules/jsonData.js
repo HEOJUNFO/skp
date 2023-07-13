@@ -958,7 +958,7 @@ export const jsonData = {
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
         arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
-        tabMenuTitle: "축제1",                 //	탭메뉴 제목	String	
+        tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
         arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
         arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y

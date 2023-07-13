@@ -397,9 +397,9 @@ export default {
             }
         });
 
-        const barStyle = computed(() => ({
-            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-        }));
+        // const barStyle = computed(() => ({
+        //     backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+        // }));
 
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
@@ -407,7 +407,6 @@ export default {
 
         return {
             frameStyle,
-            barStyle,
             frameButtonStyle,
             toggleBarVisibility,
             isBarVisible,
@@ -596,9 +595,9 @@ export default {
 }
 
 .tab-container {
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
     width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .image-container {
@@ -641,8 +640,7 @@ export default {
 }
 
 .tab {
-    margin: 0 6%;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 4px;
 }
 
