@@ -47,7 +47,7 @@
           <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
           <br>
           <div class="text">
-            <pre>{{ formattedText }}</pre>
+            <pre>{{ agreePopupText }}</pre>
           </div>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
           <br>
@@ -127,7 +127,6 @@ export default {
     const hashTagValue = computedPropertyGenerator('hashTagValue', false);
     const shareAgreePopupYn = computedPropertyGenerator('shareAgreePopupSettingYn', true);
     const agreePopupText = computedPropertyGenerator('agreePopupText', false);
-    let formattedText = agreePopupText.value
     const agreePopupDetailLinkUrl = computedPropertyGenerator('agreePopupDetailLinkUrl', false);
     const agreePopupInputText = computedPropertyGenerator('agreePopupInputText', false);
     const photoPrintYn = computedPropertyGenerator('photoPrintSettingYn', true);
@@ -280,7 +279,6 @@ export default {
       openCompletePopup,
       eventResult,
       inputText,
-      formattedText,
     }
   }
 }
@@ -451,10 +449,7 @@ export default {
 }
 
 .text pre {
-  word-wrap: break-word;
-  max-width: 23ch;
-  white-space: pre-wrap;
-
+  text-align: center;
 }
 
 .link {
