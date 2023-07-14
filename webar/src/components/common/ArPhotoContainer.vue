@@ -53,8 +53,6 @@ export default {
       return isArFrameSetting === 'Y';
     });
 
-    const topValue = ref(0);
-
     const {
       loadingState,
       completeLoading
@@ -97,7 +95,6 @@ export default {
       orientation,
       loadingState,
       setClick,
-      topValue,
       arFrameSettingYn,
       selectFrame
     }

@@ -179,7 +179,6 @@ export default {
     }
 
     const toggleBarVisibility = () => {
-      containerRef.value.topValue = 40;
       navbarRef.value.toggleBarVisibility();
     };
 

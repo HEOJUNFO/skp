@@ -66,7 +66,7 @@ export default {
       const ratio = eval(inputRatio);
       let windowWidth = window.innerWidth;
       let targetHeight = windowWidth * ratio;
-      iframeHeight.value = targetHeight + 'px';
+      iframeHeight.value = targetHeight * 1.22 + 'px';
     }
 
     const frameStyle = computed(() => {

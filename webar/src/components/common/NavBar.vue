@@ -14,9 +14,9 @@
         </div>
         <div class="top-bar" v-show="isBarVisible" style="background-color: white; ">
             <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio" class="aspect-button">
-                <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">4:6</span>
+                <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">9:16</span>
                 <span v-else-if="aspectRatio === 1" style="font-size: 30px; font-weight: bold;">1:1</span>
-                <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">9:16</span>
+                <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">4:6</span>
                 <span v-else-if="aspectRatio === 3" style="font-size: 30px; font-weight: bold;">FUll</span>
                 <span v-show="aspectRatio === 4">
                     <img src="../../assets/icon/print-button.png" alt="프린트" style="width: 30px; height: 30px;" />
@@ -41,7 +41,7 @@
                 <i class="fa-solid fa-wand-magic-sparkles fa-3x" style="color:hsl(60, 100%, 46%)"></i>
             </button>
             <button v-if="!isCapturing" @click="exitModalVisible = true" class="exit-button">
-                <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+                <i class="fa-solid fa-times fa-4x" style="color:black"></i>
             </button>
         </div>
         <slot></slot>
@@ -80,7 +80,7 @@
         </div>
 
         <transition name="fade">
-            <div v-show="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+            <div v-show="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle2">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in frameTabs" :key="tab.id"
                         :class="{ selected: selectedFrameTab === tab.id }" @click="selectFrameTab(tab.id)">{{ tab.name
@@ -97,7 +97,7 @@
             </div>
         </transition>
         <transition name="fade">
-            <div v-show="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle">
+            <div v-show="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle2">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in effectTabs" :key="tab.id"
                         :class="{ selected: selectedEffectTab === tab.id }" @click="selectEffectTab(tab.id)">{{ tab.name
@@ -150,7 +150,7 @@ export default {
         const isBeauty = ref(false);
         const arFrameSettingYn = ref('Y');
         const aspectRatio = ref(0);
-        const aspectRatioValue = ref('8.7 / 4');
+        const aspectRatioValue = ref('16 / 9');
         const isPhotoRatioSettingType = ref('BASIC');
         const isSecondFrameBarVisible = ref(false);
         const isSecondEffectBarVisible = ref(false);
@@ -209,7 +209,8 @@ export default {
             arTabSettingYn.value = getters['eventData/photoTabMenuAddSettingYn'];
             tabMenuTitle.value = getters['eventData/tabMenuTitle'];
 
-            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '2 / 1';
+            aspectRatio.value = 0;
+            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '16 / 9' : '2 / 1';
 
             isBarVisible.value = !isBarVisible.value;
             effectTabs.value = getEffectTabs();
@@ -218,13 +219,13 @@ export default {
         const toggleAspectRatio = () => {
             aspectRatio.value = (aspectRatio.value + 1) % 5
             if (aspectRatio.value === 0) {
-                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '2 / 1';
+                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '16 / 9' : '2 / 1';
             } else if (aspectRatio.value === 1) {
-                aspectRatioValue.value = '1.3 / 1'
+                aspectRatioValue.value = '1.1 / 1'
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '16 / 9'
+                aspectRatioValue.value = '6 / 4'
             } else if (aspectRatio.value === 3) {
-                aspectRatioValue.value = '8.7 / 4'
+                aspectRatioValue.value = '2.1 / 1'
             } else if (aspectRatio.value === 4) {
                 aspectRatioValue.value = '1218 / 814'
             }
@@ -397,9 +398,14 @@ export default {
             }
         });
 
-        // const barStyle = computed(() => ({
-        //     backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-        // }));
+        const barStyle = computed(() => ({
+            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+            bottom: aspectRatio.value === 3 ? '15vh' : '0vh',
+        }));
+        const barStyle2 = computed(() => ({
+            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+            bottom: aspectRatio.value === 3 ? '21vh' : '7.5vh',
+        }));
 
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
@@ -435,7 +441,9 @@ export default {
             selectEffectTab,
             selectImage,
             selectSticker,
-            isFlipCamera
+            isFlipCamera,
+            barStyle,
+            barStyle2,
         }
     }
 }

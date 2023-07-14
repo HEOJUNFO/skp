@@ -295,13 +295,13 @@ export default {
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
-  padding-top: 4vh;
+  padding-top: 2vh;
   overflow-y: scroll;
 }
 
 .image {
-  width: auto;
-  height: 65vh;
+  width: 90%;
+  height: auto;
 }
 
 .buttons {
@@ -309,14 +309,13 @@ export default {
   justify-content: space-around;
   width: 100%;
   height: 10vh;
-  margin-top: 3vh;
-  margin-bottom: 6vh;
+  margin-top: 2vh;
 }
 
 .box-button {
   display: block;
   margin-left: 5%;
-  margin-top: 5vh;
+  margin-top: 2vh;
   width: 90%;
   height: 7vh;
   border: 1px solid #000;
@@ -383,7 +382,7 @@ export default {
   width: 100%;
   height: 50px;
   margin-left: 5%;
-  margin-top: 10%;
+  margin-top: 2vh;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;
@@ -414,8 +413,8 @@ export default {
   width: 80%;
   height: 12vh;
   margin-left: 10%;
+  margin-top: 2vh;
   padding-top: 2.5vh;
-  padding-bottom: 3.5vh;
   gap: 1vh;
   background-color: #fff;
 }
