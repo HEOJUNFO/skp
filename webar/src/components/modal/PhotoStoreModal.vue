@@ -106,7 +106,7 @@ export default {
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
-            if (bannerList.value.length > 1) {
+            if (bannerList.value.length > 0) {
                 bannerON.value = true;
             }
 

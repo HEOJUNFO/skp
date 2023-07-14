@@ -748,6 +748,15 @@ export const jsonData = {
       freePrintControlYn: "Y", //무료출력수 제어 설정안함: N / 설정함: Y
       freePrintCustomerCount: "3", //무료출력수 제어 설정 값
 
+      bannerList: [
+        {
+            arNftBannerId: 575,
+            bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDUjo7V8e97f111de4f563eeecafa5e459c45eb.png",
+            bannerTargetUrl: "https://www.naver.com",
+            bannerSort: 1
+        }
+    ],
+
    
       deviceGpsList: [
         {
