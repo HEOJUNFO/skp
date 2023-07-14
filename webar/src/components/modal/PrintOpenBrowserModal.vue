@@ -7,13 +7,15 @@
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="prints-count">
         <span style="margin-right: 2em;">출력 장수</span>
-        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
+        <button v-if="printNumber > 0" class="button-print1" @click="decreasePrints">-</button>
         <span class="prints-number">{{ printNumber }}</span>
-        <button v-if="printNumber < 5" class="button-print2" @click="increasePrints">+</button>
+        <button v-if="printNumber < freePrintCustomerCount" class="button-print2" @click="increasePrints">+</button>
       </div>
-
       <button class="round-button" @click="showDeviceModal = true">출력하기</button>
       <div v-if="showErrorModal" class="modal">
+        <button class="close-button2" @click="showErrorModal = false">
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+        </button>
         <div class="modal-content">
           <h2>디바이스번호 불일치</h2>
           <br />
@@ -22,10 +24,19 @@
           <button class="round-button" @click="print()">다시 출력요청</button>
         </div>
       </div>
+      <div v-if="showErrorModal2" class="modal">
+        <div class="modal-content">
+          <h2>디바이스번호 5회 불일치</h2>
+          <br />
+          <p>기기번호를 다시 확인하세요.</p>
+          <p>출력페이지를 종료합니다.</p>
+          <button class="round-button" @click="showErrorModal2 = false, showDeviceModal = false">확인</button>
+        </div>
+      </div>
       <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
       }}</button>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false">
+        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showErrorModal2 = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="modal-content">
@@ -122,6 +133,7 @@ export default {
     const showSuccessModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
+    const showErrorModal2 = ref(false);
     const showLocationPopup = ref(false);
     const showLocationMap = ref(false);
     const map = ref(null);
@@ -171,20 +183,18 @@ export default {
       deviceGpsList.value = getters['eventData/deviceGpsList'];
     };
 
-    const checkDeviceNumber = (deviceNumber) => {
-      return deviceNumber.value === '0000' || deviceNumber.value === '0001';
-    }
-
     const increasePrints = () => {
-      if (printNumber.value < 5)
+      if (printNumber.value < freePrintCustomerCount.value)
         printNumber.value++;
     }
 
     const decreasePrints = () => {
-      if (printNumber.value > 1) {
+      if (printNumber.value > 0) {
         printNumber.value--;
       }
     }
+
+    let incorrectDeviceNumberCount = 0;
 
     const print = () => {
       putSavePrintStatus({
@@ -195,10 +205,16 @@ export default {
       })
       if (!checkDeviceNumber(deviceNumber)) {
         showErrorModal.value = true;
+        incorrectDeviceNumberCount += 1;
+        if (incorrectDeviceNumberCount >= 5) {
+          showErrorModal2.value = true;
+          showErrorModal.value = false;
+          incorrectDeviceNumberCount = 0;
+        }
         return;
-      }
-      else {
+      } else {
         showErrorModal.value = false;
+        incorrectDeviceNumberCount = 0;
       }
 
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
@@ -218,6 +234,10 @@ export default {
           printResultStatus: 'SUCCESS',
         })
       }, 2000);
+    }
+
+    const checkDeviceNumber = (deviceNumber) => {
+      return deviceNumber.value === '0000' || deviceNumber.value === '0001';
     }
 
     const exit = () => {
@@ -242,6 +262,7 @@ export default {
         showErrorModal.value = false;
         showLocationMap.value = false;
         showLocationPopup.value = false;
+        showErrorModal2.value = false;
         window.onpopstate = null;
       } else {
         window.onpopstate = null;
@@ -271,7 +292,9 @@ export default {
       webBack,
       showLocationPopup,
       showLocationMap,
-      locationFindPopupImgUrl
+      locationFindPopupImgUrl,
+      freePrintCustomerCount,
+      showErrorModal2
     }
   },
 }
@@ -461,5 +484,14 @@ export default {
   cursor: pointer;
   padding: 0px 4px;
   height: 2.55vh;
+}
+
+.close-button2 {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
 }
 </style>

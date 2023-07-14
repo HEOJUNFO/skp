@@ -38,7 +38,6 @@
       src="#trash-texture" width="0.2" height="0.2" alpha-test="0.5" visible="false"
       @mousedown="listUpdate(arData)"></a-plane>
 
-
   </template>
 </template>
   
@@ -78,6 +77,12 @@ export default {
       attrs.value = getObjectAttrs(newValue);
     })
 
+    watch(stickerRef, () => {
+      setTimeout(() => {
+        stickerRef.value.setAttribute('opacity', 1);
+      }, 80);
+    }, { deep: true });
+
     const setTrash = () => {
       if (trashRef.value.object3D.visible) {
         trashRef.value.object3D.visible = false;
@@ -108,7 +113,6 @@ export default {
 
       const threshold = 0.05;
       if (distance < threshold && !wasTrashSet) {
-
 
         setTrash();
       }
