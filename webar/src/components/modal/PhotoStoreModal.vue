@@ -234,6 +234,7 @@ export default {
     width: 40%;
     height: 5vh;
     margin-top: 1vh;
+    margin-bottom: 1vh;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
