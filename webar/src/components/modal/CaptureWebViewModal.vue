@@ -16,7 +16,7 @@
       </div>
       <div v-if="hashTagYn" class="box">
         <h1 style="font-weight: bold">필수해시태그</h1>
-        <p v-html="formattedBoxContent(hashTagValue)"></p>
+        <p v-html="generateHashTagString(hashTagValue)"></p>
         <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
         <transition name="fade">
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
@@ -137,21 +137,17 @@ export default {
     const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
     const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
 
-    const formattedBoxContent = (hashTag) => {
-      const hashtags = hashTag.split(' ');
-      let lineLength = 0;
-      return hashtags.map((hashtag, index) => {
-        lineLength += hashtag.length;
-        if (lineLength > 25 && index !== 0) {
-          lineLength = hashtag.length;
-          return `<br/><span class="hashtag">${hashtag}</span>`;
-        } else {
-          return `<span class="hashtag">${hashtag}</span>`;
-        }
-      }).join(' ');
+    function generateHashTagString(hashTags) {
+      var hashTagString = hashTags.map(function (tag) {
+        return "#" + tag;
+      });
+
+      return hashTagString.join(" ");
     }
 
-    const copyToClipboard = (hashTag) => {
+    const copyToClipboard = (hashTags) => {
+      var hashTag = generateHashTagString(hashTags);
+
       navigator.clipboard.writeText(hashTag).then(() => {
         isCopyCilp.value = true;
 
@@ -161,6 +157,7 @@ export default {
         alert('해시태그 복사에 실패했습니다. 잠시후 다시 시도해주세요.')
       });
     }
+
     const print = () => {
       printModal.value.openModal(imageurl.value);
     }
@@ -257,7 +254,6 @@ export default {
       share,
       hashTagYn,
       hashTagValue,
-      formattedBoxContent,
       shareAgreePopupYn,
       agreePopupText,
       agreePopupDetailLinkUrl,
@@ -279,6 +275,7 @@ export default {
       openCompletePopup,
       eventResult,
       inputText,
+      generateHashTagString
     }
   }
 }

@@ -183,7 +183,8 @@ export const eventData = {
       return getPhotoLogicalInfoProperty(eventData, 'shareAgreePopupSettingYn', 'N');
     },
     agreePopupText({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'agreePopupText', 'default');
+      let text = eventData?.photoLogicalInfo?.agreePopupText?? 'default';
+      return text.replace(/\\n/g, '\n');
     },
     agreePopupDetailLinkUrl({ eventData }) {
       return getPhotoLogicalInfoProperty(eventData, 'agreePopupDetailLinkUrl', 'default');
@@ -458,15 +459,17 @@ function getScanningStampData(item) {
 }
 function getContentsData(item){
   const { photoContentChoiceType, photoFileName , photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType,sort} = item;
+
+  const formattedSourceUri = photoOriginalFileUrl.endsWith('.zip') ? '' : photoOriginalFileUrl;
+
   return {
     itemID: sort,
     chocieType: photoContentChoiceType,
     tabMenuType: photoContentTabMenuType,
     thumbnailUri: photoThumbnailImgUrl,
-    sourceUri: photoOriginalFileUrl,
+    sourceUri: formattedSourceUri,
     fileName: photoFileName,
   };
-    
 }
 // 브릿지 데이터 파싱
 function getBridgeData(item) {
@@ -536,10 +539,12 @@ function getScanningBridgeData(item) {
 
 function getBannerData(item) {
   const {arNftBannerId, bannerImgUrl, bannerTargetUrl, bannerSort} = item;
+  const formattedBannerTargetUrl = bannerTargetUrl.startsWith('https://') ? bannerTargetUrl : 'https://' + bannerTargetUrl;
+
   return {
     itemID: arNftBannerId,
     bannerImgUrl: bannerImgUrl,
-    bannerTargetUrl: bannerTargetUrl,
+    bannerTargetUrl: formattedBannerTargetUrl,
     bannerSort: bannerSort,
   };
 }
