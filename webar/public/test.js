@@ -139,7 +139,7 @@
 				t = this.container;
 			let i, s;
 			const a = e.videoWidth / e.videoHeight;
-			a > t.clientWidth / t.clientHeight ? (s = t.clientHeight, i = s * a) : (i = t.clientWidth, s = i / a), this.video.style.top = -(s - t.clientHeight) / 2 + "px", this.video.style.left = -(i - t.clientWidth) / 2 + "px", this.video.style.width = i + "px", this.video.style.height = s + "px";
+			a > t.clientWidth / t.clientHeight ? (s = t.clientHeight, i = s * a) : (i = t.clientWidth, s = i / a), this.video.style.left = -(i - t.clientWidth) / 2 + "px", this.video.style.width = i + "px", this.video.style.height = s + "px";
 			const n = t.getElementsByTagName("a-scene")[0];
 			n.style.left = this.video.style.left, n.style.width = this.video.style.width, n.style.height = this.video.style.height
 		}
