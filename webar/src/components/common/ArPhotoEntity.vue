@@ -80,7 +80,7 @@ export default {
     watch(stickerRef, () => {
       setTimeout(() => {
         stickerRef.value.setAttribute('opacity', 1);
-      }, 80);
+      }, 100);
     }, { deep: true });
 
     const setTrash = () => {
