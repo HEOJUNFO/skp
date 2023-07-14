@@ -111,7 +111,6 @@ import { useRoute } from "vue-router";
 
 import useSavePrintStatus from '../../composables/useSavePrintStatus';
 
-
 export default {
   setup() {
     const route = useRoute();
@@ -138,7 +137,7 @@ export default {
     const showLocationMap = ref(false);
     const map = ref(null);
     const markerLatLng = ref(null);
-    const maker = ref(null);
+    const marker = ref(null);
 
     const {
       putSavePrintStatus
@@ -149,8 +148,14 @@ export default {
         return;
       }
 
+      if (deviceGpsList.value.length === 0) {
+        return;
+      }
+
+      const firstDeviceGps = deviceGpsList.value[0];
+
       const mapOptions = {
-        center: new window.naver.maps.LatLng(37.402736699419854, 127.10324709161416),
+        center: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
         zoom: 18,
       };
 
@@ -159,15 +164,16 @@ export default {
         return {
           lat: gps.deviceGpsLatitude,
           lng: gps.deviceGpsLongitude,
+          deviceName: gps.deviceName
         };
       });
-      maker.value = markerLatLng.value.map((latLng) => {
+
+      marker.value = markerLatLng.value.map((latLng) => {
         return new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(latLng.lat, latLng.lng),
           map: map.value,
         });
       });
-
     };
 
 

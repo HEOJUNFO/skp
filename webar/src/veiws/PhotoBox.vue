@@ -6,20 +6,24 @@
 
 import { onMounted, toRefs, ref } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
     name: "PhotoBox",
     setup() {
         const route = useRoute();
+        const router = useRouter();
         const { eventId } = toRefs(route.query);
         const store = useStore();
         const { dispatch, getters } = store;
 
         const eventData = ref(null);
 
-        onMounted(async () => {
+        window.goArPhoto = async function () {
+            await router.push({ name: "Landing", query: { eventId: eventId.value } });
+        };
 
+        onMounted(async () => {
             const isLocal = window.location.port !== "";
 
             if (!isLocal && !eventId?.value) {

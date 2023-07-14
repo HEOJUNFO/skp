@@ -83,7 +83,7 @@ export default {
             this.$refs.fileInput.click();
         },
         reCapture() {
-            router.go(-1);
+            window.parent.goArPhoto();
         },
     },
     setup() {

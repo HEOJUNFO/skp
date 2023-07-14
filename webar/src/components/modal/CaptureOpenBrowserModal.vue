@@ -16,7 +16,7 @@
       </div>
       <div v-if="hashTagYn" class="box">
         <h1 style="font-weight: bold">필수해시태그</h1>
-        <p v-html="formattedBoxContent(hashTagValue)"></p>
+        <p v-html="generateHashTagString(hashTagValue)"></p>
         <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
         <transition name="fade">
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
@@ -24,7 +24,7 @@
       </div>
       <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
       }}</button>
-      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 2vh;" />
+      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 3.5vh;" />
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">
@@ -138,21 +138,19 @@ export default {
     const filmResultFooterImgUrl = computedPropertyGenerator('filmResultFooterImgUrl', false);
     const filmResultImgUrl = computedPropertyGenerator('filmResultImgUrl', false);
 
-    const formattedBoxContent = (hashTag) => {
-      const hashtags = hashTag.split(' ');
-      let lineLength = 0;
-      return hashtags.map((hashtag, index) => {
-        lineLength += hashtag.length;
-        if (lineLength > 25 && index !== 0) {
-          lineLength = hashtag.length;
-          return `<br/><span class="hashtag">${hashtag}</span>`;
-        } else {
-          return `<span class="hashtag">${hashtag}</span>`;
-        }
-      }).join(' ');
+    function generateHashTagString(hashTags) {
+
+      var hashTagString = hashTags.map(function (tag) {
+        return "#" + tag;
+      });
+
+
+      return hashTagString.join(" ");
     }
 
-    const copyToClipboard = (hashTag) => {
+    const copyToClipboard = (hashTags) => {
+      var hashTag = generateHashTagString(hashTags);
+
       navigator.clipboard.writeText(hashTag).then(() => {
         isCopyCilp.value = true;
 
@@ -259,7 +257,6 @@ export default {
       share,
       hashTagYn,
       hashTagValue,
-      formattedBoxContent,
       shareAgreePopupYn,
       agreePopupText,
       agreePopupDetailLinkUrl,
@@ -282,6 +279,7 @@ export default {
       openCompletePopup,
       eventResult,
       inputText,
+      generateHashTagString
     }
   }
 }
@@ -310,13 +308,13 @@ export default {
   justify-content: space-around;
   width: 100%;
   height: 10vh;
-  margin-top: 2vh;
+  margin-top: 3.5vh;
 }
 
 .box-button {
   display: block;
   margin-left: 5%;
-  margin-top: 2vh;
+  margin-top: 3.5vh;
   width: 90%;
   height: 7vh;
   border: 1px solid #000;
@@ -383,7 +381,7 @@ export default {
   width: 100%;
   height: 50px;
   margin-left: 5%;
-  margin-top: 2vh;
+  margin-top: 3.5vh;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;
@@ -414,7 +412,7 @@ export default {
   width: 80%;
   height: 12vh;
   margin-left: 10%;
-  margin-top: 2vh;
+  margin-top: 3.5vh;
   padding-top: 2.5vh;
   gap: 1vh;
   background-color: #fff;

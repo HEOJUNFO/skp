@@ -149,8 +149,14 @@ export default {
         return;
       }
 
+      if (deviceGpsList.value.length === 0) {
+        return;
+      }
+
+      const firstDeviceGps = deviceGpsList.value[0];
+
       const mapOptions = {
-        center: new window.naver.maps.LatLng(37.402736699419854, 127.10324709161416),
+        center: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
         zoom: 18,
       };
 
