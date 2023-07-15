@@ -451,7 +451,7 @@ export default {
   margin-bottom: 0.5vh;
   margin-left: 10%;
   width: 80%;
-  height: 3vh;
+  height: 4vh;
 }
 
 .prints-number {
@@ -473,7 +473,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 0px 4px;
-  height: 2.55vh;
+  height: 3.1vh;
 }
 
 .button-print2 {
@@ -489,7 +489,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 0px 4px;
-  height: 2.55vh;
+  height: 3.1vh;
 }
 
 .close-button2 {
