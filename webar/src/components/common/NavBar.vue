@@ -150,7 +150,7 @@ export default {
         const isBeauty = ref(false);
         const arFrameSettingYn = ref('Y');
         const aspectRatio = ref(0);
-        const aspectRatioValue = ref('6 / 4');
+        const aspectRatioValue = ref('1 / 1');
         const isPhotoRatioSettingType = ref('BASIC');
         const isSecondFrameBarVisible = ref(false);
         const isSecondEffectBarVisible = ref(false);
