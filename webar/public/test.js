@@ -193,11 +193,9 @@
 		updateVisibility(e) {
 			this.el.object3D.visible = e
 		},
-		updateMatrix(e) {
-			let matrixValues = [...e].map((value, index) => index % 4 === 0 ? -value : value);
-			
+		updateMatrix(e) {			
 			// set matrix
-			let matrix = new THREE.Matrix4().set(...matrixValues);
+			let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
 			matrix.premultiply(this.scaleMatrix);
 			
 			// set object3d
@@ -225,10 +223,8 @@
 			this.el.object3D.visible = e
 		},
 		updateMatrix(e) {
-			let matrixValues = [...e].map((value, index) => index % 4 === 0 ? -value : value);
-
 			// set matrix
-			let matrix = new THREE.Matrix4().set(...matrixValues);
+			let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
 			matrix.premultiply(this.scaleMatrix);
 			
 			// set object3d
