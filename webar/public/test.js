@@ -200,6 +200,7 @@
 		},
 		init: function() {
 			this.el.sceneEl.systems["mindar-face-system"].registerAnchor(this, this.data.anchorIndex);
+			this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
 			const e = this.el.object3D;
 			e.visible = !1, e.matrixAutoUpdate = !1
 		},
@@ -211,8 +212,7 @@
 			
 			// set matrix
 			let matrix = new THREE.Matrix4().set(...matrixValues);
-			let scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
-			matrix.premultiply(scaleMatrix);
+			matrix.premultiply(this.scaleMatrix);
 			
 			// set object3d
 			this.el.object3D.matrix = matrix;
@@ -233,6 +233,7 @@
 	}), AFRAME.registerComponent("mindar-face-default-face-occluder", {
 		init: function() {
 			this.el.sceneEl.systems["mindar-face-system"].registerFaceMesh(this), this.el.object3D.matrixAutoUpdate = !1
+			this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
 		},
 		updateVisibility(e) {
 			this.el.object3D.visible = e
@@ -242,8 +243,7 @@
 
 			// set matrix
 			let matrix = new THREE.Matrix4().set(...matrixValues);
-			let scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
-			matrix.premultiply(scaleMatrix);
+			matrix.premultiply(this.scaleMatrix);
 			
 			// set object3d
 			this.el.object3D.matrix = matrix;
