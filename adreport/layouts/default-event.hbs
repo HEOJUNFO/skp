@@ -26,6 +26,11 @@
 {{!--외부 JS 라이브러리 Start--}}
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<script type="text/javascript" src="https://hybrid.okcashbag.com/common/js/app/OcbiOSJS.js?ver=6.4.3"></script>
+<script type="text/javascript" src="https://hybrid.okcashbag.com/common/js/app/OcbApplicationJS.js"></script>
+<script type="text/javascript" src="https://hybrid.okcashbag.com/common/js/app/OcbiOSTitleViewJS.js"></script>
+
 {{!--외부 JS 라이브러리 End --}}
 {{!--이 부분은 빌드 될때 js 스크립트, 현재 오류가 있지만 side effect이 많아 두벌로 유지 배포 할때 새로운 라이브러니는 여기에 추가 --}}
 <!-- build:js(./) /resources/js/web-event.event.script.min.js -->
@@ -41,7 +46,7 @@
 <script src="{{path dirname 'common'}}/util.js"></script>
 <!-- endbuild -->
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{!-- <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script> --}}
 
 {{#each jsfile}}

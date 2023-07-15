@@ -2,7 +2,20 @@
 
     const qs = is.parseQuery();
     let eventId = qs.eventId;
-    let surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+    let surveyLogAttendId = "";
+    const isApp = is.isApp();
+    
+    if (isApp) {
+        const surveyGoData = $.jStorage.get("surveyGoData");
+        if (surveyGoData) {
+            const surveyGoDataParse = JSON.parse(is.aes256Decode(surveyGoData));
+            surveyLogAttendId = surveyGoDataParse.surveyLogAttendId;
+            eventId = surveyGoDataParse.eventId;
+        }
+    } else {
+        surveyLogAttendId = sessionStorage.getItem("surveyLogAttendId");
+    }
+     
 
     const ERROR_CODE_NO_ATTEND_TARGET = 855,    // 성/연령별 참여조건이 아닙니다.
         ERROR_CODE_EXPIRED_SURVEY_LOG_ID = 856, // 이미 사용완료된 survey log id 입니다.
@@ -10,6 +23,8 @@
 
     const TYPE_Y = "Y",
         TYPE_N = "N";
+
+    const OCB_POINT_SAVE_TYPE_WIN = "WIN";
 
     const AR_LOGICAL_TYPE_SURVEY = "SURVEY",    // 서베이고 기본형
         AR_LOGICAL_TYPE_QUIZ = "QUIZ",          // 퀴즈형
@@ -60,6 +75,8 @@
     let winningProcessStatus = PROCESS_STATUS_BEFORE;
 
     let winningProcessData;
+
+    
 
 
     let searchSurveyList = function () {
@@ -190,11 +207,14 @@
         return params;
     };
 
-    let winningProcess = function (surveySubjectCategoryId){
+    let winningProcess = function (token){
         winningProcessStatus = PROCESS_STATUS_ING;
+
+        let surveySubjectCategoryId = $(".surveyPrize").data("surveySubjectCategoryId");
+
         $.ajax({
             url: "/api/v1/web-event-front/winning-process",
-            data: JSON.stringify(is.webEventRequestParams(getWinningProcessParams(surveySubjectCategoryId))),
+            data: JSON.stringify(is.webEventRequestParams(getWinningProcessParams(surveySubjectCategoryId, token))),
             method: "POST",
             contentType: "application/json;charset=UTF-8"
         }).done(function (res, text, xhr) {
@@ -232,7 +252,7 @@
         });
     };
 
-    let getWinningProcessParams = function (surveySubjectCategoryId) {
+    let getWinningProcessParams = function (surveySubjectCategoryId, token) {
         let params = {};
 
         if (arEventInfo.arAttendConditionCodeYn === true) {
@@ -248,6 +268,15 @@
 
         if (surveySubjectCategoryId) {
             params.surveySubjectCategoryId = surveySubjectCategoryId;
+        }
+
+        // TODO Jihye
+        if (arEventInfo.ocbPointSaveType === OCB_POINT_SAVE_TYPE_WIN) {
+            let ocbUserInfo = is.requestLocalStorageInfo("USER");
+            console.log("tokenInfo token after : " + token);
+            params.partnerToken = token;
+            params.phoneNumber = ocbUserInfo.mdn;
+            params.name = ocbUserInfo.userName;
         }
 
         return params;
@@ -718,7 +747,12 @@
 
     let goMain = function () {
         sessionStorage.clear();
-        location.href = "/web-event/main.html" + "?eventId=" + eventId + "&isRedirect=true";
+        if (isApp) {
+            $.jStorage.deleteKey("eventWinningData");
+            ocbApp.requestCloseWindow();
+        } else {
+            location.href = "/web-event/main.html" + "?eventId=" + eventId + "&isRedirect=true";
+        }
     };
 
     let init = function (){
@@ -829,9 +863,20 @@
     });
 
     $(document).on("click", ".surveyPrize", function () {
-        winningProcess($(".surveyPrize").data("surveySubjectCategoryId"));
-        if (winningProcessStatus === PROCESS_STATUS_AFTER) {
-            showPrizePopup();
+        // TODO Jihye
+        if (arEventInfo.ocbPointSaveType === OCB_POINT_SAVE_TYPE_WIN) {
+            let tokenInfo = is.requestLocalStorageInfo("TOKEN");
+            let ocbUserInfo = is.requestLocalStorageInfo("USER");
+            console.log("tokenInfo token before : " + tokenInfo.partnerToken);
+
+            ocbApp.surveyLogic = winningProcess;
+            ocbApp.requestPartnerToken();
+
+        } else {
+            winningProcess();
+            if (winningProcessStatus === PROCESS_STATUS_AFTER) {
+                showPrizePopup();
+            }
         }
     });
 
@@ -924,9 +969,16 @@
 
             console.log("eventWinningData : " + JSON.stringify(eventWinningData));
             sessionStorage.setItem("eventWinningData", JSON.stringify(eventWinningData));
-
-            let url = "/web-event/give-away.html";
-            parent.open(url, "_blank");
+            
+            //OCB앱일때
+            if (isApp) {
+                $.jStorage.set( "eventWinningData", JSON.stringify(eventWinningData) );
+                const url = is.getDomain() + "/web-event/give-away.html";
+                ocbApp.goLinkPage(url);
+            } else {
+                let url = "/web-event/give-away.html";
+                parent.open(url, "_blank");
+            }
         }
     });
 

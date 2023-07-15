@@ -8,16 +8,27 @@
     const nftRepositoryDetailTemplate = Handlebars.compile($("#nftRepositoryDetailTemplate").html());
     const couponRepositoryDetailTemplate = Handlebars.compile($("#couponRepositoryDetailTemplate").html());
 
-    const eventSessionData = sessionStorage.getItem('eventSessionData');
-    const nftRepositoryId = sessionStorage.getItem('nftRepositoryId');
+    const qs = is.parseQuery();
     let winningType = "";
     let inactiveThumbnailUrl = "";
+    let nftRepositoryId = 0;
+    const isApp = is.isApp();
 
-    if (!eventSessionData) {
-        is.showCommonPopup(1, "pageAbnormalConnectionError", is.createCommonPopupBtnOpt(undefined, is.historyBack));
-        return;
+    if (isApp) {
+        const paramData = JSON.parse(qs.paramData);
+        if (paramData) {
+            winningType = paramData.winningType;
+            nftRepositoryId = paramData.nftRepositoryId;
+        }
     } else {
-        winningType = JSON.parse(eventSessionData).winningType.toUpperCase();
+        const eventSessionData = sessionStorage.getItem("eventSessionData");
+        if (!eventSessionData) {
+            is.showCommonPopup(1, "pageAbnormalConnectionError", is.createCommonPopupBtnOpt(undefined, is.historyBack));
+            return;
+        } else {
+            winningType = JSON.parse(eventSessionData).winningType.toUpperCase();
+            nftRepositoryId = sessionStorage.getItem('nftRepositoryId');
+        }
     }
 
     //NFT, 쿠폰 상세정보 API
@@ -42,8 +53,6 @@
                 let resultData = res.result;
                 //console.log('resultData: ', resultData);
 
-                const arEventNftCouponInfo = resultData.couponInfo.arEventNftCouponInfoEntity;
-
                 //NFT일떄
                 if (winningType === "NFT") {
                     $.innerText("#title", "NFT 상세");
@@ -55,6 +64,8 @@
                     $.innerText("#title", "쿠폰 상세");
                     $.showElement('#couponRepositoryDetailTemplateDiv');
                     $("#couponRepositoryDetailTemplateDiv").html(couponRepositoryDetailTemplate(resultData));
+
+                    const arEventNftCouponInfo = resultData.couponInfo.arEventNftCouponInfoEntity;
                     
                     //비활성화 썸네일
                     inactiveThumbnailUrl = arEventNftCouponInfo.arEventWinningEntity.nftInactiveImgUrl;
@@ -67,11 +78,11 @@
                     }
                     //사용완료된 상태일때
                     if (isUse) {
-                        $('#useCouponBtn').removeAttr('href');
-                        $('#useCouponBtn').html('사용완료').css('background', '#BBB');
+                        $('.useCouponBtn').removeAttr('href');
+                        $('.useCouponBtn').html('사용완료').css('background', '#BBB');
                     }
 
-                    //바코드 출력 여부 
+                    //바코드 출력 여부
                     const barcodeViewYn = arEventNftCouponInfo.arEventWinningEntity.repositoryBarcodeViewYn; 
                     
                     //랜덤 텍스트 출력 여부 
@@ -84,23 +95,40 @@
                     const counponCode = arEventNftCouponInfo.nftCouponId; 
 
                     //바코드 이미지 출력 - 바코드를 보여줄때만 표현 (서베이고 기능 고도화 관련 수정)
-                    //if (barcodeViewYn === "Y" && counponCode) {
-                        
+                    if (barcodeViewYn === "Y" && counponCode) {
+
                         let isShowHRI = false;
                         //랜덤 텍스트 출력이 "Y" 이면 바코드 아래 난수 표현
                         if (barcodeRandomViewYn === "Y") {
-                            isShowHRI = true;
+                            // 난수 표현 관련하여 별도의 영역이 있으므로 무조건 false 가 되도록 처리.
+                            // isShowHRI = true;
                         }
-                        $("#barcodeImg").barcode(counponCode, "code128", {barWidth: 1.8, barHeight: 80, bgColor: "#ffffff", showHRI:isShowHRI});  
-                    //}
+                        $("#barcodeImg").barcode(counponCode, "code128", {barWidth: 1.8, barHeight: 80, bgColor: "#ffffff", showHRI:isShowHRI});
+                        $(".barcode").show();
+                    } else {
+                        $(".barcode").hide();
+                    }
+
+                    if (barcodeRandomViewYn === "Y") {
+                        $(".barcodeRandomViewArea").show();
+                    } else {
+                        $(".barcodeRandomViewArea").hide();
+                    }
+
                     //사용버튼을 사용안할때 삭제처리
                     // if (!buttonViewYn || buttonViewYn === "N") {
-                    //     $.hideElement("#useCouponBtn");
+                    //     $.hideElement(".useCouponBtn");
                     // }
                     //바코드 이미지 출력과 사용버튼 표현 여부가 전부 "N" 이면 바코드 출력 영역을 전체를 삭제처리
                     // if (barcodeViewYn === "N" && buttonViewYn === "N") {
                     //     $.hideElement(".win");
                     // }
+
+                    // 기타 설명이미지 표시 처리
+                    if (arEventNftCouponInfo.arEventWinningEntity.etcDescImgSettingYn === "Y") {
+                        $("#etcDescImgUrlArea").show();
+                        $("#etcDescImgUrl").attr("src", arEventNftCouponInfo.arEventWinningEntity.etcDescImgUrl);
+                    }
                 }
             } else {
                 //에러 알림창
@@ -142,7 +170,7 @@
                     $.hideElement('#couponUsePopup');
                 
                     //used 클래스 변경
-                    $('#useCouponBtn').html('사용완료').removeAttr('href').css('background', '#BBB');
+                    $('.useCouponBtn').html('사용완료').removeAttr('href').css('background', '#BBB');
                     $('.img_wrap img').attr('src', inactiveThumbnailUrl);
 
                 } else {
@@ -160,17 +188,31 @@
                 return;  
             }
         }
-    }
+    };
+
+    const copyToClipboard = function (text) {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                is.showCommonPopup(1, "couponIdCopy", is.createCommonPopupBtnOpt("확인"));
+            });
+    };
 
     //사용하기 버튼
-    $(document).on("click", "#useCouponBtn", function () {
-        let attr = $("#useCouponBtn").attr("href");
+    $(document).on("click", ".useCouponBtn", function () {
+        let attr = $(".useCouponBtn").attr("href");
         if (attr) {
             is.putPvLog(is.getPvLogParams("0", "/main/locker/list/detail/popup"));
             $.showElement('#couponUsePopup');
         }
     });
-    
+
+    // 복사하기 버튼
+    $(document).on("click", ".copyBtn", function () {
+        let couponId = $(".barcodeRandomViewArea").data("couponId");
+
+        copyToClipboard(couponId);
+    });
+
     //쿠폰 사용하기 팝업 > 취소 버튼
     $(document).on("click", "#couponUsePopup .layer_popup .btn .grey", function () {
         $.hideElement('#couponUsePopup');

@@ -229,7 +229,6 @@
             <button class="used" id="couponUsePopupUsedBtn" style="display: none;">사용 완료</button>
         </div>
     </div>
-
     <!-- // 팝업 -->
     <!-- 딤드 배경 -->
     <div class="dimmed_bg_lightdark"></div>
@@ -269,8 +268,36 @@
         </div>
     </div>
     <!--// modal popup -->  
-
     <!-- 딤드 배경 -->
     <div class="dimmed_bg_lightdark"></div>
     <!-- // 딤드 배경 -->
-  </section>
+</section>
+
+<!-- OK캐시백 포인트 적립실패 화면 딤 팝업 -->
+<section id="pointFailPopupSection" style="display: none;">
+    <!-- div.cmm-dimmed-pop 서베이고 화면과 html 동일 -->
+    <!-- common dimmed popup -->
+    <div class="cmm-dimmed-pop active"><!-- 활성화 시킬 경우에 active 클래스 적용 -->
+        <div class="inner-wrap-box">
+            <img src="../../../resources/img/img_char_cash.png" class="img-block" alt="캐릭터 이미지 영역">
+            <p id="pointFailPopupTextAlready" class="g-txt" style="display: none;">이미 적립받으셨네요.<br><span class="normal-type">새로운 이벤트를 기대해주세요!</span></p>
+            <p id="pointFailPopupTextEnd" class="g-txt" style="display: none;">선착순 적립종료</span></p>
+        </div>
+    </div>
+    <!--// common dimmed popup -->
+</section>
+
+<!-- OK캐시백 포인트적립 화면 딤 팝업 -->
+<section id="pointSuccessPopupSection" style="display: none;">
+    <!-- div.cmm-dimmed-pop 서베이고 화면과 html 동일 -->
+    <!-- common dimmed popup -->
+    <div class="cmm-dimmed-pop other-position active"><!-- 활성화 시킬 경우에 active 클래스 적용 -->
+        <div class="inner-wrap-box">
+            <div class="set-coin-box">
+                <div class="cmm-coin-motion"></div>
+                <p id="pointText" class="g-txt"></span></p> <!-- pointText 텍스트 예시 >> 5P 적립! -->
+            </div>
+        </div>
+    </div>
+    <!--// common dimmed popup -->
+</section>

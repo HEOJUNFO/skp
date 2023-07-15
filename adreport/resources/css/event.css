@@ -1,5 +1,4 @@
 @charset "utf-8";
-  
 @font-face{font-family:'Roboto Bold';src:local(ⓐ), url('../font/Roboto-Bold.woff') format("woff"), url('../font/Roboto-Bold.ttf') format("truetype");}
 
 /* SK Planet - Base 1.0 */
@@ -27,7 +26,6 @@ section{float:left;width:100%;position:relative;clear:both;}
 section:after{content:"";height:0;display:block;visibility:hidden;clear:both;}
 button{margin:0;padding:0;border:0;cursor:pointer;font-family:inherit;line-height:inherit;text-indent:-1000em;white-space:nowrap;overflow:hidden;}
 caption, legend{display:none;}
-#layer img{width: 6.5%;vertical-align: top;}
 input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-results-button, input[type="search"]::-webkit-search-results-decoration{display:none;}
 img{width:100%;vertical-align:top;}
 input[type="text"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder,input[type="number"]::-webkit-input-placeholder,input[type="password"]::-webkit-input-placeholder,input[type="email"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder{font-size:1rem;font-weight:normal;color:#bbb;}
@@ -74,7 +72,7 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 
 .dimmed_bg_lightdark{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.6;z-index:6;}
 
-.layer_popup_agree{position:fixed;bottom:0;left:0;width:100%;z-index:-1;-webkit-transform: translateY(100%);visibility:hidden;}
+.layer_popup_agree{position:fixed;bottom:0;left:0;width:100%;z-index:-1;-webkit-transform:translateY(100%);visibility:hidden;}
 .layer_popup_agree.ani{visibility:visible;-webkit-animation:zp_popup_up 200ms ease-in;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;z-index:110;}
 .layer_popup_agree.ani_back{visibility:visible;-webkit-animation:zp_popup_down 200ms ease-in;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;z-index:110;}
 .layer_popup_agree.on{visibility:visible;z-index:110;-webkit-transform:translateY(0);}
@@ -98,10 +96,9 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .info_form ul li .title{position:absolute;top:0;left:0;display:block;width:70%;line-height:1.1875rem;color:#D5D5D5;z-index:3;}
 .info_form ul li .title.moved{top:0!important;font-size:0.8125rem;line-height:1rem;-webkit-animation:move_title 200ms ease-in-out;-webkit-animation-fill-mode:forwards;-webkit-animation-delay:0s;-webkit-transform-style:preserve-3d;-webkit-backface-visibility:hidden;}
 
-@-webkit-keyframes move_title{
-	0% 	{top:1.4375rem;font-size:0.9375rem;}
-	100% {top:0;font-size:0.8125rem;}
-}	
+@-webkit-keyframes move_title{0% 	{top:1.4375rem;font-size:0.9375rem;}
+	100%{top:0;font-size:0.8125rem;}
+}
 .info_form{overflow:hidden;}
 .info_form input::-webkit-input-placeholder{font-weight:normal;}
 .info_form ul{position:relative;}
@@ -209,7 +206,7 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .win_popup .btn a{display:block;line-height:3.75rem;font-size:0.9375rem;font-weight:600;letter-spacing:-0.0125rem;text-align:center;color:#777;border-bottom:1px solid #ececec;}
 .win_popup .btn a:last-of-type{border:0;}
 .win_popup .btn a.continue{font-weight:bold;color:#111;}
-.win_popup .close{position:absolute;top:0;right:0;display:block;width:2rem;height:2rem;background:url("../img/bg_popup_close_white.png") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow: hidden;}
+.win_popup .close{position:absolute;top:0;right:0;display:block;width:2rem;height:2rem;background:url("../img/bg_popup_close_white.png") 0 0 no-repeat;background-size:100% auto;text-indent:-1000em;overflow:hidden;}
 
 .bridge_popup{position:fixed;top:50%;left:5.56%;width:88.88%;padding:0;z-index:7;-webkit-transform:translateY(-50%);-webkit-box-sizing:border-box;box-sizing:border-box;}
 .bridge_popup .img, .bridge_popup .video{text-align:center;}
@@ -222,13 +219,11 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .bridge_popup .btn a{display:inline-block;padding:0 2.3125rem;line-height:2.5rem;height:2.5rem;font-size:0.9375rem;font-weight:600;letter-spacing:-0.0125rem;text-align:center;color:#fff;border:1px solid #fff;border-radius:2.5rem;opacity:0.7;-webkit-box-sizing:border-box;box-sizing:border-box;}
 
 
-@-webkit-keyframes zp_popup_up {
-	0%{-webkit-transform:translateY(100%);visibility:visible;}
+@-webkit-keyframes zp_popup_up{0%{-webkit-transform:translateY(100%);visibility:visible;}
 	100%{-webkit-transform:translateY(0);}
 }
 
-@-webkit-keyframes zp_popup_down {
-	0%{-webkit-transform:translateY(0);}
+@-webkit-keyframes zp_popup_down{0%{-webkit-transform:translateY(0);}
 	100%{-webkit-transform:translateY(100%);z-index:-1;visibility:hidden;}
 }
 
@@ -277,7 +272,7 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .win_info .delivery_info table{margin-bottom:1.25rem;width:100%;table-layout:fixed;border-spacing:0;border-collapse:collapse;}
 .win_info .delivery_info table th, .win_info .delivery_info table td{padding:0.625rem 0.625rem;font-size:0.75rem;letter-spacing:-0.03125rem;line-height:1rem;border:1px solid #e4e4e4;color:#666;}
 .win_info .delivery_info table th{background:#f6f6f7;color:#222;}
-.win_info .delivery_info .view a{display:inline-block;line-height:1.1875rem;font-size:0.8125rem;font-weight:bold;letter-spacing: -0.43px;color:#999;text-decoration:underline;}
+.win_info .delivery_info .view a{display:inline-block;line-height:1.1875rem;font-size:0.8125rem;font-weight:bold;letter-spacing:-0.43px;color:#999;text-decoration:underline;}
 
 .win_info .nft_info .nft_info_desc{padding:0 0 0 1rem;}
 .win_info .nft_info .nft_info_desc ol li{font-size:0.9375rem;line-height:1.375rem;letter-spacing:-0.03125rem;color:#707070;word-break:keep-all;}
@@ -360,7 +355,7 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .nft_locker .event .event_title{display:block;margin-bottom:0.75rem;font-weight:bold;font-size:0.9375rem;line-height:1.375rem;letter-spacing:-0.029375rem;color:#222;}
 .nft_locker .event .event_swiper{position:relative;border-radius:0.625rem;overflow:hidden;}
 .nft_locker .event .event_swiper a{display:block;}
-.nft_locker .event .swiper-pagination{position:static;margin: 0.75rem 0 0;font-size:0;}
+.nft_locker .event .swiper-pagination{position:static;margin:0.75rem 0 0;font-size:0;}
 .nft_locker .event .swiper-pagination .swiper-pagination-bullet{margin:0 3px;width:5px;height:5px;background:#D6D6D6;border-radius:5px;vertical-align:top;opacity:1;}
 .nft_locker .event .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{background:#ff6315!important;}
 
@@ -400,49 +395,52 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .nft_locker .transfer_result p.error span{display:block;margin-top:0.25rem;font-size:1rem;line-height:1.375rem;letter-spacing:-0.03125rem;color:#EDEDED;}
 .nft_locker .transfer_result .close{position:absolute;top:1rem;right:1.125rem;display:block;width:2.125rem;height:2.125rem;background:url("../img/pop_close.png") 50% 0 no-repeat;background-size:100% auto;z-index:101;text-indent:-1000em;overflow:hidden;}
 
-.nft_detail{padding:2.5rem 1.5rem;}
+.nft_detail{padding:2.5rem 0 0;}
 .nft_detail .img_wrap{margin:0 auto 1.5rem;width:10rem;border-radius:0.3125rem;}
 .nft_detail .img_wrap img{border-radius:0.3125rem;}
+.nft_detail .detail_info{padding:0 1.5rem;}
 .nft_detail .detail_info .title{display:block;margin-bottom:0.5625rem;font-weight:700;font-size:1.3125rem;line-height:1.875rem;color:#222;}
-.nft_detail .detail_info .detail{padding-top:1rem;padding-bottom:0.625rem;border-top:1px solid #EDEDED;}
+.nft_detail .detail_info .detail{padding-top:1rem;padding-bottom:3.75rem;border-top:1px solid #EDEDED;}
 .nft_detail .detail_info .detail > span{display:block;margin-bottom:0.875rem;font-weight:600;font-size:0.8125rem;line-height:1rem;letter-spacing:-0.03125rem;color:#707070;}
 .nft_detail .detail_info .detail dl{overflow:hidden;}
 .nft_detail .detail_info .detail dl dt{float:left;margin-bottom:0.375rem;width:20%;font-size:0.8125rem;line-height:1.125rem;letter-spacing:-0.026875rem;color:#707070;}
 .nft_detail .detail_info .detail dl dd{float:left;margin-bottom:0.375rem;width:80%;font-size:0.9375rem;line-height:1.125rem;letter-spacing:-0.03125rem;color:#464646;}
 .nft_detail .detail_info .detail ul li{margin-bottom:0.75rem;}
+.nft_detail .detail_info .detail ul li:last-child{margin-bottom:0;}
 .nft_detail .detail_info .detail ul li span{display:block;margin-bottom:0.25rem;font-weight:600;font-size:0.9375rem;line-height:1.125rem;letter-spacing:-0.03125rem;color:#464646;}
-.nft_detail .detail_info .detail ul li p{font-size:0.8125rem;line-height:1rem;letter-spacing:-0.026875rem;color: #707070;}
+.nft_detail .detail_info .detail ul li p{font-size:0.8125rem;line-height:1rem;letter-spacing:-0.026875rem;color:#707070;}
 .nft_detail .detail_info .win{padding-top:1rem;padding-bottom:1.5rem;border-top:1px solid #EDEDED;}
-.nft_detail .detail_info .win .win_token{text-align:center;}
-.nft_detail .detail_info .win .win_token span{display:block;margin-bottom:0.625rem;font-weight:600;font-size:0.8125rem;line-height:1rem;letter-spacing:-0.03125rem;color:#707070;text-align:left;}
+.nft_detail .detail_info .win .win_token{display:flex;flex-direction:column;align-items:center;}
+.nft_detail .detail_info .win .win_token span{display:block;width:100%;margin-bottom:0.625rem;font-weight:600;font-size:0.8125rem;line-height:1rem;letter-spacing:-0.03125rem;color:#707070;text-align:left;}
 .nft_detail .detail_info .win .win_token .barcode{margin-bottom:.5rem;text-align:center;height:4.5rem;}
 .nft_detail .detail_info .win .win_token .barcode img{width:auto;height:100%;}
 .nft_detail .detail_info .win .win_token p{margin:0.625rem 0 0.75rem;text-align:center;font-weight:500;font-size:1.25rem;line-height:1.5rem;letter-spacing:-0.03125rem;color:#464646;}
-.nft_detail .detail_info .win .win_token a{
-	display:inline-block;padding:0 5.7813rem;line-height:2.5rem;font-size:0.875rem;color:#fff;text-align:center;background:#FF5601;border-radius:0.375rem;
-}
+.nft_detail .detail_info .win .win_token a{display:inline-block;width:65%;height:2.5rem;line-height:2.5rem;font-size:0.875rem;color:#fff;text-align:center;background:#FF5601;border-radius:0.375rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.nft_detail .detail_info .win .win_token a.line{border:1px solid #FF6315;background:#fff;color:#FF6315;}
+.nft_detail .detail_info .win .win_token a ~ a{margin-top:0.8125rem;}
 .nft_detail .detail_info .win .win_date{display:flex;flex-direction:row;}
 .nft_detail .detail_info .win .win_date span{display:block;font-weight:600;font-size:0.8125rem;line-height:1.25rem;letter-spacing:-0.03125rem;color:#707070;}
 .nft_detail .detail_info .win .win_date .date{margin-left:0.75rem;font-size:0.9375rem;line-height:1.25rem;letter-spacing:-0.03125rem;color:#464646;}
 .nft_detail .detail_info .win > p{margin-top:1rem;font-size:0.8125rem;line-height:1rem;text-align:center;letter-spacing:-0.0269rem;color:#999;}
+.nft_detail .desc{margin:0;width:100%;}
 
 
-/* start : 휴대폰 인증 - 서베이고 */
+/* start :휴대폰 인증 - 서베이고 */
 
 /* common ok module */
 .cmm_ok_module{position:relative;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex; -webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;padding:0 2.4rem 3rem 2.4rem;}
-.cmm_ok_module button, .cmm_ok_module a {display:block;width:100%;height:3.75rem;margin-left:0.5rem;padding:0;border-radius:3.75rem;line-height:3.75rem;text-align:center;font-size:1.25rem;letter-spacing:-0.03125rem;color:#fff;background-color:#492CE9!important;}
-.cmm_ok_module .bg_item_alt {background-color:#A39FB9;}
-.cmm_ok_module button:first-of-type, .cmm_ok_module a:first-of-type {margin-left:0;}
-.cmm_ok_module button:disabled, .cmm_ok_module a.disabled {cursor:default;background-color:#A39FB9;}
-.cmm_ok_module.mini_mode button, .cmm_ok_module.mini_mode a {width:auto;min-width:8.25rem;height:3rem;border-radius:3rem;line-height:3rem;font-size:1.125rem;}
-.cmm_ok_module.mini_mode button:disabled, .cmm_ok_module.mini_mode a.disabled {background-color:#A39FB9!important;}
-.cmm_ok_module.mini_mode .mid_size {min-width:15rem;}
+.cmm_ok_module button, .cmm_ok_module a{display:block;width:100%;height:3.75rem;margin-left:0.5rem;padding:0;border-radius:3.75rem;line-height:3.75rem;text-align:center;font-size:1.25rem;letter-spacing:-0.03125rem;color:#fff;background-color:#492CE9!important;}
+.cmm_ok_module .bg_item_alt{background-color:#A39FB9;}
+.cmm_ok_module button:first-of-type, .cmm_ok_module a:first-of-type{margin-left:0;}
+.cmm_ok_module button:disabled, .cmm_ok_module a.disabled{cursor:default;background-color:#A39FB9;}
+.cmm_ok_module.mini_mode button, .cmm_ok_module.mini_mode a{width:auto;min-width:8.25rem;height:3rem;border-radius:3rem;line-height:3rem;font-size:1.125rem;}
+.cmm_ok_module.mini_mode button:disabled, .cmm_ok_module.mini_mode a.disabled{background-color:#A39FB9!important;}
+.cmm_ok_module.mini_mode .mid_size{min-width:15rem;}
 
 /* modal popup */
 .skp_modal_popup{position:fixed;left:0;top:0;right:0;bottom:0;padding:0 1.25rem;z-index:100002;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;align-items:center;-webkit-align-items:center;justify-content:center;-webkit-justify-content:center;-webkit-box-pack:center;-moz-box-pack:center;-ms-box-pack:center;-webkit-box-align:center;-moz-box-align:center;-ms-box-align:center;}
 .skp_modal_popup *{font-family:-apple-system, Pretendard, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;}
-.skp_modal_popup .skp_dimmed_layer{position:fixed;left:0;top:0;right:0;bottom:0;z-index:100000;}  
+.skp_modal_popup .skp_dimmed_layer{position:fixed;left:0;top:0;right:0;bottom:0;z-index:100000;}
 .skp_modal_inner{position:relative;z-index:100003;width:100%;border-radius:0.75rem;box-shadow:0 0.625rem 0.625rem rgba(0,0,0,0.1);background-color:#fff;}
 .skp_modal_inner.no_shadow{box-shadow:none;}
 .skp_modal_inner .cmm_ok_module{padding:0 2.5rem 2.5rem 2.5rem;}
@@ -469,13 +467,76 @@ body.dim:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
 .frm_box .btn_cert.active{border-color:#492CE9;color:#492CE9;}
 .frm_box .count{position:absolute;right:0;top:0;bottom:0;height:1.0625rem;margin:auto;color:#492CE9;font-size:0.875rem;line-height:1.0625rem;letter-spacing:-0.025rem;}
 .frm_box .count.disabled{color:#D5D5D5;}
-.frm_box .msg_txt {visibility:hidden;margin:0.625rem 0 1.0625rem 0;font-size:0.75rem;line-height:1.0625rem;text-align:right;color:#FF0000;}
+.frm_box .msg_txt{visibility:hidden;margin:0.625rem 0 1.0625rem 0;font-size:0.75rem;line-height:1.0625rem;text-align:right;color:#FF0000;}
 .frm_box .msg_txt.active{visibility:visible;}
 .cert_box .tip_txt_box{visibility:hidden;}
 .cert_box .tip_txt_box p{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;min-height:3.2rem;text-align:center;font-size:0.75rem;line-height:1rem;color:#FF0000;}
 .cert_box .tip_txt_box.active{visibility:visible;}
 
-/* end : 휴대폰 인증 - 서베이고 */
+/* end :휴대폰 인증 - 서베이고 */
+
+/* start :미인증, ocb 적릷 - 서베이고 */
+.ag-guide-box{display:flex;flex-direction:column;justify-content:center;height:100vh;text-align:center;padding-bottom:8.0625rem;-webkit-box-sizing:border-box;box-sizing:border-box;}
+.ag-guide-box *{font-family:-apple-system, Pretendard, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;}
+.ag-guide-box .img-block{display:block;margin:0 auto;}
+.ag-guide-box h1{margin-top:1.25rem;font-size:1.25rem;line-height:1.8125rem;letter-spacing:-0.044375rem;color:#000;}
+.ag-guide-box h1 strong{font-weight:700;}
+.ag-guide-box img{width:7.1875rem;}
+.ag-guide-box .sim-btn-module{margin-top:2.5rem;padding:0;}
+.ag-guide-box .sim-btn-module button{display:inline-block;width:auto;padding:0 1.5rem;vertical-align:top;height:3rem;border-radius:3rem;font-weight:700;font-size:1.125rem;line-height:3rem;color:#fff;background-color:#1e2032;text-indent:0;}
+
+.cmm-dimmed-pop{display:none;align-items:center;justify-content:center;flex-direction:column;position:fixed;left:0;top:0;right:0;bottom:0;z-index:103;min-height:100%;background:rgba(0,0,0,0.8);-webkit-animation:dimmed-fade-in 0.3s linear both;animation:dimmed-fade-in 0.3s linear both;}
+.cmm-dimmed-pop *{font-family:-apple-system, Pretendard, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;}
+.cmm-dimmed-pop .inner-wrap-box{margin-top:-4%;}
+.cmm-dimmed-pop.other-position{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;}
+.cmm-dimmed-pop.other-position .inner-wrap-box{margin-top:0;}
+.cmm-dimmed-pop.active{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;}
+.cmm-dimmed-pop .img-block{opacity:1;display:block;width:7.25rem;margin:0 auto;-webkit-animation:fade-in 0.1s linear both;animation:fade-in 0.1s linear both;}
+.cmm-dimmed-pop .g-txt{margin-top:1rem;font-size:1.375rem;line-height:1.75rem;color:#fff;letter-spacing:-0.03125rem;text-align:center;font-weight:700;}
+.cmm-dimmed-pop .g-txt .normal-type{font-weight:400;}
+
+.cmm-coin-motion{overflow:hidden;width:22.5rem;height:31.5625rem;margin:0 auto;text-indent:-1000em;background:url('../img/set_img_coin_motion.png') no-repeat;background-size:auto 31.5625rem;-webkit-animation:cmm-coin-m 2300ms steps(50) both;animation:cmm-coin-m 2300ms steps(50) both;}
+
+@-webkit-keyframes cmm-coin-m{
+	0% {
+		background-position:0 0;
+	}
+	100% {
+		background-position:-1125rem 0;
+	}
+}
+
+@keyframes cmm-coin-m{
+	0% {
+		background-position:0 0;
+	}
+	100% {
+		background-position:-1125rem 0;
+	}
+}
+.set-coin-box{position:relative;}
+.set-coin-box .g-txt{position:absolute;left:0;top:10rem;right:0;margin-top:0;text-align:center;font-size:1.875rem;line-height:2.25rem;letter-spacing:-0.025rem;animation:fade-in 300ms linear 2300ms both;-webkit-animation:fade-in 300ms linear 2300ms both;}
+
+/* common dimmed popup */
+@-webkit-keyframes ffade-in{
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+}
+
+@keyframes fade-in{
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+}
+
+/* end :미인증, ocb 적릷 - 서베이고 */
 
 @media only screen and (min-width: 430px) {
 	html {

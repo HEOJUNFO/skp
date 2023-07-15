@@ -4,10 +4,11 @@
  * License: SK planet wholly owned
  */
 (function ($, window, document, undefined) {
-
     let qs = is.parseQuery();
-    const eventId = qs.eventId;
-    const winningType = qs.winningType;
+    let eventId;
+    let winningType;
+    let ocbUserInfo;
+
     //비밀번호를 받는 이벤트인지 확인
     //let isPasswordEvent;
     let isPhoneNumber = false,
@@ -18,9 +19,22 @@
 
     let logCode;
 
-    //검색 버튼 이벤트
-    $(document).on("click", "#nftHistorySearchBtn", function() {
+    const isApp = is.isApp();
+    
+    if (isApp) {
+        const paramData = qs.paramData;
+        if (paramData) {
+            const parseParamData = JSON.parse(paramData);
+            eventId = parseParamData.eventId; 
+            winningType = parseParamData.winningType;
+            ocbUserInfo = JSON.parse(parseParamData.ocbUserInfo);
+        }
+    } else {
+        eventId = qs.eventId; 
+        winningType = qs.winningType;
+    }
 
+    const _nftHistorySearch = function() {
         is.putPvLog(is.getPvLogParams("1", "/main/locker", undefined, logCode));
 
         let phoneNumber = is.getValueById("phoneNumber");
@@ -56,22 +70,15 @@
             _searchNftHistory(eventId, phoneNumber, attendCode);  
             return false;
         }
-    });
+    };
 
-    $(document).on("click", "#alertPopupBtn", function() {
-       $.hideElement("#alertPopup");
-    });
-
-    //SMS 인증 버튼
-    $(document).on("click", "#sendSmsBtn", function () {
+    const _sendSmsAuth = function() {
         const mdn = is.getValueById("mdn");
         //인증번호 발송
         smsAuthCode = is.sendSmsAuth(eventId, mdn, is.smsMenuType.WINNING_SEARCH);
-    });
+    };
 
-    //sms 인증번호 확인 버튼 이벤트
-    $(document).on("click", "#confirmSmsCodeBtn", function () {
-        const $this = $(this);
+    const _confirmSmsCode = function(res, $this) {
         const btnHtml = $this.html();
         if (btnHtml === "확인") {
             $.hideElement("#smsAuthPopupSection");
@@ -91,21 +98,9 @@
             _searchNftHistory(eventId, mdn, "");
             return false;
         }
-    });
-    
-    //임시비밀번호 전송 버튼
-    // $(document).on("click", "#smsSendConfirmPopup .btn .confirm", function() {
-    //     let phoneNumber = is.getValueById("phoneNumber");
-    //     $.sendSmsTemporaryPassword(eventId, phoneNumber);
-    // });
+    };
 
-    //임시비밀번호 전송완료 후 팝업 > 확인, 취소버튼
-    // $(document).on("click", "#smsSendSuccessPopup .btn .grey, .confirm, #smsSendConfirmPopup .btn .grey", function() {
-    //     $(this).parent().parent().parent().hide();
-    // });
-
-    //sms인증하기 버튼 클릭
-    $(document).on("click", "#authSmsBtn", function() {
+    const _authSms = function() {
         const smsCode = is.getValueById("smsCode");
         const mdn     = is.getValueById("mdn");
 
@@ -122,8 +117,8 @@
             _searchNftHistory(eventId, mdn, "");
             return false;
         }
-    });
-    
+    };
+
     //검색 API
     let _searchNftHistory = function(eventId, phoneNumber, attendCode) {
         if (isPhoneNumber) {
@@ -156,37 +151,57 @@
                     if (result) {
                         const nftWinningIncludeYn = result.nftWinningIncludeYn;
                         const nftCouponWinningIncludeYn = result.nftCouponWinningIncludeYn;
+                        const eventSessionData = {
+                            eventId: eventId,
+                            //phoneNumber : isSmsSend ? is.getValueById("mdn") : is.getValueById("phoneNumber"),   //sms인증이면 sms인증팝업 영역의 전화번호 영역의 값을 가져오고, sms인증이 아닌 기본 검색이면 기본영역의 전화번호 영역의 값을 가져온다.
+                            phoneNumber : phoneNumber,   //sms인증이면 sms인증팝업 영역의 전화번호 영역의 값을 가져오고, sms인증이 아닌 기본 검색이면 기본영역의 전화번호 영역의 값을 가져온다.
+                            isPhoneNumber : isPhoneNumber,
+                            isAttendCode : isAttendCode,
+                            attendCode : isAttendCode ? is.getValueById("phoneNumber") : "",
+                            winningType : winningType
+                        };
+                        sessionStorage.setItem("eventSessionData", JSON.stringify(eventSessionData));
+
+                        var url = "nft-repository.html?winningType=" + winningType;
+                        var ocbTargetUrl = is.getDomain() + "/web-event/nft/nft-repository.html?paramData=" + encodeURIComponent(JSON.stringify(eventSessionData));
+
                         //NFT 목록 화면으로 이동
                         if (is.isEqual(nftWinningIncludeYn, "Y") || is.isEqual(nftCouponWinningIncludeYn, "Y")) {
-                            const eventSessionData = {
-                                eventId: eventId,
-                                phoneNumber : isSmsSend ? is.getValueById("mdn") : is.getValueById("phoneNumber"),   //sms인증이면 sms인증팝업 영역의 전화번호 영역의 값을 가져오고, sms인증이 아닌 기본 검색이면 기본영역의 전화번호 영역의 값을 가져온다.
-                                isPhoneNumber : isPhoneNumber,
-                                isAttendCode : isAttendCode,
-                                attendCode : isAttendCode ? is.getValueById("phoneNumber") : "",
-                                winningType : winningType
-                            };
-                            sessionStorage.setItem("eventSessionData", JSON.stringify(eventSessionData));
-
-                            location.href = "nft-repository.html";
+                            if (isApp) {
+                                ocbApp.goLinkPage(ocbTargetUrl);  
+                              } else {
+                                location.href = url;
+                            }
                         }
 
                         if (is.isEqual(winningType, "NFT")) {
                             if (is.isEqual(nftWinningIncludeYn, "N")) {
-                                is.showCommonPopup(1, "noNftWinningHistory");
+                                if (isApp) {
+                                  ocbApp.goLinkPage(ocbTargetUrl);  
+                                } else {
+                                    location.href = url;
+                                }
                             } 
                         }
                         if (is.isEqual(winningType, "NFTCP")) {
                             if (is.isEqual(nftCouponWinningIncludeYn, "N")) {
-                                is.showCommonPopup(1, "noCouponWinningHistory");
-                            } 
+                                if (isApp) {
+                                  ocbApp.goLinkPage(ocbTargetUrl);  
+                                } else {
+                                    location.href = url;
+                                }
+                            }
                         }
-                        
                     }
                 }
                 //당첨목록이 없을때
                 if (res.resultCode === 817) {
-                    is.showCommonPopup(1, "noNftWinningHistory");
+                    if (is.isEqual(winningType, "NFT")) {
+                        is.showCommonPopup(1, "noNftWinningHistory");
+                    }
+                    if (is.isEqual(winningType, "NFTCP")) {
+                        is.showCommonPopup(1, "noCouponWinningHistory");
+                    }
                 }
                 //비밀번호 SMS 발송 팝업
                 // if (res.resultCode === 810) {
@@ -204,6 +219,26 @@
             is.showCommonPopup(1, "commonError");
         });
     };
+
+    // ======================= 버튼 클릭 이벤트 바인딩 ===========================//
+    //검색 버튼 클릭 이벤트
+    is.clickEvent("#nftHistorySearchBtn", _nftHistorySearch);
+
+    //팝업 닫기 클릭 이벤트
+    is.clickEvent("#alertPopupBtn", $.hideElement("#alertPopup"));
+
+    //인증번호 발송 클릭 이벤트
+    is.clickEvent("#sendSmsBtn", _sendSmsAuth);
+
+    //sms 인증번호 확인 클릭 이벤트
+    is.clickEvent("#confirmSmsCodeBtn", _confirmSmsCode);
+
+    //sms인증하기 버튼 클릭 이벤트
+    is.clickEvent("#authSmsBtn", _authSms);
+    // ======================= 버튼 클릭 이벤트 바인딩 ===========================//
+
+    
+    
 
    
     // let _checkPasswordEvent = function(eventId) {
@@ -251,6 +286,21 @@
 
         const eventInfo = is.getEventBaseInfo(eventId);
         if (eventInfo) {
+            //앱일때
+            if (isApp) {
+                isPhoneNumber = true;
+                _searchNftHistory(eventId, ocbUserInfo.mdn, "");
+                //조회하기 버튼 hide처리
+                $.hideElement("#nftHistorySearchBtn");
+                
+                ocbApp.setTitle("당첨이력조회");
+                $("#nftHistorySection").css("padding-top", "0");
+                return;
+            } else {
+                $.showElement("#nftHistorySection");
+                $.showElement(".moweb_header");
+            }
+            
             //NFT, 쿠폰 종류에 따른 문구 변경 처리
             //NFT 일때
             if (is.isEqual(winningType, "NFT")) {

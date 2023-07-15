@@ -314,4 +314,52 @@
 /* full size image group  */
   .skp_fs_img_grp {margin-top:3rem;}
   .skp_fs_img_grp .img_block {display:block;width:100%;}
-  
+/* common dimmed popup */
+  @-webkit-keyframes fade-in {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  @keyframes fade-in {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  @-webkit-keyframes dimmed-fade-in {
+    0% {background:rgba(0,0,0,0);}
+    100% {background:rgba(0,0,0,0.8);}
+  }
+  @keyframes dimmed-fade-in {
+    0% {background:rgba(0,0,0,0);}
+    100% {background:rgba(0,0,0,0.8);}
+  }
+  @-webkit-keyframes cmm-coin-m {
+    0%   {background-position:0 0;}
+    100% {background-position:-1800rem 0;}
+  }
+  @keyframes cmm-coin-m {
+    0%   {background-position:0 0;}
+    100% {background-position:-1800rem 0;}
+  }
+  .cmm-dimmed-pop {
+    display:none;align-items:center;justify-content:center;-webkit-align-items:center;-webkit-justify-content:center;
+    -webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;
+    -webkit-box-pack:center;-webkit-box-align:center;-moz-box-pack:center;-moz-box-align:center;-ms-box-pack:center;-ms-box-align:center;
+    position:fixed;left:0;top:0;right:0;bottom:0;z-index:103;min-height:100%;background:rgba(0,0,0,0.8);
+    -webkit-animation:dimmed-fade-in 0.3s linear both;animation:dimmed-fade-in 0.3s linear both;
+  }
+  .cmm-dimmed-pop .inner-wrap-box {margin-top:-4%;}
+  .cmm-dimmed-pop.other-position {-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;}
+  .cmm-dimmed-pop.other-position .inner-wrap-box {margin-top:0;}
+  .cmm-dimmed-pop.active {display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;}
+  .cmm-dimmed-pop .img-block {opacity:1;display:block;width:11.6rem;margin:0 auto;-webkit-animation:fade-in 0.1s linear both;animation:fade-in 0.1s linear both;}
+  .cmm-dimmed-pop .g-txt {margin-top:1.6rem;font-size:2.2rem;line-height:2.8rem;color:#fff;letter-spacing:-0.5px;text-align:center;font-weight:700;}
+  .cmm-dimmed-pop .g-txt .normal-type {font-weight:400;}
+  .set-coin-box {position:relative;}
+  .cmm-coin-motion {
+    overflow:hidden;width:36rem;height:50.5rem;margin:0 auto;text-indent:-999.9rem;
+    background:url('../img/set_img_coin_motion.png') no-repeat;background-size:auto 50.5rem;
+    -webkit-animation:cmm-coin-m 2300ms steps(50) both;animation:cmm-coin-m 2300ms steps(50) both;
+  }
+  .set-coin-box .g-txt {
+    position:absolute;left:0;top:16rem;right:0;margin-top:0;text-align:center;font-size:3rem;line-height:3.6rem;letter-spacing:-0.4px;
+    animation:fade-in 300ms linear 2300ms both;-webkit-animation:fade-in 300ms linear 2300ms both;
+  }

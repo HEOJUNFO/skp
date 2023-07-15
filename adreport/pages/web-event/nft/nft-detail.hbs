@@ -3,6 +3,7 @@ layout: default-event.hbs
 title: Play AR
 jsfile:
 - pages/web-event/nft/nft-detail
+- pages/web-event/ocb
 ---
 <div class="wrap">
     <!-- header 영역  -->
@@ -73,8 +74,22 @@ jsfile:
                         <div class="barcode" style="">
                             <div id="barcodeImg" style="margin: auto;"></div>
                         </div>
-                        <p>\{{ this.couponInfo.arEventNftCouponInfoEntity.nftCouponId }}</p>
-                        <a href="javascript:void(0);" id="useCouponBtn" style="margin-top: 45px;">사용하기</a>
+                        <p class="barcodeRandomViewArea" data-coupon-id="\{{ this.couponInfo.arEventNftCouponInfoEntity.nftCouponId }}">
+                            \{{ this.couponInfo.arEventNftCouponInfoEntity.nftCouponId }}
+                        </p>
+
+                        \{{#each this.couponInfo.arEventNftCouponInfoEntity.arEventRepositoryButtonList}}
+                        \{{#ifvalue repositoryButtonType value='CONFIRM'}}
+                            <a href="javascript:void(0);" id="useCouponBtn" class="useCouponBtn" style="margin-top:10px;">\{{repositoryButtonText}}</a>
+                        \{{/ifvalue}}
+                        \{{#ifvalue repositoryButtonType value='COPY'}}
+                            <a href="javascript:void(0);" class="line copyBtn" style="margin-top:10px;">\{{repositoryButtonText}}</a>
+                        \{{/ifvalue}}
+                        \{{#ifvalue repositoryButtonType value='URL'}}
+                            <a href="\{{repositoryButtonTargetUrl}}" class="line urlBtn" style="margin-top:10px;" target='_blank'>\{{repositoryButtonText}}</a>
+                        \{{/ifvalue}}
+                        \{{/each}}
+
                     </div>
                 </div>
                 \{{#if (isNotNull this.benefitInfo)}}
@@ -94,6 +109,11 @@ jsfile:
             </script>
         </div>
         <!-- // 쿠폰 상세 -->
+        <!-- 기타 설명 이미지. 퍼블리싱 없이 작업함. 필요시 추후 퍼블리싱 요청 - START -->
+        <div class="desc" style="display:none;" id="etcDescImgUrlArea">
+            <img src="" alt="기타 유의사항" id="etcDescImgUrl">
+        </div>
+        <!-- 기타 설명 이미지. 퍼블리싱 없이 작업함. 필요시 추후 퍼블리싱 요청 - END -->
 
     </section>
 
