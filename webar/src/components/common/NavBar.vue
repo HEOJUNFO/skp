@@ -201,6 +201,8 @@ export default {
         }
 
         const toggleBarVisibility = () => {
+            isBarVisible.value = !isBarVisible.value;
+
             arFrameSettingYn.value = getters['eventData/arFrameSettingYn'];
             isPhotoRatioSettingType.value = getters['eventData/photoRatioSettingType'];
             arStickerSettingYn.value = getters['eventData/arStickerSettingYn'];
@@ -208,12 +210,10 @@ export default {
             arCharacterSettingYn.value = getters['eventData/arCharacterSettingYn'];
             arTabSettingYn.value = getters['eventData/photoTabMenuAddSettingYn'];
             tabMenuTitle.value = getters['eventData/tabMenuTitle'];
+            effectTabs.value = getEffectTabs();
 
             aspectRatio.value = 0;
             aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
-
-            isBarVisible.value = !isBarVisible.value;
-            effectTabs.value = getEffectTabs();
         }
 
         const toggleAspectRatio = () => {
