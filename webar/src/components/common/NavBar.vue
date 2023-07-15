@@ -14,9 +14,9 @@
         </div>
         <div class="top-bar" v-show="isBarVisible" style="background-color: white; ">
             <button v-if="!isCapturing && arFrameSettingYn === 'N'" @click="toggleAspectRatio" class="aspect-button">
-                <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">9:16</span>
+                <span v-if="aspectRatio === 0" style="font-size: 30px; font-weight: bold;">4:6</span>
                 <span v-else-if="aspectRatio === 1" style="font-size: 30px; font-weight: bold;">1:1</span>
-                <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">4:6</span>
+                <span v-else-if="aspectRatio === 2" style="font-size: 30px; font-weight: bold;">9:16</span>
                 <span v-else-if="aspectRatio === 3" style="font-size: 30px; font-weight: bold;">FUll</span>
                 <span v-show="aspectRatio === 4">
                     <img src="../../assets/icon/print-button.png" alt="프린트" style="width: 30px; height: 30px;" />
@@ -150,7 +150,7 @@ export default {
         const isBeauty = ref(false);
         const arFrameSettingYn = ref('Y');
         const aspectRatio = ref(0);
-        const aspectRatioValue = ref('16 / 9');
+        const aspectRatioValue = ref('6 / 4');
         const isPhotoRatioSettingType = ref('BASIC');
         const isSecondFrameBarVisible = ref(false);
         const isSecondEffectBarVisible = ref(false);
@@ -210,7 +210,7 @@ export default {
             tabMenuTitle.value = getters['eventData/tabMenuTitle'];
 
             aspectRatio.value = 0;
-            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '16 / 9' : '2 / 1';
+            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
 
             isBarVisible.value = !isBarVisible.value;
             effectTabs.value = getEffectTabs();
@@ -219,13 +219,13 @@ export default {
         const toggleAspectRatio = () => {
             aspectRatio.value = (aspectRatio.value + 1) % 5
             if (aspectRatio.value === 0) {
-                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '16 / 9' : '2 / 1';
+                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
             } else if (aspectRatio.value === 1) {
                 aspectRatioValue.value = '1.1 / 1'
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '6 / 4'
+                aspectRatioValue.value = '1.3 / 1'
             } else if (aspectRatio.value === 3) {
-                aspectRatioValue.value = '2.1 / 1'
+                aspectRatioValue.value = '1.75 / 1'
             } else if (aspectRatio.value === 4) {
                 aspectRatioValue.value = '1218 / 814'
             }
