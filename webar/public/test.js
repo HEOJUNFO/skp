@@ -207,17 +207,15 @@
 			this.el.object3D.visible = e
 		},
 		updateMatrix(e) {
-			this.el.object3D.matrix.set(...e)
-
-            // object 위치 좌우 반전
-            this.el.object3D.matrix.set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
-
-            // 회전 좌우 반전
-            let scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
-            this.el.object3D.matrix.premultiply(scaleMatrix);
-            
-            
-
+			let matrixValues = [...e].map((value, index) => index % 4 === 0 ? -value : value);
+			
+			// set matrix
+			let matrix = new THREE.Matrix4().set(...matrixValues);
+			let scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
+			matrix.premultiply(scaleMatrix);
+			
+			// set object3d
+			this.el.object3D.matrix = matrix;
 		}
 	}), AFRAME.registerComponent("mindar-face-occluder", {
 		init: function() {
@@ -240,7 +238,15 @@
 			this.el.object3D.visible = e
 		},
 		updateMatrix(e) {
-			this.el.object3D.matrix.set(...e)
+			let matrixValues = [...e].map((value, index) => index % 4 === 0 ? -value : value);
+
+			// set matrix
+			let matrix = new THREE.Matrix4().set(...matrixValues);
+			let scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
+			matrix.premultiply(scaleMatrix);
+			
+			// set object3d
+			this.el.object3D.matrix = matrix;
 		},
 		addFaceMesh(e) {
 			const t = new i.MeshBasicMaterial({
