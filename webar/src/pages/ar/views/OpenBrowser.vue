@@ -184,8 +184,13 @@ export default {
     const captureing = async () => {
       const data = await capture();
       captureModal.value.openModal(data);
-      navbarRef.value.toggleBarVisibility();
-      cameraRef.value.resetCamera();
+
+      setTimeout(() => {
+        navbarRef.value.toggleBarVisibility();
+        cameraRef.value.resetCamera();
+      }, 1000);
+
+
     }
 
     const flipCamera = () => {
