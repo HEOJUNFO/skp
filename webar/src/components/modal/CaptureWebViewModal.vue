@@ -24,7 +24,7 @@
       </div>
       <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
       }}</button>
-      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 5.5vh" />
+      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 3.5vh" />
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">
@@ -304,13 +304,13 @@ export default {
   justify-content: space-around;
   width: 100%;
   height: 10vh;
-  margin-top: 5.5vh;
+  margin-top: 3.5vh;
 }
 
 .box-button {
   display: block;
   margin-left: 5%;
-  margin-top: 5.5vh;
+  margin-top: 3.5vh;
   width: 90%;
   height: 7vh;
   border: 1px solid #000;
@@ -377,7 +377,7 @@ export default {
   width: 100%;
   height: 50px;
   margin-left: 5%;
-  margin-top: 5.5vh;
+  margin-top: 3.5vh;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;
@@ -408,7 +408,7 @@ export default {
   width: 80%;
   height: 12vh;
   margin-left: 10%;
-  margin-top: 5.5vh;
+  margin-top: 3.5vh;
   padding-top: 2.5vh;
   gap: 1vh;
   background-color: #fff;
