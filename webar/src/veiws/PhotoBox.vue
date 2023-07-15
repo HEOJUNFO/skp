@@ -60,12 +60,11 @@ export default {
             }
 
             try {
-                // let params = {
-                //     eventId: eventId.value,
-                // };
+                let params = {
+                    eventId: eventId.value,
+                };
 
-                await dispatch("jsonData/setPhotoBoxData");
-
+                await dispatch("eventData/getEventPhotoBox", params);
 
                 eventData.value = getters["eventData/photoBoxData"];
                 sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(eventData.value));
