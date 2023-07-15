@@ -60,14 +60,7 @@
 		_startVideo: function() {
             // 아래 주석을 대신하여 위의 작성
             this.video = document.querySelector("video");
-            this.video.setAttribute("autoplay", "");
-            this.video.setAttribute("muted", "");
-            this.video.setAttribute("playsinline", "");
-            this.video.style.position = "absolute";
-            this.video.style.top = "0px";
-            this.video.style.left = "0px";
-            this.video.style.zIndex = "-2";
-            
+
             this.video.addEventListener("loadedmetadata", (async () => {
                 this.video.setAttribute("width", this.video.videoWidth);
                 this.video.setAttribute("height", this.video.videoHeight);
@@ -135,13 +128,6 @@
 			this._resize(), window.addEventListener("resize", this._resize.bind(this)), this.el.emit("arReady")
 		},
 		_resize: function() {
-			const e = this.video,
-				t = this.container;
-			let i, s;
-			const a = e.videoWidth / e.videoHeight;
-			a > t.clientWidth / t.clientHeight ? (s = t.clientHeight, i = s * a) : (i = t.clientWidth, s = i / a), this.video.style.left = -(i - t.clientWidth) / 2 + "px", this.video.style.width = i + "px", this.video.style.height = s + "px";
-			const n = t.getElementsByTagName("a-scene")[0];
-			n.style.left = this.video.style.left, n.style.width = this.video.style.width, n.style.height = this.video.style.height
 		}
 	}), AFRAME.registerComponent("mindar-face", {
 		dependencies: ["mindar-face-system"],
