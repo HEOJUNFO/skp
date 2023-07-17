@@ -952,7 +952,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
@@ -1095,7 +1095,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/King_V4.gltf",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/test/character(1).gltf",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
@@ -1103,17 +1103,9 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/Queen_V3.gltf",    //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/test/character(2).gltf",    //	원본 이미지 URL	string	
             photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "매직펜",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Star_PenBook2.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/Star_PenBook.gltf",    //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 2,                      //	순서	int	
           },
         ],
 
@@ -1122,7 +1114,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "가자강원도",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/sticker (1).png",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
@@ -1130,7 +1122,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/sticker (2).png",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },

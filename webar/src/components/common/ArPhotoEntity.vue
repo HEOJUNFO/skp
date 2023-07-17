@@ -27,12 +27,14 @@
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="2.3 2.3 2.3" renderOrder="0" raycaster visible="false"> </a-box>
+      <a-box class="clickable" position="0 0 0" scale="2 2 2" renderOrder="0" raycaster opacity="0" translate="true"
+        alpha-test="0.5"> </a-box>
     </a-gltf-model>
 
     <a-plane ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
       gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress" @mouseup="cancelLongPress">
-      <a-box class="clickable" position="0 0 0" scale="0.3 0.3 0.3" renderOrder="0" raycaster visible="false"> </a-box>
+      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.2 0.2" renderOrder="0" raycaster opacity="0"
+        translate="true"> </a-box>
     </a-plane>
     <a-plane ref="trashRef" id="close-button" position="0 0.1 -2" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.2" height="0.2" alpha-test="0.5" visible="false"
@@ -80,7 +82,7 @@ export default {
     watch(stickerRef, () => {
       setTimeout(() => {
         stickerRef.value.setAttribute('opacity', 1);
-      }, 100);
+      }, 200);
     }, { deep: true });
 
     const setTrash = () => {

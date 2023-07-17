@@ -214,7 +214,7 @@ export function setAframe() {
         var box = new THREE.Box3().setFromObject(mesh);
         var size = box.getSize(new THREE.Vector3());
 
-        var geometry = new THREE.BoxGeometry(size.x * 1, size.y * 0.5, size.z * 1.05);
+        var geometry = new THREE.BoxGeometry(size.x * 1, size.y * 1, size.z * 1.05);
         var edges = new THREE.EdgesGeometry(geometry);
 
         this.outlineObjects = [];
