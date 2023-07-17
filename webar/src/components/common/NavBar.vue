@@ -269,14 +269,25 @@ export default {
             }
             const selectedImage = images.find(image => image.id === imageId);
 
-            if (selectedImage.type === 'FILTER') {
-                images.forEach(image => {
-                    image.select = false;
-                });
+            if (selectedImage && selectedImage.type !== 'FILTER') {
+                selectedImage.select = selectedImage.select ? false : true;
             }
 
-            if (selectedImage) selectedImage.select = !selectedImage.select;
+            if (selectedImage && selectedImage.type === 'FILTER') {
+                images.forEach(image => {
+                    if (image.id !== imageId) {
+                        image.select = false;
+                    } else {
+                        if (image.select) {
+                            image.select = false;
+                        } else {
+                            image.select = true;
+                        }
+                    }
+                });
+            }
         }
+
         let idCounter = 0;
         const selectSticker = (stickers, stickerId) => {
             let sticker = stickers.find(sticker => sticker.id === stickerId);
