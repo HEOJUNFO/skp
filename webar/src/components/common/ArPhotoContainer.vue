@@ -1,9 +1,11 @@
 <template>
-  <div class="event-wrapper" :class="{ 'disable-click': disableClick }">
+  <div class="event-wrapper" @click="disableClick ? toggleBottomBar() : null">
     <slot></slot>
-    <div v-if="arFrameSettingYn" class="frame-top" :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
+    <div v-if="arFrameSettingYn" @click="disableClick ? toggleBottomBar() : null" class="frame-top"
+      :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
     </div>
-    <div v-if="arFrameSettingYn" class="frame-bottom" :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
+    <div v-if="arFrameSettingYn" @click="disableClick ? toggleBottomBar() : null" class="frame-bottom"
+      :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
@@ -18,7 +20,7 @@
 </template>
   
 <script>
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, inject, onMounted } from "vue";
 import { useStore } from "vuex";
 
 import useLoading from "@/composables/useLoading";
@@ -62,10 +64,6 @@ export default {
       checkOrientation
     } = uesOrientation()
 
-    const setClick = (isClick) => {
-      disableClick.value = !isClick;
-    }
-
     // 가로 세로 체크
     const setOrientation = (str) => {
       orientation.value = str;
@@ -77,6 +75,9 @@ export default {
     }
     checkOrientation(setOrientation);
 
+
+    const toggleBottomBar = inject('toggleBottomBar');
+
     watch(loadingState, () => {
 
       if (loadingState.value === 'COUNTING') {
@@ -87,6 +88,12 @@ export default {
       }
     })
 
+    onMounted(() => {
+      setTimeout(() => {
+        disableClick.value = true;
+      }, 3000)
+    })
+
     return {
       frameUrl,
       loadingYn,
@@ -94,9 +101,9 @@ export default {
       disableClick,
       orientation,
       loadingState,
-      setClick,
       arFrameSettingYn,
-      selectFrame
+      selectFrame,
+      toggleBottomBar,
     }
   }
 }

@@ -123,7 +123,7 @@
   
 <script>
 
-import { ref, computed, inject, watch } from "vue";
+import { ref, computed, inject, watch, provide } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { EventBus } from "@/js/EventBus.js";
@@ -268,6 +268,13 @@ export default {
                 });
             }
             const selectedImage = images.find(image => image.id === imageId);
+
+            if (selectedImage.type === 'FILTER') {
+                images.forEach(image => {
+                    image.select = false;
+                });
+            }
+
             if (selectedImage) selectedImage.select = !selectedImage.select;
         }
         let idCounter = 0;
@@ -328,6 +335,16 @@ export default {
         const selectTabChange = inject('selectTabChange');
         const selectFilterChange = inject('selectFilterChange');
         const selectStickerChange = inject('selectStickerChange');
+
+        const toggleBottomBar = () => {
+            if (isSecondFrameBarVisible.value || isSecondEffectBarVisible.value) {
+                isSecondFrameBarVisible.value = false;
+                isSecondEffectBarVisible.value = false;
+            }
+
+        }
+
+        provide('toggleBottomBar', toggleBottomBar);
 
 
         watch(isBeauty, () => {

@@ -208,7 +208,7 @@ export default {
 
 .image-container img {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .exit-button {
@@ -223,7 +223,8 @@ export default {
     border-radius: 30px;
     width: 80%;
     height: 10vh;
-    margin-top: 1vh;
+    position: absolute;
+    bottom: 22vh;
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
@@ -245,13 +246,14 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    margin-top: 1vh;
+    height: 10vh;
+    position: absolute;
+    bottom: 8.5vh;
 }
 
 .banner-container {
     width: 100%;
-    height: 10vh;
-    margin-top: 1vh;
+    height: 100%;
 }
 
 .banner-container img {
