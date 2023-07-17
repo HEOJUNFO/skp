@@ -223,9 +223,9 @@ export default {
             } else if (aspectRatio.value === 1) {
                 aspectRatioValue.value = '1.1 / 1'
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '1.3 / 1'
+                aspectRatioValue.value = '5 / 4'
             } else if (aspectRatio.value === 3) {
-                aspectRatioValue.value = '1.75 / 1'
+                aspectRatioValue.value = '7 / 4'
             } else if (aspectRatio.value === 4) {
                 aspectRatioValue.value = '1218 / 814'
             }

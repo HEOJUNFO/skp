@@ -114,7 +114,6 @@ export default {
   z-index: 1;
   width: 100%;
   height: 80%;
-  max-width: 600px;
   margin: 0 auto;
   position: relative;
   top: 7.5vh;
