@@ -409,7 +409,8 @@ export default {
   height: 12vh;
   margin-left: 10%;
   margin-top: 3.5vh;
-  padding-top: 2.5vh;
+  padding-top: 2vh;
+  padding-bottom: 1vh;
   gap: 1vh;
   background-color: #fff;
 }
