@@ -43,6 +43,10 @@
 				e.stop()
 			})), this.video.remove()
 		},
+		changeCamera: function(faceType) {
+			this.shouldFaceUser = faceType == 'user' ? 1 : 0;
+			this.pause();
+		},
 		switchCamera: function() {
 			this.shouldFaceUser = !this.shouldFaceUser, this.stop(), this.start()
 		},
@@ -185,6 +189,7 @@
 			}
 		},
 		init: function() {
+			this.faceSystem = this.el.sceneEl.systems["mindar-face-system"];
 			this.el.sceneEl.systems["mindar-face-system"].registerAnchor(this, this.data.anchorIndex);
 			this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
 			const e = this.el.object3D;
@@ -194,12 +199,17 @@
 			this.el.object3D.visible = e
 		},
 		updateMatrix(e) {			
-			// set matrix
-			let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
-			matrix.premultiply(this.scaleMatrix);
-			
-			// set object3d
-			this.el.object3D.matrix = matrix;
+			if(this.faceSystem.shouldFaceUser) {
+				// set matrix
+				let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
+				matrix.premultiply(this.scaleMatrix);
+				
+				// set object3d
+				this.el.object3D.matrix = matrix;
+			}
+			else{
+				this.el.object3D.matrix.set(...e);
+			}
 		}
 	}), AFRAME.registerComponent("mindar-face-occluder", {
 		init: function() {
@@ -216,6 +226,7 @@
 		}
 	}), AFRAME.registerComponent("mindar-face-default-face-occluder", {
 		init: function() {
+			this.faceSystem = this.el.sceneEl.systems["mindar-face-system"];
 			this.el.sceneEl.systems["mindar-face-system"].registerFaceMesh(this), this.el.object3D.matrixAutoUpdate = !1
 			this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
 		},
@@ -223,12 +234,17 @@
 			this.el.object3D.visible = e
 		},
 		updateMatrix(e) {
-			// set matrix
-			let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
-			matrix.premultiply(this.scaleMatrix);
-			
-			// set object3d
-			this.el.object3D.matrix = matrix;
+			if(this.faceSystem.shouldFaceUser) {
+				// set matrix
+				let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
+				matrix.premultiply(this.scaleMatrix);
+				
+				// set object3d
+				this.el.object3D.matrix = matrix;
+			}
+			else{
+				this.el.object3D.matrix.set(...e);
+			}
 		},
 		addFaceMesh(e) {
 			const t = new i.MeshBasicMaterial({
