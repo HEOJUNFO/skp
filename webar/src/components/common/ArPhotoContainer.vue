@@ -1,11 +1,10 @@
 <template>
-  <div class="event-wrapper" @click="disableClick ? toggleBottomBar() : null">
+  <div class="event-wrapper" @mousedown="disableClick ? toggleBottomBar() : null">
     <slot></slot>
-    <div v-if="arFrameSettingYn" @click="disableClick ? toggleBottomBar() : null" class="frame-top"
+    <div v-if="arFrameSettingYn" @mousedown="disableClick ? toggleBottomBar() : null" class="frame-top"
       :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
     </div>
-    <div v-if="arFrameSettingYn" @click="disableClick ? toggleBottomBar() : null" class="frame-bottom"
-      :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
+    <div v-if="arFrameSettingYn" class="frame-bottom" :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
   </div>
   <template v-if="loadingState !== 'COMPLETE'">
     <!-- loading -->
