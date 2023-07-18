@@ -37,12 +37,6 @@ export default {
       cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';
       cameraSettings.isFlipped = !cameraSettings.isFlipped;
 
-      try {
-        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
-      } catch (err) {
-        emit('reject:video')
-      }
-
       if (cameraSettings.facingMode === 'user') {
         mode = 'user'
       } else {

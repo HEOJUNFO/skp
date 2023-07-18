@@ -311,7 +311,7 @@ export const getObjectAttrs = (data) => {
     }
   }
   if (type === 'CHARACTER') {
-     const scale = getScale({sizeX: 0.2, sizeY: 0.2, sizeZ: 0.2});
+     const scale = getScale({sizeX: 0.5, sizeY: 0.5, sizeZ: 0.5});
     return {
       position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
       scale,

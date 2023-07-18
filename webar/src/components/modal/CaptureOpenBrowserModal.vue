@@ -179,7 +179,7 @@ export default {
       a.click();
     };
 
-    const toggleBarVisibility = inject('toggleBarVisibility');
+    const toggleBarVisibility = inject('secondToggleBarVisibility');
     const back = () => {
       toggleBarVisibility();
       showVModal.value = false;

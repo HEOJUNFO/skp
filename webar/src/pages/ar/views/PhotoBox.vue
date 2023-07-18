@@ -112,6 +112,34 @@ export default {
             printModal.value.openModal(imgUrl);
         }
 
+        const originalOnPopState = function () {
+            if (printModal.value.showVModal) {
+                history.go(1);
+                printModal.value.webBack();
+                window.onpopstate = null;
+                setTimeout(() => {
+                    window.onpopstate = originalOnPopState;
+                }, 10);
+            } else {
+                history.go(-1);
+            }
+        };
+
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+
+            if (printModal.value.showVModal) {
+                history.go(1);
+                printModal.value.webBack();
+                window.onpopstate = null;
+                setTimeout(() => {
+                    window.onpopstate = originalOnPopState;
+                }, 10);
+            } else {
+                history.go(-1);
+            }
+        };
+
         onMounted(async () => {
             await getEventData();
             showVModal.value = true;

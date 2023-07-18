@@ -181,11 +181,14 @@ export default {
       navbarRef.value.toggleBarVisibility();
     };
 
+    const secondToggleBarVisibility = () => {
+      navbarRef.value.secondToggleBarVisibility();
+    };
+
     const captureing = async () => {
       const data = await capture();
       captureModal.value.openModal(data);
-      cameraRef.value.resetCamera();
-      navbarRef.value.toggleBarVisibility();
+      navbarRef.value.secondToggleBarVisibility();
     }
 
     const flipCamera = () => {
@@ -220,6 +223,7 @@ export default {
     const selectStickerChange = props => updateObjectValue('selectSticker', props);
 
     provide('toggleBarVisibility', toggleBarVisibility);
+    provide('secondToggleBarVisibility', secondToggleBarVisibility);
     provide('captureing', captureing);
     provide('flipCamera', flipCamera);
     provide('toggleBeautyFilter', toggleBeautyFilter);

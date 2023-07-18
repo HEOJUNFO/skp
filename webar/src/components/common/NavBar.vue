@@ -216,6 +216,12 @@ export default {
             aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
         }
 
+        const secondToggleBarVisibility = () => {
+            isBarVisible.value = !isBarVisible.value;
+            aspectRatio.value = 0;
+            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
+        }
+
         const toggleAspectRatio = () => {
             aspectRatio.value = (aspectRatio.value + 1) % 5
             if (aspectRatio.value === 0) {
@@ -472,6 +478,7 @@ export default {
             isFlipCamera,
             barStyle,
             barStyle2,
+            secondToggleBarVisibility
         }
     }
 }

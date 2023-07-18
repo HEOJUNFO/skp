@@ -27,7 +27,7 @@
 
     <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="2 2 2" renderOrder="0" raycaster opacity="0" translate="true"
+      <a-box class="clickable" position="0 0 0" scale="1 1.75 1" renderOrder="0" raycaster opacity="0" translate="true"
         alpha-test="0.5"> </a-box>
     </a-gltf-model>
 
