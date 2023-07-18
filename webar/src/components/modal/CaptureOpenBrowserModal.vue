@@ -170,6 +170,11 @@ export default {
     const openModal = (imageUrl) => {
       imageurl.value = imageUrl;
       showVModal.value = true;
+      setTimeout(() => {
+        const video = document.querySelector('.event-wrapper video');
+        video.play();
+      }, 1000);
+
     };
 
     const saveImage = () => {
@@ -243,8 +248,6 @@ export default {
       setEventResult()
       completeModalEl.value.openModal();
     }
-
-
 
     return {
       print,
