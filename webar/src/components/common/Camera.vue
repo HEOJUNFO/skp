@@ -37,6 +37,9 @@ export default {
       cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';
       cameraSettings.isFlipped = !cameraSettings.isFlipped;
 
+      if(window.AFRAME.scenes.length > 0)
+        window.AFRAME.scenes[0].sceneEl.systems['mindar-face-system'].pause();
+      
       try {
         await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
