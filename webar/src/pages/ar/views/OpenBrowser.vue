@@ -261,14 +261,31 @@ export default {
       }
     };
 
+    async function checkMotionAndOrientationPermission() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (!isIOS) {
+        return true
+      }
+      if (
+        typeof DeviceMotionEvent.requestPermission === 'function' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function'
+      ) {
+        const motionPermission = await DeviceMotionEvent.requestPermission();
+        const orientationPermission = await DeviceOrientationEvent.requestPermission();
+        return motionPermission === 'granted' && orientationPermission === 'granted';
+      } else {
+        return true;
+      }
+    }
+
     onMounted(async () => {
       await getEventData();
       setList();
 
       startLoading();
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (stream) {
-
+      const isMotionAndOrientationPermitted = await checkMotionAndOrientationPermission();
+      if (stream && isMotionAndOrientationPermitted) {
         setTimeout(() => {
           completeLoading()
           if (tutorialYn.value) {
