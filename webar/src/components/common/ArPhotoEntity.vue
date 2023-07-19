@@ -36,6 +36,9 @@
       <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
         translate="true"> </a-box>
     </a-plane>
+    <a-plane v-if="!isIOS" ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable"
+      gesture-handler="locationBased: true" src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5"
+      visible="false" opacity="0.8" translate="true" @mousedown="listUpdate(arData)"></a-plane>
     <a-plane ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
       @mousedown="listUpdate(arData)"></a-plane>
@@ -68,6 +71,7 @@ export default {
   setup(props, { emit }) {
     const stickerRef = ref(null);
     const trashRef = ref(null);
+    const isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
     let startPos = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
@@ -82,10 +86,13 @@ export default {
     watch(stickerRef, () => {
       setTimeout(() => {
         stickerRef.value.setAttribute('opacity', 1);
-      }, 200);
+      }, 400);
     }, { deep: true });
 
     const setTrash = () => {
+      if (isIOS) {
+        trashRef.value.object3D.position.set(0, 0.8, -1);
+      }
       if (trashRef.value.object3D.visible) {
         trashRef.value.object3D.visible = false;
         stickerRef.value.components.outline.setTrash(false);
@@ -162,6 +169,7 @@ export default {
       listUpdate,
       stickerRef,
       trashRef,
+      isIOS
     }
   }
 }

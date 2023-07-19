@@ -266,17 +266,19 @@ export default {
       setList();
 
       startLoading();
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (stream) {
 
-      setTimeout(() => {
-        completeLoading()
-        if (tutorialYn.value) {
-          tutorialPopup.value = true;
-        }
-        else {
-          toggleBarVisibility();
-        }
-      }, loadingYn.value ? 3000 : 0)
-
+        setTimeout(() => {
+          completeLoading()
+          if (tutorialYn.value) {
+            tutorialPopup.value = true;
+          }
+          else {
+            toggleBarVisibility();
+          }
+        }, loadingYn.value ? 3000 : 0)
+      }
     });
 
     return {

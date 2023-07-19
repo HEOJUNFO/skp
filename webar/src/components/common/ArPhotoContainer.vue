@@ -19,7 +19,7 @@
 </template>
   
 <script>
-import { computed, ref, watch, inject, onMounted } from "vue";
+import { computed, ref, inject, onMounted } from "vue";
 import { useStore } from "vuex";
 
 import useLoading from "@/composables/useLoading";
@@ -56,7 +56,6 @@ export default {
 
     const {
       loadingState,
-      completeLoading
     } = useLoading()
 
     const {
@@ -76,16 +75,6 @@ export default {
 
 
     const toggleBottomBar = inject('toggleBottomBar');
-
-    watch(loadingState, () => {
-
-      if (loadingState.value === 'COUNTING') {
-        setTimeout(() => {
-          completeLoading()
-
-        }, loadingYn.value ? 3000 : 0)
-      }
-    })
 
     onMounted(() => {
       setTimeout(() => {

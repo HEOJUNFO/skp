@@ -62,11 +62,18 @@ export default {
       }
     };
 
+    const isIOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
     window.adjustSizeToRatio = function (inputRatio) {
+      console.log(inputRatio)
       const ratio = eval(inputRatio);
       let windowWidth = window.innerWidth;
       let targetHeight = windowWidth * ratio;
-      iframeHeight.value = targetHeight * 1.25 + 'px';
+      let scaleFactor = isIOS() ? 1.15 : 1.25;
+      iframeHeight.value = targetHeight * scaleFactor + 'px';
     }
 
     const frameStyle = computed(() => {
