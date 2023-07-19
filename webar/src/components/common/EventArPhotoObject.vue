@@ -10,7 +10,7 @@
     <a-assets>
 
       <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl" />
-      <img id="trash-texture" src="../../assets/icon/circle-trash-button.png">
+      <img id="trash-texture" src="../../assets/icon/black-trash-button.png">
       <a-asset-item id="headModel"
         src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/face-tracking/assets/sparkar/headOccluder.glb"></a-asset-item>
 

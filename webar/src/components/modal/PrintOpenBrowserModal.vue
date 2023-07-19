@@ -24,19 +24,19 @@
           <button class="round-button" @click="print()">다시 출력요청</button>
         </div>
       </div>
-      <div v-if="showErrorModal2" class="modal">
-        <div class="modal-content">
+      <div v-if="showFiveModal" class="modal3">
+        <div class="modal-content3">
           <h2>디바이스번호 5회 불일치</h2>
           <br />
           <p>기기번호를 다시 확인하세요.</p>
           <p>출력페이지를 종료합니다.</p>
-          <button class="round-button" @click="showErrorModal2 = false, showDeviceModal = false">확인</button>
+          <button class="round-button" @click="showFiveModal = false, showDeviceModal = false">확인</button>
         </div>
       </div>
       <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
       }}</button>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showErrorModal2 = false">
+        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showFiveModal = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="modal-content">
@@ -132,7 +132,7 @@ export default {
     const showSuccessModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
-    const showErrorModal2 = ref(false);
+    const showFiveModal = ref(false);
     const showLocationPopup = ref(false);
     const showLocationMap = ref(false);
     const map = ref(null);
@@ -213,7 +213,8 @@ export default {
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
         if (incorrectDeviceNumberCount >= 5) {
-          showErrorModal2.value = true;
+          showErrorModal.value = false;
+          showFiveModal.value = true;
           showErrorModal.value = false;
           incorrectDeviceNumberCount = 0;
         }
@@ -268,7 +269,7 @@ export default {
         showErrorModal.value = false;
         showLocationMap.value = false;
         showLocationPopup.value = false;
-        showErrorModal2.value = false;
+        showFiveModal.value = false;
         window.onpopstate = null;
       } else {
         window.onpopstate = null;
@@ -300,7 +301,7 @@ export default {
       showLocationMap,
       locationFindPopupImgUrl,
       freePrintCustomerCount,
-      showErrorModal2
+      showFiveModal
     }
   },
 }
@@ -388,6 +389,21 @@ export default {
   align-items: center;
 }
 
+.modal3 {
+  position: fixed;
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  height: auto;
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+}
+
 .modal-content {
   background-color: #fff;
   padding: 20px;
@@ -399,6 +415,12 @@ export default {
   background-color: #fff;
   width: 100%;
   height: 100%;
+}
+
+.modal-content3 {
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .highlight-text {
@@ -473,7 +495,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 0px 4px;
-  height: 3.1vh;
+  height: 3.3vh;
 }
 
 .button-print2 {
@@ -489,7 +511,7 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 0px 4px;
-  height: 3.1vh;
+  height: 3.3vh;
 }
 
 .close-button2 {

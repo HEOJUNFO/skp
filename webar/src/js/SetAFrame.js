@@ -222,7 +222,7 @@ export function setAframe() {
         var numLines = 10;
 
         for (var i = 0; i < numLines; i++) {
-            var lineMaterial = new THREE.LineBasicMaterial({color: 0x808080});
+            var lineMaterial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.1, transparent: true});
             var line = new THREE.LineSegments(edges, lineMaterial);
             var offset = i * 0.0005; 
             line.position.x += offset;

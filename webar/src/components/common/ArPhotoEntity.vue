@@ -33,11 +33,11 @@
 
     <a-plane ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
       gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress" @mouseup="cancelLongPress">
-      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.2 0.2" renderOrder="0" raycaster opacity="0"
+      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
         translate="true"> </a-box>
     </a-plane>
-    <a-plane ref="trashRef" id="close-button" position="0 0.1 -2" class="clickable" gesture-handler="locationBased: true"
-      src="#trash-texture" width="0.2" height="0.2" alpha-test="0.5" visible="false"
+    <a-plane ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable" gesture-handler="locationBased: true"
+      src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
       @mousedown="listUpdate(arData)"></a-plane>
 
   </template>
