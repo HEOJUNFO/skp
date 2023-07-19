@@ -53,8 +53,7 @@
     <a-entity v-if="selectFilter.includes('rain') || selectTab.includes('rain')" position="0 -8 -15"
       particle-system="preset: rain; size:3; particleCount: 300; color: #60C1FF;texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/raindrop.png; "></a-entity>
 
-    <a-camera active="false" camera position="0 0 0" rotation="0 0 0" rotation-reader zoom="1.5"
-      look-controls="enabled:false;"></a-camera>
+    <a-entity camera="" position="" wasd-controls="" rotation="" look-controls="enabled:false;" aframe-injected=""></a-entity>
 
   </a-scene>
 </template>

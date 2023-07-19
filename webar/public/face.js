@@ -68,7 +68,8 @@
             this.video.addEventListener("loadedmetadata", (async () => {
                 this.video.setAttribute("width", this.video.videoWidth);
                 this.video.setAttribute("height", this.video.videoHeight);
-                await this._setupAR();
+				await this._setupAR();
+                
                 this._processVideo();
                 this.ui.hideLoading();
             }));
@@ -127,7 +128,7 @@
 			} = this.controller.getCameraParams(), o = new i.PerspectiveCamera;
 			o.fov = t, o.aspect = s, o.near = a, o.far = n, o.updateProjectionMatrix();
 			const r = this.container.getElementsByTagName("a-camera")[0];
-			r.setObject3D("camera", o), r.setAttribute("camera", "active", !0);
+			
 			for (let e = 0; e < this.faceMeshEntities.length; e++) this.faceMeshEntities[e].el.addFaceMesh(this.controller.createThreeFaceGeometry(i));
 			this._resize(), window.addEventListener("resize", this._resize.bind(this)), this.el.emit("arReady")
 		},
