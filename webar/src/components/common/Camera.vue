@@ -37,12 +37,8 @@ export default {
       cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';
       cameraSettings.isFlipped = !cameraSettings.isFlipped;
 
-      // if (window.AFRAME.scenes.length > 0) {
-      //   window.AFRAME.scenes[0].sceneEl.systems['mindar-face-system'].changeCamera(cameraSettings.facingMode);
-      // }
-
-      if (window.parent.AFRAME.scenes.length > 0) {
-        window.parent.AFRAME.scenes[0].sceneEl.systems['mindar-face-system'].changeCamera(cameraSettings.facingMode);
+      if (window.AFRAME.scenes.length > 0) {
+        window.AFRAME.scenes[0].sceneEl.systems['mindar-face-system'].changeCamera(cameraSettings.facingMode);
       }
 
       try {
