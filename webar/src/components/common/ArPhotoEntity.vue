@@ -116,13 +116,12 @@ export default {
     }
 
     const cancelLongPress = () => {
-      console.log('cancelLongPress', wasTrashSet)
+      if (startPos === null) return;
       const endPos = stickerRef.value.object3D.position;
       const distance = startPos.distanceTo(endPos);
 
       const threshold = 0.05;
       if (distance < threshold && !wasTrashSet) {
-
         setTrash();
       }
     }
