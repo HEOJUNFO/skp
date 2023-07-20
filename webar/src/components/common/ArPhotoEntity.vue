@@ -40,7 +40,7 @@
       gesture-handler="locationBased: true" src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5"
       visible="false" opacity="0.8" translate="true" @mousedown="listUpdate(arData)"></a-plane>
     <a-plane ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable" gesture-handler="locationBased: true"
-      src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
+      src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
       @mousedown="listUpdate(arData)"></a-plane>
 
   </template>
