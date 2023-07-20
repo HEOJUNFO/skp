@@ -32,16 +32,14 @@
     </a-gltf-model>
 
     <a-plane ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
-      gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress" @mouseup="cancelLongPress">
+      gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress(), stickerSet(arData)"
+      @mouseup="cancelLongPress">
       <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
         translate="true"> </a-box>
     </a-plane>
-    <a-plane v-if="!isIOS" ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable"
-      gesture-handler="locationBased: true" src="#trash-texture" width="0.25" height="0.25" alpha-test="0.5"
-      visible="false" opacity="0.8" translate="true" @mousedown="listUpdate(arData)"></a-plane>
-    <a-plane ref="trashRef" id="close-button" position="0 0.55 -1" class="clickable" gesture-handler="locationBased: true"
+    <a-plane ref="trashRef" id="close-button" position="0 0.3 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
-      @mousedown="listUpdate(arData)"></a-plane>
+      @mousedown="listUpdate()"></a-plane>
 
   </template>
 </template>
@@ -50,6 +48,7 @@
 import { computed, onMounted, ref, toRefs, watch } from "vue";
 import { getObjectAttrs, getTouchAnimation } from "@/js/arObject";
 import { EventBus } from "@/js/EventBus";
+import { useStore } from "vuex";
 
 export default {
   name: "DragEntity",
@@ -69,15 +68,22 @@ export default {
   },
   emits: ['animationcomplete:object', 'timeout:object'],
   setup(props, { emit }) {
+    const store = useStore();
     const stickerRef = ref(null);
     const trashRef = ref(null);
     const isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+
     let startPos = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
     const objectType = computed(() => arData.value.type);
     arData.value.objectType = arType.value;
     const attrs = ref(getObjectAttrs(arData.value))
+
+    const arFrameSettingYn = computed(() => {
+      const isArFrameSetting = store.getters['eventData/arFrameSettingYn'];
+      return isArFrameSetting === 'Y';
+    });
 
     watch(arData, (newValue) => {
       attrs.value = getObjectAttrs(newValue);
@@ -86,12 +92,12 @@ export default {
     watch(stickerRef, () => {
       setTimeout(() => {
         stickerRef.value.setAttribute('opacity', 1);
-      }, 400);
+      }, 600);
     }, { deep: true });
 
     const setTrash = () => {
-      if (isIOS) {
-        trashRef.value.object3D.position.set(0, 0.8, -1);
+      if (arFrameSettingYn.value) {
+        trashRef.value.object3D.position.set(0, 0.55, -1);
       }
       if (trashRef.value.object3D.visible) {
         trashRef.value.object3D.visible = false;
@@ -126,8 +132,12 @@ export default {
       }
     }
 
-    const listUpdate = (arData) => {
-      EventBus.emit('deleteStickerItem', arData)
+    const stickerSet = (arData) => {
+      EventBus.emit('setSticker', arData.id)
+    }
+
+    const listUpdate = () => {
+      EventBus.emit('deleteStickerItem')
     }
 
     const animationcomplete = () => {
@@ -168,7 +178,8 @@ export default {
       listUpdate,
       stickerRef,
       trashRef,
-      isIOS
+      isIOS,
+      stickerSet,
     }
   }
 }

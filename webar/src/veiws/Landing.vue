@@ -68,11 +68,11 @@ export default {
     };
 
     window.adjustSizeToRatio = function (inputRatio) {
-      console.log(inputRatio)
+      const isGalaxyBrowser = navigator.userAgent.indexOf("SamsungBrowser") > -1;
       const ratio = eval(inputRatio);
       let windowWidth = window.innerWidth;
       let targetHeight = windowWidth * ratio;
-      let scaleFactor = isIOS() ? 1.15 : 1.25;
+      let scaleFactor = isIOS() || isGalaxyBrowser ? 1.15 : 1.25;
       iframeHeight.value = targetHeight * scaleFactor + 'px';
     }
 

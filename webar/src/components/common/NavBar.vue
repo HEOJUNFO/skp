@@ -416,8 +416,14 @@ export default {
             }
         }, { deep: true });
 
-        EventBus.on('deleteStickerItem', (item) => {
-            const index = stickerObjectList.value.findIndex(sticker => sticker.id === item.id);
+        const setSticker = ref(null)
+
+        EventBus.on('setSticker', (id) => {
+            setSticker.value = id;
+        });
+
+        EventBus.on('deleteStickerItem', () => {
+            const index = stickerObjectList.value.findIndex(sticker => sticker.id === setSticker.value);
             stickerObjectList.value.splice(index, 1);
         });
 

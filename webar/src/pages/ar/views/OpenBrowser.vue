@@ -18,7 +18,7 @@
 </template>
   
 <script>
-import { onMounted, ref, computed, provide } from "vue";
+import { onMounted, ref, computed, provide, watch } from "vue";
 import { useStore } from "vuex";
 
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
@@ -261,31 +261,20 @@ export default {
       }
     };
 
-    async function checkMotionAndOrientationPermission() {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      if (!isIOS) {
-        return true
-      }
-      if (
-        typeof DeviceMotionEvent.requestPermission === 'function' &&
-        typeof DeviceOrientationEvent.requestPermission === 'function'
-      ) {
-        const motionPermission = await DeviceMotionEvent.requestPermission();
-        const orientationPermission = await DeviceOrientationEvent.requestPermission();
-        return motionPermission === 'granted' && orientationPermission === 'granted';
-      } else {
-        return true;
-      }
-    }
+
 
     onMounted(async () => {
       await getEventData();
       setList();
 
       startLoading();
+    });
+
+    watch(loadingState, async (newVal) => {
+      console.log(loadingState.value)
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const isMotionAndOrientationPermitted = await checkMotionAndOrientationPermission();
-      if (stream && isMotionAndOrientationPermitted) {
+
+      if (newVal === 'COUNTING' && stream) {
         setTimeout(() => {
           completeLoading()
           if (tutorialYn.value) {
@@ -294,9 +283,9 @@ export default {
           else {
             toggleBarVisibility();
           }
-        }, loadingYn.value ? 3000 : 0)
+        }, loadingYn.value ? 2000 : 0)
       }
-    });
+    })
 
     return {
       characterList,
