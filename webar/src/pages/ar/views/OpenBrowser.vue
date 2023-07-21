@@ -239,25 +239,36 @@ export default {
         captureModal.value.webBack();
         window.onpopstate = null;
         setTimeout(() => {
+          window.history.pushState(null, null, window.location.href);
           window.onpopstate = originalOnPopState;
         }, 10);
       } else {
-        history.go(-1);
+        navbarRef.value.exitModalVisible = true;
+        window.onpopstate = null;
+        setTimeout(() => {
+          window.history.pushState(null, null, window.location.href);
+          window.onpopstate = originalOnPopState;
+        }, 10);
       }
     };
 
     window.history.pushState(null, null, window.location.href);
     window.onpopstate = function () {
-
       if (captureModal.value.showVModal) {
         history.go(1);
         captureModal.value.webBack();
         window.onpopstate = null;
         setTimeout(() => {
+          window.history.pushState(null, null, window.location.href);
           window.onpopstate = originalOnPopState;
         }, 10);
       } else {
-        history.go(-1);
+        navbarRef.value.exitModalVisible = true;
+        window.onpopstate = null;
+        setTimeout(() => {
+          window.history.pushState(null, null, window.location.href);
+          window.onpopstate = originalOnPopState;
+        }, 10);
       }
     };
 

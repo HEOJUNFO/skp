@@ -39,7 +39,7 @@
     </a-plane>
     <a-plane ref="trashRef" id="close-button" position="0 0.3 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
-      @mousedown="listUpdate()"></a-plane>
+      @mousedown="listUpdate()" :animation="animationData()"></a-plane>
 
   </template>
 </template>
@@ -64,6 +64,14 @@ export default {
     },
     touchEffectType: {
       type: null,
+    }
+  },
+  methods: {
+    animationData() {
+      let scaleFrom = `${1 * 0.8} ${1 * 0.8} ${1 * 0.8}`;
+      let scaleTo = `${1} ${1} ${1}`;
+
+      return `property: scale; easing: easeInCubic; dir:alternate; loop: true; dur: 550; from: ${scaleFrom}; to: ${scaleTo}`;
     }
   },
   emits: ['animationcomplete:object', 'timeout:object'],

@@ -64,7 +64,15 @@ export default {
 
     const { dispatch, getters } = useStore();
 
-    const closeText = computed(() => (getters["eventData/isEventFinish"] ? "AR포토닫기" : "닫기"));
+    const closeText = computed(() =>
+      getters["eventData/templateType"] === "PHOTO_BASIC"
+        ? getters["eventData/isEventFinish"]
+          ? "AR포토닫기"
+          : "닫기"
+        : getters["eventData/isEventFinish"]
+          ? "AR닫기"
+          : "AR계속잡기"
+    );
 
     const isFormOpened = ref(false);
 
