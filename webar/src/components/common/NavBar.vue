@@ -124,7 +124,6 @@
 <script>
 
 import { ref, computed, inject, watch, provide } from "vue";
-import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { EventBus } from "@/js/EventBus.js";
 
@@ -142,8 +141,7 @@ export default {
         }
     },
     setup(props) {
-        const router = useRouter();
-        const { getters } = useStore();
+        const { getters, dispatch } = useStore();
         const isBarVisible = ref(false);
         const isCapturing = ref(false);
         const exitModalVisible = ref(false);
@@ -304,7 +302,8 @@ export default {
         }
 
         const exit = () => {
-            router.back();
+            dispatch("url/redirectToMain");
+            return
         };
 
         const toggleTimer = () => {
