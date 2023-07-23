@@ -392,7 +392,7 @@ export default {
             let selectedItems = props.filterList.filter(item => item.select === true);
 
             let selectedFileNames = selectedItems.map(item => {
-                if (item.file && item.file.endsWith('.json')) {
+                if (item.file && item.file.includes('.json')) {
                     return item.file;
                 }
                 else {
