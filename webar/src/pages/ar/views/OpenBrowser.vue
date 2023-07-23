@@ -282,7 +282,6 @@ export default {
     });
 
     watch(loadingState, async (newVal) => {
-      console.log(loadingState.value)
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
       if (newVal === 'COUNTING' && stream) {
