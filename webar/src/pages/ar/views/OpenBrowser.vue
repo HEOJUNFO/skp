@@ -140,8 +140,6 @@ export default {
       ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
       ctx.restore();
 
-      //let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
-
       let scComp = document.querySelector('a-scene').components.screenshot;
       var isVREnabled = scComp.el.renderer.xr.enabled;
       var renderer = scComp.el.renderer;
@@ -155,27 +153,10 @@ export default {
       
       renderer.xr.enabled = false;
       scComp.renderCapture(params.camera, params.size, params.projection);
-      
+
       renderer.xr.enabled = isVREnabled;
       let imgData = scComp.canvas;
 
-      /*
-      let imgRatio = imgData.width / imgData.height;
-
-      let imgSx, imgSy, imgSw, imgSh;
-      if (imgRatio > canvasRatio) {
-        imgSh = imgData.height;
-        imgSw = imgSh * canvasRatio;
-        imgSy = 0;
-        imgSx = (imgData.width - imgSw) / 2;
-      } else {
-        imgSw = imgData.width;
-        imgSh = imgSw / canvasRatio;
-        imgSx = 0;
-        imgSy = (imgData.height - imgSh) / 2;
-      }*/
-
-      //ctx.drawImage(imgData, imgSx, imgSy, imgSw, imgSh, 0, 0, v_width, v_height);
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
       if (document.querySelector('.frame-top') && document.querySelector('.frame-bottom')) {
