@@ -128,7 +128,6 @@
 			} = this.controller.getCameraParams(), o = new i.PerspectiveCamera;
 			o.fov = t, o.aspect = s, o.near = a, o.far = n, o.updateProjectionMatrix();
 			const r = this.container.getElementsByTagName("a-camera")[0];
-			 r.setAttribute("camera", "active", !0);
 			for (let e = 0; e < this.faceMeshEntities.length; e++) this.faceMeshEntities[e].el.addFaceMesh(this.controller.createThreeFaceGeometry(i));
 			this._resize(), window.addEventListener("resize", this._resize.bind(this)), this.el.emit("arReady")
 		},
