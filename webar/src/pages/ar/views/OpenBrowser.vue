@@ -146,9 +146,12 @@ export default {
       var isVREnabled = scComp.el.renderer.xr.enabled;
       var renderer = scComp.el.renderer;
       
-      var params = scComp.setCapture('perspective');
-      params.size.width = v_width;
-      params.size.height = v_height;
+      let params = scComp.setCapture('perspective');
+      //let preRatioW = params.size.width/v_width;
+      let preRatioH = params.size.height/v_height;
+      
+      params.size.width = parseInt(v_width*preRatioH);
+      params.size.height = parseInt(v_height*preRatioH);
       
       renderer.xr.enabled = false;
       scComp.renderCapture(params.camera, params.size, params.projection);
