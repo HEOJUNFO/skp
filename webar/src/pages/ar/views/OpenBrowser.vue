@@ -141,7 +141,23 @@ export default {
       ctx.restore();
 
       let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
-      ctx.drawImage(imgData, 0, 0, v_width, v_height);
+      let imgRatio = imgData.width / imgData.height;
+
+      let imgSx, imgSy, imgSw, imgSh;
+      if (imgRatio > canvasRatio) {
+        imgSh = imgData.height;
+        imgSw = imgSh * canvasRatio;
+        imgSy = 0;
+        imgSx = (imgData.width - imgSw) / 2;
+      } else {
+        imgSw = imgData.width;
+        imgSh = imgSw / canvasRatio;
+        imgSx = 0;
+        imgSy = (imgData.height - imgSh) / 2;
+      }
+
+      ctx.drawImage(imgData, imgSx, imgSy, imgSw, imgSh, 0, 0, v_width, v_height);
+      // ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
       if (document.querySelector('.frame-top') && document.querySelector('.frame-bottom')) {
         const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);

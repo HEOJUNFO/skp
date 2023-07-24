@@ -8,23 +8,7 @@
     @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
     @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
     <a-assets>
-
-      <img id="wallet-image" v-if="targetInfo" v-bind:src="targetInfo.nftWalletImgUrl" />
       <img id="trash-texture" src="../../assets/icon/black-trash-button.png">
-      <a-asset-item id="headModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/face-tracking/assets/sparkar/headOccluder.glb"></a-asset-item>
-
-      <a-asset-item id="glassesModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
-      <a-asset-item id="earringModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/face-tracking/assets/earring/scene.gltf"></a-asset-item>
-
-      <img id="card"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.png" />
-      <a-asset-item id="avatarModel"
-        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
-
-
     </a-assets>
 
     <a-entity v-if="selectCharacter" position="0 -1 0">
@@ -41,8 +25,8 @@
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <a-entity camera="" position="" wasd-controls="" rotation="" look-controls="enabled:false;"
-      aframe-injected=""></a-entity>
+    <a-camera active="false" camera position="0 0 0" rotation="0 0 0" rotation-reader zoom="1.5"
+      look-controls="enabled:false;"></a-camera>
   </a-scene>
 </template>
   
@@ -171,7 +155,6 @@ export default {
         const opacitySpread = `${data.opacitySpread}`;
         const positionSpread = `${data.positionSpread}`;
         const texture = `${data.texture}`;
-        console.log(preset, texture, size)
 
         return `<a-entity class='particle' id="${fileName}" position="0 -8 -15" visible="true"
         particle-system="preset:${preset}; size:${size}; particleCount:${particleCount}; texture:"${texture}"; color:"${color}"; 
