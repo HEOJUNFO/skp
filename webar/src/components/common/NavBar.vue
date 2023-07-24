@@ -91,7 +91,6 @@
                         <img :src="image.src" @click="selectImage(frameList, image.id)" class="frame-image" />
                         <img v-show="image.select" src="../../assets/icon/check-icon.png" alt="선택"
                             style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
-                        <span>{{ image.name }}</span>
                     </div>
                 </div>
             </div>
@@ -112,7 +111,6 @@
                         <img v-show="image.select && image.type !== 'STICKER'" src="../../assets/icon/check-icon.png"
                             alt="선택"
                             style="width: 40px; height: 40px; position: absolute; top: 25%; pointer-events: none;" />
-                        <span>{{ image.name }}</span>
                     </div>
                 </div>
             </div>
