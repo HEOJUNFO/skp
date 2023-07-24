@@ -25,8 +25,8 @@
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <a-camera active="false" camera position="0 0 0" rotation="0 0 0" rotation-reader zoom="1.5"
-      look-controls="enabled:false;"></a-camera>
+    <a-entity camera="" position="" wasd-controls="" rotation="" look-controls="enabled:false;"
+      aframe-injected=""></a-entity>
   </a-scene>
 </template>
   
