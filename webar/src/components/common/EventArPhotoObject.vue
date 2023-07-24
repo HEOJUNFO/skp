@@ -41,26 +41,18 @@
         :visible="selectTab.includes(item.id)" @animationcomplete:object="animationcomplete" @timeout:object="timeout" />
     </a-entity>
 
-    <!-- <a-entity v-if="selectFilter.includes('star') || selectTab.includes('star')" position="0 -8 -15" visible="false"
-      particle-system="color: #FF0,#FF0; size:1; texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/star2.png;"></a-entity>
-    <a-entity v-if="selectFilter.includes('snow') || selectTab.includes('snow')" position="0 -8 -15"
-      particle-system="preset: snow; size:10; particleCount: 500;texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/smokeparticle.png;"></a-entity>
-    <a-entity v-if="selectFilter.includes('rain') || selectTab.includes('rain')" position="0 -8 -15"
-      particle-system="preset: rain; size:3; particleCount: 300; color: #60C1FF;texture:https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/raindrop.png; "></a-entity> -->
-
     <a-entity camera="" position="" wasd-controls="" rotation="" look-controls="enabled:false;"
       aframe-injected=""></a-entity>
-
   </a-scene>
 </template>
   
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, toRefs } from "vue";
 import ArPhotoObject from "@/components/common/ArPhotoObject";
 
 export default {
   name: "EventArPhotoObject",
-  props: ['characterList', 'filterList', "tabList"],
+  props: ['characterList', 'filterList', 'stickerAsset', "tabList"],
   emits: [
     'load:scene',
     'request:orientationpermission',
@@ -71,6 +63,7 @@ export default {
   components: { ArPhotoObject },
 
   setup(props, { emit }) {
+    const { stickerAsset } = toRefs(props);
     const isMindARFace = ref(false);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
@@ -89,6 +82,15 @@ export default {
       stickerList.value = stickerList.value.filter(sticker => propIds.has(sticker.id));
     }
 
+
+    function addStickersToAssets(stickerAsset) {
+
+      let assets = document.querySelector('a-assets');
+      stickerAsset.value.forEach((asset) => {
+        assets.insertAdjacentHTML('beforeend', `<img id="${asset.name}" src="${asset.src}" crossOrigin="anonymous">`);
+      });
+
+    }
     let entitiesCreated = {};
     let particleCreated = {};
 
@@ -223,6 +225,7 @@ export default {
     const loaded = () => {
       //부모가 설정한 load:scene 이벤트에 맵핑된 부모 함수를 실행
       emit('load:scene');
+      addStickersToAssets(stickerAsset);
     }
 
     const permissionGranted = () => {

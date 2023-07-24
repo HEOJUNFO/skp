@@ -7,7 +7,7 @@
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
         <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
-          :sticker-list="stickerList" :tab-list="tabList" @load:scene="loadScene"
+          :sticker-asset="stickerList" :tab-list="tabList" @load:scene="loadScene"
           @allow:orientationpermission="allowOrientationPermission"
           @reject:orientationpermission="rejectOrientationPermission"
           @request:orientationpermission="rquestOrientationPermission" />

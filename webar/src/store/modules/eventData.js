@@ -460,7 +460,9 @@ function getScanningStampData(item) {
 function getContentsData(item){
   const { photoContentChoiceType, photoFileName , photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType,sort} = item;
 
-  const formattedSourceUri = photoOriginalFileUrl.endsWith('.zip') ? '' : photoOriginalFileUrl;
+  let formattedSourceUri = photoOriginalFileUrl.endsWith('.zip') 
+    ? '' 
+    : photoOriginalFileUrl.replace(/\s/g, '%20').replace(/\(/g, '%28').replace(/\)/g, '%29');
 
   return {
     itemID: sort,

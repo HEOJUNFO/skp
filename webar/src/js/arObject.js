@@ -327,10 +327,10 @@ export const getObjectAttrs = (data) => {
     return {
       width,
       height,
-      opacity: 0,
+      opacity: 1,
       transparent: true,
     ['alpha-test']: 0.5,
-      src: data.file,
+      src: '#'+data.name,
       position: getPosition({positionX: getRandomArbitrary(-0.3,0.3), positionY: getRandomArbitrary(0.6,1.6), positionZ: -2}),
       animation: getStayAnimation("", {x:width, y:height, z:1}),
       ['look-at']: '[gps-camera]',

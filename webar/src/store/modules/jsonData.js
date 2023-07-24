@@ -990,7 +990,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/frametest.png",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (1).png",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },
@@ -1007,7 +1007,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "EXPO WISH",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04.png",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/CC (1).png",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 3,                      //	순서	int	
           },
