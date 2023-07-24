@@ -140,7 +140,23 @@ export default {
       ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
       ctx.restore();
 
-      let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
+      //let imgData = document.querySelector('a-scene').components.screenshot.getCanvas('perspective');
+
+      let scComp = document.querySelector('a-scene').components.screenshot;
+      var isVREnabled = scComp.el.renderer.xr.enabled;
+      var renderer = scComp.el.renderer;
+      
+      var params = scComp.setCapture('perspective');
+      params.size.width = v_width;
+      params.size.height = v_height;
+      
+      renderer.xr.enabled = false;
+      scComp.renderCapture(params.camera, params.size, params.projection);
+      
+      renderer.xr.enabled = isVREnabled;
+      let imgData = scComp.canvas;
+
+      /*
       let imgRatio = imgData.width / imgData.height;
 
       let imgSx, imgSy, imgSw, imgSh;
@@ -154,10 +170,10 @@ export default {
         imgSh = imgSw / canvasRatio;
         imgSx = 0;
         imgSy = (imgData.height - imgSh) / 2;
-      }
+      }*/
 
-      ctx.drawImage(imgData, imgSx, imgSy, imgSw, imgSh, 0, 0, v_width, v_height);
-      // ctx.drawImage(imgData, 0, 0, v_width, v_height);
+      //ctx.drawImage(imgData, imgSx, imgSy, imgSw, imgSh, 0, 0, v_width, v_height);
+      ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
       if (document.querySelector('.frame-top') && document.querySelector('.frame-bottom')) {
         const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);
