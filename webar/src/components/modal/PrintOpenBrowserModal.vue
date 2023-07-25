@@ -33,8 +33,7 @@
           <button class="round-button" @click="showFiveModal = false, showDeviceModal = false">확인</button>
         </div>
       </div>
-      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
-      }}</button>
+      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치보기</button>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showFiveModal = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
@@ -172,6 +171,12 @@ export default {
         return new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(latLng.lat, latLng.lng),
           map: map.value,
+          icon: {
+            url: require("../../assets/icon/kiosk_poi_3.png"),
+            size: new window.naver.maps.Size(52, 52),
+            origin: new window.naver.maps.Point(0, 0),
+            anchor: new window.naver.maps.Point(26, 26)
+          }
         });
       });
     };
