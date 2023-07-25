@@ -8817,7 +8817,14 @@ return ret;
         this._processVideo(),
         this.ui.hideLoading()
 
-
+        this.video.addEventListener("loadedmetadata", (async () => {
+            this.video.setAttribute("width", this.video.videoWidth);
+            this.video.setAttribute("height", this.video.videoHeight);
+            await this._setupAR();
+            
+            this._processVideo();
+            this.ui.hideLoading();
+        }));
         /*
           if (this.video = document.createElement("video"),
           this.video.setAttribute("autoplay", ""),
