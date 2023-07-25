@@ -113,8 +113,6 @@ export default {
                 entitiesCreated[fileName] = true;
               } else {
                 updateVisibilityOfFaceEntities(true, fileName);
-                // entitiesCreated[fileName] = false;
-                // deleteOfFaceEntities(fileName);
               }
             }
             else {
@@ -130,15 +128,6 @@ export default {
           });
       });
     }, { deep: true });
-
-    // function deleteOfFaceEntities(fileName) {
-    //   const faceEntities = document.querySelectorAll('.face');
-    //   faceEntities.forEach((entity) => {
-    //     if (entity.id === fileName) {
-    //       entity.remove();
-    //     }
-    //   });
-    // }
 
     function generateEntity(jsonData, fileName) {
       return jsonData.map(data => {
