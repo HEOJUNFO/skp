@@ -113,6 +113,8 @@ export default {
                 entitiesCreated[fileName] = true;
               } else {
                 updateVisibilityOfFaceEntities(true, fileName);
+                // entitiesCreated[fileName] = false;
+                // deleteOfFaceEntities(fileName);
               }
             }
             else {
@@ -128,6 +130,15 @@ export default {
           });
       });
     }, { deep: true });
+
+    // function deleteOfFaceEntities(fileName) {
+    //   const faceEntities = document.querySelectorAll('.face');
+    //   faceEntities.forEach((entity) => {
+    //     if (entity.id === fileName) {
+    //       entity.remove();
+    //     }
+    //   });
+    // }
 
     function generateEntity(jsonData, fileName) {
       return jsonData.map(data => {
@@ -157,9 +168,9 @@ export default {
         const texture = `${data.texture}`;
 
         return `<a-entity class='particle' id="${fileName}" position="0 -8 -15" visible="true"
-        particle-system="preset:${preset}; size:${size}; particleCount:${particleCount}; texture:"${texture}"; color:"${color}"; 
+        particle-system="preset:${preset}; size:${size}; particleCount:${particleCount}; color:${color}; 
         velocityValue:${velocityValue}; accelerationValue:${accelerationValue}; maxAge:${maxAge}; sizeSpread:${sizeSpread}; 
-        opacity:${opacity}; opacitySpread:${opacitySpread}; positionSpread:${positionSpread};"
+        opacity:${opacity}; opacitySpread:${opacitySpread}; positionSpread:${positionSpread}; texture:${texture};"
          ></a-entity>`;
       });
     }
