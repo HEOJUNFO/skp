@@ -7170,31 +7170,7 @@ return ret;
                   g[B] = eC(d[(I >> 2) + B], "parameter " + B);
               return g
           }
-          function nB(A, I) {
-              for (var g = eB(A, I), B = g[0], i = B.name + "_$" + g.slice(1).map(function(t) {
-                  return t.name
-              }).join("_") + "$", G = ["retType"], w = [B], F = "", N = 0; N < A - 1; ++N)
-                  F += (N !== 0 ? ", " : "") + "arg" + N,
-                  G.push("argType" + N),
-                  w.push(g[1 + N]);
-              for (var a = XI("methodCaller_" + i), U = "return function " + a + `(handle, name, destructors, args) {
-`, J = 0, N = 0; N < A - 1; ++N)
-                  U += "    var arg" + N + " = argType" + N + ".readValueFromPointer(args" + (J ? "+" + J : "") + `);
-`,
-                  J += g[N + 1].argPackAdvance;
-              U += "    var rv = handle[name](" + F + `);
-`;
-              for (var N = 0; N < A - 1; ++N)
-                  g[N + 1].deleteObject && (U += "    argType" + N + ".deleteObject(arg" + N + `);
-`);
-              B.isVoid || (U += `    return retType.toWireType(destructors, rv);
-`),
-              U += `};
-`,
-              G.push(U);
-              var S = HC(Function, G).apply(null, w);
-              return rB(S)
-          }
+          function nB(A, I) {              for (var g = eB(A, I), B = g[0], i = B.name + "_$" + g.slice(1).map(function(t) {                  return t.name              }).join("_") + "$", G = ["retType"], w = [B], F = "", N = 0; N < A - 1; ++N)                  F += (N !== 0 ? ", " : "") + "arg" + N,                  G.push("argType" + N),                  w.push(g[1 + N]);              for (var a = XI("methodCaller_" + i), U = "return function " + a + `(handle, name, destructors, args) {`, J = 0, N = 0; N < A - 1; ++N)                  U += "    var arg" + N + " = argType" + N + ".readValueFromPointer(args" + (J ? "+" + J : "") + `);`,                  J += g[N + 1].argPackAdvance;              U += "    var rv = handle[name](" + F + `);`;              for (var N = 0; N < A - 1; ++N)                  g[N + 1].deleteObject && (U += "    argType" + N + ".deleteObject(arg" + N + `);`);              B.isVoid || (U += `    return retType.toWireType(destructors, rv);`),              U += `};`,              G.push(U);              var S = HC(Function, G).apply(null, w);              return rB(S)          }
           function lB(A) {
               A > 4 && (vA[A].refcount += 1)
           }
@@ -8796,6 +8772,10 @@ return ret;
           }),
           this.video.remove()
       },
+      changeCamera: function(faceType) {
+        this.shouldFaceUser = faceType == 'user' ? 1 : 0;
+        this.pause();
+      },
       switchCamera: function() {
           this.shouldFaceUser = !this.shouldFaceUser,
           this.stop(),
@@ -8826,7 +8806,19 @@ return ret;
           this.video.src = "./assets/face1.jpeg",
           this.container.appendChild(this.video)
       },
-      _startVideo: function() {
+      _startVideo: async function () {
+
+        //아래 주석을 대신하여 작성
+        this.video = document.querySelector("video");
+
+        this.video.setAttribute("width", this.video.videoWidth),
+        this.video.setAttribute("height", this.video.videoHeight),
+        await this._setupAR(),
+        this._processVideo(),
+        this.ui.hideLoading()
+
+
+        /*
           if (this.video = document.createElement("video"),
           this.video.setAttribute("autoplay", ""),
           this.video.setAttribute("muted", ""),
@@ -8865,7 +8857,7 @@ return ret;
                   error: "VIDEO_FAIL"
               })
           }
-          )
+          )*/
       },
       _processVideo: function() {
           this.controller.onUpdate = ({hasFace: Y, estimateResult: s})=>{
@@ -8914,30 +8906,8 @@ return ret;
               this.video.setAttribute("height", this.video.videoHeight),
               this.controller.onInputResized(Y);
               const {fov: V, aspect: gA, near: b, far: u} = this.controller.getCameraParams()
-                , NA = this.container.getElementsByTagName("a-camera")[0]
-                , _ = NA.getObject3D("camera");
-              _.fov = V,
-              _.aspect = gA,
-              _.near = b,
-              _.far = u,
-              _.updateProjectionMatrix(),
-              NA.setAttribute("camera", "active", !0)
           }
-          let o, H;
-          const l = Y.videoWidth / Y.videoHeight
-            , n = s.clientWidth / s.clientHeight;
-          l > n ? (H = s.clientHeight,
-          o = H * l) : (o = s.clientWidth,
-          H = o / l),
-          this.video.style.top = -(H - s.clientHeight) / 2 + "px",
-          this.video.style.left = -(o - s.clientWidth) / 2 + "px",
-          this.video.style.width = o + "px",
-          this.video.style.height = H + "px";
-          const Z = s.getElementsByTagName("a-scene")[0];
-          Z.style.top = this.video.style.top,
-          Z.style.left = this.video.style.left,
-          Z.style.width = this.video.style.width,
-          Z.style.height = this.video.style.height
+
       }
   }),
   AFRAME.registerComponent("mindar-face", {
@@ -9000,6 +8970,8 @@ return ret;
           }
       },
       init: function() {
+          this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
+          this.faceSystem = this.el.sceneEl.systems["mindar-face-system"];
           this.el.sceneEl.systems["mindar-face-system"].registerAnchor(this, this.data.anchorIndex);
           const s = this.el.object3D;
           s.visible = !1,
@@ -9008,8 +8980,18 @@ return ret;
       updateVisibility(Y) {
           this.el.object3D.visible = Y
       },
-      updateMatrix(Y) {
-          this.el.object3D.matrix.set(...Y)
+      updateMatrix(e) {
+        if(this.faceSystem.shouldFaceUser) {
+          // set matrix
+          let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
+          matrix.premultiply(this.scaleMatrix);
+          
+          // set object3d
+          this.el.object3D.matrix = matrix;
+        }
+        else{
+          this.el.object3D.matrix.set(...e);
+        }
       }
   }),
   AFRAME.registerComponent("mindar-face-occluder", {
@@ -9031,6 +9013,8 @@ return ret;
   }),
   AFRAME.registerComponent("mindar-face-default-face-occluder", {
       init: function() {
+        this.scaleMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
+        this.faceSystem = this.el.sceneEl.systems["mindar-face-system"];
           this.el.sceneEl.systems["mindar-face-system"].registerFaceMesh(this);
           const s = this.el.object3D;
           s.matrixAutoUpdate = !1
@@ -9038,8 +9022,18 @@ return ret;
       updateVisibility(Y) {
           this.el.object3D.visible = Y
       },
-      updateMatrix(Y) {
-          this.el.object3D.matrix.set(...Y)
+      updateMatrix(e) {
+        if(this.faceSystem.shouldFaceUser) {
+          // set matrix
+          let matrix = new THREE.Matrix4().set(-e[0], e[1], e[2], e[3], -e[4], e[5], e[6], e[7], -e[8], e[9], e[10], e[11], -e[12], e[13], e[14], e[15]);
+          matrix.premultiply(this.scaleMatrix);
+          
+          // set object3d
+          this.el.object3D.matrix = matrix;
+        }
+        else{
+          this.el.object3D.matrix.set(...e);
+        }
       },
       addFaceMesh(Y) {
           const s = new Ng.MeshBasicMaterial({
