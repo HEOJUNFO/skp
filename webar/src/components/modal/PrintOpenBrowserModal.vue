@@ -186,7 +186,6 @@ export default {
 
 
     const openModal = (url) => {
-      putPvLog(getPvLogParams(0, "/main/photobox/detail"));
       imageUrl.value = url
       showVModal.value = true;
       deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
@@ -196,6 +195,11 @@ export default {
       freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
       deviceGpsList.value = getters['eventData/deviceGpsList'];
+
+      setTimeout(() => {
+        putPvLog(getPvLogParams(0, "/main/photobox/detail"));
+      }, 100);
+
     };
 
     const increasePrints = () => {
@@ -213,12 +217,15 @@ export default {
 
     const print = () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
-      putSavePrintStatus({
-        eventId: eventId.value,
-        ocbMbrId: 'test',
-        clintUniqueKey: 'test',
-        printResultStatus: 'TRY',
-      })
+      setTimeout(() => {
+        putSavePrintStatus({
+          eventId: eventId.value,
+          ocbMbrId: 'test',
+          clintUniqueKey: 'test',
+          printResultStatus: 'TRY',
+        })
+      }, 100);
+
       if (!checkDeviceNumber(deviceNumber)) {
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
