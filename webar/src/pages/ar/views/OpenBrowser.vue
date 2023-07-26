@@ -274,6 +274,9 @@ export default {
 
     onMounted(async () => {
       await getEventData();
+      if (tutorialYn.value) {
+        tutorialPopup.value = true;
+      }
       setList();
 
       startLoading();
