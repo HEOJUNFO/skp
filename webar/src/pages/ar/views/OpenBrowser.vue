@@ -288,12 +288,10 @@ export default {
       if (newVal === 'COUNTING' && stream) {
         setTimeout(() => {
           completeLoading()
-          if (tutorialYn.value) {
-            tutorialPopup.value = true;
-          }
-          else {
+          if (!tutorialYn.value) {
             toggleBarVisibility();
           }
+
         }, loadingYn.value ? 2000 : 0)
       }
     })
