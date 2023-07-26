@@ -196,9 +196,9 @@ export default {
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
       deviceGpsList.value = getters['eventData/deviceGpsList'];
 
-      setTimeout(() => {
-        putPvLog(getPvLogParams(0, "/main/photobox/detail"));
-      }, 100);
+      // setTimeout(() => {
+      //   putPvLog(getPvLogParams(0, "/main/photobox/detail"));
+      // }, 100);
 
     };
 
@@ -217,14 +217,14 @@ export default {
 
     const print = () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
-      setTimeout(() => {
-        putSavePrintStatus({
-          eventId: eventId.value,
-          ocbMbrId: 'test',
-          clintUniqueKey: 'test',
-          printResultStatus: 'TRY',
-        })
-      }, 100);
+      // setTimeout(() => {
+      //   putSavePrintStatus({
+      //     eventId: eventId.value,
+      //     ocbMbrId: 'test',
+      //     clintUniqueKey: 'test',
+      //     printResultStatus: 'TRY',
+      //   })
+      // }, 100);
 
       if (!checkDeviceNumber(deviceNumber)) {
         showErrorModal.value = true;
@@ -336,7 +336,7 @@ export default {
 }
 
 .image {
-  width: 100%;
+  width: auto;
   height: 75vh;
   position: relative;
   top: 0vh

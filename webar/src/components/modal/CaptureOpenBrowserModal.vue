@@ -77,7 +77,7 @@ import PhotoStoreModal from "./PhotoStoreModal.vue";
 import EventCompleteModal from "./EventCompleteModal.vue";
 
 import useResultData from "@/composables/useResultData";
-import useLogPersonAgree from "@/composables/useLogPersonAgree";
+// import useLogPersonAgree from "@/composables/useLogPersonAgree";
 
 export default {
   name: "CaptureOpenBrowserModal",
@@ -113,9 +113,9 @@ export default {
       setEventResult
     } = useResultData({ getters, dispatch });
 
-    const {
-      putLogPersonAgree
-    } = useLogPersonAgree();
+    // const {
+    //   putLogPersonAgree
+    // } = useLogPersonAgree();
 
     const { getPvLogParams, putPvLog } = usePvLog();
 
@@ -202,12 +202,12 @@ export default {
 
       if (shareAgreePopupYn) {
         putPvLog(getPvLogParams(1, "/main/photo/popup", undefined, undefined, undefined, new Date().toISOString()));
-        setTimeout(() => {
-          putLogPersonAgree({
-            eventId: eventId.value,
-            agreeId: inputText.value,
-          });
-        }, 1000);
+        // setTimeout(() => {
+        //   putLogPersonAgree({
+        //     eventId: eventId.value,
+        //     agreeId: inputText.value,
+        //   });
+        // }, 1000);
       } else {
         putPvLog(getPvLogParams(2, "/main/photo"));
       }
@@ -241,9 +241,10 @@ export default {
     const agreeShare = () => {
       showAgreeModal.value = true;
       putPvLog(getPvLogParams(2, "/main/photo"));
-      setTimeout(() => {
-        putPvLog(getPvLogParams(0, "/main/photo/popup"));
-      }, 100);
+      console.log(eventId.value);
+      // setTimeout(() => {
+      //   putPvLog(getPvLogParams(0, "/main/photo/popup"));
+      // }, 100);
     }
 
     const webBack = () => {
