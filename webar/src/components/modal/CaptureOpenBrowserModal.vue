@@ -22,9 +22,9 @@
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
         </transition>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
+      <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
       }}</button>
-      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" style="margin-top: 3.5vh;" />
+      <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showSaveModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showSaveModal = false">
@@ -267,7 +267,7 @@ export default {
     }
 
     const openCompletePopup = async (itemID) => {
-      putPvLog(getPvLogParams(4, "/main/photo"));
+      // putPvLog(getPvLogParams(4, "/main/photo"));
       await getEventResultData({ itemID });
       setEventResult()
       completeModalEl.value.openModal();
@@ -318,7 +318,7 @@ export default {
   text-align: center;
   z-index: 2;
   width: 100%;
-  height: 100vh;
+  height: -webkit-fill-available;
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
@@ -343,6 +343,19 @@ export default {
   display: block;
   margin-left: 5%;
   margin-top: 3.5vh;
+  width: 90%;
+  height: 7vh;
+  border: 1px solid #000;
+  border-radius: 25px;
+  background-color: #fff;
+  font-size: 20px;
+}
+
+.box-button2 {
+  display: block;
+  margin-left: 5%;
+  margin-top: 3.5vh;
+  margin-bottom: 3.5vh;
   width: 90%;
   height: 7vh;
   border: 1px solid #000;
