@@ -10,7 +10,7 @@
         <button @click="saveImage(), showSaveModal = true">
           <img src="../../assets/icon/save-button.png" alt="저장" style="width: 60px; height: 60px;" />
         </button>
-        <button @click="shareAgreePopupYn ? showAgreeModal = true : share()">
+        <button @click="shareAgreePopupYn ? agreeShare() : share()">
           <i class="fa-solid fa-share-nodes fa-5x" style="color:black ;"></i>
         </button>
       </div>
@@ -70,6 +70,7 @@
 import { ref, computed, inject, toRefs } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import usePvLog from "@/composables/usePvLog";
 
 import PrintOpenBrowserModal from "./PrintOpenBrowserModal.vue";
 import PhotoStoreModal from "./PhotoStoreModal.vue";
@@ -116,6 +117,7 @@ export default {
       putLogPersonAgree
     } = useLogPersonAgree();
 
+    const { getPvLogParams, putPvLog } = usePvLog();
 
     const computedPropertyGenerator = (getterKey, shouldCheckEquality, equalityValue = 'Y') => {
       return computed(() => {
@@ -149,6 +151,7 @@ export default {
     }
 
     const copyToClipboard = (hashTags) => {
+      putPvLog(getPvLogParams(3, "/main/photo"));
       var hashTag = generateHashTagString(hashTags);
 
       navigator.clipboard.writeText(hashTag).then(() => {
@@ -161,6 +164,7 @@ export default {
       });
     }
     const print = () => {
+      putPvLog(getPvLogParams(5, "/main/photo"));
       printModal.value.openModal(imageurl.value);
     }
     const photoStore = () => {
@@ -168,6 +172,7 @@ export default {
     }
 
     const openModal = (imageUrl) => {
+      putPvLog(getPvLogParams(0, "/main/photo"));
       imageurl.value = imageUrl;
       showVModal.value = true;
       setTimeout(() => {
@@ -178,6 +183,8 @@ export default {
     };
 
     const saveImage = () => {
+      putPvLog(getPvLogParams(1, "/main/photo"));
+
       const a = document.createElement("a");
       a.href = imageurl.value;
       a.download = "download.jpg";
@@ -192,12 +199,15 @@ export default {
     }
 
     const share = async () => {
+      putPvLog(getPvLogParams(2, "/main/photo"));
       if (shareAgreePopupYn) {
+        putPvLog(getPvLogParams(1, "/main/photo/popup"));
         putLogPersonAgree({
           eventId: eventId.value,
           agreeId: inputText.value,
         });
       }
+
       const blob = await (await fetch(imageurl.value)).blob();
 
       const filesArray = [
@@ -224,6 +234,11 @@ export default {
         .catch(console.error);
     }
 
+    const agreeShare = () => {
+      showAgreeModal.value = true;
+      putPvLog(getPvLogParams(0, "/main/photo/popup"));
+    }
+
     const webBack = () => {
       if (printModal.value.showVModal) {
         printModal.value.webBack();
@@ -244,6 +259,7 @@ export default {
     }
 
     const openCompletePopup = async (itemID) => {
+      putPvLog(getPvLogParams(4, "/main/photo"));
       await getEventResultData({ itemID });
       setEventResult()
       completeModalEl.value.openModal();
@@ -258,6 +274,7 @@ export default {
       saveImage,
       back,
       share,
+      agreeShare,
       hashTagYn,
       hashTagValue,
       shareAgreePopupYn,
