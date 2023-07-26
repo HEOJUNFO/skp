@@ -201,7 +201,7 @@ export default {
     const share = async () => {
       putPvLog(getPvLogParams(2, "/main/photo"));
       if (shareAgreePopupYn) {
-        putPvLog(getPvLogParams(1, "/main/photo/popup"));
+        putPvLog(getPvLogParams(1, "/main/photo/popup", undefined, undefined, undefined, new Date().toISOString()));
         putLogPersonAgree({
           eventId: eventId.value,
           agreeId: inputText.value,

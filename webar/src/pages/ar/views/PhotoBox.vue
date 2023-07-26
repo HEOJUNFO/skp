@@ -37,6 +37,7 @@ import ImageStorage from '../../../js/ImageStorage.js';
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
 import router from '../router/index.js';
 import useEventData from "@/composables/useEventData";
+import usePvLog from "@/composables/usePvLog";
 
 export default {
     data() {
@@ -88,7 +89,6 @@ export default {
     },
     setup() {
         const { dispatch, getters } = useStore();
-        const showVModal = ref(false);
         const bannerList = ref([]);
         const currentBanner = ref([])
         const bannerON = ref(false);
@@ -98,6 +98,8 @@ export default {
         const {
             getEventData
         } = useEventData({ dispatch });
+
+        const { getPvLogParams, putPvLog } = usePvLog();
 
         const changeBanner = () => {
             const nextIndex = (bannerList.value.indexOf(currentBanner.value) + 1) % bannerList.value.length;
@@ -141,8 +143,8 @@ export default {
         };
 
         onMounted(async () => {
+            putPvLog(getPvLogParams(0, "/main/photobox"));
             await getEventData();
-            showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
             if (bannerList.value.length > 0) {

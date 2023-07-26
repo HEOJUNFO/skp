@@ -107,6 +107,7 @@
 import { ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from "vue-router";
+import usePvLog from "@/composables/usePvLog";
 
 import useSavePrintStatus from '../../composables/useSavePrintStatus';
 
@@ -141,6 +142,8 @@ export default {
     const {
       putSavePrintStatus
     } = useSavePrintStatus();
+
+    const { getPvLogParams, putPvLog } = usePvLog();
 
     const initMap = () => {
       if (typeof window.naver === "undefined") {
@@ -183,6 +186,7 @@ export default {
 
 
     const openModal = (url) => {
+      putPvLog(getPvLogParams(0, "/main/photobox/detail"));
       imageUrl.value = url
       showVModal.value = true;
       deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
@@ -208,6 +212,7 @@ export default {
     let incorrectDeviceNumberCount = 0;
 
     const print = () => {
+      putPvLog(getPvLogParams(1, "/main/photobox/detail"));
       putSavePrintStatus({
         eventId: eventId.value,
         ocbMbrId: 'test',

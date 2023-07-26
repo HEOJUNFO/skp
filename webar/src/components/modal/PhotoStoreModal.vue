@@ -37,6 +37,7 @@ import { useStore } from 'vuex';
 
 import ImageStorage from '../../js/ImageStorage.js';
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
+import usePvLog from "@/composables/usePvLog";
 
 export default {
     components: {
@@ -49,13 +50,14 @@ export default {
 
         const { getters } = useStore();
         const showVModal = ref(false);
-        const imageUrl = ref('');
         const bannerList = ref([]);
         const currentBanner = ref([]);
         const bannerON = ref(false);
         const printModal = ref(null);
         const fileInput = ref(null);
         let intervalId = null;
+
+        const { getPvLogParams, putPvLog } = usePvLog();
 
         onMounted(async () => {
             await data.openDatabase();
@@ -102,7 +104,7 @@ export default {
         }
 
         const openModal = async (url) => {
-            imageUrl.value = url;
+            putPvLog(getPvLogParams(0, "/main/photobox"));
             showVModal.value = true;
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
@@ -159,7 +161,6 @@ export default {
             reCapture,
             exit,
             showVModal,
-            imageUrl,
             openModal,
             bannerList,
             currentBanner,
