@@ -72,7 +72,7 @@ export default {
       const ratio = eval(inputRatio);
       let windowWidth = window.innerWidth;
       let targetHeight = windowWidth * ratio;
-      let scaleFactor = isIOS() || isGalaxyBrowser ? 1.12 : 1.25;
+      let scaleFactor = isIOS() || isGalaxyBrowser ? 1.12 : 1.2;
       iframeHeight.value = targetHeight * scaleFactor + 'px';
     }
 
