@@ -22,14 +22,12 @@ export default function useOrientation() {
   }
 
   function getOrientation() {
-    // screen.orientation가 지원되는지 확인
-    if (window.screen.orientation && window.screen.orientation.type) {
-      return window.screen.orientation.type.includes('portrait') ? 'portrait' : 'landscape';
-    } else {
+   
       // window의 너비와 높이를 비교하여 방향을 판단
       return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
-    }
+    
   }
+  
 
   return {
     checkOrientation

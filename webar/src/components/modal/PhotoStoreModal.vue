@@ -103,6 +103,23 @@ export default {
             currentBanner.value = bannerList.value[nextIndex];
         }
 
+        const saveImage = async (url) => {
+            const blob = await fetch(url).then(r => r.blob());
+
+            let id = await data.saveImage(blob);
+            let newImage = { id: id, url: URL.createObjectURL(blob) };
+
+            imagesData.value.unshift(newImage);
+            if (imagesData.value.length > 30) {
+                imagesData.value.pop();
+            }
+            if (imagesData.value.length <= 6) {
+                visibleImages.value.unshift(newImage);
+            } else {
+                visibleImages.value = imagesData.value.slice(0, 6);
+            }
+        }
+
         const openModal = async (url) => {
             putPvLog(getPvLogParams(0, "/main/photobox"));
             showVModal.value = true;
@@ -126,7 +143,6 @@ export default {
             } else {
                 visibleImages.value = imagesData.value.slice(0, 6); // Use visibleImages.value instead of this.visibleImages
             }
-
             intervalId = setInterval(changeBanner, 2000);
         };
 
@@ -170,6 +186,7 @@ export default {
             printModal,
             webBack,
             fileInput,
+            saveImage,
         };
     },
 }

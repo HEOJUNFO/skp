@@ -7,7 +7,7 @@
         <button @click="back">
           <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 60px; height: 60px;" />
         </button>
-        <button @click="saveImage(), showSaveModal = true">
+        <button @click="saveImage()">
           <img src="../../assets/icon/save-button.png" alt="저장" style="width: 60px; height: 60px;" />
         </button>
         <button @click="shareAgreePopupYn ? agreeShare() : share()">
@@ -25,20 +25,6 @@
       <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
       }}</button>
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
-      <div v-if="showSaveModal" class="modal">
-        <div class="modal-content2">
-          <button class="close-button2" @click="showSaveModal = false">
-            <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
-          </button>
-          <p>휴대폰 갤러리에 저장되었습니다</p>
-          <p>지금 출력을 원하시면</p>
-          <p>출력 하기를 눌러주세요</p>
-          <div class="button-container">
-            <button class="round-button" @click="photoStore(), showSaveModal = false">포토함 이동</button>
-            <button class="round-button" @click="print(), showSaveModal = false">지금 출력</button>
-          </div>
-        </div>
-      </div>
       <div v-if="showAgreeModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showAgreeModal = false">
@@ -104,7 +90,6 @@ export default {
     const printModal = ref(null);
     const photoStoreModal = ref(null);
     const completeModalEl = ref(null);
-    const showSaveModal = ref(false);
     const showAgreeModal = ref(false);
 
     const {
@@ -189,6 +174,8 @@ export default {
       a.href = imageurl.value;
       a.download = "download.jpg";
       a.click();
+
+      photoStoreModal.value.saveImage(imageurl.value);
     };
 
     const toggleBarVisibility = inject('secondToggleBarVisibility');
@@ -257,9 +244,8 @@ export default {
       else if (completeModalEl.value.showModal) {
         completeModalEl.value.closeModal();
       }
-      else if (showAgreeModal.value || showSaveModal.value) {
+      else if (showAgreeModal.value) {
         showAgreeModal.value = false;
-        showSaveModal.value = false;
       }
       else {
         back();
@@ -301,7 +287,6 @@ export default {
       filmResultFooterImgUrl,
       filmResultImgUrl,
       webBack,
-      showSaveModal,
       showAgreeModal,
       completeModalEl,
       openCompletePopup,
