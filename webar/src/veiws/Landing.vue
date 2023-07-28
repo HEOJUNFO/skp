@@ -98,9 +98,13 @@ export default {
     };
 
     onMounted(async () => {
-      const eventValidation = arData?.value;
+      let eventValidation = arData?.value;
       // const eventValidation = window.localStorage.getItem('event_validation')
       const isLocal = window.location.port !== "";
+
+      if (isLocal) {
+        eventValidation = "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc"
+      }
 
       if (!isLocal && !eventId?.value) {
         // TODO query 없음! 리턴 처리 or 창닫기 로직 백엔드와 개발해서 추가
@@ -144,12 +148,18 @@ export default {
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
         photoBoxData.value = getters["eventData/photoBoxData"];
-        // 세션스토리지에 json데이터 저장
-        sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
-        sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
+
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
-        console.log("eventValidationData", eventValidationData);
         await dispatch("url/setActionType", eventValidationData.activeType);
+
+        let newData = {
+          ...eventData.value,
+          attendCode: eventValidationData.attendCode,
+        }
+        // 세션스토리지에 json데이터 저장
+        sessionStorage.setItem("skWebArJson", JSON.stringify(newData));
+        sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
+
       } catch (err) {
         console.log(err);
         // await dispatch("url/redirectToMain");
