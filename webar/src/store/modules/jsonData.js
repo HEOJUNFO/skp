@@ -716,6 +716,7 @@ export const jsonData = {
       finishYn: "Y", // Y/N : AR이벤트 미종료(N), AR이벤트 종료(Y)
       resultMessage: "정상",
       resultCode: "0000",
+      eventLogWinningId: "0",
       winningInfo: {
         arEventWinningId: "0",
         winningType: "NFT", // 기타(배송) : ETC, 기프티콘 : GIFTICON, 꽝 : FAIL, NFT: NFT
@@ -724,16 +725,19 @@ export const jsonData = {
       },
       winningButtonInfo: [
         {
+          arEventWinningButtonId: "0",
           buttonActionType: "SUBSCRIPTION", // 버튼유형 : 경품배송입력 : DELIVERY, 계속하기(닫기) : CLOSE, URL접속 : URL, 응모정보입력: SUBSCRIPTION
           buttonText: "응모정보입력", // 버튼 문구
           linkUrl: "",
         },
         {
+          arEventWinningButtonId: "1",
           buttonActionType: "URL",
           buttonText: "링크",
           linkUrl: "https://www.11st.co.kr/",
         },
         {
+          arEventWinningButtonId: "2",
           buttonActionType: "CLOSE",
           buttonText: "닫기",
           linkUrl: "",
