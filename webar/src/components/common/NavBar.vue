@@ -223,7 +223,7 @@ export default {
             if (aspectRatio.value === 0) {
                 aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
             } else if (aspectRatio.value === 1) {
-                aspectRatioValue.value = '1.1 / 1'
+                aspectRatioValue.value = '1.2 / 1'
             } else if (aspectRatio.value === 2) {
                 aspectRatioValue.value = '5 / 4'
             } else if (aspectRatio.value === 3) {
