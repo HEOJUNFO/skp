@@ -283,9 +283,8 @@ export default {
     });
 
     watch(loadingState, async (newVal) => {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-      if (newVal === 'COUNTING' && stream) {
+      if (newVal === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
           if (!tutorialYn.value) {
