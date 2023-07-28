@@ -108,6 +108,10 @@ export default {
 
       const isLocal = window.location.port !== "";
 
+      if (isLocal) {
+        eventValidation = "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc"
+      }
+
       if (!isLocal && !eventId?.value) {
         // TODO query 없음! 리턴 처리 or 창닫기 로직 백엔드와 개발해서 추가
         // console.log('파라미터 없음! 리턴 처리 or 창닫기')
