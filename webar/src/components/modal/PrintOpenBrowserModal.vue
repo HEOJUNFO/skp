@@ -7,7 +7,7 @@
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="prints-count">
         <span style="margin-right: 2em;">출력 장수</span>
-        <button v-if="printNumber > 0" class="button-print1" @click="decreasePrints">-</button>
+        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
         <span class="prints-number">{{ printNumber }}</span>
         <button v-if="printNumber < freePrintCustomerCount" class="button-print2" @click="increasePrints">+</button>
       </div>
@@ -208,7 +208,7 @@ export default {
     }
 
     const decreasePrints = () => {
-      if (printNumber.value > 0) {
+      if (printNumber.value > 1) {
         printNumber.value--;
       }
     }
