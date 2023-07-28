@@ -15,7 +15,13 @@ export default {
     const store = useStore();
     const { getters, dispatch } = store;
     const route = useRoute();
-    const { eventId, attendCode, arData } = toRefs(route.query);
+    const { eventId, attendCode } = toRefs(route.query);
+    const url2 = window.location.href;
+    const arDataKey = 'arData=';
+    const startIndex = url2.indexOf(arDataKey) + arDataKey.length;
+    const arData = url2.slice(startIndex);
+
+
     const { aes256Decode } = cryptoUtil();
     const iframeHeight = ref('100%')
     const iframeRef = ref(null);
@@ -98,13 +104,9 @@ export default {
     };
 
     onMounted(async () => {
-      let eventValidation = arData?.value;
-      // const eventValidation = window.localStorage.getItem('event_validation')
-      const isLocal = window.location.port !== "";
+      let eventValidation = arData;
 
-      if (isLocal) {
-        eventValidation = "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc"
-      }
+      const isLocal = window.location.port !== "";
 
       if (!isLocal && !eventId?.value) {
         // TODO query 없음! 리턴 처리 or 창닫기 로직 백엔드와 개발해서 추가
@@ -158,6 +160,7 @@ export default {
         }
         // 세션스토리지에 json데이터 저장
         sessionStorage.setItem("skWebArJson", JSON.stringify(newData));
+        console.log("skWebArJson", JSON.stringify(newData))
         sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
 
       } catch (err) {
