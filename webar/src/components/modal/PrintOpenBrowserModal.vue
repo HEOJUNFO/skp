@@ -265,10 +265,13 @@ export default {
     }
 
     const locationFind = () => {
+
       if (locationFindExposureType.value === 'MAP') {
         showLocationMap.value = true;
         initMap();
-        map.value.setSize(new window.naver.maps.Size(window.innerWidth * 1, window.innerHeight * 1));
+        if (deviceGpsList.value.length > 0) {
+          map.value.setSize(new window.naver.maps.Size(window.innerWidth * 1, window.innerHeight * 1));
+        }
       } else {
         showLocationPopup.value = true;
       }
