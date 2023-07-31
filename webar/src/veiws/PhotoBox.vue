@@ -6,23 +6,18 @@
 
 import { onMounted, toRefs, ref } from "vue";
 import { useStore } from "vuex";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 export default {
     name: "PhotoBox",
     setup() {
         const route = useRoute();
-        const router = useRouter();
         const { eventId } = toRefs(route.query);
         const store = useStore();
         const { dispatch, getters } = store;
 
         const photoBoxData = ref(null);
         const eventData = ref(null);
-
-        window.goArPhoto = async function () {
-            await router.push({ name: "Landing", query: { eventId: eventId.value, arData: 'photo' } });
-        };
 
         onMounted(async () => {
             const isLocal = window.location.port !== "";
@@ -38,9 +33,13 @@ export default {
                     eventId: eventId.value,
                 };
 
+                console.log("params", params);
+                await dispatch("jsonData/setActionObjectFrame");
+                await dispatch("jsonData/setPhotoBoxData");
+
                 // 배포용
-                await dispatch("eventData/getEventData", params);
-                await dispatch("eventData/getEventPhotoBox", params);
+                // await dispatch("eventData/getEventData", params);
+                // await dispatch("eventData/getEventPhotoBox", params);
 
                 eventData.value = getters["eventData/eventData"];
                 photoBoxData.value = getters["eventData/photoBoxData"];
@@ -48,7 +47,7 @@ export default {
                 sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
 
             } catch (error) {
-                //await dispatch("url/redirectToMain");
+                await dispatch("url/redirectToMain");
                 return
             }
         });

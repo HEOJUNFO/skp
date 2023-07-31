@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <button class="exit-button" @click="exit(), stopInterval()">
+        <button class="exit-button" @click="exit()">
             <img src="../../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
@@ -17,12 +17,14 @@
         <button class="more-button" v-if="imagesData.length > visibleImages.length" @click="showMoreImages">
             <img src="../../../assets/icon/more-button.png" alt="더보기" style="width: 30px; height: 40px;" />
         </button>
-        <button class="round-button" @click="reCapture(), stopInterval()">AR포토 더 촬영하기</button>
+        <button class="round-button" @click="exit()">나가기</button>
         <div v-if="bannerON" class="banner-group">
             <div class="banner-container">
+                <button @click="prevBanner()">이전</button>
                 <a :href="currentBanner.bannerTargetUrl" target="_blank">
                     <img :src="currentBanner.bannerImgUrl" :alt="currentBanner.bannerSort">
                 </a>
+                <button @click="nextBanner()">다음</button>
             </div>
         </div>
     </div>
@@ -35,7 +37,6 @@ import { useStore } from 'vuex';
 
 import ImageStorage from '../../../js/ImageStorage.js';
 import PrintOpenBrowserModal from "@/components/modal/PrintOpenBrowserModal";
-import router from '../router/index.js';
 import useEventData from "@/composables/useEventData";
 import usePvLog from "@/composables/usePvLog";
 
@@ -77,14 +78,8 @@ export default {
         showMoreImages() {
             this.visibleImages = this.imagesData;
         },
-        exit() {
-            router.go(-1);
-        },
         triggerFileInput() {
             this.$refs.fileInput.click();
-        },
-        reCapture() {
-            window.parent.goArPhoto();
         },
     },
     setup() {
@@ -93,7 +88,6 @@ export default {
         const currentBanner = ref([])
         const bannerON = ref(false);
         const printModal = ref(null);
-        let intervalId = null;
 
         const {
             getEventData
@@ -101,14 +95,28 @@ export default {
 
         const { getPvLogParams, putPvLog } = usePvLog();
 
-        const changeBanner = () => {
-            const nextIndex = (bannerList.value.indexOf(currentBanner.value) + 1) % bannerList.value.length;
+
+        const exit = () => {
+            dispatch("url/redirectToMain");
+            return
+        };
+
+        const prevBanner = () => {
+            let prevIndex = bannerList.value.indexOf(currentBanner.value) - 1;
+            if (prevIndex < 0) {
+                prevIndex = bannerList.value.length - 1;
+            }
+            currentBanner.value = bannerList.value[prevIndex];
+        }
+
+        const nextBanner = () => {
+            let nextIndex = bannerList.value.indexOf(currentBanner.value) + 1;
+            if (nextIndex >= bannerList.value.length) {
+                nextIndex = 0;
+            }
             currentBanner.value = bannerList.value[nextIndex];
         }
 
-        const stopInterval = () => {
-            if (intervalId) clearInterval(intervalId);
-        }
 
         const imgClick = (imgUrl) => {
             printModal.value.openModal(imgUrl);
@@ -147,19 +155,21 @@ export default {
             await getEventData();
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
+            console.log(currentBanner.value)
             if (bannerList.value.length > 0) {
                 bannerON.value = true;
             }
-            intervalId = setInterval(changeBanner, 2000);
         });
 
         return {
             bannerList,
-            currentBanner,
+            nextBanner,
             bannerON,
-            stopInterval,
             imgClick,
             printModal,
+            prevBanner,
+            currentBanner,
+            exit,
         }
     },
 }
@@ -185,21 +195,27 @@ export default {
     width: 100%;
     margin-top: 1vh;
     margin-right: 1%;
-    align-items: stretch;
     max-height: 60vh;
     overflow-y: auto;
 }
 
 .image-container {
     width: 32%;
-    height: auto;
+    height: 14.7vh;
     margin-left: 1%;
-    margin-bottom: 1vh;
+    margin-bottom: 0.4vh;
+    position: relative;
+    overflow: hidden;
 }
 
 .image-container img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .exit-button {
@@ -241,7 +257,6 @@ export default {
     height: 10vh;
     position: absolute;
     bottom: 8.5vh;
-
 }
 
 .banner-container {
@@ -253,5 +268,22 @@ export default {
 .banner-container img {
     width: 100%;
     height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.banner-container button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.banner-container button:first-of-type {
+    left: 2%;
+}
+
+.banner-container button:last-of-type {
+    right: 2%;
 }
 </style>
