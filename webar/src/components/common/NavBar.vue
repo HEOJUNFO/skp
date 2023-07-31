@@ -498,9 +498,6 @@ export default {
 .frame-image {
     width: 100%;
     height: 100%;
-    margin-left: 2%;
-    border: 1px solid #000;
-
 }
 
 .top-bar {
@@ -640,17 +637,12 @@ export default {
     animation: img-scale-down 0.5s ease-out;
 }
 
-.tab-container {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
 .image-container {
     display: flex;
     overflow-x: auto;
     width: 100%;
-    gap: 1%;
+    gap: 2%;
+    margin-left: 3.5%;
 }
 
 .image-container::-webkit-scrollbar {
@@ -660,12 +652,12 @@ export default {
 .image-view {
     position: relative;
     flex: 0 0 auto;
-    width: 24%;
-    min-height: 100%;
+    width: 18.7%;
+    height: 11.5vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #000;
+    border: 1px solid #000;
 }
 
 .image-view>span {
@@ -681,13 +673,24 @@ export default {
     color: #fff;
 }
 
+
+.tab-container {
+    display: flex;
+    width: 100%;
+    gap: 9%;
+    margin-left: 5.5%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    overflow-x: auto;
+}
+
 .tab.selected {
-    color: rgb(216, 4, 120)
+    color: #000000;
 }
 
 .tab {
-    font-size: 16px;
-    padding-top: 4px;
+    font-size: 14px;
+    color: #A6A6A6;
 }
 
 .countdown {

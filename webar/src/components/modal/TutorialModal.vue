@@ -6,13 +6,17 @@
       </div>
 
       <div class="navigation">
-        <button @click="skip">건너뛰기</button>
+        <button @click="skip">
+          <img src="../../assets/icon/skip.svg" alt="스킵" />
+        </button>
 
         <div class="dots">
           <span v-for="(tutorial, index) in tutorials" :key="index" :class="{ 'active': currentIndex === index }"></span>
         </div>
 
-        <button @click="next">다음</button>
+        <button @click="next">
+          <img src="../../assets/icon/next.svg" alt="다음" />
+        </button>
       </div>
     </div>
   </div>
@@ -63,21 +67,27 @@ export default {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   color: #fff;
   top: -0.1%
 }
 
 .tutorial-inner {
   text-align: center;
-  margin-bottom: 1em;
   background-color: #fff;
-  width: 50%;
+  width: 40.5vh;
+  height: 49vh;
+  border-radius: 20px;
+  top: 20vh;
+  position: relative;
+}
+
+.tutorial-inner img {
+  width: 75%;
 }
 
 .navigation {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .dots {
@@ -90,25 +100,11 @@ export default {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: gray;
+  background-color: #d9d9d9;
   margin: 0 4px;
 }
 
 .dots span.active {
   background-color: #000;
-}
-
-.close-button {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  color: white;
-  border-radius: 50%;
-  border: none;
-  font-size: 30px;
-  text-align: center;
-  cursor: pointer;
 }
 </style>
