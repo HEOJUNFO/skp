@@ -1,8 +1,9 @@
 <template>
+  <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
   <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
     :sticker-list="stickerList" :tab-list="tabList">
     <ar-photo-container ref="containerRef">
-      <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false, toggleBarVisibility()"></tutorial-modal>
+
       <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
@@ -287,9 +288,7 @@ export default {
       if (newVal === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
-          if (!tutorialYn.value) {
-            toggleBarVisibility();
-          }
+          toggleBarVisibility();
 
         }, loadingYn.value ? 2000 : 0)
       }

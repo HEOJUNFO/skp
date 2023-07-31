@@ -63,7 +63,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-color: rgba(1, 1, 1, 0.7);
   color: #fff;
   top: -0.1%
 }
