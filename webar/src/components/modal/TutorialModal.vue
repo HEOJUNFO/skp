@@ -14,9 +14,6 @@
 
         <button @click="next">다음</button>
       </div>
-      <button class="close-button" @click="close">
-        <img src="../../assets/icon/round-close-button.png" alt="내리기" style="width: 40px; height: 40px;" />
-      </button>
     </div>
   </div>
 </template>
