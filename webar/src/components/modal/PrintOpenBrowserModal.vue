@@ -93,7 +93,7 @@
         <button class="exit-button" @click="showLocationMap = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
-        <div v-if="deviceGpsList > 0" class="button-container">
+        <div class="button-container">
           <button @click="prevLocation()">이전</button>
           <span>{{ currentDevice.deviceName }}</span>
           <button @click="nextLocation()">다음</button>
