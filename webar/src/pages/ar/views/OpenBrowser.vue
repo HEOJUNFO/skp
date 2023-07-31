@@ -1,9 +1,8 @@
 <template>
-  <tutorial-modal v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
+  <tutorial-modal ref="tutorialRef" v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
   <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
     :sticker-list="stickerList" :tab-list="tabList">
     <ar-photo-container ref="containerRef">
-
       <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
@@ -54,6 +53,7 @@ export default {
     const tutorialPopup = ref(false);
     const cameraRef = ref(null);
     const containerRef = ref(null);
+    const tutorialRef = ref(null);
     const navbarRef = ref(null);
     const captureModal = ref(null);
     const imageUrl = ref(null);
@@ -289,6 +289,7 @@ export default {
         setTimeout(() => {
           completeLoading()
           toggleBarVisibility();
+          tutorialRef.value.changeBgColor('rgba(1, 1, 1, 0.7)')
 
         }, loadingYn.value ? 2000 : 0)
       }
@@ -318,6 +319,7 @@ export default {
       captureModal,
       imageUrl,
       eventArPhotoObjectRef,
+      tutorialRef
     }
   }
 }

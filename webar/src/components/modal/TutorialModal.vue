@@ -1,5 +1,5 @@
 <template>
-  <div class="tutorial-popup">
+  <div class="tutorial-popup" :style="{ backgroundColor: bgColor }">
     <div class="tutorial-inner">
       <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
         <img :src="tutorial.image" alt="튜토리얼가이드 이미지 필요!!" />
@@ -34,6 +34,7 @@ export default {
         { image: require('../../assets/img/test_4.png'), description: 'tutorial 4' },
       ],
       currentIndex: 0,
+      bgColor: 'rgba(1, 1, 1, 1)',
     };
   },
   methods: {
@@ -50,6 +51,9 @@ export default {
     skip() {
       this.close();
     },
+    changeBgColor(color) {
+      this.bgColor = color;
+    },
   }
 }
 </script>
@@ -63,7 +67,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(1, 1, 1, 0.7);
   color: #fff;
   top: -0.1%
 }
