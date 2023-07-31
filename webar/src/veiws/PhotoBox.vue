@@ -33,13 +33,13 @@ export default {
                     eventId: eventId.value,
                 };
 
-                console.log("params", params);
-                await dispatch("jsonData/setActionObjectFrame");
-                await dispatch("jsonData/setPhotoBoxData");
+                // console.log("params", params);
+                // await dispatch("jsonData/setActionObjectFrame");
+                // await dispatch("jsonData/setPhotoBoxData");
 
                 // 배포용
-                // await dispatch("eventData/getEventData", params);
-                // await dispatch("eventData/getEventPhotoBox", params);
+                await dispatch("eventData/getEventData", params);
+                await dispatch("eventData/getEventPhotoBox", params);
 
                 eventData.value = getters["eventData/eventData"];
                 photoBoxData.value = getters["eventData/photoBoxData"];
