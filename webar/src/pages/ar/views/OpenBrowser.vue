@@ -275,9 +275,7 @@ export default {
 
     onMounted(async () => {
       await getEventData();
-      if (tutorialYn.value) {
-        tutorialPopup.value = true;
-      }
+
       setList();
 
       startLoading();
@@ -288,6 +286,9 @@ export default {
       if (newVal === 'COUNTING') {
         setTimeout(() => {
           completeLoading()
+          if (tutorialYn.value) {
+            tutorialPopup.value = true;
+          }
           toggleBarVisibility();
           tutorialRef.value.changeBgColor('rgba(1, 1, 1, 0.7)')
 

@@ -37,7 +37,7 @@ export default {
         { image: require('../../assets/img/test_4.png'), description: 'tutorial 4' },
       ],
       currentIndex: 0,
-      bgColor: 'rgba(1, 1, 1, 1)',
+      bgColor: '#222222',
       nextIcon: require('../../assets/icon/next.png'),
       skipIcon: require('../../assets/icon/skip.png'),
     };

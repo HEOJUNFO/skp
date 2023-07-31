@@ -71,7 +71,7 @@ export default {
 
       let assets = document.querySelector('a-assets');
       stickerAsset.value.forEach((asset) => {
-        assets.insertAdjacentHTML('beforeend', `<img id="${asset.sort}" src="${asset.src}" crossOrigin="anonymous">`);
+        assets.insertAdjacentHTML('beforeend', `<img id="${asset.sort}" src="${asset.file}" crossOrigin="anonymous">`);
       });
 
     }
