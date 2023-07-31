@@ -94,9 +94,9 @@
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
         <div class="button-container">
-          <button @click="prevLocation()">이전</button>
+          <button v-if="deviceOn" @click="prevLocation()">이전</button>
           <span>{{ currentDevice.deviceName }}</span>
-          <button @click="nextLocation()">다음</button>
+          <button v-if="deviceOn" @click="nextLocation()">다음</button>
         </div>
         <div class="modal-content2">
           <div id="map"></div>
@@ -145,6 +145,7 @@ export default {
     const currentDevice = ref({
       deviceName: '디바이스 없음'
     });
+    const deviceOn = ref(false);
 
     const {
       putSavePrintStatus
@@ -194,6 +195,9 @@ export default {
 
       if (deviceGpsList.value.length > 0) {
         currentDevice.value = deviceGpsList.value[0];
+        if (deviceGpsList.value.length > 1) {
+          deviceOn.value = true;
+        }
       } else {
         deviceLocationFindYn.value = false;
       }
@@ -346,6 +350,7 @@ export default {
       prevLocation,
       nextLocation,
       currentDevice,
+      deviceOn
     }
   },
 }
