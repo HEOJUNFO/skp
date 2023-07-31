@@ -758,18 +758,29 @@ export const jsonData = {
             bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDUjo7V8e97f111de4f563eeecafa5e459c45eb.png",
             bannerTargetUrl: "https://www.naver.com",
             bannerSort: 1
-        },
-        {
-          arNftBannerId: 575,
-          bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDUjo7V8e97f111de4f563eeecafa5e459c45eb.png",
-          bannerTargetUrl: "https://www.google.co.kr",
-          bannerSort: 2
-      }
+        }
     ],
 
    
       deviceGpsList: [
-     
+        {
+          deviceGpsId: "0", //인덱스 번호
+          sort: "0", //순서
+          deviceName:"디바이스1", //디바이스명
+          gpsName: "위치1", //위치명
+          thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
+          deviceGpsLatitude: "37.402736699419854", //위도
+          deviceGpsLongitude: "127.10324709161416", //경도
+        },
+        {
+          deviceGpsId: "1", //인덱스 번호
+          sort: "1", //순서
+          deviceName:"디바이스2", //디바이스명
+          gpsName: "위치2", //위치명
+          thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
+          deviceGpsLatitude: "37.40237809926164", //위도
+          deviceGpsLongitude: "127.10375484175874", //경도
+        }
       ],
     },
     offsetActionObjectFrame: {
@@ -945,7 +956,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y

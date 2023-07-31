@@ -142,7 +142,9 @@ export default {
     const showLocationMap = ref(false);
     const map = ref(null);
     const marker = ref(null);
-    const currentDevice = ref([])
+    const currentDevice = ref({
+      deviceName: '디바이스 없음'
+    });
 
     const {
       putSavePrintStatus
@@ -190,7 +192,11 @@ export default {
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
       deviceGpsList.value = getters['eventData/deviceGpsList'];
 
-      currentDevice.value = deviceGpsList.value[0];
+      if (deviceGpsList.value.length > 0) {
+        currentDevice.value = deviceGpsList.value[0];
+      } else {
+        deviceLocationFindYn.value = false;
+      }
 
       // setTimeout(() => {
       //   putPvLog(getPvLogParams(0, "/main/photobox/detail"));

@@ -54,7 +54,7 @@ export default {
         this.data = new ImageStorage('TempDB', 'TempImg');
         await this.data.openDatabase();
         this.imagesData = await this.data.getAll();
-        this.visibleImages = this.imagesData.slice(0, 6);
+        this.visibleImages = this.imagesData.slice(0, 9);
     },
     methods: {
         async uploadImage(event) {
@@ -69,10 +69,10 @@ export default {
             if (this.imagesData.length > 30) {
                 this.imagesData.pop();
             }
-            if (this.imagesData.length <= 6) {
+            if (this.imagesData.length <= 9) {
                 this.visibleImages.unshift(newImage);
             } else {
-                this.visibleImages = this.imagesData.slice(0, 6);
+                this.visibleImages = this.imagesData.slice(0, 9);
             }
         },
         showMoreImages() {
@@ -200,8 +200,8 @@ export default {
 }
 
 .image-container {
-    width: 32%;
-    height: 14.7vh;
+    width: 14vh;
+    height: 14vh;
     margin-left: 1%;
     margin-bottom: 0.4vh;
     position: relative;
