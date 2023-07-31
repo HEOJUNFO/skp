@@ -13,15 +13,30 @@ export default function useArObjectInfo() {
 
     
     const setList = () => {
+        const isGalaxyBrowser = navigator.userAgent.indexOf("SamsungBrowser") > -1;
         characterList.value = createList('eventData/characterContentsInfoList');
         filterList.value = createList('eventData/filterContentsInfoList');
         stickerList.value = createList('eventData/stickerContentsInfoList');
         tabList.value = createList('eventData/tabContentsInfoList')
         frameList.value = createFrameList();
+
+        filterList.value.forEach(element => {
+          if(element.file.includes('.json')) {
+            fetch(element.file)
+            .then(response => response.json())
+            .then(json => {
+              if(!json.some(data => Object.prototype.hasOwnProperty.call(data, 'preset')) && isGalaxyBrowser){
+                //delete
+                filterList.value = filterList.value.filter(item => item.file !== element.file);
+              }
+            })
+          }
+        });
     }
 
     function createList(urlGetter) {
       const url = computed(() => getters[urlGetter]);
+    
 
       return url.value.map((item, index) => {
         let tabId = 1;
