@@ -7,7 +7,7 @@
 
       <div class="navigation">
         <button @click="skip">
-          <img src="../../assets/icon/skip.svg" alt="스킵" />
+          <img :src="skipIcon" alt="스킵" />
         </button>
 
         <div class="dots">
@@ -15,7 +15,7 @@
         </div>
 
         <button @click="next">
-          <img src="../../assets/icon/next.svg" alt="다음" />
+          <img :src="nextIcon" alt="다음" />
         </button>
       </div>
     </div>
@@ -23,6 +23,8 @@
 </template>
   
 <script>
+
+
 export default {
   name: "TutorialModal",
   data() {
@@ -36,6 +38,8 @@ export default {
       ],
       currentIndex: 0,
       bgColor: 'rgba(1, 1, 1, 1)',
+      nextIcon: require('../../assets/icon/next.png'),
+      skipIcon: require('../../assets/icon/skip.png'),
     };
   },
   methods: {

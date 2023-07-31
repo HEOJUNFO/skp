@@ -158,13 +158,19 @@ export default {
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
         await dispatch("url/setActionType", eventValidationData.activeType);
 
-        let newData = {
-          ...eventData.value,
-          attendCode: eventValidationData.attendCode,
+        let newData
+        if (eventValidationData !== 'photo') {
+          newData = {
+            ...eventData.value,
+            attendCode: eventValidationData.attendCode,
+          }
+        } else {
+          newData = {
+            ...eventData.value,
+          }
         }
         // 세션스토리지에 json데이터 저장
         sessionStorage.setItem("skWebArJson", JSON.stringify(newData));
-        console.log("skWebArJson", JSON.stringify(newData))
         sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
 
       } catch (err) {
