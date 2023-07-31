@@ -93,6 +93,11 @@
         <button class="exit-button" @click="showLocationMap = false">
           <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
         </button>
+        <div class="button-container">
+          <button @click="prevLocation()">이전</button>
+          <span>{{ currentDevice.deviceName }}</span>
+          <button @click="nextLocation()">다음</button>
+        </div>
         <div class="modal-content2">
           <div id="map"></div>
         </div>
@@ -136,8 +141,8 @@ export default {
     const showLocationPopup = ref(false);
     const showLocationMap = ref(false);
     const map = ref(null);
-    const markerLatLng = ref(null);
     const marker = ref(null);
+    const currentDevice = ref([])
 
     const {
       putSavePrintStatus
@@ -162,28 +167,17 @@ export default {
       };
 
       map.value = new window.naver.maps.Map("map", mapOptions);
-      markerLatLng.value = deviceGpsList.value.map((gps) => {
-        return {
-          lat: gps.deviceGpsLatitude,
-          lng: gps.deviceGpsLongitude,
-          deviceName: gps.deviceName
-        };
-      });
-
-      marker.value = markerLatLng.value.map((latLng) => {
-        return new window.naver.maps.Marker({
-          position: new window.naver.maps.LatLng(latLng.lat, latLng.lng),
-          map: map.value,
-          icon: {
-            url: require("../../assets/icon/kiosk_poi_3.png"),
-            size: new window.naver.maps.Size(52, 52),
-            origin: new window.naver.maps.Point(0, 0),
-            anchor: new window.naver.maps.Point(26, 26)
-          }
-        });
+      marker.value = new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
+        map: map.value,
+        icon: {
+          url: require("../../assets/icon/kiosk_poi_3.png"),
+          size: new window.naver.maps.Size(52, 52),
+          origin: new window.naver.maps.Point(0, 0),
+          anchor: new window.naver.maps.Point(26, 26)
+        }
       });
     };
-
 
     const openModal = (url) => {
       imageUrl.value = url
@@ -195,6 +189,8 @@ export default {
       freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
       freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
       deviceGpsList.value = getters['eventData/deviceGpsList'];
+
+      currentDevice.value = deviceGpsList.value[0];
 
       // setTimeout(() => {
       //   putPvLog(getPvLogParams(0, "/main/photobox/detail"));
@@ -278,6 +274,25 @@ export default {
       }
     }
 
+    const prevLocation = () => {
+      let prevIndex = deviceGpsList.value.indexOf(currentDevice.value) - 1;
+      if (prevIndex < 0) {
+        prevIndex = deviceGpsList.value.length - 1;
+      }
+      currentDevice.value = deviceGpsList.value[prevIndex];
+      marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+    }
+
+    const nextLocation = () => {
+      let nextIndex = deviceGpsList.value.indexOf(currentDevice.value) + 1;
+      if (nextIndex >= deviceGpsList.value.length) {
+        nextIndex = 0;
+      }
+      currentDevice.value = deviceGpsList.value[nextIndex];
+      marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+
+    }
+
     const webBack = () => {
       if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
         showDeviceModal.value = false;
@@ -318,7 +333,10 @@ export default {
       showLocationMap,
       locationFindPopupImgUrl,
       freePrintCustomerCount,
-      showFiveModal
+      showFiveModal,
+      prevLocation,
+      nextLocation,
+      currentDevice,
     }
   },
 }
@@ -431,7 +449,7 @@ export default {
 .modal-content2 {
   background-color: #fff;
   width: 100%;
-  height: 100%;
+  height: 80vh;
 }
 
 .modal-content3 {
@@ -538,5 +556,31 @@ export default {
   border: none;
   background-color: transparent;
   font-size: 1em;
+}
+
+.button-container {
+  width: 100%;
+  height: 88vh;
+  position: absolute;
+}
+
+.button-container span {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.button-container button {
+  position: absolute;
+  z-index: 2;
+}
+
+.button-container button:first-of-type {
+  left: 2%;
+}
+
+.button-container button:last-of-type {
+  right: 2%;
 }
 </style>
