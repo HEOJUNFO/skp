@@ -104,12 +104,13 @@ export default {
       const userAgent = window.navigator.userAgent.toLowerCase();
       const match = userAgent.match(/(iphone\sos)\s([\d_]+)/);
       const version = match ? match[2].replace(/_/g, '.') : -1;
+      console.log('ios version', version)
       return parseInt(version);
     }
 
     onMounted(async () => {
       const iosVersion = getIOSVersion();
-      if (iosVersion < 14) {
+      if (iosVersion < 14 && isIOS()) {
         alert('OS 업데이트후 사용이 가능합니다. IOS 14 이상으로 업데이트 해주세요.');
         await dispatch("url/redirectToMain");
         return;
