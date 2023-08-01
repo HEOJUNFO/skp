@@ -46,20 +46,34 @@
         </div>
         <slot></slot>
         <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1"
-            :style="barStyle">
+            :style="bottombarStyle">
             <button v-if="!isCapturing && arFrameSettingYn === 'Y'" @click="frameToggleBar" class="frame-button">
-                <img src="../../assets/icon/frame-button.png" alt="프레임" style="width: 40px; height: 40px; " />
-                <p style="font-size: 17.5px; font-weight: bold; " :style="frameButtonStyle">배경</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path
+                        d="M5 13C5 10.1997 5 8.79961 5.54497 7.73005C6.02433 6.78924 6.78924 6.02433 7.73005 5.54497C8.79961 5 10.1997 5 13 5H27C29.8003 5 31.2004 5 32.27 5.54497C33.2108 6.02433 33.9757 6.78924 34.455 7.73005C35 8.79961 35 10.1997 35 13V27C35 29.8003 35 31.2004 34.455 32.27C33.9757 33.2108 33.2108 33.9757 32.27 34.455C31.2004 35 29.8003 35 27 35H13C10.1997 35 8.79961 35 7.73005 34.455C6.78924 33.9757 6.02433 33.2108 5.54497 32.27C5 31.2004 5 29.8003 5 27V13Z"
+                        stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 15.8333L10 25H30L22.5 12.5L18.3333 18.3333L15 15.8333Z" stroke="black" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p style="color: #000; text-align: center; font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: normal;"
+                    :style="frameButtonStyle">배경</p>
             </button>
             <button v-if="!isCapturing" @click="capture" class="capture-button">
-                <img src="../../assets/icon/circle-button.png" alt="촬영" style="width: auto; height: 68px; " />
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 86 86" fill="none">
+                    <circle cx="43" cy="43" r="40" fill="white" stroke="#252525" stroke-width="5" />
+                </svg>
             </button>
             <button v-if="isCapturing" @click="stopCapture" class="capture-button">
                 <img src="../../assets/icon/round-close-button.png" alt="타이머 촬영 종료" style="width: 50px; height: 50px;  " />
             </button>
             <button v-if="!isCapturing" @click="effectToggleBar" class="effect-button">
-                <img src="../../assets/icon/star-button.png" alt="이펙트" style="width: 45px; height: 40px;  " />
-                <p style="font-size: 17.5px; font-weight: bold; ">이펙트</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path
+                        d="M15 25.5903C16.3269 26.7779 18.0791 27.5 20 27.5C24.1421 27.5 27.5 24.1422 27.5 20C27.5 16.5413 25.1588 13.6295 21.9748 12.7627M8.02522 12.7627C4.84117 13.6295 2.5 16.5413 2.5 20C2.5 24.1421 5.85786 27.5 10 27.5C14.1421 27.5 17.5 24.1421 17.5 20C17.5 19.0244 17.3137 18.0923 16.9748 17.2373M22.5 10C22.5 14.1421 19.1421 17.5 15 17.5C10.8579 17.5 7.5 14.1421 7.5 10C7.5 5.85786 10.8579 2.5 15 2.5C19.1421 2.5 22.5 5.85786 22.5 10Z"
+                        stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p style="color: #000; text-align: center; font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: normal;"
+                    :style="frameButtonStyle">효과</p>
             </button>
         </div>
 
@@ -115,7 +129,8 @@
                 </div>
             </div>
         </transition>
-        <div class="block-bar" v-show="isBarVisible"></div>
+        <div class="block-bar" v-show="isBarVisible" :style="blockbarStyle"></div>
+        <div class="block-bar2" v-show="isBarVisible" :style="blockbarStyle2"></div>
     </div>
 </template>
   
@@ -223,11 +238,11 @@ export default {
             if (aspectRatio.value === 0) {
                 aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
             } else if (aspectRatio.value === 1) {
-                aspectRatioValue.value = '1.2 / 1'
+                aspectRatioValue.value = '1 / 1'
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '5 / 4'
+                aspectRatioValue.value = '16 / 9'
             } else if (aspectRatio.value === 3) {
-                aspectRatioValue.value = '7 / 4'
+                aspectRatioValue.value = '2 / 1'
             } else if (aspectRatio.value === 4) {
                 aspectRatioValue.value = '1218 / 814'
             }
@@ -435,14 +450,30 @@ export default {
             }
         });
 
-        const barStyle = computed(() => ({
-            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-            bottom: aspectRatio.value === 3 ? '15vh' : '0vh',
-        }));
+        const bottombarStyle = computed(() => (
+            {
+                backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+                bottom: aspectRatio.value === 3 ? '24vh' : aspectRatio.value === 2 ? '18vh' : '0vh',
+                height: aspectRatio.value === 3 ? '24vh' : aspectRatio.value === 2 ? '9vh' : '24vh',
+            }));
+
+        const barStyle = computed(() => (
+            {
+                backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+                bottom: aspectRatio.value === 3 ? '24vh' : aspectRatio.value === 2 ? '18vh' : '0vh',
+            }));
         const barStyle2 = computed(() => ({
             backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-            bottom: aspectRatio.value === 3 ? '21vh' : '7.5vh',
+            bottom: aspectRatio.value === 3 ? '31vh' : aspectRatio.value === 2 ? '25vh' : '7vh',
         }));
+        const blockbarStyle = computed(() => ({
+            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+        }));
+        const blockbarStyle2 = computed(() => ({
+            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
+            height: aspectRatio.value === 3 ? '8vh' : aspectRatio.value === 2 ? '24vh' : '8vh',
+        }));
+
 
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
@@ -481,6 +512,9 @@ export default {
             isFlipCamera,
             barStyle,
             barStyle2,
+            blockbarStyle,
+            blockbarStyle2,
+            bottombarStyle,
             secondToggleBarVisibility
         }
     }
@@ -503,7 +537,7 @@ export default {
 .top-bar {
     position: absolute;
     width: 100%;
-    height: 7.5vh;
+    height: 14vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "aspect timer flip beauty exit";
@@ -531,10 +565,10 @@ export default {
 }
 
 .bottom-bar-1 {
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     width: 100%;
-    height: 12.5vh;
+    height: 24vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
@@ -546,14 +580,24 @@ export default {
     z-index: 0;
     position: absolute;
     width: 100%;
-    height: 30vh;
+    height: 24vh;
+    bottom: 0vh;
+    pointer-events: none;
+    background-color: #fff;
+}
+
+.block-bar2 {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 8vh;
     bottom: 0vh;
     pointer-events: none;
     background-color: #fff;
 }
 
 .bottom-bar-11 {
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     width: 100%;
     height: 7.5vh;
@@ -588,6 +632,7 @@ export default {
     bottom: 7.5vh;
     flex-direction: column;
     background-color: #fff;
+    padding-bottom: 1vh;
 }
 
 .fade-enter-from,

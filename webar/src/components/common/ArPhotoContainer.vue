@@ -98,9 +98,9 @@ export default {
 .event-wrapper {
   z-index: 1;
   width: 100%;
-  height: 80%;
+  height: 62vh;
   margin: 0 auto;
   position: relative;
-  top: 7.5vh;
+  top: 14vh;
 }
 </style>
