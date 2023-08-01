@@ -2,47 +2,77 @@
   <vue-final-modal v-model="showVModal">
     <div class="main-content" :style="{ backgroundImage: `url(${filmResultImgUrl})` }">
       <img :src="imageurl" class="image" alt="Image from URL" />
-      <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText }}</button>
+      <button v-if="photoPrintYn" class="box-button" @click="print">{{ photoPrintButtonText + '&nbsp;&nbsp;➔'
+      }}</button>
       <div class="buttons">
         <button @click="back">
-          <img src="../../assets/icon/back-button.png" alt="뒤로" style="width: 60px; height: 60px;" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path
+              d="M5.25 15.75H28.875C33.2242 15.75 36.75 19.2758 36.75 23.625C36.75 27.9742 33.2242 31.5 28.875 31.5H21M5.25 15.75L12.25 8.75M5.25 15.75L12.25 22.75"
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%;">
+            뒤로</p>
         </button>
         <button @click="saveImage()">
-          <img src="../../assets/icon/save-button.png" alt="저장" style="width: 60px; height: 60px;" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M36.75 36.75H5.25M31.5 19.25L21 29.75M21 29.75L10.5 19.25M21 29.75V5.25" stroke="black"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%;">
+            저장</p>
         </button>
         <button @click="shareAgreePopupYn ? agreeShare() : share()">
-          <i class="fa-solid fa-share-nodes fa-5x" style="color:black ;"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path
+              d="M36.75 15.75L36.75 5.25002M36.75 5.25002H26.25M36.75 5.25002L21 21M17.5 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V28.35C5.25 31.2903 5.25 32.7604 5.82222 33.8834C6.32555 34.8713 7.1287 35.6744 8.11655 36.1778C9.23959 36.75 10.7097 36.75 13.65 36.75H28.35C31.2903 36.75 32.7604 36.75 33.8834 36.1778C34.8713 35.6744 35.6744 34.8713 36.1778 33.8834C36.75 32.7604 36.75 31.2903 36.75 28.35V24.5"
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%;">
+            공유</p>
         </button>
       </div>
-      <div v-if="hashTagYn" class="box">
-        <h1 style="font-weight: bold">필수해시태그</h1>
-        <p v-html="generateHashTagString(hashTagValue)"></p>
-        <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
-        <transition name="fade">
-          <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
-        </transition>
+      <div class="box-container">
+        <div v-if="hashTagYn" class="box">
+          <h1
+            style="color: #000;text-align: center;font-family: Pretendard;font-size: 16px;font-style: normal;font-weight: 800;line-height: 140%;">
+            필수 해시태그</h1>
+          <p v-html="generateHashTagString(hashTagValue)"></p>
+          <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
+          <transition name="fade">
+            <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
+          </transition>
+        </div>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')" style="margin-bottom: 3.5vh;">{{
-        photoGiveAwayButtonText
+      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')" style="margin-bottom: 2vh;">{{
+        photoGiveAwayButtonText + '&nbsp;&nbsp;➔'
+
       }}</button>
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showAgreeModal" class="modal">
         <div class="modal-content2">
           <button class="close-button2" @click="showAgreeModal = false">
-            <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 42 42" fill="none">
+              <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
           </button>
-          <h1 style="font-weight: bold;">사진 활용 동의 안내</h1>
+          <h1
+            style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%;">
+            사진 활용 동의 안내</h1>
           <br>
           <div class="text">
             <pre>{{ agreePopupText }}</pre>
           </div>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
           <br>
-          <br>
           <input type="text" :placeholder="agreePopupInputText" class="input-text" v-model="inputText" />
           <br>
           <div class="button-container">
-            <button class="round-button" @click="share">동의하기</button>
+            <button class="round-button-white" @click="share">확인</button>
           </div>
         </div>
       </div>
@@ -308,13 +338,13 @@ export default {
   position: absolute;
   background-color: #fff;
   background-blend-mode: multiply;
-  padding-top: 2vh;
+  padding-top: 8vh;
   overflow-y: scroll;
 }
 
 .image {
-  width: 90%;
-  height: auto;
+  width: 80%;
+  height: 49vh;
 }
 
 .buttons {
@@ -322,19 +352,21 @@ export default {
   justify-content: space-around;
   width: 100%;
   height: 10vh;
-  margin-top: 3.5vh;
+  margin-top: 2vh;
 }
 
 .box-button {
   display: inline-block;
-  margin-left: 5%;
-  margin-top: 3.5vh;
-  border: 1px solid #000;
-  border-radius: 25px;
-  background-color: #fff;
-  font-size: 20px;
+  margin-top: 2vh;
+  border-radius: 24px;
+  background-color: #000;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .modal {
@@ -365,7 +397,8 @@ export default {
   background-color: rgba(0, 0, 0, 0);
   padding: 5%;
   border-radius: 10px;
-  width: 80%;
+  width: 78%;
+  height: 30vh;
   text-align: center;
   background-color: #fff;
   color: #000;
@@ -394,8 +427,7 @@ export default {
   border-radius: 25px;
   width: 100%;
   height: 50px;
-  margin-left: 5%;
-  margin-top: 3.5vh;
+  margin-top: 2vh;
   border: 2px solid #000;
   background-color: #fff;
   color: #000;
@@ -408,13 +440,12 @@ export default {
 }
 
 .copy-button {
-  border: 1px solid #000;
-  border-radius: 20px;
-  width: 40%;
-  height: 30%;
-  background-color: lightgray;
-  padding-bottom: 6%;
-  padding-top: 2%;
+  display: inline-flex;
+  padding: 13px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  border: 1px solid var(--black-50, #757575);
 }
 
 .box {
@@ -422,11 +453,10 @@ export default {
   flex-direction: column;
   align-items: center;
   border: 1px solid #000;
-  border-radius: 15px;
-  width: 80%;
-  height: 12vh;
-  margin-left: 10%;
-  margin-top: 3.5vh;
+  border-radius: 20px;
+  width: 86%;
+  height: 17vh;
+  margin-top: 2vh;
   padding-top: 2vh;
   padding-bottom: 1vh;
   gap: 1vh;
@@ -440,6 +470,13 @@ export default {
 
 .box p {
   word-wrap: break-word;
+  max-width: 170px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
 }
 
 .fade-enter-active,
@@ -466,10 +503,24 @@ export default {
 
 .text pre {
   text-align: center;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
 }
 
 .link {
-  text-decoration: underline;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
+  text-decoration-line: underline;
 }
 
 .input-text {
@@ -479,6 +530,28 @@ export default {
   background-color: grey;
   color: white;
   border-radius: 5px;
-  padding: 10px 10px;
+  padding: 14px 10px 16px 10px;
+}
+
+.box-container {
+  display: flex;
+  justify-content: center;
+}
+
+.round-button-white {
+  width: 53%;
+  height: auto;
+  display: inline-block;
+  margin-top: 2vh;
+  border-radius: 24px;
+  border: 1px solid var(--black-50, #757575);
+  background-color: #fff;
+  white-space: nowrap;
+  padding: 13px 24px 13px 24px;
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 </style>

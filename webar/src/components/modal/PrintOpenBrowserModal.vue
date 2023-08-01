@@ -2,47 +2,80 @@
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
       <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
-        <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+          <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
-      <div class="prints-count">
-        <span style="margin-right: 2em;">출력 장수</span>
-        <button v-if="printNumber > 1" class="button-print1" @click="decreasePrints">-</button>
-        <span class="prints-number">{{ printNumber }}</span>
-        <button v-if="printNumber < freePrintCustomerCount" class="button-print2" @click="increasePrints">+</button>
+      <div class="button-container2">
+        <div class="prints-count">
+          <span
+            style="color: #000;text-align: center;font-family: Inter;font-size: 18px;font-style: normal;font-weight: 500;line-height: 140%; ">출력
+            장 수</span>
+          <button v-if="printNumber > 1" @click="decreasePrints" style="margin-left: 15%;"><svg
+              xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+              <path
+                d="M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></button>
+          <span class="prints-number" style="margin-left: 9%; margin-right: 9%;">{{ printNumber }}</span>
+          <button v-if="printNumber < freePrintCustomerCount" @click="increasePrints">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+              <path
+                d="M21 14V28M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <button class="round-button" @click="showDeviceModal = true">출력하기</button>
+      <div class="button-container2">
+        <button class="round-button-red" @click="showDeviceModal = true">출력하기&nbsp;&nbsp;➔</button>
+      </div>
       <div v-if="showErrorModal" class="modal">
         <button class="close-button2" @click="showErrorModal = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 42 42" fill="none">
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </button>
-        <div class="modal-content">
+        <div class="modal-content4">
           <h2>디바이스번호 불일치</h2>
           <br />
           <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
-          <button class="round-button" @click="print()">다시 출력요청</button>
+          <button class="round-button-white" @click="print()">확인</button>
         </div>
       </div>
       <div v-if="showFiveModal" class="modal3">
-        <div class="modal-content3">
+        <div class="modal-content4">
           <h2>디바이스번호 5회 불일치</h2>
           <br />
           <p>기기번호를 다시 확인하세요.</p>
           <p>출력페이지를 종료합니다.</p>
-          <button class="round-button" @click="showFiveModal = false, showDeviceModal = false">확인</button>
+          <button class="round-button-white" @click="showFiveModal = false, showDeviceModal = false">확인</button>
         </div>
       </div>
-      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치보기</button>
+      <div class="button-container2">
+        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치보기&nbsp;&nbsp;➔</button>
+      </div>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showFiveModal = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </button>
         <div class="modal-content">
-          <p>키오스크 화면에 보이는</p>
-          <p>기기번호를 입력해 주세요.</p>
+          <p
+            style="color: #000;text-align: center;font-family: Corinthia;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
+            키오스크 화면에 보이는</p>
+          <p
+            style="color: #000;text-align: center;font-family: Corinthia;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
+            기기번호를 입력해 주세요.</p>
+
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
-          <button class="round-button" @click="print">확인</button>
+          <button class="round-button-white" @click="print">확인</button>
         </div>
       </div>
       <div v-if="showSuccessModal" class="modal2">
@@ -82,7 +115,10 @@
 
       <div v-if="showLocationPopup" class="modal2">
         <button class="exit-button" @click="showLocationPopup = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </button>
         <div class="modal-content2">
           <img :src="locationFindPopupImgUrl" class="image" alt="Image from URL" />
@@ -91,13 +127,23 @@
 
       <div v-show="showLocationMap" class="modal2">
         <button class="exit-button" @click="showLocationMap = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
         </button>
         <div class="button-container">
-          <button v-if="deviceOn" @click="prevLocation()">이전</button>
+          <button v-if="deviceOn" @click="prevLocation()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
           <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
             {{ currentDevice.deviceName }}</span>
-          <button v-if="deviceOn" @click="nextLocation()">다음</button>
+          <button v-if="deviceOn" @click="nextLocation()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></button>
         </div>
         <div class="modal-content2">
           <div id="map"></div>
@@ -413,35 +459,66 @@ export default {
 }
 
 .image {
-  width: 90%;
-  height: auto;
+  width: 80%;
+  height: 49vh;
   position: relative;
-  top: 0vh
+  margin-top: 10vh;
 }
 
 .exit-button {
   z-index: 3;
   position: absolute;
-  top: 0px;
-  right: 20px;
-  font-size: 2rem;
+  top: 1.5vh;
+  right: 4%;
 }
 
 .round-button {
   display: inline-block;
-  margin-left: 5%;
   margin-top: 3.5vh;
-  border: 1px solid #000;
-  border-radius: 25px;
-  background-color: #fff;
-  font-size: 20px;
+  border-radius: 24px;
+  background-color: #000;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.round-button-white {
+  width: 86%;
+  height: auto;
+  display: inline-block;
+  margin-top: 2vh;
+  border-radius: 24px;
+  border: 1px solid var(--black-50, #757575);
+  background-color: #fff;
+  white-space: nowrap;
+  padding: 13px 24px 13px 24px;
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.round-button-red {
+  display: inline-block;
+  margin-top: 3.5vh;
+  border-radius: 24px;
+  background-color: #EE4848;
+  white-space: nowrap;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .round-button2 {
-  display: inline-block;
-  margin-left: 5%;
+  display: flex;
   margin-top: 3.5vh;
   border: 1px solid #000;
   border-radius: 25px;
@@ -452,9 +529,9 @@ export default {
 }
 
 .device-number-input {
-  width: 80%;
-  padding: 10px;
-  margin: 3.5vh auto;
+  width: 84%;
+  padding: 14px 15px 16px 15px;
+  margin-top: 2vh;
   display: block;
   border: 1px solid #000;
 }
@@ -478,7 +555,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -502,8 +579,6 @@ export default {
 
 .modal-content {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
   text-align: center;
 }
 
@@ -513,10 +588,11 @@ export default {
   height: 80vh;
 }
 
-.modal-content3 {
-  padding: 20px;
-  border-radius: 5px;
+
+.modal-content4 {
+  background-color: #fff;
   text-align: center;
+  padding: 5%;
 }
 
 .highlight-text {
@@ -561,49 +637,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1.5vh;
-  margin-bottom: 0.5vh;
-  margin-left: 10%;
+  margin-top: 3.5vh;
   width: 80%;
   height: 4vh;
-}
-
-.prints-number {
-  border: 1px solid black;
-  padding: 2px 70px;
-  height: 60%;
-}
-
-.button-print1 {
-  background-color: gray;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  padding: 0px 4px;
-  height: 3.3vh;
-}
-
-.button-print2 {
-  background-color: gray;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  padding: 0px 4px;
-  height: 3.3vh;
 }
 
 .close-button2 {
@@ -639,5 +675,10 @@ export default {
 
 .button-container button:last-of-type {
   right: 2%;
+}
+
+.button-container2 {
+  display: flex;
+  justify-content: center;
 }
 </style>

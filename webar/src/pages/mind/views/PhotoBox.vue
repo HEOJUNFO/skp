@@ -1,10 +1,5 @@
 <template>
     <div class="main-content">
-        <button class="exit-button" @click="exit()">
-            <img src="../../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
-        </button>
-        <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
-        <button class="box-button" @click="triggerFileInput">사진 업로드</button>
         <div v-if="imagesData.length === 0" class="empty-message" style="margin-top: 1vh;">
             <p>저장되거나 공유된 사진이 없습니다.</p>
             <p>AR포토 촬영하고 다양한 혜택을 받으세요.</p>
@@ -17,15 +12,25 @@
         <button class="more-button" v-if="imagesData.length > visibleImages.length" @click="showMoreImages">
             <img src="../../../assets/icon/more-button.png" alt="더보기" style="width: 30px; height: 40px;" />
         </button>
-        <button class="round-button" @click="exit()">나가기</button>
+        <input type="file" ref="fileInput" @change="uploadImage" accept="image/*" style="display: none">
+        <button class="box-button" @click="triggerFileInput">사진 업로드&nbsp;&nbsp;➔</button>
+        <button class="box-button" @click="exit()">나가기&nbsp;&nbsp;➔</button>
         <div v-if="bannerON" class="banner-group">
             <div class="banner-container">
-                <button @click="prevBanner()">이전</button>
+                <button @click="prevBanner()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg></button>
                 <a :href="currentBanner.bannerTargetUrl" target="_blank" @touchstart="handleTouchStart"
                     @touchmove="handleTouchMove" @touchend="handleTouchEnd">
                     <img :src="currentBanner.bannerImgUrl" :alt="currentBanner.bannerSort">
                 </a>
-                <button @click="nextBanner()">다음</button>
+                <button @click="nextBanner()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg></button>
             </div>
         </div>
     </div>
@@ -238,19 +243,18 @@ export default {
 .image-group {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
-    margin-top: 1vh;
-    margin-right: 1%;
-    max-height: 60vh;
+    margin-top: 5vh;
+    max-height: 55vh;
     overflow-y: auto;
+    gap: 2%
 }
 
 .image-container {
-    width: 14vh;
-    height: 14vh;
-    margin-left: 1%;
-    margin-bottom: 0.4vh;
+    width: 13vh;
+    height: 13vh;
+    margin-bottom: 1vh;
     position: relative;
     overflow: hidden;
 }
@@ -265,50 +269,19 @@ export default {
     transform: translate(-50%, -50%);
 }
 
-.exit-button {
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    font-size: 2rem;
-}
-
-.round-button {
-    position: absolute;
-    display: inline-block;
-    border-radius: 30px;
-    width: 80%;
-    height: 10vh;
-    position: absolute;
-    bottom: 22vh;
-    border: 1px solid #000;
-    background-color: #fff;
-    color: #000;
-}
-
-.box-button {
-    display: inline-block;
-    width: 40%;
-    height: 5vh;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    border: 1px solid #000;
-    background-color: #fff;
-    color: #000;
-}
-
 .banner-group {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    height: 10vh;
+    height: 18vh;
     position: absolute;
-    bottom: 8.5vh;
+    bottom: 0vh;
 }
 
 .banner-container {
     width: 100%;
-    height: 10vh;
+    height: 18vh;
     position: absolute;
 }
 
@@ -332,5 +305,19 @@ export default {
 
 .banner-container button:last-of-type {
     right: 2%;
+}
+
+.box-button {
+    display: inline-block;
+    margin-top: 3.5vh;
+    border-radius: 24px;
+    background-color: #000;
+    white-space: nowrap;
+    padding: 13px 20px 13px 24px;
+    color: var(--white, #FFF);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
 }
 </style>

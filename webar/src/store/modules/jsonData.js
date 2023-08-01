@@ -963,10 +963,12 @@ export const jsonData = {
         arCharacterSettingYn: "Y",         //	AR 캐릭터 설정 	String	설정안함 : N / 설정함 : Y
         arStickerSettingYn: "Y",           //	스티커 설정 	String	설정안함 : N / 설정함 : Y
         filmResultImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXPZUMWG7670fd3ecc43bb78a9aacbba1eecd253.png",             //	촬영 결과 이미지 url	String	
-        hashTagSettingYn: "N",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
+        hashTagSettingYn: "Y",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
         hashTagValue: [
-          "Play AR",
-          "SK플래닛"
+          "AR포토개발",
+          "모두화이팅",
+          "AR포토개발",
+          "모두화이팅",
       ],                // 	해시태그 값 	String	콤마 , 로 구분자
         shareAgreePopupSettingYn: "Y",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
         agreePopupText: "안녕하세요. Play AR입니다.\\n인스타 이벤트 참여를 위해서는\\n개인정보사용 동의가 필요합니다.",	  // 	동의 팝업 문구	String	
@@ -976,7 +978,7 @@ export const jsonData = {
         photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
         photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
-        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        filmResultFooterImgSettingYn: "Y",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
         filmResultFooterImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDU5LkV7fe41e322ad0d2ec7d5537c4590a167.png  ",	      // 	하단 이미지 url	String	하단 이미지 url
       },
       photoContentsInfo: {

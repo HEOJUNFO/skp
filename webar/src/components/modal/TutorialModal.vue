@@ -24,21 +24,38 @@
         </button>
       </div>
     </div>
-    <svg class="circle" xmlns="http://www.w3.org/2000/svg" width="87" height="87" viewBox="0 0 87 87" fill="none">
-      <g style="mix-blend-mode:color-dodge">
-        <circle cx="43.5" cy="43.5" r="43.5" fill="white" />
-      </g>
-    </svg>
-    <svg class="frameImage" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-      <path
-        d="M5 13C5 10.1997 5 8.79961 5.54497 7.73005C6.02433 6.78924 6.78924 6.02433 7.73005 5.54497C8.79961 5 10.1997 5 13 5H27C29.8003 5 31.2004 5 32.27 5.54497C33.2108 6.02433 33.9757 6.78924 34.455 7.73005C35 8.79961 35 10.1997 35 13V27C35 29.8003 35 31.2004 34.455 32.27C33.9757 33.2108 33.2108 33.9757 32.27 34.455C31.2004 35 29.8003 35 27 35H13C10.1997 35 8.79961 35 7.73005 34.455C6.78924 33.9757 6.02433 33.2108 5.54497 32.27C5 31.2004 5 29.8003 5 27V13Z"
-        stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M15 15.8333L10 25H30L22.5 12.5L18.3333 18.3333L15 15.8333Z" stroke="black" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-    <p class="frameText"
-      style="color: #000; text-align: center; font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: normal;"
-      :style="frameButtonStyle">배경</p>
+    <!-- <div v-if="currentIndex == 0">
+      <svg class="circle" xmlns="http://www.w3.org/2000/svg" width="87" height="87" viewBox="0 0 87 87" fill="none">
+        <g style="mix-blend-mode:color-dodge">
+          <circle cx="43.5" cy="43.5" r="43.5" fill="white" />
+        </g>
+      </svg>
+      <svg class="frameImage" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <path
+          d="M5 13C5 10.1997 5 8.79961 5.54497 7.73005C6.02433 6.78924 6.78924 6.02433 7.73005 5.54497C8.79961 5 10.1997 5 13 5H27C29.8003 5 31.2004 5 32.27 5.54497C33.2108 6.02433 33.9757 6.78924 34.455 7.73005C35 8.79961 35 10.1997 35 13V27C35 29.8003 35 31.2004 34.455 32.27C33.9757 33.2108 33.2108 33.9757 32.27 34.455C31.2004 35 29.8003 35 27 35H13C10.1997 35 8.79961 35 7.73005 34.455C6.78924 33.9757 6.02433 33.2108 5.54497 32.27C5 31.2004 5 29.8003 5 27V13Z"
+          stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M15 15.8333L10 25H30L22.5 12.5L18.3333 18.3333L15 15.8333Z" stroke="black" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="frameText"
+        style="color: #000; text-align: center; font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: normal;"
+        :style="frameButtonStyle">배경</p>
+    </div>
+    <div v-if="currentIndex == 1">
+      <svg class="circle2" xmlns="http://www.w3.org/2000/svg" width="87" height="87" viewBox="0 0 87 87" fill="none">
+        <g style="mix-blend-mode:color-dodge">
+          <circle cx="43.5" cy="43.5" r="43.5" fill="white" />
+        </g>
+      </svg>
+      <svg class="effectImage" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <path
+          d="M15 25.5903C16.3269 26.7779 18.0791 27.5 20 27.5C24.1421 27.5 27.5 24.1422 27.5 20C27.5 16.5413 25.1588 13.6295 21.9748 12.7627M8.02522 12.7627C4.84117 13.6295 2.5 16.5413 2.5 20C2.5 24.1421 5.85786 27.5 10 27.5C14.1421 27.5 17.5 24.1421 17.5 20C17.5 19.0244 17.3137 18.0923 16.9748 17.2373M22.5 10C22.5 14.1421 19.1421 17.5 15 17.5C10.8579 17.5 7.5 14.1421 7.5 10C7.5 5.85786 10.8579 2.5 15 2.5C19.1421 2.5 22.5 5.85786 22.5 10Z"
+          stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="effectText"
+        style="color: #000; text-align: center; font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: normal;"
+        :style="frameButtonStyle">효과</p>
+    </div> -->
   </div>
 </template>
   
@@ -61,6 +78,7 @@ export default {
       xDown: null,
       yDown: null,
       swipeDirection: null,
+
     };
   },
   methods: {
@@ -168,19 +186,37 @@ export default {
 
 .frameText {
   position: absolute;
-  bottom: 9%;
-  left: 15.5%;
+  bottom: 8vh;
+  left: 13.8%;
 }
 
 .frameImage {
   position: absolute;
-  bottom: 11%;
-  left: 13%;
+  bottom: 10.5vh;
+  left: 11%;
 }
 
 .circle {
   position: absolute;
-  bottom: 7%;
-  left: 7%;
+  bottom: 6.5vh;
+  left: 5%;
+}
+
+.circle2 {
+  position: absolute;
+  bottom: 6.5vh;
+  right: 5%;
+}
+
+.effectText {
+  position: absolute;
+  bottom: 8.7vh;
+  right: 13.8%;
+}
+
+.effectImage {
+  position: absolute;
+  bottom: 11.1vh;
+  right: 12.5%;
 }
 </style>
