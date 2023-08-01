@@ -384,30 +384,32 @@ export default {
 
 .round-button {
   display: inline-block;
-  border-radius: 30px;
-  width: 80%;
-  height: 8vh;
-  margin-top: 1vh;
-  border: 2px solid #000;
+  margin-left: 5%;
+  margin-top: 3.5vh;
+  border: 1px solid #000;
+  border-radius: 25px;
   background-color: #fff;
-  color: #000;
+  font-size: 20px;
+  white-space: nowrap;
+  padding: 10px 20px;
 }
 
 .round-button2 {
   display: inline-block;
-  border-radius: 30px;
-  width: 100%;
-  height: 30px;
-  margin: 10px;
-  border: 2px solid #000;
-  background-color: #000;
-  color: #fff;
+  margin-left: 5%;
+  margin-top: 3.5vh;
+  border: 1px solid #000;
+  border-radius: 25px;
+  background-color: #fff;
+  font-size: 20px;
+  white-space: nowrap;
+  padding: 10px 20px;
 }
 
 .device-number-input {
   width: 80%;
   padding: 10px;
-  margin: 10px auto;
+  margin: 3.5vh auto;
   display: block;
   border: 1px solid #000;
 }
@@ -475,7 +477,7 @@ export default {
 .highlight-text {
   font-size: 1.7em;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 3.5vh 0;
   text-align: left;
 }
 
@@ -490,15 +492,11 @@ export default {
   background-color: gray;
   color: #fff;
   text-align: center;
-  margin: 100px auto;
+  margin: 7vh auto;
 }
 
 .circle-message p {
   font-size: 3.5em;
-}
-
-.bottom-text {
-  margin: 20px auto;
 }
 
 .error {

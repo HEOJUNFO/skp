@@ -24,7 +24,7 @@ import { useStore } from "vuex";
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
 import NavBar from "../../../components/common/NavBar.vue";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
-import Camera from "@/components/common/Camera";
+import Camera from "@/components/common/ArPhotoCamera";
 import TutorialModal from "@/components/modal/TutorialModal";
 import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";

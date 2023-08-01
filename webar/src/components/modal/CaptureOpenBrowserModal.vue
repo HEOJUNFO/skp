@@ -22,7 +22,8 @@
           <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
         </transition>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup('')">{{ photoGiveAwayButtonText
+      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')" style="margin-bottom: 3.5vh;">{{
+        photoGiveAwayButtonText
       }}</button>
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showAgreeModal" class="modal">
@@ -189,6 +190,7 @@ export default {
 
       if (shareAgreePopupYn) {
         putPvLog(getPvLogParams(1, "/main/photo/popup", undefined, undefined, undefined, new Date().toISOString()));
+        console.log(eventId.value);
         // setTimeout(() => {
         //   putLogPersonAgree({
         //     eventId: eventId.value,
@@ -228,7 +230,6 @@ export default {
     const agreeShare = () => {
       showAgreeModal.value = true;
       putPvLog(getPvLogParams(2, "/main/photo"));
-      console.log(eventId.value);
       // setTimeout(() => {
       //   putPvLog(getPvLogParams(0, "/main/photo/popup"));
       // }, 100);
@@ -325,28 +326,15 @@ export default {
 }
 
 .box-button {
-  display: block;
+  display: inline-block;
   margin-left: 5%;
   margin-top: 3.5vh;
-  width: 90%;
-  height: 7vh;
   border: 1px solid #000;
   border-radius: 25px;
   background-color: #fff;
   font-size: 20px;
-}
-
-.box-button2 {
-  display: block;
-  margin-left: 5%;
-  margin-top: 3.5vh;
-  margin-bottom: 3.5vh;
-  width: 90%;
-  height: 7vh;
-  border: 1px solid #000;
-  border-radius: 25px;
-  background-color: #fff;
-  font-size: 20px;
+  white-space: nowrap;
+  padding: 10px 20px;
 }
 
 .modal {
@@ -377,7 +365,7 @@ export default {
   background-color: rgba(0, 0, 0, 0);
   padding: 5%;
   border-radius: 10px;
-  width: 60%;
+  width: 80%;
   text-align: center;
   background-color: #fff;
   color: #000;
@@ -485,11 +473,12 @@ export default {
 }
 
 .input-text {
-  width: 100%;
+  width: 90%;
   height: 30px;
   border: none;
   background-color: grey;
   color: white;
   border-radius: 5px;
+  padding: 10px 10px;
 }
 </style>
