@@ -21,7 +21,8 @@
         <div v-if="bannerON" class="banner-group">
             <div class="banner-container">
                 <button @click="prevBanner()">이전</button>
-                <a :href="currentBanner.bannerTargetUrl" target="_blank">
+                <a :href="currentBanner.bannerTargetUrl" target="_blank" @touchstart="handleTouchStart"
+                    @touchmove="handleTouchMove" @touchend="handleTouchEnd">
                     <img :src="currentBanner.bannerImgUrl" :alt="currentBanner.bannerSort">
                 </a>
                 <button @click="nextBanner()">다음</button>
@@ -122,6 +123,49 @@ export default {
             printModal.value.openModal(imgUrl);
         }
 
+        const xDown = ref(null);
+        const yDown = ref(null);
+        const swipeDirection = ref(null);
+
+        const handleTouchStart = (e) => {
+            const firstTouch = e.touches[0];
+            xDown.value = firstTouch.clientX;
+            yDown.value = firstTouch.clientY;
+        }
+
+        const handleTouchMove = (e) => {
+            if (!xDown.value || !yDown.value) {
+                return;
+            }
+
+            let xUp = e.touches[0].clientX;
+            let yUp = e.touches[0].clientY;
+
+            let xDiff = xDown.value - xUp;
+            let yDiff = yDown.value - yUp;
+
+            if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                if (xDiff > 0) {
+                    swipeDirection.value = 'left';
+                } else {
+                    swipeDirection.value = 'right';
+                }
+            }
+
+            xDown.value = null;
+            yDown.value = null;
+        }
+
+        const handleTouchEnd = () => {
+            if (swipeDirection.value === 'left') {
+                nextBanner();
+            } else if (swipeDirection.value === 'right') {
+                prevBanner();
+            }
+            swipeDirection.value = null;
+        }
+
+
         const originalOnPopState = function () {
             if (printModal.value.showVModal) {
                 history.go(1);
@@ -170,6 +214,9 @@ export default {
             prevBanner,
             currentBanner,
             exit,
+            handleTouchEnd,
+            handleTouchMove,
+            handleTouchStart,
         }
     },
 }

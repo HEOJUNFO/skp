@@ -95,7 +95,8 @@
         </button>
         <div class="button-container">
           <button v-if="deviceOn" @click="prevLocation()">이전</button>
-          <span>{{ currentDevice.deviceName }}</span>
+          <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
+            {{ currentDevice.deviceName }}</span>
           <button v-if="deviceOn" @click="nextLocation()">다음</button>
         </div>
         <div class="modal-content2">
@@ -303,7 +304,48 @@ export default {
       }
       currentDevice.value = deviceGpsList.value[nextIndex];
       marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+    }
 
+    const xDown = ref(null);
+    const yDown = ref(null);
+    const swipeDirection = ref(null);
+
+    const handleTouchStart = (e) => {
+      const firstTouch = e.touches[0];
+      xDown.value = firstTouch.clientX;
+      yDown.value = firstTouch.clientY;
+    }
+
+    const handleTouchMove = (e) => {
+      if (!xDown.value || !yDown.value) {
+        return;
+      }
+
+      let xUp = e.touches[0].clientX;
+      let yUp = e.touches[0].clientY;
+
+      let xDiff = xDown.value - xUp;
+      let yDiff = yDown.value - yUp;
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+          swipeDirection.value = 'left';
+        } else {
+          swipeDirection.value = 'right';
+        }
+      }
+
+      xDown.value = null;
+      yDown.value = null;
+    }
+
+    const handleTouchEnd = () => {
+      if (swipeDirection.value === 'left') {
+        nextLocation();
+      } else if (swipeDirection.value === 'right') {
+        prevLocation();
+      }
+      swipeDirection.value = null;
     }
 
     const webBack = () => {
@@ -350,7 +392,10 @@ export default {
       prevLocation,
       nextLocation,
       currentDevice,
-      deviceOn
+      deviceOn,
+      handleTouchMove,
+      handleTouchStart,
+      handleTouchEnd,
     }
   },
 }

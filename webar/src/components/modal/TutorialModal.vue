@@ -1,7 +1,8 @@
 <template>
   <div class="tutorial-popup" :style="{ backgroundColor: bgColor }">
     <div class="tutorial-inner">
-      <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index">
+      <div v-for="(tutorial, index) in tutorials" :key="index" v-show="currentIndex === index"
+        @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
         <img :src="tutorial.image" alt="튜토리얼가이드 이미지 필요!!" />
       </div>
 
@@ -40,6 +41,9 @@ export default {
       bgColor: '#222222',
       nextIcon: require('../../assets/icon/next.png'),
       skipIcon: require('../../assets/icon/skip.png'),
+      xDown: null,
+      yDown: null,
+      swipeDirection: null,
     };
   },
   methods: {
@@ -59,7 +63,39 @@ export default {
     changeBgColor(color) {
       this.bgColor = color;
     },
+    handleTouchStart(evt) {
+      const firstTouch = evt.touches[0];
+      this.xDown = firstTouch.clientX;
+      this.yDown = firstTouch.clientY;
+    },
+    handleTouchMove(evt) {
+      if (!this.xDown || !this.yDown) {
+        return;
+      }
+
+      const xUp = evt.touches[0].clientX;
+      const yUp = evt.touches[0].clientY;
+
+      const xDiff = this.xDown - xUp;
+      const yDiff = this.yDown - yUp;
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+          this.swipeDirection = 'left';
+        }
+      }
+
+      this.xDown = null;
+      this.yDown = null;
+    },
+    handleTouchEnd() {
+      if (this.swipeDirection === 'left') {
+        this.next()
+      }
+      this.swipeDirection = null;
+    }
   }
+
 }
 </script>
   
