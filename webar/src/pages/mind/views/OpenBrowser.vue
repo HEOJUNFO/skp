@@ -271,9 +271,8 @@ export default {
       handlePopState();
     };
 
-
-
     onMounted(async () => {
+      //check ios version
       await getEventData();
 
       setList();

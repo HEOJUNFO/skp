@@ -23,9 +23,11 @@ export default function useOrientation() {
 
   function getOrientation() {
    
-      // window의 너비와 높이를 비교하여 방향을 판단
-      return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
-    
+      if (typeof window.orientation === 'undefined') {
+     return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+      }else{
+      return window.orientation === 0 ? 'portrait' : 'landscape';
+      }
   }
   
 
