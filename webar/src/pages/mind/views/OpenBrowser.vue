@@ -4,7 +4,7 @@
     :sticker-list="stickerList" :tab-list="tabList">
     <ar-photo-container ref="containerRef">
       <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
-      <camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
+      <ar-photo-camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
         <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
           :sticker-asset="stickerList" :tab-list="tabList" @load:scene="loadScene"
@@ -24,7 +24,7 @@ import { useStore } from "vuex";
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
 import NavBar from "../../../components/common/NavBar.vue";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
-import Camera from "@/components/common/ArPhotoCamera";
+import ArPhotoCamera from "@/components/common/ArPhotoCamera";
 import TutorialModal from "@/components/modal/TutorialModal";
 import CaptureOpenBrowserModal from "../../../components/modal/CaptureOpenBrowserModal.vue";
 import BrowserCheckModal from "../../../components/modal/BrowserCheckModal.vue";
@@ -38,7 +38,7 @@ import loadImage from "../../../js/loadImage";
 export default {
   name: "OpenBrowser",
   components: {
-    Camera,
+    ArPhotoCamera,
     EventArPhotoObject,
     ArPhotoContainer,
     TutorialModal,
