@@ -33,6 +33,9 @@ export default {
       emit('loadeddata');
     }
     const flipCamera = async () => {
+      const stream = video.value.srcObject;
+      stream.getTracks()
+        .forEach(track => track.stop());
       video.value.srcObject = null;
       let mode = 'user'
       cameraSettings.facingMode = cameraSettings.facingMode === 'user' ? 'environment' : 'user';

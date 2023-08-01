@@ -22,6 +22,7 @@ function stopAllStream(videoEl, stream) {
  */
 async function playVideo(videoEl, constraints) {
   const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
   videoEl.srcObject = stream;
   videoEl.onloadedmetadata = function() {
     videoEl.play();
@@ -88,6 +89,7 @@ export async function getUserMedia({videoEl, facingMode}) {
     // 재생
     stream = await playVideo(videoEl, constraints);
   } catch (err) {
+    alert(err.name + ": " + err.message);
     try {
       // NotReadableError 에러가 아닐경우 에러발생 후 종료
       if (err.name !== 'NotReadableError') {
