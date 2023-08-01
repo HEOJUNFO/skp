@@ -191,9 +191,10 @@ export default {
 .image-group {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     margin-top: 1vh;
+    margin-right: 1%;
     max-height: 60vh;
     overflow-y: auto;
 }

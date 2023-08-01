@@ -17,13 +17,12 @@ export default {
     const route = useRoute();
     const { eventId, attendCode } = toRefs(route.query);
     const url2 = window.location.href;
-    const arDataKey = 'arData=';
+    const arDataKey = "arData=";
     const startIndex = url2.indexOf(arDataKey) + arDataKey.length;
     const arData = url2.slice(startIndex);
 
-
     const { aes256Decode } = cryptoUtil();
-    const iframeHeight = ref('100%')
+    const iframeHeight = ref("100%");
     const iframeRef = ref(null);
 
     const baseUrl = process.env.VUE_APP_PAGE_PATH;
@@ -33,7 +32,7 @@ export default {
       `${baseUrl}/basic.html#/basic`,
       `${baseUrl}/ar.html#/mission`,
       `${baseUrl}/basic.html#/drag-n-drop`,
-      `${baseUrl}/ar.html#/open-browser`,
+      `${baseUrl}/mind.html#/open-browser`,
     ]);
 
     const eventData = ref(null);
@@ -85,16 +84,14 @@ export default {
       let windowWidth = window.innerWidth;
       let targetHeight = windowWidth * ratio;
       let scaleFactor = isIOS() || isGalaxyBrowser ? 1.12 : isGalaxyNote() ? 1.18 : 1.25;
-      iframeHeight.value = targetHeight * scaleFactor + 'px';
-    }
+      iframeHeight.value = targetHeight * scaleFactor + "px";
+    };
 
     const frameStyle = computed(() => {
-
       return {
         width: "100%",
         height: iframeHeight.value,
       };
-
     });
 
     const webEventGetTraceNo = function () {
@@ -109,7 +106,8 @@ export default {
       const isLocal = window.location.port !== "";
 
       if (isLocal) {
-        eventValidation = "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc"
+        eventValidation =
+          "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc";
       }
 
       if (!isLocal && !eventId?.value) {
@@ -127,7 +125,7 @@ export default {
         alert("[LOCAL]: eventId가 없습니다!");
         const router = useRouter();
         await router.push({ name: "Landing", query: { eventId: "" } });
-        return
+        return;
       }
 
       try {
@@ -158,21 +156,20 @@ export default {
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
         await dispatch("url/setActionType", eventValidationData.activeType);
 
-        let newData
-        if (eventValidationData !== 'photo') {
+        let newData;
+        if (eventValidationData !== "photo") {
           newData = {
             ...eventData.value,
             attendCode: eventValidationData.attendCode,
-          }
+          };
         } else {
           newData = {
             ...eventData.value,
-          }
+          };
         }
         // 세션스토리지에 json데이터 저장
         sessionStorage.setItem("skWebArJson", JSON.stringify(newData));
         sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
-
       } catch (err) {
         console.log(err);
         // await dispatch("url/redirectToMain");

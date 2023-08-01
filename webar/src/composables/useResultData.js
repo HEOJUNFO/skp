@@ -26,7 +26,7 @@ export default function useResultData() {
     try {
       const { eventId, attendCode } = query;
       // query string없을 시 예외 처리
-      if (!(eventId || attendCode)) {
+      if (!(eventId || attendCode) && !isLocal) {
         alert("파라미터 없음!");
         return;
       }
@@ -51,7 +51,7 @@ export default function useResultData() {
 
   const setEventResult = () => {
     eventResult.value = getters["eventData/eventResult"];
-    console.log("eventResult", eventResult.value)
+    console.log("eventResult", eventResult.value);
   };
 
   return {

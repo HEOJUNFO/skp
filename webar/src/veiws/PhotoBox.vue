@@ -1,62 +1,59 @@
 <template>
-    <iframe :src="`${baseUrl}/ar.html#/photo-box`" frameBorder="0"></iframe>
+  <iframe :src="`${baseUrl}/mind.html#/photo-box`" frameBorder="0"></iframe>
 </template>
-  
-<script>
 
+<script>
 import { onMounted, toRefs, ref } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
 export default {
-    name: "PhotoBox",
-    setup() {
-        const route = useRoute();
-        const { eventId } = toRefs(route.query);
-        const store = useStore();
-        const { dispatch, getters } = store;
+  name: "PhotoBox",
+  setup() {
+    const route = useRoute();
+    const { eventId } = toRefs(route.query);
+    const store = useStore();
+    const { dispatch, getters } = store;
 
-        const photoBoxData = ref(null);
-        const eventData = ref(null);
+    const photoBoxData = ref(null);
+    const eventData = ref(null);
 
-        onMounted(async () => {
-            const isLocal = window.location.port !== "";
+    onMounted(async () => {
+      const isLocal = window.location.port !== "";
 
-            if (!isLocal && !eventId?.value) {
+      if (!isLocal && !eventId?.value) {
+        await dispatch("url/closeWindow");
+        // return
+      }
 
-                await dispatch("url/closeWindow");
-                // return
-            }
+      try {
+        let params = {
+          eventId: eventId.value,
+        };
 
-            try {
-                let params = {
-                    eventId: eventId.value,
-                };
+        // console.log("params", params);
+        // await dispatch("jsonData/setActionObjectFrame");
+        // await dispatch("jsonData/setPhotoBoxData");
 
-                // console.log("params", params);
-                // await dispatch("jsonData/setActionObjectFrame");
-                // await dispatch("jsonData/setPhotoBoxData");
+        // 배포용
+        await dispatch("eventData/getEventData", params);
+        await dispatch("eventData/getEventPhotoBox", params);
 
-                // 배포용
-                await dispatch("eventData/getEventData", params);
-                await dispatch("eventData/getEventPhotoBox", params);
+        eventData.value = getters["eventData/eventData"];
+        photoBoxData.value = getters["eventData/photoBoxData"];
+        sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
+        sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
+      } catch (error) {
+        await dispatch("url/redirectToMain");
+        return;
+      }
+    });
 
-                eventData.value = getters["eventData/eventData"];
-                photoBoxData.value = getters["eventData/photoBoxData"];
-                sessionStorage.setItem("skWebArJson", JSON.stringify(eventData.value));
-                sessionStorage.setItem("skPhotoBoxJson", JSON.stringify(photoBoxData.value));
-
-            } catch (error) {
-                await dispatch("url/redirectToMain");
-                return
-            }
-        });
-
-        return {
-            baseUrl: process.env.VUE_APP_PAGE_PATH
-        }
-    }
-}
+    return {
+      baseUrl: process.env.VUE_APP_PAGE_PATH,
+    };
+  },
+};
 </script>
-  
+
 <style scoped></style>

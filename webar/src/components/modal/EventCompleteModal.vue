@@ -1,18 +1,13 @@
 <template>
-  <vue-final-modal v-model="showModal" content-class="win_popup" overlay-class="dimmed_bg_lightdark"
-    :click-to-close="false" @opened="opened">
+  <vue-final-modal v-model="showModal" content-class="win_popup" overlay-class="dimmed_bg_lightdark" :click-to-close="false" @opened="opened">
     <div class="popup_contents"><img :src="resultInfo?.winningInfo?.winningImageUrl" alt="" /><!-- 예시  이미지 --></div>
     <a href="#" class="close" @click.prevent="closeModal">닫기</a>
     <div class="btn" v-if="resultInfo?.winningButtonInfo && resultInfo?.winningInfo?.autoWinningYn === 'N'">
       <template v-for="(item, index) in resultInfo.winningButtonInfo" :key="`result_button${index}`">
-        <a href="#" v-if="item.buttonActionType === 'DELIVERY'" @click.prevent="buttonAction(item)"
-          :class="clickedClass(item)">{{ item.buttonText }}</a>
-        <a href="#" v-if="item.buttonActionType === 'SUBSCRIPTION'" @click.prevent="buttonAction(item)"
-          :class="clickedClass(item)">{{ item.buttonText }}</a>
-        <a href="#" v-if="item.buttonActionType === 'URL'" @click.prevent="buttonAction(item)"
-          :class="clickedClass(item)">{{ item.buttonText }}</a>
-        <a href="#" v-if="item.buttonActionType === 'CLOSE'" @click.prevent="buttonAction(item)" class="continue">{{
-          closeText }}</a>
+        <a href="#" v-if="item.buttonActionType === 'DELIVERY'" @click.prevent="buttonAction(item)" :class="clickedClass(item)">{{ item.buttonText }}</a>
+        <a href="#" v-if="item.buttonActionType === 'SUBSCRIPTION'" @click.prevent="buttonAction(item)" :class="clickedClass(item)">{{ item.buttonText }}</a>
+        <a href="#" v-if="item.buttonActionType === 'URL'" @click.prevent="buttonAction(item)" :class="clickedClass(item)">{{ item.buttonText }}</a>
+        <a href="#" v-if="item.buttonActionType === 'CLOSE'" @click.prevent="buttonAction(item)" class="continue">{{ closeText }}</a>
         <!--        TODO 오브젝트가 있을 시 AR계속 잡기 / 없을 시 AR닫기-->
       </template>
     </div>
@@ -58,7 +53,7 @@ export default {
 
     const route = useRoute();
     const { eventId } = toRefs(route.query);
-    const arEventWinningId = computed(() => resultInfo.value.winningInfo.arEventWinningId);
+    const arEventWinningId = computed(() => resultInfo.value.winningInfo?.arEventWinningId);
     const eventLogWinningId = computed(() => resultInfo.value.eventLogWinningId);
     const winningInfo = computed(() => resultInfo.value.winningInfo);
 
@@ -70,8 +65,8 @@ export default {
           ? "AR포토닫기"
           : "닫기"
         : getters["eventData/isEventFinish"]
-          ? "AR닫기"
-          : "AR계속잡기"
+        ? "AR닫기"
+        : "AR계속잡기"
     );
 
     const isFormOpened = ref(false);
@@ -86,8 +81,12 @@ export default {
     };
 
     const opened = () => {
-      const subscription = winningInfo.value.subscriptionYn === "Y" ? 1 : 0;
-      putPvLog(getPvLogParams(0, "/main/event/benefit", arEventWinningId.value, undefined, subscription));
+      try {
+        const subscription = winningInfo.value?.subscriptionYn === "Y" ? 1 : 0;
+        putPvLog(getPvLogParams(0, "/main/event/benefit", arEventWinningId.value, undefined, subscription));
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     const buttonAction = (item) => {
