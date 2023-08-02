@@ -79,12 +79,13 @@
             @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
         </div>
       </div>
-      <div v-if="showSuccessModal" class="modal2">
+      <div v-if="showPrintModal" class="modal2">
         <div class="modal-content3">
-          <h1 v-if="printStatus === 'printing'" class="highlight-text">사진 출력이 요청되었습니다</h1>
-          <div v-if="printStatus === 'printing'" class="spinner-container">
+          <h1 v-if="printStatus === 'printing' || printStatus === 'waiting'" class="highlight-text">사진 출력이 요청되었습니다</h1>
+          <div v-if="printStatus === 'printing' || printStatus === 'waiting'" class="spinner-container">
             <img id="spinner" src="../../assets/icon/spinning3.png">
-            <span class="spinner-text">출력중</span>
+            <span v-if="printStatus === 'printing'" class="spinner-text">출력중</span>
+            <span v-if="printStatus === 'waiting'" class="spinner-text">전송중</span>
           </div>
           <div v-if="printStatus === 'success'" class="circle-message">
             <p>출력완료</p>
@@ -101,9 +102,9 @@
 
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
           <button v-if="printStatus === 'success'" class="round-button-red3"
-            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
+            @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
           <button v-if="printStatus === 'fail'" class="round-button-red2"
-            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
+            @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
         </div>
       </div>
 
@@ -166,6 +167,7 @@
 import { ref, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from "vue-router";
+import axios from 'axios';
 import usePvLog from "@/composables/usePvLog";
 
 import useSavePrintStatus from '../../composables/useSavePrintStatus';
@@ -186,9 +188,9 @@ export default {
     const deviceGpsList = ref([]);
     const deviceNumber = ref('');
     const printNumber = ref(1);
-    const printStatus = ref('printing');
+    const printStatus = ref('waiting');
     const showDeviceModal = ref(false);
-    const showSuccessModal = ref(false);
+    const showPrintModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
     const showFiveModal = ref(false);
@@ -200,6 +202,7 @@ export default {
       deviceName: '디바이스 없음'
     });
     const deviceOn = ref(false);
+
 
     const {
       putSavePrintStatus
@@ -275,18 +278,16 @@ export default {
 
     let incorrectDeviceNumberCount = 0;
 
-    const print = () => {
+    const print = async () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
-      // setTimeout(() => {
-      //   putSavePrintStatus({
-      //     eventId: eventId.value,
-      //     ocbMbrId: 'test',
-      //     clintUniqueKey: 'test',
-      //     printResultStatus: 'TRY',
-      //   })
-      // }, 100);
 
-      if (!checkDeviceNumber(deviceNumber)) {
+      if (!await checkDeviceNumber(deviceNumber)) {
+        putSavePrintStatus({
+          eventId: eventId.value,
+          ocbMbrId: 'test',
+          clintUniqueKey: 'test',
+          printResultStatus: 'SUCCESS',
+        })
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
         if (incorrectDeviceNumberCount >= 5) {
@@ -301,27 +302,143 @@ export default {
         incorrectDeviceNumberCount = 0;
       }
 
+
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
         showFailureModal.value = true;
-        return;
-      } else if (freePrintCustomerCount.value >= printNumber.value) {
-        freePrintCustomerCount.value -= printNumber.value;
-        showSuccessModal.value = true;
-      }
-      showSuccessModal.value = true;
-      setTimeout(() => {
-        printStatus.value = 'success';
         putSavePrintStatus({
           eventId: eventId.value,
           ocbMbrId: 'test',
           clintUniqueKey: 'test',
           printResultStatus: 'SUCCESS',
         })
-      }, 2000);
+        return;
+      } else if (freePrintCustomerCount.value >= printNumber.value) {
+        freePrintCustomerCount.value -= printNumber.value;
+
+      }
+
+      if (await imgUpload(imageUrl)) {
+        showPrintModal.value = true;
+        getUserHistory();
+      } else {
+        showPrintModal.value = true;
+        printStatus.value = 'failure';
+        putSavePrintStatus({
+          eventId: eventId.value,
+          ocbMbrId: 'test',
+          clintUniqueKey: 'test',
+          printResultStatus: 'FAIL',
+        })
+      }
     }
 
-    const checkDeviceNumber = (deviceNumber) => {
-      return deviceNumber.value === '0000' || deviceNumber.value === '0001';
+    const getUserHistory = async () => {
+      var url = "https://go.selpic.co.kr/skapi/order/" + "cultureconTestKey"
+
+      if (deviceNumber.value === '0000') {
+        printStatus.value = 'success';
+        return;
+      } else if (deviceNumber.value === '0001') {
+        printStatus.value = 'failure';
+        return;
+      } else if (deviceNumber.value === '0002') {
+        printStatus.value = 'waiting';
+        setTimeout(() => {
+          printStatus.value = 'printing';
+        }, 2000);
+        setTimeout(() => {
+          printStatus.value = 'success';
+        }, 4000);
+        return;
+      }
+
+      try {
+        const response = await axios.get(url);
+        if (response.data.length <= 0) {
+          printStatus.value = 'failure';
+          return;
+        }
+
+        let info = response.data[0];
+        console.log(info);
+        switch (info.status) {
+          case 'S': // 
+            printStatus.value = 'success';
+            break;
+          case 'F': // 실패
+            printStatus.value = 'failure';
+            break;
+          case 'W': // 전송중
+            printStatus.value = 'waiting';
+            break;
+          case 'P': // 인쇄중
+            printStatus.value = 'printing';
+            break;
+        }
+
+        if (info.status === 'W' || info.status === 'P') {
+          setTimeout(() => {
+            getUserHistory();
+          }, 2000);
+        }
+      } catch (error) {
+        console.log("Network error: ", error);
+        return;
+      }
+
+    }
+
+    const imgUpload = async (imageUrl) => {
+      let byteString = atob(imageUrl.value.split(",")[1]);
+      let arrayBuffer = new ArrayBuffer(byteString.length);
+      let intArray = new Uint8Array(arrayBuffer);
+
+      for (let i = 0; i < byteString.length; i++) {
+        intArray[i] = byteString.charCodeAt(i);
+      }
+      let blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+
+      var url = "https://go.selpic.co.kr/skapi/upload";
+      // 인화 업로드 
+      var formData = new FormData();
+
+      formData.append("robot_id", "H150" + deviceNumber.value);      //키오스크 아이디
+      formData.append("user_id", "cultureconTestKey");                       //회원 키
+      formData.append("file", blob, "img.jpeg");
+
+      try {
+        const response = await axios({
+          url: url,
+          method: 'POST',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        return response.data.upload === true;
+      } catch (error) {
+        console.log("network error.", error);
+        return false;
+      }
+
+    }
+
+
+    const checkDeviceNumber = async (deviceNumber) => {
+      if (deviceNumber.value === '0000' || deviceNumber.value === '0001') {
+        return true;
+      }
+      var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;
+
+      try {
+        const response = await axios.get(url);
+        const data = response.data;
+        return data.status === 'normal';
+      } catch (error) {
+        alert("network error." + error);
+        return false;
+      }
     }
 
     const exit = () => {
@@ -405,7 +522,7 @@ export default {
       if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
         showDeviceModal.value = false;
         showFailureModal.value = false;
-        showSuccessModal.value = false;
+        showPrintModal.value = false;
         showErrorModal.value = false;
         showLocationMap.value = false;
         showLocationPopup.value = false;
@@ -431,7 +548,7 @@ export default {
       exit,
       showDeviceModal,
       showFailureModal,
-      showSuccessModal,
+      showPrintModal,
       printNumber,
       deviceNumber,
       printStatus,
