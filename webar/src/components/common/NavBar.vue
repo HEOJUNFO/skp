@@ -555,30 +555,6 @@ export default {
             }
         });
 
-        const bottombarStyle = computed(() => (
-            {
-                bottom: aspectRatio.value === 2 ? '18vh' : '0vh',
-                height: aspectRatio.value === 3 ? '24vh' : aspectRatio.value === 2 ? '9vh' : '24vh',
-            }));
-
-        const barStyle = computed(() => (
-            {
-                backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-                bottom: aspectRatio.value === 3 ? '24vh' : aspectRatio.value === 2 ? '18vh' : '0vh',
-            }));
-        const barStyle2 = computed(() => ({
-            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-            bottom: aspectRatio.value === 3 ? '31vh' : aspectRatio.value === 2 ? '25vh' : '7vh',
-        }));
-        const blockbarStyle = computed(() => ({
-            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-        }));
-        const blockbarStyle2 = computed(() => ({
-            backgroundColor: aspectRatio.value === 3 ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 1)',
-            height: aspectRatio.value === 3 ? '8vh' : aspectRatio.value === 2 ? '24vh' : '8vh',
-        }));
-
-
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
         }));
@@ -614,11 +590,6 @@ export default {
             selectImage,
             selectSticker,
             isFlipCamera,
-            barStyle,
-            barStyle2,
-            blockbarStyle,
-            blockbarStyle2,
-            bottombarStyle,
             secondToggleBarVisibility
         }
     }
