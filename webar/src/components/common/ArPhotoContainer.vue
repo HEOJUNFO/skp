@@ -10,6 +10,7 @@
       <div class="progress-bar">
         <div class="progress-bar-fill" :style="{ width: `${progressValue}%` }"></div>
       </div>
+      <p class="text">AR 준비중</p>
     </div>
   </div>
   <!-- 가로모드 -->
@@ -87,7 +88,7 @@ export default {
           } else {
             clearInterval(intervalId);
           }
-        }, 1);
+        }, 10);
       } else if (loadingState.value === 'COMPLETE') {
         clearInterval(intervalId);
         progressValue.value = 100;
@@ -129,6 +130,20 @@ export default {
   background-color: #fff;
 }
 
+.text {
+  position: absolute;
+  top: 75vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+  text-align: center;
+  font-family: NanumSquare Neo OTF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
 .ArPhotoloading .progress-bar {
   position: absolute;
   top: 72vh;
@@ -166,4 +181,5 @@ export default {
   height: 39vh;
   -webkit-transform: translate(-50%, 0%);
   z-index: 8;
-}</style>
+}
+</style>

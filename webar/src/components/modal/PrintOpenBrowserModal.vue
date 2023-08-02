@@ -43,8 +43,8 @@
           <h2>디바이스번호 불일치</h2>
           <br />
           <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
-          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
-          <button class="round-button-white" @click="print()">확인</button>
+          <input class="device-number-input2" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
+          <button class="round-button-red" @click="print()">확인</button>
         </div>
       </div>
       <div v-if="showFiveModal" class="modal3">
@@ -53,7 +53,7 @@
           <br />
           <p>기기번호를 다시 확인하세요.</p>
           <p>출력페이지를 종료합니다.</p>
-          <button class="round-button-white" @click="showFiveModal = false, showDeviceModal = false">확인</button>
+          <button class="round-button-red" @click="showFiveModal = false, showDeviceModal = false">확인</button>
         </div>
       </div>
       <div class="button-container2">
@@ -74,31 +74,35 @@
           <p
             style="color: #000;text-align: center;font-family: Corinthia;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
             기기번호를 입력해 주세요.</p>
-
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
-          <button class="round-button-white" @click="print">확인</button>
+          <button class="round-button-red2"
+            @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
         </div>
       </div>
       <div v-if="showSuccessModal" class="modal2">
-        <div class="modal-content">
-          <h1 class="highlight-text"><span>{{ "디바이스 번호" }}</span>{{ deviceNumber }}<span>{{ "에" }}</span></h1>
-          <h1 class="highlight-text">사진출력이</h1>
-          <h1 class="highlight-text">요청되었습니다.</h1>
-          <div v-if="printStatus !== 'fail'" class="circle-message">
-            <p v-if="printStatus === 'printing'">출력중</p>
-            <p v-else-if="printStatus === 'success'">출력완료</p>
+        <div class="modal-content3">
+          <h1 v-if="printStatus === 'printing'" class="highlight-text">사진 출력이 요청되었습니다</h1>
+          <div v-if="printStatus === 'printing'" class="spinner-container">
+            <img id="spinner" src="../../assets/icon/spinning3.png">
+            <span class="spinner-text">출력중</span>
+          </div>
+          <div v-if="printStatus === 'success'" class="circle-message">
+            <p>출력완료</p>
           </div>
           <div v-if="printStatus === 'fail'" class="error">
-            <p>!</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+              <path
+                d="M21 18.375V12.25M21 24.5H21.0175M17.325 33.6L19.88 37.0067C20.26 37.5133 20.4499 37.7666 20.6828 37.8572C20.8868 37.9365 21.1132 37.9365 21.3172 37.8572C21.5501 37.7666 21.74 37.5133 22.12 37.0067L24.675 33.6C25.188 32.916 25.4445 32.574 25.7574 32.3129C26.1745 31.9647 26.667 31.7185 27.1959 31.5936C27.5925 31.5 28.02 31.5 28.875 31.5C31.3212 31.5 32.5443 31.5 33.5091 31.1004C34.7955 30.5675 35.8175 29.5455 36.3504 28.2591C36.75 27.2943 36.75 26.0712 36.75 23.625V13.65C36.75 10.7097 36.75 9.23959 36.1778 8.11655C35.6744 7.1287 34.8713 6.32555 33.8834 5.82222C32.7604 5.25 31.2903 5.25 28.35 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V23.625C5.25 26.0712 5.25 27.2943 5.64963 28.2591C6.18248 29.5455 7.20451 30.5675 8.49091 31.1004C9.45571 31.5 10.6788 31.5 13.125 31.5C13.98 31.5 14.4075 31.5 14.8041 31.5936C15.333 31.7185 15.8255 31.9647 16.2426 32.3129C16.5555 32.574 16.812 32.916 17.325 33.6Z"
+                stroke="#EE4848" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
             <p class="error-text">디바이스(통신) 오류로</p>
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
-          <button v-if="printStatus === 'success'" class="round-button2"
+          <button v-if="printStatus === 'success'" class="round-button-red3"
             @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
-          <p v-if="printStatus === 'fail'" class="bottom-text">주변의 현장안내 직원에게 문의 해주세요.</p>
-          <button v-if="printStatus === 'fail'" class="round-button2"
+          <button v-if="printStatus === 'fail'" class="round-button-red2"
             @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
         </div>
       </div>
@@ -107,10 +111,12 @@
         <div class="modal-content">
           <h1 class="highlight-text">무료출력 가능 횟수가</h1>
           <h1 class="highlight-text">초과되었습니다.</h1>
+          <br>
+          <br>
           <div class="circle-message">
             <p>죄송합니다.</p>
           </div>
-          <button class="round-button2" @click="showFailureModal = false">닫기</button>
+          <button class="round-button-red2" @click="showFailureModal = false">닫기</button>
         </div>
       </div>
 
@@ -487,26 +493,10 @@ export default {
   font-weight: 500;
 }
 
-.round-button-white {
-  width: 86%;
-  height: auto;
-  display: inline-block;
-  margin-top: 2vh;
-  border-radius: 24px;
-  border: 1px solid var(--black-50, #757575);
-  background-color: #fff;
-  white-space: nowrap;
-  padding: 13px 24px 13px 24px;
-  color: #000;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-}
 
 .round-button-red {
   display: inline-block;
-  margin-top: 3.5vh;
+  margin-top: 2vh;
   border-radius: 24px;
   background-color: #EE4848;
   white-space: nowrap;
@@ -518,21 +508,51 @@ export default {
   font-weight: 500;
 }
 
-.round-button2 {
-  margin-top: 3.5vh;
-  border: 1px solid #000;
-  border-radius: 25px;
-  background-color: #fff;
-  font-size: 20px;
+.round-button-red2 {
+  display: inline-block;
+  width: 61%;
+  height: 6vh;
+  margin-top: 39vh;
+  border-radius: 24px;
+  background-color: #EE4848;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: 13px 24px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+}
+
+.round-button-red3 {
+  display: inline-block;
+  width: 61%;
+  height: 6vh;
+  margin-top: 3.5vh;
+  border-radius: 24px;
+  background-color: #EE4848;
+  white-space: nowrap;
+  padding: 13px 24px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
 }
 
 .device-number-input {
-  width: 84%;
+  width: 58%;
   padding: 14px 15px 16px 15px;
-  margin-top: 2vh;
-  display: block;
+  margin-top: 2.5vh;
+  border: 1px solid #000;
+}
+
+.device-number-input2 {
+  width: 88%;
+  padding: 14px 15px 16px 15px;
+  margin-top: 2.5vh;
   border: 1px solid #000;
 }
 
@@ -557,7 +577,7 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: #fff;
-  display: flex;
+  display: inline;
   justify-content: center;
   align-items: center;
 }
@@ -580,6 +600,13 @@ export default {
 .modal-content {
   background-color: #fff;
   text-align: center;
+  margin-top: 29vh;
+}
+
+.modal-content3 {
+  background-color: #fff;
+  text-align: center;
+  margin-top: 28vh;
 }
 
 .modal-content2 {
@@ -593,13 +620,17 @@ export default {
   background-color: #fff;
   text-align: center;
   padding: 5%;
+  display: grid;
 }
 
 .highlight-text {
-  font-size: 1.7em;
-  font-weight: bold;
-  margin: 3.5vh 0;
-  text-align: left;
+  color: #000;
+  text-align: center;
+  font-family: NanumSquare Neo OTF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
 }
 
 
@@ -607,30 +638,34 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  width: 300px;
+  height: 242px;
+  width: 242px;
   border-radius: 50%;
-  background-color: gray;
+  background-color: #EE4848;
   color: #fff;
   text-align: center;
-  margin: 7vh auto;
+  margin-left: 18%;
+  margin-bottom: 20vh;
 }
 
 .circle-message p {
-  font-size: 3.5em;
-}
-
-.error {
-  color: red;
-  font-size: 5em;
-  margin: 100px auto;
+  text-align: center;
+  font-family: NanumSquare Neo OTF;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  font-size: 3em;
+  color: #fff;
 }
 
 .error-text {
-  font-size: 0.3em;
-  margin: 20px 0;
+  color: #000;
   text-align: center;
-  color: #000
+  font-family: NanumSquare Neo OTF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
 }
 
 .prints-count {
@@ -680,5 +715,51 @@ export default {
 .button-container2 {
   display: flex;
   justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+#spinner {
+  width: 62%;
+  animation: spin 2s linear infinite;
+}
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+
+  transform: translate(0%, -50%);
+}
+
+.spinner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #EE4848;
+  text-align: center;
+  font-family: NanumSquare Neo OTF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.bottom-text {
+  color: #000;
+  text-align: center;
+  font-family: NanumSquare Neo OTF;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
 }
 </style>
