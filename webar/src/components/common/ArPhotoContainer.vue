@@ -5,8 +5,11 @@
       :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
     </div>
     <div v-if="arFrameSettingYn" class="frame-bottom" :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
-    <div v-if="loadingYn && loadingState !== 'COMPLETE'" class="loading">
-      <img :src="loadingUrl" alt="로딩 이미지" style="width: 100%; height: 100vh;">
+    <div v-if="loadingYn && loadingState !== 'COMPLETE'" class="ArPhotoloading">
+      <img :src="loadingUrl" alt="로딩 이미지">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" :style="{ width: `${progressValue}%` }"></div>
+      </div>
     </div>
   </div>
   <!-- 가로모드 -->
@@ -16,7 +19,7 @@
 </template>
   
 <script>
-import { computed, ref, inject, onMounted } from "vue";
+import { computed, ref, inject, onMounted, watchEffect } from "vue";
 import { useStore } from "vuex";
 
 import useLoading from "@/composables/useLoading";
@@ -29,6 +32,7 @@ export default {
     const { getters } = store;
     const orientation = ref('landscape')
     const disableClick = ref(false);
+    const progressValue = ref(0);
 
     const selectFrame = ref(1);
     const frameUrl = computed(() => {
@@ -73,10 +77,30 @@ export default {
 
     const toggleBottomBar = inject('toggleBottomBar');
 
+    let intervalId;
+
+    watchEffect(() => {
+      if (loadingState.value === 'COUNTING') {
+        intervalId = setInterval(() => {
+          if (progressValue.value < 100) {
+            progressValue.value++;
+          } else {
+            clearInterval(intervalId);
+          }
+        }, 1);
+      } else if (loadingState.value === 'COMPLETE') {
+        clearInterval(intervalId);
+        progressValue.value = 100;
+      } else {
+        clearInterval(intervalId);
+        progressValue.value = 0;
+      }
+    });
+
     onMounted(() => {
       setTimeout(() => {
         disableClick.value = true;
-      }, 3000)
+      }, 2000)
     })
 
     return {
@@ -89,6 +113,7 @@ export default {
       arFrameSettingYn,
       selectFrame,
       toggleBottomBar,
+      progressValue
     }
   }
 }
@@ -99,8 +124,46 @@ export default {
   z-index: 1;
   width: 100%;
   height: 62vh;
-  margin: 0 auto;
   position: relative;
   top: 14vh;
+  background-color: #fff;
 }
-</style>
+
+.ArPhotoloading .progress-bar {
+  position: absolute;
+  top: 72vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72%;
+  height: 1.5vh;
+  background-color: #d9d9d9;
+  border-radius: 50px;
+}
+
+.ArPhotoloading .progress-bar .progress-bar-fill {
+  height: 100%;
+  background-color: #eb4747;
+  transition: width 0.2s;
+  border-radius: 50px;
+}
+
+.ArPhotoloading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background:#000;opacity:0.6;*/
+  background: #fff;
+  z-index: 6;
+}
+
+.ArPhotoloading img {
+  position: absolute;
+  top: 25vh;
+  left: 50%;
+  width: 61.5%;
+  height: 39vh;
+  -webkit-transform: translate(-50%, 0%);
+  z-index: 8;
+}</style>

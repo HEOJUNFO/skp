@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="button-container2">
-        <button class="round-button-red" @click="showDeviceModal = true">출력하기&nbsp;&nbsp;➔</button>
+        <button class="round-button-red" @click="showDeviceModal = true">위 사진 출력하기&nbsp;&nbsp;➔</button>
       </div>
       <div v-if="showErrorModal" class="modal">
         <button class="close-button2" @click="showErrorModal = false">
@@ -57,7 +57,8 @@
         </div>
       </div>
       <div class="button-container2">
-        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치보기&nbsp;&nbsp;➔</button>
+        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치
+          보기&nbsp;&nbsp;➔</button>
       </div>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showFiveModal = false">
@@ -221,7 +222,7 @@ export default {
         position: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
         map: map.value,
         icon: {
-          url: require("../../assets/icon/kiosk_poi_3.png"),
+          url: require("../../assets/icon/marker.png"),
           size: new window.naver.maps.Size(52, 52),
           origin: new window.naver.maps.Point(0, 0),
           anchor: new window.naver.maps.Point(26, 26)
@@ -518,7 +519,6 @@ export default {
 }
 
 .round-button2 {
-  display: flex;
   margin-top: 3.5vh;
   border: 1px solid #000;
   border-radius: 25px;

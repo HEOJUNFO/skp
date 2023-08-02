@@ -5,7 +5,7 @@
 
 <script>
 import { onMounted, ref, reactive } from "vue";
-import { getUserMedia } from "@/js/getUserMedia";
+import { getArPhotoUserMedia } from "@/js/getArPhotoUserMedia";
 
 export default {
   name: "Camera",
@@ -46,7 +46,7 @@ export default {
       }
 
       try {
-        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
+        await getArPhotoUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
         emit('reject:video')
       }
@@ -69,7 +69,7 @@ export default {
 
     onMounted(async () => {
       try {
-        await getUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
+        await getArPhotoUserMedia({ videoEl: video.value, facingMode: cameraSettings.facingMode });
       } catch (err) {
         emit('reject:video')
       }
