@@ -32,8 +32,7 @@
     </a-gltf-model>
 
     <a-image ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
-      gesture-handler="locationBased: true" renderOrder="0" @mousedown="startLongPress(), stickerSet(arData)"
-      @mouseup="cancelLongPress">
+      gesture-handler="locationBased: true" @mousedown="startLongPress(), stickerSet(arData)" @mouseup="cancelLongPress">
       <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
         translate="true"> </a-box>
     </a-image>

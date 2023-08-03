@@ -1128,20 +1128,20 @@ export const jsonData = {
 
         stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)
           {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "가자강원도",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (1).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/sticker (1).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
+            id: 890,
+            sort: 1,
+            photoContentChoiceType: "DIRECT",
+            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
+            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
+            photoContentTabMenuType: "STICKER"
           },
           {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/sticker (2).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "STICKER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
+            id: 891,
+            sort: 2,
+            photoContentChoiceType: "DIRECT",
+            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
+            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
+            photoContentTabMenuType: "STICKER"                     //	순서	int	
           },
         ],
       },

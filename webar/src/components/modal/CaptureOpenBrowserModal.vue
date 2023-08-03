@@ -47,10 +47,11 @@
           </transition>
         </div>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup('')" style="margin-bottom: 2vh;">{{
-        photoGiveAwayButtonText + '&nbsp;&nbsp;➔'
+      <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup(''), photoGiveAwayButtonOff()"
+        style="margin-bottom: 2vh;">{{
+          photoGiveAwayButtonText + '&nbsp;&nbsp;➔'
 
-      }}</button>
+        }}</button>
       <img v-if="filmResultFooterImgYn" :src="filmResultFooterImgUrl" alt="Banner Image" />
       <div v-if="showAgreeModal" class="modal">
         <div class="modal-content2">
@@ -79,7 +80,7 @@
     </div>
     <print-open-browser-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
-    <event-complete-modal ref="completeModalEl" :result-info="eventResult" @deliveryFormOpen="photoGiveAwayButtonOff()" />
+    <event-complete-modal ref="completeModalEl" :result-info="eventResult" />
   </vue-final-modal>
 </template>
   

@@ -76,7 +76,6 @@ export default {
 
     const isFormOpened = ref(false);
 
-
     const { getPvLogParams, putPvLog } = usePvLog();
 
     // 팝업 오픈
@@ -101,7 +100,6 @@ export default {
         case "DELIVERY":
           putPvLog(getPvLogParams(3, "/main/event/benefit", item.buttonSort));
           openForm(item);
-          deliveryFormOpen();
           break;
         case "SUBSCRIPTION":
           putPvLog(getPvLogParams(1, "/main/event/benefit", item.buttonSort));
@@ -122,12 +120,6 @@ export default {
       showModal.value = false;
       emit("close:modal");
     };
-
-    const deliveryFormOpen = () => {
-      console.log("deliveryFormOpen")
-      emit('deliveryFormOpen')
-    }
-
 
     const redirect = (item) => {
       // closeModal()
@@ -192,7 +184,6 @@ export default {
       redirect,
       openForm,
       clickedClass,
-      deliveryFormOpen,
     };
   },
 };
