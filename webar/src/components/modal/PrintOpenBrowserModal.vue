@@ -586,7 +586,7 @@ export default {
 }
 
 .image {
-  width: 80%;
+  width: auto;
   height: 49vh;
   position: relative;
   margin-top: 10vh;

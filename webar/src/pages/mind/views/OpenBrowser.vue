@@ -220,8 +220,6 @@ export default {
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}vh`);
     }
 
-    provide('setEventWrapperStyles', setEventWrapperStyles);
-
     const toggleBeautyFilter = () => {
       beautyOn.value = !beautyOn.value;
       cameraRef.value.beautyFilter(beautyOn.value);
@@ -256,6 +254,7 @@ export default {
     provide('selectCharacterChange', selectCharacterChange)
     provide('selectFilterChange', selectFilterChange)
     provide('selectStickerChange', selectStickerChange)
+    provide('setEventWrapperStyles', setEventWrapperStyles);
 
     function handlePopState() {
       if (captureModal.value.showVModal) {

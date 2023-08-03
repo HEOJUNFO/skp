@@ -192,8 +192,8 @@ export default {
   position: absolute;
   top: 25vh;
   left: 50%;
-  width: 61.5%;
-  height: 39vh;
+  width: auto;
+  height: auto;
   -webkit-transform: translate(-50%, 0%);
   z-index: 8;
 }

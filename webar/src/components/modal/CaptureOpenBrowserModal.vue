@@ -211,8 +211,10 @@ export default {
     };
 
     const toggleBarVisibility = inject('secondToggleBarVisibility');
+    const setEventWrapperStyles = inject('setEventWrapperStyles');
     const back = () => {
       toggleBarVisibility();
+      setEventWrapperStyles();
       showVModal.value = false;
       document.querySelector('.main-content').scrollTop = 0;
     }
@@ -352,7 +354,7 @@ export default {
 }
 
 .image {
-  width: 80%;
+  width: auto;
   height: 49vh;
 }
 
