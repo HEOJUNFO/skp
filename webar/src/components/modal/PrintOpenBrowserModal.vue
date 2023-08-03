@@ -134,7 +134,7 @@
       </div>
 
       <div v-show="showLocationMap" class="modal2">
-        <button class="exit-button" @click="showLocationMap = false">
+        <button class="exit-button2" @click="showLocationMap = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
             <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
@@ -223,7 +223,7 @@ export default {
 
       const mapOptions = {
         center: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
-        zoom: 18,
+        zoom: 15,
       };
 
       map.value = new window.naver.maps.Map("map", mapOptions);
@@ -465,6 +465,8 @@ export default {
       }
       currentDevice.value = deviceGpsList.value[prevIndex];
       marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+      map.value.setCenter(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+
     }
 
     const nextLocation = () => {
@@ -474,6 +476,7 @@ export default {
       }
       currentDevice.value = deviceGpsList.value[nextIndex];
       marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
+      map.value.setCenter(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
     }
 
     const xDown = ref(null);
@@ -594,6 +597,13 @@ export default {
   position: absolute;
   top: 1.5vh;
   right: 4%;
+}
+
+.exit-button2 {
+  z-index: 3;
+  position: absolute;
+  top: 0vh;
+  right: 0%;
 }
 
 .round-button {
@@ -807,6 +817,7 @@ export default {
   width: 100%;
   height: 88vh;
   position: absolute;
+  top: 7vh;
 }
 
 .button-container span {

@@ -72,21 +72,6 @@ export default {
       return /iphone|ipad|ipod/.test(userAgent);
     };
 
-    const isGalaxyNote = () => {
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      const noteRegex = /(sm-n|gt-n|sph-|sch-|sgh-)\d+/;
-      return noteRegex.test(userAgent);
-    };
-
-    window.adjustSizeToRatio = function (inputRatio) {
-      const isGalaxyBrowser = navigator.userAgent.indexOf("SamsungBrowser") > -1;
-      const ratio = eval(inputRatio);
-      let windowWidth = window.innerWidth;
-      let targetHeight = windowWidth * ratio;
-      let scaleFactor = isIOS() || isGalaxyBrowser ? 1.12 : isGalaxyNote() ? 1.18 : 1.25;
-      iframeHeight.value = targetHeight * scaleFactor + "px";
-    };
-
     const frameStyle = computed(() => {
       return {
         width: "100%",

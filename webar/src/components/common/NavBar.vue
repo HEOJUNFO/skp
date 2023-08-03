@@ -240,7 +240,6 @@
                 </div>
             </div>
         </transition>
-        <div class="block-bar" v-show="isBarVisible"></div>
         <div class="block-bar2" v-show="isBarVisible"></div>
     </div>
 </template>
@@ -272,7 +271,6 @@ export default {
         const isBeauty = ref(false);
         const arFrameSettingYn = ref('Y');
         const aspectRatio = ref(0);
-        const aspectRatioValue = ref('1 / 1');
         const isPhotoRatioSettingType = ref('BASIC');
         const isSecondFrameBarVisible = ref(false);
         const isSecondEffectBarVisible = ref(false);
@@ -287,6 +285,16 @@ export default {
         const countdown = ref(null);
         const countdownInterval = ref(null);
         const stickerObjectList = ref([]);
+
+        const flipCamera = inject('flipCamera');
+        const toggleBeautyFilter = inject('toggleBeautyFilter');
+        const selectFrameChange = inject('selectFrameChange');
+        const selectCharacterChange = inject('selectCharacterChange');
+        const selectTabChange = inject('selectTabChange');
+        const selectFilterChange = inject('selectFilterChange');
+        const selectStickerChange = inject('selectStickerChange');
+        const setEventWrapperStyles = inject('setEventWrapperStyles');
+
 
         const frameTabs = ref([
             { id: 1, name: '배경' },
@@ -335,31 +343,24 @@ export default {
             effectTabs.value = getEffectTabs();
 
             aspectRatio.value = 0;
-            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
         }
 
         const secondToggleBarVisibility = () => {
             isBarVisible.value = !isBarVisible.value;
             aspectRatio.value = 0;
-            aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
         }
 
         const toggleAspectRatio = () => {
             aspectRatio.value = (aspectRatio.value + 1) % 3
             if (aspectRatio.value === 0) {
-                aspectRatioValue.value = isPhotoRatioSettingType.value === 'BASIC' ? '6 / 4' : '16 / 9';
+                setEventWrapperStyles(4, 6)
             } else if (aspectRatio.value === 1) {
-                aspectRatioValue.value = '1 / 1'
+                setEventWrapperStyles(1, 1)
             } else if (aspectRatio.value === 2) {
-                aspectRatioValue.value = '1218 / 814'
+                setEventWrapperStyles(814, 1218)
             }
         };
 
-        watch(aspectRatioValue, () => {
-            if (arFrameSettingYn.value === 'N') {
-                window.parent.adjustSizeToRatio(aspectRatioValue.value);
-            }
-        }, { deep: true, immediate: true });
 
         const frameToggleBar = () => {
             isSecondFrameBarVisible.value = !isSecondFrameBarVisible.value;
@@ -460,14 +461,6 @@ export default {
             }
         };
 
-        const flipCamera = inject('flipCamera');
-        const toggleBeautyFilter = inject('toggleBeautyFilter');
-        const selectFrameChange = inject('selectFrameChange');
-        const selectCharacterChange = inject('selectCharacterChange');
-        const selectTabChange = inject('selectTabChange');
-        const selectFilterChange = inject('selectFilterChange');
-        const selectStickerChange = inject('selectStickerChange');
-
         const toggleBottomBar = () => {
             if (isSecondFrameBarVisible.value || isSecondEffectBarVisible.value) {
                 isSecondFrameBarVisible.value = false;
@@ -542,23 +535,11 @@ export default {
             stickerObjectList.value.splice(index, 1);
         });
 
-
-        const frameStyle = computed(() => {
-            if (arFrameSettingYn.value === 'N') {
-                return {
-                    aspectRatio: aspectRatioValue.value,
-                };
-            } else {
-                return {};
-            }
-        });
-
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === 'Y' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0)',
         }));
 
         return {
-            frameStyle,
             frameButtonStyle,
             toggleBarVisibility,
             isBarVisible,
@@ -599,7 +580,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100vh;
-    background: #f9f9f9;
+    background: #fff
 }
 
 .frame-image {
@@ -647,16 +628,6 @@ export default {
     grid-template-areas: "frame capture effect";
     background-color: #fff;
     bottom: 0vh;
-}
-
-.block-bar {
-    z-index: 0;
-    position: absolute;
-    width: 100%;
-    height: 24vh;
-    bottom: 0vh;
-    pointer-events: none;
-    background-color: #fff;
 }
 
 .block-bar2 {

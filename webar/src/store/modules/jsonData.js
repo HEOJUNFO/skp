@@ -769,8 +769,8 @@ export const jsonData = {
           deviceName:"디바이스1", //디바이스명
           gpsName: "위치1", //위치명
           thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
-          deviceGpsLatitude: "37.402736699419854", //위도
-          deviceGpsLongitude: "127.10324709161416", //경도
+          deviceGpsLatitude: "37.4027214", //위도
+          deviceGpsLongitude: "127.456748456", //경도
         },
         {
           deviceGpsId: "1", //인덱스 번호
@@ -778,8 +778,8 @@ export const jsonData = {
           deviceName:"디바이스2", //디바이스명
           gpsName: "위치2", //위치명
           thirdPartyType:"SELPIC", // 업체종류(셀픽,...) 셀픽: SELPIC
-          deviceGpsLatitude: "37.40237809926164", //위도
-          deviceGpsLongitude: "127.10375484175874", //경도
+          deviceGpsLatitude: "37.4027054", //위도
+          deviceGpsLongitude: "127.1033341", //경도
         }
       ],
     },

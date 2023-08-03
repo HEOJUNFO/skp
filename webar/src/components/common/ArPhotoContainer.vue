@@ -1,5 +1,5 @@
 <template>
-  <div class="event-wrapper" @mousedown="disableClick ? toggleBottomBar() : null">
+  <div class="event-wrapper" :style="eventWrapperStyles" @mousedown="disableClick ? toggleBottomBar() : null">
     <slot></slot>
     <div v-if="arFrameSettingYn" @mousedown="disableClick ? toggleBottomBar() : null" class="frame-top"
       :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
@@ -20,7 +20,7 @@
 </template>
   
 <script>
-import { computed, ref, inject, onMounted, watchEffect } from "vue";
+import { computed, ref, inject, onMounted, watchEffect, provide } from "vue";
 import { useStore } from "vuex";
 
 import useLoading from "@/composables/useLoading";
@@ -88,7 +88,7 @@ export default {
           } else {
             clearInterval(intervalId);
           }
-        }, 10);
+        }, 1);
       } else if (loadingState.value === 'COMPLETE') {
         clearInterval(intervalId);
         progressValue.value = 100;
@@ -97,6 +97,19 @@ export default {
         progressValue.value = 0;
       }
     });
+
+    const eventWrapperStyles = ref({
+      top: '14vh',
+      height: '69vh'
+    });
+
+    const setEventWrapperStyles = (newTop, newHeight) => {
+      eventWrapperStyles.value.top = newTop;
+      eventWrapperStyles.value.height = newHeight;
+    }
+
+    provide('setEventWrapperStyles', setEventWrapperStyles);
+
 
     onMounted(() => {
       setTimeout(() => {
@@ -114,7 +127,9 @@ export default {
       arFrameSettingYn,
       selectFrame,
       toggleBottomBar,
-      progressValue
+      progressValue,
+      eventWrapperStyles,
+      setEventWrapperStyles
     }
   }
 }

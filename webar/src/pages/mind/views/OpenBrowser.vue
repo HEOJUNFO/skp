@@ -212,6 +212,16 @@ export default {
       })
     }
 
+    const setEventWrapperStyles = (x, y) => {
+      var aspectRatio = y / x;
+      const newTop = -18 * aspectRatio + 41;
+      const newHeight = 46 * aspectRatio;
+
+      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}vh`);
+    }
+
+    provide('setEventWrapperStyles', setEventWrapperStyles);
+
     const toggleBeautyFilter = () => {
       beautyOn.value = !beautyOn.value;
       cameraRef.value.beautyFilter(beautyOn.value);
