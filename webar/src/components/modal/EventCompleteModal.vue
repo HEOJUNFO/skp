@@ -5,8 +5,8 @@
     <a href="#" class="close" @click.prevent="closeModal">닫기</a>
     <div class="btn" v-if="resultInfo?.winningButtonInfo && resultInfo?.winningInfo?.autoWinningYn === 'N'">
       <template v-for="(item, index) in resultInfo.winningButtonInfo" :key="`result_button${index}`">
-        <a href="#" v-if="item.buttonActionType === 'DELIVERY' && isDeliveryFormOpened"
-          @click.prevent="buttonAction(item)" :class="clickedClass(item)">{{ item.buttonText }}</a>
+        <a href="#" v-if="item.buttonActionType === 'DELIVERY'" @click.prevent="buttonAction(item)"
+          :class="clickedClass(item)">{{ item.buttonText }}</a>
         <a href="#" v-if="item.buttonActionType === 'SUBSCRIPTION'" @click.prevent="buttonAction(item)"
           :class="clickedClass(item)">{{ item.buttonText }}</a>
         <a href="#" v-if="item.buttonActionType === 'URL'" @click.prevent="buttonAction(item)"
@@ -75,12 +75,13 @@ export default {
     );
 
     const isFormOpened = ref(false);
-    const isDeliveryFormOpened = ref(true);
+
 
     const { getPvLogParams, putPvLog } = usePvLog();
 
     // 팝업 오픈
     const openModal = () => {
+
       // const {benefitResultType} = resultInfo.value;
       showModal.value = true;
       isFormOpened.value = false;
@@ -100,7 +101,7 @@ export default {
         case "DELIVERY":
           putPvLog(getPvLogParams(3, "/main/event/benefit", item.buttonSort));
           openForm(item);
-          isDeliveryFormOpened.value = false;
+          deliveryFormOpen();
           break;
         case "SUBSCRIPTION":
           putPvLog(getPvLogParams(1, "/main/event/benefit", item.buttonSort));
@@ -121,6 +122,12 @@ export default {
       showModal.value = false;
       emit("close:modal");
     };
+
+    const deliveryFormOpen = () => {
+      console.log("deliveryFormOpen")
+      emit('deliveryFormOpen')
+    }
+
 
     const redirect = (item) => {
       // closeModal()
@@ -178,7 +185,6 @@ export default {
       closeText,
       isFormOpened,
       testImagePath: process.env.VUE_APP_PUBLIC_PATH,
-      isDeliveryFormOpened,
       openModal,
       opened,
       buttonAction,
@@ -186,6 +192,7 @@ export default {
       redirect,
       openForm,
       clickedClass,
+      deliveryFormOpen,
     };
   },
 };

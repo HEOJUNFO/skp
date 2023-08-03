@@ -47,7 +47,7 @@
           </transition>
         </div>
       </div>
-      <button v-if="photoGiveAwayYn" class="box-button" @click="openCompletePopup('')" style="margin-bottom: 2vh;">{{
+      <button v-if="photoGiveAwayYn" class="box-button2" @click="openCompletePopup('')" style="margin-bottom: 2vh;">{{
         photoGiveAwayButtonText + '&nbsp;&nbsp;➔'
 
       }}</button>
@@ -79,7 +79,7 @@
     </div>
     <print-open-browser-modal ref="printModal" />
     <photo-store-modal ref="photoStoreModal" @reCapture="back()" />
-    <event-complete-modal ref="completeModalEl" :result-info="eventResult" />
+    <event-complete-modal ref="completeModalEl" :result-info="eventResult" @deliveryFormOpen="photoGiveAwayButtonOff()" />
   </vue-final-modal>
 </template>
   
@@ -290,6 +290,13 @@ export default {
       completeModalEl.value.openModal();
     }
 
+    const photoGiveAwayButtonOff = () => {
+      var bar = document.querySelector('.box-button2');
+      bar.style.backgroundColor = 'gray'
+      bar.style.pointerEvents = 'none'
+      bar.style.opacity = '0.8'
+    }
+
     return {
       print,
       photoStore,
@@ -323,7 +330,8 @@ export default {
       openCompletePopup,
       eventResult,
       inputText,
-      generateHashTagString
+      generateHashTagString,
+      photoGiveAwayButtonOff
     }
   }
 }
@@ -369,6 +377,20 @@ export default {
   font-weight: 500;
 }
 
+.box-button2 {
+  display: inline-block;
+  margin-top: 2vh;
+  border-radius: 24px;
+  background-color: #000;
+  white-space: nowrap;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #FFF);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
 .modal {
   position: fixed;
   z-index: 9999;
@@ -382,15 +404,6 @@ export default {
   align-items: center;
 }
 
-.modal-content {
-  background-color: rgba(0, 0, 0, 0);
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  color: #fff;
-}
 
 .modal-content2 {
   position: relative;
@@ -404,14 +417,6 @@ export default {
   color: #000;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-  background-color: transparent;
-  font-size: 2.5em;
-}
 
 .close-button2 {
   position: absolute;
@@ -422,16 +427,6 @@ export default {
   font-size: 1em;
 }
 
-.round-button {
-  display: inline-block;
-  border-radius: 25px;
-  width: 100%;
-  height: 50px;
-  margin-top: 2vh;
-  border: 2px solid #000;
-  background-color: #fff;
-  color: #000;
-}
 
 .button-container {
   display: flex;

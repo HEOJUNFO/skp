@@ -149,8 +149,7 @@
             </button>
         </div>
         <slot></slot>
-        <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1"
-            :style="bottombarStyle">
+        <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1">
             <button v-if="!isCapturing && arFrameSettingYn === 'Y'" @click="frameToggleBar" class="frame-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <path
@@ -182,8 +181,7 @@
             </button>
         </div>
 
-        <div v-show="(isSecondFrameBarVisible || isSecondEffectBarVisible) && isBarVisible" class="bottom-bar-11"
-            :style="barStyle">
+        <div v-show="(isSecondFrameBarVisible || isSecondEffectBarVisible) && isBarVisible" class="bottom-bar-11">
             <button v-show="isSecondFrameBarVisible" @click="frameToggleBar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
                     <path d="M10.5 15.75L21 26.25L31.5 15.75" stroke="black" stroke-width="3" stroke-linecap="round"
@@ -207,7 +205,7 @@
         </div>
 
         <transition name="fade">
-            <div v-show="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle2">
+            <div v-show="isSecondFrameBarVisible && isBarVisible" class="bottom-bar-2">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in frameTabs" :key="tab.id"
                         :class="{ selected: selectedFrameTab === tab.id }" @click="selectFrameTab(tab.id)">{{ tab.name
@@ -223,7 +221,7 @@
             </div>
         </transition>
         <transition name="fade">
-            <div v-show="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2" :style="barStyle2">
+            <div v-show="isSecondEffectBarVisible && isBarVisible" class="bottom-bar-2">
                 <div class="tab-container">
                     <button class="tab" v-for="tab in effectTabs" :key="tab.id"
                         :class="{ selected: selectedEffectTab === tab.id }" @click="selectEffectTab(tab.id)">{{ tab.name
@@ -242,8 +240,8 @@
                 </div>
             </div>
         </transition>
-        <div class="block-bar" v-show="isBarVisible" :style="blockbarStyle"></div>
-        <div class="block-bar2" v-show="isBarVisible" :style="blockbarStyle2"></div>
+        <div class="block-bar" v-show="isBarVisible"></div>
+        <div class="block-bar2" v-show="isBarVisible"></div>
     </div>
 </template>
   
@@ -643,7 +641,7 @@ export default {
     z-index: 3;
     position: absolute;
     width: 100%;
-    height: 24vh;
+    height: 17vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
@@ -675,7 +673,7 @@ export default {
     z-index: 3;
     position: absolute;
     width: 100%;
-    height: 7.5vh;
+    height: 9vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
@@ -704,7 +702,7 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    bottom: 7.5vh;
+    bottom: 8vh;
     flex-direction: column;
     background-color: #fff;
     padding-bottom: 1vh;

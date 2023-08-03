@@ -124,7 +124,7 @@ export default {
 .event-wrapper {
   z-index: 1;
   width: 100%;
-  height: 62vh;
+  height: 69vh;
   position: relative;
   top: 14vh;
   background-color: #fff;
