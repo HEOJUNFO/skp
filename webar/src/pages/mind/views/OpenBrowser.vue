@@ -218,6 +218,7 @@ export default {
       const newHeight = 46 * aspectRatio;
 
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}vh`);
+      eventArPhotoObjectRef.value.arSceneResize()
     }
 
     const toggleBeautyFilter = () => {

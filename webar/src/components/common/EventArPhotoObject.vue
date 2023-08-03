@@ -1,5 +1,6 @@
 <template>
-  <a-scene embedded :mindar-face="isMindARImage == false ? 'uiError:no; uiLoading:no; uiScanning:no;' : null"
+  <a-scene ref="arSceneEl" embedded
+    :mindar-face="isMindARImage == false ? 'uiError:no; uiLoading:no; uiScanning:no;' : null"
     :mindar-image="isMindARImage ? 'imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; uiError:no; uiLoading:no; uiScanning:no' : null"
     gesture-detector renderer="gammaInput: true; gammaOutput: false; physicallyCorrectLights: false; " color-space="sRGB"
     vr-mode-ui="enabled: false"
@@ -56,6 +57,17 @@ export default {
     const selectFilter = ref([]);
     const selectTab = ref([]);
 
+    const arSceneEl = ref(null);
+
+
+    const arSceneResize = () => {
+
+
+      setTimeout(() => {
+        arSceneEl.value.resize();
+      }, 1);
+    }
+
     const selectSticker = (props) => {
       const propIds = new Set(props.map(prop => prop.id));
       props.forEach(prop => {
@@ -68,7 +80,6 @@ export default {
 
 
     function addStickersToAssets(stickerAsset) {
-
       let assets = document.querySelector('a-assets');
       stickerAsset.value.forEach((asset) => {
         assets.insertAdjacentHTML('beforeend', `<img id="${asset.sort}" src="${asset.file}" crossOrigin="anonymous">`);
@@ -79,6 +90,7 @@ export default {
     let particleCreated = {};
 
     watch(() => selectFilter, () => {
+      arSceneResize();
       const files = selectFilter.value;
       if (files.length === 0 || !files.some(file => file.includes('json'))) {
         isMindARFace.value = false;
@@ -237,7 +249,9 @@ export default {
       selectTab,
       isMindARFace,
       isMindARImage,
-      selectSticker
+      selectSticker,
+      arSceneEl,
+      arSceneResize
     }
   }
 }
