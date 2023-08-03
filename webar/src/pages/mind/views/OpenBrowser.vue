@@ -299,7 +299,7 @@ export default {
           toggleBarVisibility();
           tutorialRef.value.changeBgColor('rgba(1, 1, 1, 0.7)')
 
-        }, loadingYn.value ? 200000 : 0)
+        }, loadingYn.value ? 2000 : 0)
       }
     })
 

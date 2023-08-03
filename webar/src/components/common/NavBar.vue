@@ -4,11 +4,11 @@
         </div>
         <div v-if="exitModalVisible" class="modal">
             <div class="modal-content2">
-                <p>AR포토를 종료하고 메인페이지로</p>
-                <p>이동합니다.</p>
+                <p style="margin-top: 7.5vh;">AR포토를 종료하고</p>
+                <p>메인 페이지로 이동합니다.</p>
                 <div class="button-container2">
-                    <button class="round-button" @click="exit">나가기</button>
-                    <button class="round-button" @click="exitModalVisible = false">취소</button>
+                    <button class="round-button" style="margin-top: 7vh;" @click="exit">나가기</button>
+                    <button class="round-button2" style="margin-top: 2vh;" @click="exitModalVisible = false">취소</button>
                 </div>
             </div>
         </div>
@@ -755,13 +755,6 @@ export default {
     font-size: 0.9rem;
 }
 
-.button-container {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-    color: #fff;
-}
-
 
 .tab-container {
     display: flex;
@@ -806,33 +799,57 @@ export default {
 .modal-content2 {
     position: relative;
     background-color: rgba(0, 0, 0, 0);
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
+    border-radius: 20px;
+    width: 88%;
+    height: 40vh;
     background-color: #fff;
     color: #000;
+    text-align: center;
+    font-family: NanumSquare Neo OTF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
 }
 
 
 .round-button {
     display: inline-block;
-    border-radius: 10px;
-    width: 30%;
-    height: 30px;
-
-    border: 2px solid #000;
+    border-radius: 24px;
+    width: 49%;
+    height: 6vh;
+    border: 1px solid var(--black-50, #757575);
     background-color: #fff;
     color: #000;
-    margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    color: var(--black, #111);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    padding: 13px 24px;
+}
+
+.round-button2 {
+    display: inline-block;
+    border-radius: 24px;
+    width: 49%;
+    height: 6vh;
+    background-color: #000;
+    color: #fff;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    padding: 13px 24px;
 }
 
 .button-container2 {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 </style>

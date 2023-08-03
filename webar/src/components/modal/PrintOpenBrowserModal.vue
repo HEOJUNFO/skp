@@ -90,7 +90,7 @@
           <div v-if="printStatus === 'success'" class="circle-message">
             <p>출력완료</p>
           </div>
-          <div v-if="printStatus === 'fail'" class="error">
+          <div v-if="printStatus === 'failure'" class="error">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 18.375V12.25M21 24.5H21.0175M17.325 33.6L19.88 37.0067C20.26 37.5133 20.4499 37.7666 20.6828 37.8572C20.8868 37.9365 21.1132 37.9365 21.3172 37.8572C21.5501 37.7666 21.74 37.5133 22.12 37.0067L24.675 33.6C25.188 32.916 25.4445 32.574 25.7574 32.3129C26.1745 31.9647 26.667 31.7185 27.1959 31.5936C27.5925 31.5 28.02 31.5 28.875 31.5C31.3212 31.5 32.5443 31.5 33.5091 31.1004C34.7955 30.5675 35.8175 29.5455 36.3504 28.2591C36.75 27.2943 36.75 26.0712 36.75 23.625V13.65C36.75 10.7097 36.75 9.23959 36.1778 8.11655C35.6744 7.1287 34.8713 6.32555 33.8834 5.82222C32.7604 5.25 31.2903 5.25 28.35 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V23.625C5.25 26.0712 5.25 27.2943 5.64963 28.2591C6.18248 29.5455 7.20451 30.5675 8.49091 31.1004C9.45571 31.5 10.6788 31.5 13.125 31.5C13.98 31.5 14.4075 31.5 14.8041 31.5936C15.333 31.7185 15.8255 31.9647 16.2426 32.3129C16.5555 32.574 16.812 32.916 17.325 33.6Z"
@@ -103,7 +103,7 @@
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
           <button v-if="printStatus === 'success'" class="round-button-red3"
             @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
-          <button v-if="printStatus === 'fail'" class="round-button-red2"
+          <button v-if="printStatus === 'failure'" class="round-button-red2"
             @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
         </div>
       </div>
@@ -282,12 +282,6 @@ export default {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
 
       if (!await checkDeviceNumber(deviceNumber)) {
-        putSavePrintStatus({
-          eventId: eventId.value,
-          ocbMbrId: 'test',
-          clintUniqueKey: 'test',
-          printResultStatus: 'SUCCESS',
-        })
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
         if (incorrectDeviceNumberCount >= 5) {
@@ -305,12 +299,6 @@ export default {
 
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
         showFailureModal.value = true;
-        putSavePrintStatus({
-          eventId: eventId.value,
-          ocbMbrId: 'test',
-          clintUniqueKey: 'test',
-          printResultStatus: 'SUCCESS',
-        })
         return;
       } else if (freePrintCustomerCount.value >= printNumber.value) {
         freePrintCustomerCount.value -= printNumber.value;
@@ -426,7 +414,7 @@ export default {
 
 
     const checkDeviceNumber = async (deviceNumber) => {
-      if (deviceNumber.value === '0000' || deviceNumber.value === '0001') {
+      if (deviceNumber.value === '0000' || deviceNumber.value === '0001' || deviceNumber.value === '0002') {
         return true;
       }
       var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;
