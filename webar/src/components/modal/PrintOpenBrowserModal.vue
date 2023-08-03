@@ -424,7 +424,6 @@ export default {
         const data = response.data;
         return data.status === 'normal';
       } catch (error) {
-        alert("network error." + error);
         return false;
       }
     }
@@ -627,11 +626,10 @@ export default {
   display: inline-block;
   width: 61%;
   height: 6vh;
-  margin-top: 39vh;
+  margin-top: 9vh;
   border-radius: 24px;
   background-color: #EE4848;
   white-space: nowrap;
-  padding: 13px 24px 13px 24px;
   color: var(--white, #FFF);
   font-family: Inter;
   font-size: 16px;
@@ -648,7 +646,6 @@ export default {
   border-radius: 24px;
   background-color: #EE4848;
   white-space: nowrap;
-  padding: 13px 24px 13px 24px;
   color: var(--white, #FFF);
   font-family: Inter;
   font-size: 16px;
@@ -673,7 +670,7 @@ export default {
 
 .modal {
   position: fixed;
-  top: 40%;
+  top: 25vh;
   left: 10%;
   width: 80%;
   height: auto;
@@ -715,13 +712,13 @@ export default {
 .modal-content {
   background-color: #fff;
   text-align: center;
-  margin-top: 29vh;
+  margin-top: 19vh;
 }
 
 .modal-content3 {
   background-color: #fff;
   text-align: center;
-  margin-top: 28vh;
+  margin-top: 23vh;
 }
 
 .modal-content2 {
@@ -760,7 +757,7 @@ export default {
   color: #fff;
   text-align: center;
   margin-left: 18%;
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
 }
 
 .circle-message p {

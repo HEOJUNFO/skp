@@ -826,8 +826,7 @@ export default {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140%;
-    padding: 13px 24px;
+    line-height: 0%;
 }
 
 .round-button2 {
@@ -841,8 +840,7 @@ export default {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140%;
-    padding: 13px 24px;
+    line-height: 0%;
 }
 
 .button-container2 {

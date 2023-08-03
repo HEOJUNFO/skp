@@ -64,14 +64,11 @@
           <h1
             style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%;">
             사진 활용 동의 안내</h1>
-          <br>
           <div class="text">
             <pre>{{ agreePopupText }}</pre>
           </div>
           <a :href="agreePopupDetailLinkUrl" target="_blank" class="link">자세히보기</a>
-          <br>
           <input type="text" :placeholder="agreePopupInputText" class="input-text" v-model="inputText" />
-          <br>
           <div class="button-container">
             <button class="round-button-white" @click="share">확인</button>
           </div>
@@ -409,25 +406,24 @@ export default {
 
 
 .modal-content2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
-  background-color: rgba(0, 0, 0, 0);
-  padding: 5%;
-  border-radius: 10px;
-  width: 78%;
-  height: 30vh;
-  text-align: center;
+  background: #FFF;
+  border-radius: 20px;
+  width: 88%;
+  height: 37vh;
   background-color: #fff;
   color: #000;
+  text-align: center;
 }
 
 
 .close-button2 {
   position: absolute;
-  top: 2px;
-  right: 5px;
-  border: none;
-  background-color: transparent;
-  font-size: 1em;
+  top: 2.5vh;
+  right: 5.5%;
 }
 
 
@@ -435,6 +431,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 2vh;
 }
 
 .copy-button {
@@ -453,7 +450,7 @@ export default {
   border: 1px solid #000;
   border-radius: 20px;
   width: 86%;
-  height: 17vh;
+  height: 20vh;
   margin-top: 2vh;
   padding-top: 2vh;
   padding-bottom: 1vh;
@@ -508,6 +505,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
+  margin-top: 2vh;
 }
 
 .link {
@@ -519,16 +517,18 @@ export default {
   font-weight: 700;
   line-height: 140%;
   text-decoration-line: underline;
+  margin-top: 0.5vh;
 }
 
 .input-text {
-  width: 90%;
-  height: 30px;
-  border: none;
-  background-color: grey;
-  color: white;
-  border-radius: 5px;
-  padding: 14px 10px 16px 10px;
+  width: 75%;
+  height: 6vh;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  margin-top: 1.5vh;
+  margin-left: 5vh;
+  padding-left: 2.5%;
 }
 
 .box-container {
@@ -537,19 +537,17 @@ export default {
 }
 
 .round-button-white {
-  width: 53%;
-  height: auto;
   display: inline-block;
-  margin-top: 2vh;
   border-radius: 24px;
-  border: 1px solid var(--black-50, #757575);
-  background-color: #fff;
-  white-space: nowrap;
-  padding: 13px 24px 13px 24px;
-  color: #000;
+  width: 49%;
+  height: 6vh;
+  background-color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
+  line-height: 0%;
+  padding: 13px 24px;
 }
 </style>
