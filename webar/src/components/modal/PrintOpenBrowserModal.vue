@@ -223,7 +223,7 @@ export default {
 
       const mapOptions = {
         center: new window.naver.maps.LatLng(firstDeviceGps.deviceGpsLatitude, firstDeviceGps.deviceGpsLongitude),
-        zoom: 15,
+        zoom: 18,
       };
 
       map.value = new window.naver.maps.Map("map", mapOptions);

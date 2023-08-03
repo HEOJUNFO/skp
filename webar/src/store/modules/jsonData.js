@@ -758,7 +758,18 @@ export const jsonData = {
             bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDUjo7V8e97f111de4f563eeecafa5e459c45eb.png",
             bannerTargetUrl: "https://www.naver.com",
             bannerSort: 1
-        }
+        },
+        {
+          arNftBannerId: 576,
+          bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202308/17TYXF1a4L7702c0ddb3beebbaa456a81c12287d8f.png",
+          bannerTargetUrl: "https://www.naver.com",
+          bannerSort: 2
+      }, {
+        arNftBannerId: 576,
+        bannerImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202308/17TYXF1a4L7702c0ddb3beebbaa456a81c12287d8f.png",
+        bannerTargetUrl: "https://www.naver.com",
+        bannerSort: 3
+    }
     ],
 
    

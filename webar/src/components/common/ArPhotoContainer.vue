@@ -81,10 +81,10 @@ export default {
     let intervalId;
 
     watchEffect(() => {
-      if (loadingState.value === 'COUNTING') {
+      if (loadingState.value === 'COUNTING' || loadingState.value === 'LOADING') {
         intervalId = setInterval(() => {
           if (progressValue.value < 100) {
-            progressValue.value++;
+            progressValue.value += 2;
           } else {
             clearInterval(intervalId);
           }

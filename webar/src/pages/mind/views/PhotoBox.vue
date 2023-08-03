@@ -17,17 +17,17 @@
         <button class="box-button" @click="exit()">나가기&nbsp;&nbsp;➔</button>
         <div v-if="bannerON" class="banner-group">
             <div class="banner-container">
-                <button @click="prevBanner()">
+                <button v-if="bannerState === 2 || bannerState === 3" class="button1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg></button>
-                <a :href="currentBanner.bannerTargetUrl" target="_blank" @touchstart="handleTouchStart"
-                    @touchmove="handleTouchMove" @touchend="handleTouchEnd">
-                    <img :src="currentBanner.bannerImgUrl" :alt="currentBanner.bannerSort">
+                <a :href="currentBanner.bannerTargetUrl" target="_blank">
+                    <img :src="currentBanner.bannerImgUrl" :alt="currentBanner.bannerSort" @touchstart="handleTouchStart"
+                        @touchmove="handleTouchMove" @touchend="handleTouchEnd">
                 </a>
-                <button @click="nextBanner()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none">
+                <button v-if="bannerState === 1 || bannerState === 3" class="button2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg></button>
@@ -94,6 +94,7 @@ export default {
         const currentBanner = ref([])
         const bannerON = ref(false);
         const printModal = ref(null);
+        const bannerState = ref(0);
 
         const {
             getEventData
@@ -110,17 +111,28 @@ export default {
         const prevBanner = () => {
             let prevIndex = bannerList.value.indexOf(currentBanner.value) - 1;
             if (prevIndex < 0) {
-                prevIndex = bannerList.value.length - 1;
+                return;
             }
             currentBanner.value = bannerList.value[prevIndex];
+            if (prevIndex === 0) {
+                bannerState.value = 1;
+            } else {
+                bannerState.value = 3;
+            }
         }
 
         const nextBanner = () => {
             let nextIndex = bannerList.value.indexOf(currentBanner.value) + 1;
             if (nextIndex >= bannerList.value.length) {
-                nextIndex = 0;
+                return;
             }
             currentBanner.value = bannerList.value[nextIndex];
+            if (nextIndex === bannerList.value.length - 1) {
+                bannerState.value = 2;
+            }
+            else {
+                bannerState.value = 3;
+            }
         }
 
 
@@ -133,6 +145,7 @@ export default {
         const swipeDirection = ref(null);
 
         const handleTouchStart = (e) => {
+            console.log('touchstart');
             const firstTouch = e.touches[0];
             xDown.value = firstTouch.clientX;
             yDown.value = firstTouch.clientY;
@@ -155,6 +168,7 @@ export default {
                 } else {
                     swipeDirection.value = 'right';
                 }
+                console.log(swipeDirection.value);
             }
 
             xDown.value = null;
@@ -204,10 +218,13 @@ export default {
             await getEventData();
             bannerList.value = getters['eventData/bannerList'];
             currentBanner.value = bannerList.value[0];
-            console.log(currentBanner.value)
             if (bannerList.value.length > 0) {
                 bannerON.value = true;
             }
+            if (bannerList.value.length > 1) {
+                bannerState.value = 1;
+            }
+
         });
 
         return {
@@ -222,6 +239,7 @@ export default {
             handleTouchEnd,
             handleTouchMove,
             handleTouchStart,
+            bannerState
         }
     },
 }
@@ -299,14 +317,6 @@ export default {
     z-index: 2;
 }
 
-.banner-container button:first-of-type {
-    left: 2%;
-}
-
-.banner-container button:last-of-type {
-    right: 2%;
-}
-
 .box-button {
     display: inline-block;
     margin-top: 3.5vh;
@@ -319,5 +329,15 @@ export default {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
+}
+
+.button1 {
+    position: absolute;
+    left: 3%;
+}
+
+.button2 {
+    position: absolute;
+    right: 3%;
 }
 </style>
