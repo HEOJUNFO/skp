@@ -61,8 +61,6 @@ export default {
 
 
     const arSceneResize = () => {
-
-
       setTimeout(() => {
         arSceneEl.value.resize();
       }, 1);
@@ -90,7 +88,7 @@ export default {
     let particleCreated = {};
 
     watch(() => selectFilter, () => {
-      arSceneResize();
+
       const files = selectFilter.value;
       if (files.length === 0 || !files.some(file => file.includes('json'))) {
         isMindARFace.value = false;
