@@ -147,7 +147,7 @@ export default {
 
 .text {
   position: absolute;
-  top: 75vh;
+  top: calc(20vh + 400px);
   left: 50%;
   transform: translateX(-50%);
   color: #000;
@@ -161,7 +161,7 @@ export default {
 
 .ArPhotoloading .progress-bar {
   position: absolute;
-  top: 72vh;
+  top: calc(20vh + 380px);
   left: 50%;
   transform: translateX(-50%);
   width: 72%;
@@ -190,7 +190,7 @@ export default {
 
 .ArPhotoloading img {
   position: absolute;
-  top: 25vh;
+  top: 20vh;
   left: 50%;
   width: auto;
   height: auto;
