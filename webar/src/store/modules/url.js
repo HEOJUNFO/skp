@@ -3,7 +3,7 @@
 export const url = {
   namespaced: true,
   state: () => ({
-    eventMainUrl: "/web-event/main2.html",
+    eventMainUrl: "/web-event/main.html",
     eventWinningFormUrl: "/web-event/give-away.html",
     eventAppUrl: "ocbt://com.skmc.okcashbag.home_google/",
     actionType: "WEB",

@@ -1077,7 +1077,7 @@ export const jsonData = {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "star",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://img.freepik.com/premium-vector/star-vector-icon-star-symbol-isolated-white-background-element-customer-product-rating-review-flat-icon-apps-websites-achievements-games_646072-218.jpg",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/star/star.json",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (1).json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
@@ -1085,7 +1085,7 @@ export const jsonData = {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "snow",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://media.istockphoto.com/id/157695460/ko/%EB%B2%A1%ED%84%B0/%EC%8A%A4%EB%85%B8%EC%9D%B4-%EB%B0%B0%EA%B2%BD%EA%B8%B0%EC%88%A0.jpg?s=612x612&w=0&k=20&c=RwusLjukQekbzKVRizUuht_EqiuffrpL8wRegjMFEhA=",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/snow/snow.json",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (2).json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },
@@ -1093,7 +1093,7 @@ export const jsonData = {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "rain",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://cdn.pixabay.com/photo/2014/09/21/14/39/surface-455124_1280.jpg",     //	썸네일 이미지 URL	string
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/facemodel/Hat/Hat (3).json",     //	원본 이미지 URL	string
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (3).json",     //	원본 이미지 URL	string
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 2,                      //	순서	int
           },

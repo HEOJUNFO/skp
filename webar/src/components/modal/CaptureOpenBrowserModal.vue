@@ -197,7 +197,7 @@ export default {
     };
 
     const saveImage = () => {
-      putPvLog(getPvLogParams(1, "/main/photo"));
+      //putPvLog(getPvLogParams(1, "/main/photo"));
 
       const a = document.createElement("a");
       a.href = imageurl.value;
