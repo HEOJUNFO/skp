@@ -8,42 +8,36 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
             <path
               d="M5.25 15.75H28.875C33.2242 15.75 36.75 19.2758 36.75 23.625C36.75 27.9742 33.2242 31.5 28.875 31.5H21M5.25 15.75L12.25 8.75M5.25 15.75L12.25 22.75"
-              stroke="black"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <p style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">뒤로</p>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">
+            뒤로</p>
         </button>
         <button @click="saveImage()">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path
-              d="M36.75 36.75H5.25M31.5 19.25L21 29.75M21 29.75L10.5 19.25M21 29.75V5.25"
-              stroke="black"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <path d="M36.75 36.75H5.25M31.5 19.25L21 29.75M21 29.75L10.5 19.25M21 29.75V5.25" stroke="black"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <p style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">저장</p>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">
+            저장</p>
         </button>
         <button @click="shareAgreePopupYn ? agreeShare() : share()">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
             <path
               d="M36.75 15.75L36.75 5.25002M36.75 5.25002H26.25M36.75 5.25002L21 21M17.5 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V28.35C5.25 31.2903 5.25 32.7604 5.82222 33.8834C6.32555 34.8713 7.1287 35.6744 8.11655 36.1778C9.23959 36.75 10.7097 36.75 13.65 36.75H28.35C31.2903 36.75 32.7604 36.75 33.8834 36.1778C34.8713 35.6744 35.6744 34.8713 36.1778 33.8834C36.75 32.7604 36.75 31.2903 36.75 28.35V24.5"
-              stroke="black"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+              stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <p style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">공유</p>
+          <p
+            style="color: #000; font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 140%">
+            공유</p>
         </button>
       </div>
       <div class="box-container">
         <div v-if="hashTagYn" class="box">
-          <h1 style="color: #000; text-align: center; font-family: Pretendard; font-size: 16px; font-style: normal; font-weight: 800; line-height: 140%">
+          <h1
+            style="color: #000; text-align: center; font-family: Pretendard; font-size: 16px; font-style: normal; font-weight: 800; line-height: 140%">
             필수 해시태그
           </h1>
           <p v-html="generateHashTagString(hashTagValue)"></p>
@@ -53,7 +47,8 @@
           </transition>
         </div>
       </div>
-      <button v-if="photoGiveAwayYn && !isDecorate" class="box-button2" @click="openCompletePopup(''), photoGiveAwayButtonOff()" style="margin-bottom: 2vh">
+      <button v-if="photoGiveAwayYn && !isDecorate" class="box-button2"
+        @click="openCompletePopup(''), photoGiveAwayButtonOff()" style="margin-bottom: 2vh">
         {{ photoGiveAwayButtonText + "&nbsp;&nbsp;➔" }}
       </button>
       <div v-if="isDecorate" style="margin: 2vh"></div>
@@ -62,10 +57,12 @@
         <div class="modal-content2">
           <button class="close-button2" @click="showAgreeModal = false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 42 42" fill="none">
-              <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </button>
-          <h1 style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
+          <h1
+            style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
             사진 활용 동의 안내
           </h1>
           <div class="text">
@@ -364,7 +361,7 @@ export default {
 }
 
 .box-button {
-  display: inline-block;
+  display: block;
   margin-top: 2vh;
   border-radius: 24px;
   background-color: #000;
@@ -375,6 +372,8 @@ export default {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .box-button2 {

@@ -199,6 +199,7 @@ export function setAframe() {
       var data = this.data;
       if (!mesh) { return; }
       mesh.traverse(function (node) {
+        console.log(node)
         if (node.isMesh) {
           node.material.alphaTest = data;
         }
