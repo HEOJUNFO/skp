@@ -34,7 +34,7 @@
     <a-image ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
       gesture-handler="locationBased: true" @mousedown="startLongPress(), stickerSet(arData)" @mouseup="cancelLongPress">
       <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
-        translate="true"> </a-box>
+        translate="true" alpha-test="0.5"> </a-box>
     </a-image>
     <a-plane ref="trashRef" id="close-button" position="0 0.3 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
