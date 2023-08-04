@@ -524,7 +524,14 @@ export default {
     };
 
     const decoratePhoto = async () => {
-      await dispatch("eventData/setSeletedPhoto", imageUrl.value);
+      if (imageUrl.value.startsWith("data:image")) {
+        await dispatch("eventData/setSeletedPhoto", imageUrl.value);
+      } else {
+        const image = await window.Jimp.read(imageUrl.value);
+
+        const imageSrc = await image.getBase64Async("image/png");
+        await dispatch("eventData/setSeletedPhoto", imageSrc);
+      }
 
       if (isPhotoBox.value) {
         // router.push({ name: "OpenBrowser", query: { eventId: eventId.value } });
