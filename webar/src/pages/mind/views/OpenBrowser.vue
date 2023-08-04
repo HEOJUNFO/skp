@@ -1,30 +1,18 @@
 <template>
   <tutorial-modal ref="tutorialRef" v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
-  <nav-bar
-    ref="navbarRef"
-    :frame-list="frameList"
-    :character-list="characterList"
-    :filter-list="filterList"
-    :sticker-list="stickerList"
-    :tab-list="tabList"
-    :is-decorate="isDecorate"
-  >
+  <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
+    :sticker-list="stickerList" :tab-list="tabList" :is-decorate="isDecorate">
     <ar-photo-container ref="containerRef">
       <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <ar-photo-camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
-        <img id="deco-photo" v-if="selectedPhoto" :src="selectedPhoto" style="position: absolute; width: 100%; height: 100%" />
-        <event-ar-photo-object
-          ref="eventArPhotoObjectRef"
-          :character-list="characterList"
-          :filter-list="filterList"
-          :sticker-asset="stickerList"
-          :tab-list="tabList"
-          @load:scene="loadScene"
+        <img id="deco-photo" v-if="selectedPhoto" :src="selectedPhoto"
+          style="position: absolute; width: 100%; height: 100%" />
+        <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
+          :sticker-asset="stickerList" :tab-list="tabList" @load:scene="loadScene"
           @allow:orientationpermission="allowOrientationPermission"
           @reject:orientationpermission="rejectOrientationPermission"
-          @request:orientationpermission="rquestOrientationPermission"
-        />
+          @request:orientationpermission="rquestOrientationPermission" />
         <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
       </template>
     </ar-photo-container>
@@ -219,11 +207,11 @@ export default {
     const setEventWrapperStyles = (x, y) => {
       var aspectRatio = y / x;
       const newTop = -18 * aspectRatio + 41;
-      const newHeight = 46 * aspectRatio;
+      const newHeight = window.innerWidth * aspectRatio;
 
-      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}vh`);
-      eventArPhotoObjectRef.value.arSceneResize();
-    };
+      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}px`);
+      eventArPhotoObjectRef.value.arSceneResize()
+    }
 
     const toggleBeautyFilter = () => {
       beautyOn.value = !beautyOn.value;

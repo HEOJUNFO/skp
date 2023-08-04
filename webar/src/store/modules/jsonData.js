@@ -1048,6 +1048,7 @@ export const jsonData = {
         ],
         tabContentsInfo: [                // 탭 콘텐츠 정보(array)
          {
+            id: 101,
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
@@ -1056,6 +1057,7 @@ export const jsonData = {
             sort: 0,                      //	순서	int	
           },
           {
+            id: 102,
             photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
@@ -1064,6 +1066,7 @@ export const jsonData = {
             sort: 1,                      //	순서	int	
           },
           {
+            id: 103,
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "star",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://img.freepik.com/premium-vector/star-vector-icon-star-symbol-isolated-white-background-element-customer-product-rating-review-flat-icon-apps-websites-achievements-games_646072-218.jpg",     //	썸네일 이미지 URL	string	

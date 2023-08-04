@@ -49,6 +49,7 @@ export default {
 
   setup(props, { emit }) {
     const { stickerAsset } = toRefs(props);
+    const { tabList } = toRefs(props);
     const isMindARFace = ref(false);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
@@ -80,10 +81,13 @@ export default {
     function addStickersToAssets(stickerAsset) {
       let assets = document.querySelector('a-assets');
       stickerAsset.value.forEach((asset) => {
-        assets.insertAdjacentHTML('beforeend', `<img id="${asset.sort}" src="${asset.file}" crossOrigin="anonymous">`);
+        if (asset.type === 'STICKER') {
+          assets.insertAdjacentHTML('beforeend', `<img id="${asset.selectId}" src="${asset.file}" crossOrigin="anonymous">`);
+        }
       });
 
     }
+
     let entitiesCreated = {};
     let particleCreated = {};
 
@@ -219,6 +223,7 @@ export default {
       //부모가 설정한 load:scene 이벤트에 맵핑된 부모 함수를 실행
       emit('load:scene');
       addStickersToAssets(stickerAsset);
+      addStickersToAssets(tabList);
     }
 
     const permissionGranted = () => {

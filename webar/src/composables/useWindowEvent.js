@@ -53,7 +53,8 @@ export default function useArObjectInfo() {
           name: item.fileName,
           select: select,
           type: item.tabMenuType,
-          sort: item.itemID
+          sort: item.itemID,
+          selectId: item.selectID,
         };
       });
     }

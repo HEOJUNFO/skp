@@ -466,7 +466,7 @@ function getScanningStampData(item) {
   };
 }
 function getContentsData(item) {
-  const { photoContentChoiceType, photoFileName, photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType, sort } = item;
+  const {id, photoContentChoiceType, photoFileName, photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType, sort } = item;
 
   let formattedSourceUri = photoOriginalFileUrl.endsWith(".zip") ? "" : photoOriginalFileUrl.replace(/\s/g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29");
 
@@ -477,6 +477,7 @@ function getContentsData(item) {
     thumbnailUri: photoThumbnailImgUrl,
     sourceUri: formattedSourceUri,
     fileName: photoFileName,
+    selectID: id,
   };
 }
 // 브릿지 데이터 파싱

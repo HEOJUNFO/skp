@@ -327,7 +327,7 @@ export const getObjectAttrs = (data) => {
     return {
       width,
       height,
-      src: '#'+data.sort,
+      src: '#'+data.selectId,
       position: getPosition({positionX: getRandomArbitrary(-0.3,0.3), positionY: getRandomArbitrary(0.6,1.6), positionZ: -2}),
     }
   }
