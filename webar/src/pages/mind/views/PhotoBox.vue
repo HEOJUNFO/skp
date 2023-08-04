@@ -145,7 +145,6 @@ export default {
         const swipeDirection = ref(null);
 
         const handleTouchStart = (e) => {
-            console.log('touchstart');
             const firstTouch = e.touches[0];
             xDown.value = firstTouch.clientX;
             yDown.value = firstTouch.clientY;
@@ -168,7 +167,6 @@ export default {
                 } else {
                     swipeDirection.value = 'right';
                 }
-                console.log(swipeDirection.value);
             }
 
             xDown.value = null;

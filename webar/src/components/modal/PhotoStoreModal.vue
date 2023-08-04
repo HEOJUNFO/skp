@@ -60,7 +60,7 @@ export default {
             await data.openDatabase();
 
             imagesData.value = await data.getAll();
-            visibleImages.value = imagesData.value.slice(0, 6);
+            visibleImages.value = imagesData.value.slice(0, 9);
         });
 
         const uploadImage = async (event) => {
@@ -75,11 +75,12 @@ export default {
             if (imagesData.value.length > 30) {
                 imagesData.value.pop();
             }
-            if (imagesData.value.length <= 6) {
+            if (imagesData.value.length <= 9) {
                 visibleImages.value.unshift(newImage);
             } else {
-                visibleImages.value = imagesData.value.slice(0, 6);
+                visibleImages.value = imagesData.value.slice(0, 9);
             }
+
         };
 
         const showMoreImages = () => {
@@ -101,7 +102,18 @@ export default {
         }
 
         const saveImage = async (url) => {
-            const blob = await fetch(url).then(r => r.blob());
+            const base64Data = url.split(',')[1];
+
+            // base64 문자열을 ArrayBuffer로 변환합니다.
+            const binaryString = window.atob(base64Data);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            // ArrayBuffer를 Blob으로 변환합니다.
+            const blob = new Blob([bytes.buffer], { type: 'image/jpeg' });
 
             let id = await data.saveImage(blob);
             let newImage = { id: id, url: URL.createObjectURL(blob) };
@@ -110,10 +122,10 @@ export default {
             if (imagesData.value.length > 30) {
                 imagesData.value.pop();
             }
-            if (imagesData.value.length <= 6) {
+            if (imagesData.value.length <= 9) {
                 visibleImages.value.unshift(newImage);
             } else {
-                visibleImages.value = imagesData.value.slice(0, 6);
+                visibleImages.value = imagesData.value.slice(0, 9);
             }
         }
 
@@ -134,10 +146,10 @@ export default {
             if (imagesData.value.length > 30) {
                 imagesData.value.pop();
             }
-            if (imagesData.value.length <= 6) {
+            if (imagesData.value.length <= 9) {
                 visibleImages.value.unshift(newImage); // Use visibleImages.value instead of this.visibleImages
             } else {
-                visibleImages.value = imagesData.value.slice(0, 6); // Use visibleImages.value instead of this.visibleImages
+                visibleImages.value = imagesData.value.slice(0, 9); // Use visibleImages.value instead of this.visibleImages
             }
             intervalId = setInterval(changeBanner, 2000);
         };

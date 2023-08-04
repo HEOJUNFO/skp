@@ -761,8 +761,8 @@ export default {
     width: 100%;
     gap: 9%;
     margin-left: 5.5%;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
     overflow-x: auto;
 }
 

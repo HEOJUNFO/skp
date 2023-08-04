@@ -85,8 +85,13 @@ class ImageStorage {
             };
 
             request.onsuccess = () => {
-                resolve(request.result.map(item => ({id: item.id, url: URL.createObjectURL(item.image)})));
+                if (Array.isArray(request.result)) {
+                    resolve(request.result.map(item => ({id: item.id, url: URL.createObjectURL(item.image)})));
+                } else {
+                    console.log('Failed to get image')
+                }
             };
+          
         }); 
     }
 
