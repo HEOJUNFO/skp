@@ -527,7 +527,8 @@ export default {
       await dispatch("eventData/setSeletedPhoto", imageUrl.value);
 
       if (isPhotoBox.value) {
-        router.push({ name: "OpenBrowser", query: { eventId: eventId.value } });
+        // router.push({ name: "OpenBrowser", query: { eventId: eventId.value } });
+        window.parent.location.href = window.parent.location.href.replace(/\/photo-box/gi, "");
       } else {
         router.go(0);
       }
