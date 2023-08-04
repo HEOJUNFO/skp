@@ -8,7 +8,7 @@
       </div>
 
       <!-- 비디오 vertical 세로형-->
-      <div v-if="modalType === 'VIDEO'" class="video" :class="{ vertical: modalDirection === 'HEIGHT' }">
+      <div v-show="modalType === 'VIDEO' && modalData.sourceUri && playing" class="video" :class="{ vertical: modalDirection === 'HEIGHT' }">
         <div class="video-container" id="video-container">
           <!--          <div class="playback-animation" id="playback-animation">
             <div class="playback-icons">
@@ -45,10 +45,10 @@
         </div>
       </div>
     </div>
-    <div class="btn" v-show="!forcePlayFlag">
+    <div class="btn" v-show="!forcePlayFlag && modalButtonShow">
       <a href="#" @click.prevent="closeModal">확인</a>
     </div>
-    <div class="btn" v-show="forcePlayFlag">
+    <div class="btn" v-show="forcePlayFlag && modalButtonShow">
       <p>{{ forcePlayTimeLeft }}초 후 SKIP</p>
     </div>
   </vue-final-modal>
@@ -118,6 +118,12 @@ export default {
     const forcePlayFlag = ref(true);
 
     const forcePlayTimeLeft = ref(0);
+
+    const playing = ref(false);
+
+    const modalButtonShow = computed(() => {
+      return modalType.value === "VIDEO" ? playing.value : true;
+    });
 
     let timeout;
 
@@ -192,6 +198,9 @@ export default {
 
     const timeUpdate = (e) => {
       const { target } = e;
+      if (target.currentTime < 1) {
+        playing.value = true;
+      }
       const time = Math.round(target.duration - target.currentTime);
       const min = parseInt(time / 60) || 0;
       const sec = parseInt(time % 60) || 0;
@@ -234,7 +243,8 @@ export default {
       templateTypeClass,
 
       vidoeEl,
-
+      playing,
+      modalButtonShow,
       openModal,
       opened,
       closeModal,

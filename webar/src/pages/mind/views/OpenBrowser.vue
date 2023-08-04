@@ -1,22 +1,36 @@
 <template>
   <tutorial-modal ref="tutorialRef" v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
-  <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
-    :sticker-list="stickerList" :tab-list="tabList">
+  <nav-bar
+    ref="navbarRef"
+    :frame-list="frameList"
+    :character-list="characterList"
+    :filter-list="filterList"
+    :sticker-list="stickerList"
+    :tab-list="tabList"
+    :is-decorate="isDecorate"
+  >
     <ar-photo-container ref="containerRef">
       <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <ar-photo-camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
-        <event-ar-photo-object ref="eventArPhotoObjectRef" :character-list="characterList" :filter-list="filterList"
-          :sticker-asset="stickerList" :tab-list="tabList" @load:scene="loadScene"
+        <img id="deco-photo" v-if="selectedPhoto" :src="selectedPhoto" style="position: absolute; width: 100%; height: 100%" />
+        <event-ar-photo-object
+          ref="eventArPhotoObjectRef"
+          :character-list="characterList"
+          :filter-list="filterList"
+          :sticker-asset="stickerList"
+          :tab-list="tabList"
+          @load:scene="loadScene"
           @allow:orientationpermission="allowOrientationPermission"
           @reject:orientationpermission="rejectOrientationPermission"
-          @request:orientationpermission="rquestOrientationPermission" />
+          @request:orientationpermission="rquestOrientationPermission"
+        />
         <capture-open-browser-modal ref="captureModal" :image-url="imageUrl" />
       </template>
     </ar-photo-container>
   </nav-bar>
 </template>
-  
+
 <script>
 import { onMounted, ref, computed, provide, watch } from "vue";
 import { useStore } from "vuex";
@@ -44,7 +58,7 @@ export default {
     TutorialModal,
     CaptureOpenBrowserModal,
     BrowserCheckModal,
-    NavBar
+    NavBar,
   },
   setup() {
     const store = useStore();
@@ -59,54 +73,38 @@ export default {
     const imageUrl = ref(null);
     const beautyOn = ref(false);
     const eventArPhotoObjectRef = ref(null);
-    const faceMode = ref('user');
+    const faceMode = ref("user");
+    const selectedPhoto = ref("");
 
     const isNaverBrowser = computed(() => /NAVER/.test(navigator.userAgent));
 
     const tutorialYn = computed(() => {
-      const istutorial = getters['eventData/tutorialYn'];
-      return istutorial === 'Y';
+      const istutorial = getters["eventData/tutorialYn"];
+      return istutorial === "Y";
     });
 
     const loadingYn = computed(() => {
-      const isLoading = store.getters['eventData/loadingImgYn'];
-      return isLoading === 'Y';
+      const isLoading = store.getters["eventData/loadingImgYn"];
+      return isLoading === "Y";
     });
 
-    const {
-      getEventData
-    } = useEventData({ dispatch });
+    const isDecorate = computed(() => (selectedPhoto.value ? true : false));
 
-    const {
-      loadingState,
-      startLoading,
-      completeLoading
-    } = useLoading()
+    const { getEventData } = useEventData({ dispatch });
 
-    const {
-      rejectVideo,
-      loadScene,
-      rquestOrientationPermission,
-      allowOrientationPermission,
-      rejectOrientationPermission,
-    } = useEventHandlers();
+    const { loadingState, startLoading, completeLoading } = useLoading();
 
-    const {
-      characterList,
-      filterList,
-      stickerList,
-      tabList,
-      frameList,
-      setList
-    } = useWindowEvent();
+    const { rejectVideo, loadScene, rquestOrientationPermission, allowOrientationPermission, rejectOrientationPermission } = useEventHandlers();
+
+    const { characterList, filterList, stickerList, tabList, frameList, setList } = useWindowEvent();
 
     // video load complete
     const loadVideo = () => {
       loadedVideo.value = true;
-    }
+    };
 
     async function capture() {
-      const video = document.querySelector('.event-wrapper video');
+      const video = document.querySelector(".event-wrapper video");
       const canvas = document.createElement("canvas");
       video.pause();
       let v_width = video.clientWidth * 2;
@@ -115,7 +113,7 @@ export default {
       canvas.width = v_width;
       canvas.height = v_height;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
 
       let videoRatio = video.videoWidth / video.videoHeight;
       let canvasRatio = v_width / v_height;
@@ -134,18 +132,24 @@ export default {
       }
 
       ctx.save();
-      if (faceMode.value === 'user') {
+      if (faceMode.value === "user") {
         ctx.scale(-1, 1);
         ctx.translate(-v_width, 0);
       }
       ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
       ctx.restore();
 
-      let scComp = document.querySelector('a-scene').components.screenshot;
+      if (isDecorate.value) {
+        const decoPhotoSrc = document.querySelector("#deco-photo").src;
+        const decoPhoto = await loadImage(decoPhotoSrc);
+        ctx.drawImage(decoPhoto, 0, 0, v_width, v_height);
+      }
+
+      let scComp = document.querySelector("a-scene").components.screenshot;
       var isVREnabled = scComp.el.renderer.xr.enabled;
       var renderer = scComp.el.renderer;
 
-      var params = scComp.setCapture('perspective');
+      var params = scComp.setCapture("perspective");
       params.size.width = parseInt(v_width * 1.35);
       params.size.height = parseInt(v_height * 1.35);
 
@@ -157,9 +161,9 @@ export default {
 
       ctx.drawImage(imgData, 0, 0, v_width, v_height);
 
-      if (document.querySelector('.frame-top') && document.querySelector('.frame-bottom')) {
-        const topSrc = document.querySelector('.frame-top').style.backgroundImage.slice(5, -2);
-        const bottomSrc = document.querySelector('.frame-bottom').style.backgroundImage.slice(5, -2);
+      if (document.querySelector(".frame-top") && document.querySelector(".frame-bottom") && !isDecorate.value) {
+        const topSrc = document.querySelector(".frame-top").style.backgroundImage.slice(5, -2);
+        const bottomSrc = document.querySelector(".frame-bottom").style.backgroundImage.slice(5, -2);
 
         const frameTop = await loadImage(topSrc);
         const frameBottom = await loadImage(bottomSrc);
@@ -176,8 +180,7 @@ export default {
           processedImage = processedImage.contrast(0.2);
           processedImage = processedImage.blur(2);
 
-
-          const src = await processedImage.getBase64Async('image/png');
+          const src = await processedImage.getBase64Async("image/png");
           imageUrl.value = src;
         } catch (err) {
           console.error(err);
@@ -202,15 +205,16 @@ export default {
     const captureing = async () => {
       const data = await capture();
       captureModal.value.openModal(data);
+      captureModal.value.decorateCapture(isDecorate.value);
       navbarRef.value.secondToggleBarVisibility();
-    }
+    };
 
     const flipCamera = () => {
       let mode = cameraRef.value.flipCamera();
       mode.then((res) => {
         faceMode.value = res;
-      })
-    }
+      });
+    };
 
     const setEventWrapperStyles = (x, y) => {
       var aspectRatio = y / x;
@@ -218,44 +222,44 @@ export default {
       const newHeight = 46 * aspectRatio;
 
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}vh`);
-      eventArPhotoObjectRef.value.arSceneResize()
-    }
+      eventArPhotoObjectRef.value.arSceneResize();
+    };
 
     const toggleBeautyFilter = () => {
       beautyOn.value = !beautyOn.value;
       cameraRef.value.beautyFilter(beautyOn.value);
-    }
+    };
 
     const selectFrameChange = (props) => {
       containerRef.value.selectFrame = props;
-    }
+    };
 
     const updateObjectValue = (property, props) => {
       if (eventArPhotoObjectRef.value) {
-        if (typeof eventArPhotoObjectRef.value[property] === 'function') {
+        if (typeof eventArPhotoObjectRef.value[property] === "function") {
           eventArPhotoObjectRef.value[property](props);
         } else {
           eventArPhotoObjectRef.value[property] = props;
         }
       }
-    }
+    };
 
-    const selectCharacterChange = props => updateObjectValue('selectCharacter', props);
-    const selectTabChange = props => updateObjectValue('selectTab', props);
-    const selectFilterChange = props => updateObjectValue('selectFilter', props);
-    const selectStickerChange = props => updateObjectValue('selectSticker', props);
+    const selectCharacterChange = (props) => updateObjectValue("selectCharacter", props);
+    const selectTabChange = (props) => updateObjectValue("selectTab", props);
+    const selectFilterChange = (props) => updateObjectValue("selectFilter", props);
+    const selectStickerChange = (props) => updateObjectValue("selectSticker", props);
 
-    provide('toggleBarVisibility', toggleBarVisibility);
-    provide('secondToggleBarVisibility', secondToggleBarVisibility);
-    provide('captureing', captureing);
-    provide('flipCamera', flipCamera);
-    provide('toggleBeautyFilter', toggleBeautyFilter);
-    provide('selectFrameChange', selectFrameChange)
-    provide('selectTabChange', selectTabChange)
-    provide('selectCharacterChange', selectCharacterChange)
-    provide('selectFilterChange', selectFilterChange)
-    provide('selectStickerChange', selectStickerChange)
-    provide('setEventWrapperStyles', setEventWrapperStyles);
+    provide("toggleBarVisibility", toggleBarVisibility);
+    provide("secondToggleBarVisibility", secondToggleBarVisibility);
+    provide("captureing", captureing);
+    provide("flipCamera", flipCamera);
+    provide("toggleBeautyFilter", toggleBeautyFilter);
+    provide("selectFrameChange", selectFrameChange);
+    provide("selectTabChange", selectTabChange);
+    provide("selectCharacterChange", selectCharacterChange);
+    provide("selectFilterChange", selectFilterChange);
+    provide("selectStickerChange", selectStickerChange);
+    provide("setEventWrapperStyles", setEventWrapperStyles);
 
     function handlePopState() {
       if (captureModal.value.showVModal) {
@@ -276,6 +280,16 @@ export default {
       handlePopState();
     };
 
+    const initDecorate = () => {
+      const decorateImage = getters["eventData/selectedPhoto"];
+      if (decorateImage) {
+        document.querySelector(".frame-top").style.display = "none";
+        document.querySelector(".frame-bottom").style.display = "none";
+        selectedPhoto.value = decorateImage;
+        dispatch("eventData/setSeletedPhoto", "");
+      }
+    };
+
     window.history.pushState(null, null, window.location.href);
     window.onpopstate = function () {
       handlePopState();
@@ -287,22 +301,25 @@ export default {
       setList();
 
       startLoading();
+
+      initDecorate();
     });
 
     watch(loadingState, async (newVal) => {
-
-      if (newVal === 'COUNTING') {
-        setTimeout(() => {
-          completeLoading()
-          if (tutorialYn.value) {
-            tutorialPopup.value = true;
-          }
-          toggleBarVisibility();
-          tutorialRef.value.changeBgColor('rgba(1, 1, 1, 0.7)')
-
-        }, loadingYn.value ? 2000 : 0)
+      if (newVal === "COUNTING") {
+        setTimeout(
+          () => {
+            completeLoading();
+            if (tutorialYn.value && !isDecorate.value) {
+              tutorialPopup.value = true;
+            }
+            toggleBarVisibility();
+            tutorialRef.value.changeBgColor("rgba(1, 1, 1, 0.7)");
+          },
+          loadingYn.value ? 2000 : 0
+        );
       }
-    })
+    });
 
     return {
       characterList,
@@ -313,6 +330,9 @@ export default {
       loadedVideo,
       loadingState,
       loadVideo,
+      selectedPhoto,
+      isDecorate,
+      initDecorate,
       rejectVideo,
       loadScene,
       tutorialPopup,
@@ -328,10 +348,10 @@ export default {
       captureModal,
       imageUrl,
       eventArPhotoObjectRef,
-      tutorialRef
-    }
-  }
-}
+      tutorialRef,
+    };
+  },
+};
 </script>
-  
+
 <style scoped></style>

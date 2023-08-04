@@ -9,6 +9,7 @@ export const eventData = {
     photoBoxData: {},
     printData: {},
     isEventFinish: false,
+    selectedPhoto: "",
   }),
   mutations: {
     ["SET_EVENT_DATA"](state, payload) {
@@ -25,6 +26,9 @@ export const eventData = {
     },
     ["isEventFinish"](state, payload) {
       state.isEventFinish = payload;
+    },
+    ["SET_SELECTED_PHOTO"](state, payload) {
+      state.selectedPhoto = payload;
     },
   },
   getters: {
@@ -51,23 +55,23 @@ export const eventData = {
     // asset 정보
     frameContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.frameContentsInfo?.map(getContentsData) ?? [];
+      return photoContentsInfo?.frameContentsInfo?.map(getContentsData) ?? [];
     },
     characterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.characterContentsInfo?.map(getContentsData) ?? [];
+      return photoContentsInfo?.characterContentsInfo?.map(getContentsData) ?? [];
     },
     tabContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return  photoContentsInfo?.tabContentsInfo?.map(getContentsData) ?? [];
+      return photoContentsInfo?.tabContentsInfo?.map(getContentsData) ?? [];
     },
     filterContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.filterContentsInfo?.map(getContentsData) ?? [];
+      return photoContentsInfo?.filterContentsInfo?.map(getContentsData) ?? [];
     },
     stickerContentsInfoList({ eventData }) {
       const { photoContentsInfo } = eventData;
-      return   photoContentsInfo?.stickerContentsInfo?.map(getContentsData) ?? [];
+      return photoContentsInfo?.stickerContentsInfo?.map(getContentsData) ?? [];
     },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
@@ -147,68 +151,68 @@ export const eventData = {
       return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
     },
     tutorialYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'tutorialYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "tutorialYn", "N");
     },
     photoRatioSettingType({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoRatioSettingType', 'BASIC');
+      return getPhotoLogicalInfoProperty(eventData, "photoRatioSettingType", "BASIC");
     },
     arFrameSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'arFrameSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "arFrameSettingYn", "N");
     },
     photoTabMenuAddSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoTabMenuAddSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "photoTabMenuAddSettingYn", "N");
     },
     tabMenuTitle({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'tabMenuTitle', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "tabMenuTitle", "default");
     },
     arFilterSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'arFilterSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "arFilterSettingYn", "N");
     },
     arCharacterSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'arCharacterSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "arCharacterSettingYn", "N");
     },
     arStickerSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'arStickerSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "arStickerSettingYn", "N");
     },
     filmResultImgUrl({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'filmResultImgUrl', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "filmResultImgUrl", "default");
     },
     hashTagSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'hashTagSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "hashTagSettingYn", "N");
     },
     hashTagValue({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'hashTagValue', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "hashTagValue", "default");
     },
     shareAgreePopupSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'shareAgreePopupSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "shareAgreePopupSettingYn", "N");
     },
     agreePopupText({ eventData }) {
-      let text = eventData?.photoLogicalInfo?.agreePopupText?? 'default';
-      return text.replace(/\\n/g, '\n');
+      let text = eventData?.photoLogicalInfo?.agreePopupText ?? "default";
+      return text.replace(/\\n/g, "\n");
     },
     agreePopupDetailLinkUrl({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'agreePopupDetailLinkUrl', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "agreePopupDetailLinkUrl", "default");
     },
     agreePopupInputText({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'agreePopupInputText', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "agreePopupInputText", "default");
     },
     photoPrintSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoPrintSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "photoPrintSettingYn", "N");
     },
     photoPrintButtonText({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoPrintButtonText', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "photoPrintButtonText", "default");
     },
     photoGiveAwaySettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoGiveAwaySettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "photoGiveAwaySettingYn", "N");
     },
     photoGiveAwayButtonText({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'photoGiveAwayButtonText', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "photoGiveAwayButtonText", "default");
     },
     filmResultFooterImgSettingYn({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgSettingYn', 'N');
+      return getPhotoLogicalInfoProperty(eventData, "filmResultFooterImgSettingYn", "N");
     },
     filmResultFooterImgUrl({ eventData }) {
-      return getPhotoLogicalInfoProperty(eventData, 'filmResultFooterImgUrl', 'default');
+      return getPhotoLogicalInfoProperty(eventData, "filmResultFooterImgUrl", "default");
     },
     deviceLocationFindSettingYn({ photoBoxData }) {
       return photoBoxData?.deviceLocationFindSettingYn ?? "N";
@@ -229,7 +233,6 @@ export const eventData = {
       return photoBoxData?.freePrintCustomerCount ?? 10;
     },
 
-
     templateType(state) {
       return state.eventData?.eventLogicalType;
     },
@@ -238,6 +241,9 @@ export const eventData = {
     },
     isEventFinish(state) {
       return state.isEventFinish;
+    },
+    selectedPhoto({ selectedPhoto }) {
+      return selectedPhoto ? selectedPhoto : sessionStorage.getItem("selectedPhoto");
     },
   },
   actions: {
@@ -293,9 +299,7 @@ export const eventData = {
         // 에러 처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-
       }
     },
     // session storage에 저장된 오브젝트 데이터 파싱
@@ -330,6 +334,10 @@ export const eventData = {
     },
     setIsEventFinish({ commit }, param) {
       commit("isEventFinish", param);
+    },
+    setSeletedPhoto({ commit }, param) {
+      sessionStorage.setItem("selectedPhoto", param);
+      commit("SET_SELECTED_PHOTO", param);
     },
   },
 };
@@ -457,12 +465,10 @@ function getScanningStampData(item) {
     disableThumbnailUri: inactiveThumbnailUrl,
   };
 }
-function getContentsData(item){
-  const { photoContentChoiceType, photoFileName , photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType,sort} = item;
+function getContentsData(item) {
+  const { photoContentChoiceType, photoFileName, photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType, sort } = item;
 
-  let formattedSourceUri = photoOriginalFileUrl.endsWith('.zip') 
-    ? '' 
-    : photoOriginalFileUrl.replace(/\s/g, '%20').replace(/\(/g, '%28').replace(/\)/g, '%29');
+  let formattedSourceUri = photoOriginalFileUrl.endsWith(".zip") ? "" : photoOriginalFileUrl.replace(/\s/g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29");
 
   return {
     itemID: sort,
@@ -540,8 +546,8 @@ function getScanningBridgeData(item) {
 }
 
 function getBannerData(item) {
-  const {arNftBannerId, bannerImgUrl, bannerTargetUrl, bannerSort} = item;
-  const formattedBannerTargetUrl = bannerTargetUrl.startsWith('https://') ? bannerTargetUrl : 'https://' + bannerTargetUrl;
+  const { arNftBannerId, bannerImgUrl, bannerTargetUrl, bannerSort } = item;
+  const formattedBannerTargetUrl = bannerTargetUrl.startsWith("https://") ? bannerTargetUrl : "https://" + bannerTargetUrl;
 
   return {
     itemID: arNftBannerId,
@@ -552,7 +558,7 @@ function getBannerData(item) {
 }
 
 function getDeviceGpsData(item) {
-  const {deviceGpsId, sort, deviceName, gpsName, thirdPartyType, deviceGpsLatitude, deviceGpsLongitude} = item;
+  const { deviceGpsId, sort, deviceName, gpsName, thirdPartyType, deviceGpsLatitude, deviceGpsLongitude } = item;
   return {
     itemID: deviceGpsId,
     sort: sort,
@@ -565,6 +571,5 @@ function getDeviceGpsData(item) {
 }
 
 function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {
-    return eventData?.photoLogicalInfo?.[propertyName]?? defaultValue; 
+  return eventData?.photoLogicalInfo?.[propertyName] ?? defaultValue;
 }
-

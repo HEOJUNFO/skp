@@ -2,11 +2,11 @@
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
       <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
-        <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px" />
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="prints-count">
-        <span style="margin-right: 2em;">출력 장수</span>
+        <span style="margin-right: 2em">출력 장수</span>
         <button v-if="printNumber > 0" class="button-print1" @click="decreasePrints">-</button>
         <span class="prints-number">{{ printNumber }}</span>
         <button v-if="printNumber < freePrintCustomerCount" class="button-print2" @click="increasePrints">+</button>
@@ -14,13 +14,13 @@
       <button class="round-button" @click="showDeviceModal = true">출력하기</button>
       <div v-if="showErrorModal" class="modal">
         <button class="close-button2" @click="showErrorModal = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px; " />
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 20px; height: 30px" />
         </button>
         <div class="modal-content">
           <h2>디바이스번호 불일치</h2>
           <br />
           <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
-          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력" />
           <button class="round-button" @click="print()">다시 출력요청</button>
         </div>
       </div>
@@ -30,25 +30,27 @@
           <br />
           <p>기기번호를 다시 확인하세요.</p>
           <p>출력페이지를 종료합니다.</p>
-          <button class="round-button" @click="showErrorModal2 = false, showDeviceModal = false">확인</button>
+          <button class="round-button" @click="(showErrorModal2 = false), (showDeviceModal = false)">확인</button>
         </div>
       </div>
-      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText
-      }}</button>
+      <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">{{ deviceLocationFindButtonText }}</button>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showErrorModal2 = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+        <button class="exit-button" @click="(showDeviceModal = false), (showErrorModal = false), (showErrorModal2 = false)">
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px" />
         </button>
         <div class="modal-content">
           <p>키오스크 화면에 보이는</p>
           <p>기기번호를 입력해 주세요.</p>
-          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력" />
           <button class="round-button" @click="print">확인</button>
         </div>
       </div>
       <div v-if="showSuccessModal" class="modal2">
         <div class="modal-content">
-          <h1 class="highlight-text"><span>{{ "디바이스 번호" }}</span>{{ deviceNumber }}<span>{{ "에" }}</span></h1>
+          <h1 class="highlight-text">
+            <span>{{ "디바이스 번호" }}</span
+            >{{ deviceNumber }}<span>{{ "에" }}</span>
+          </h1>
           <h1 class="highlight-text">사진출력이</h1>
           <h1 class="highlight-text">요청되었습니다.</h1>
           <div v-if="printStatus !== 'fail'" class="circle-message">
@@ -62,12 +64,13 @@
           </div>
 
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
-          <button v-if="printStatus === 'success'" class="round-button2"
-            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
+          <button v-if="printStatus === 'success'" class="round-button2" @click="(showSuccessModal = false), (printStatus = 'printing')">닫기</button>
           <p v-if="printStatus === 'fail'" class="bottom-text">주변의 현장안내 직원에게 문의 해주세요.</p>
-          <button v-if="printStatus === 'fail'" class="round-button2"
-            @click="showSuccessModal = false, printStatus = 'printing'">닫기</button>
+          <button v-if="printStatus === 'fail'" class="round-button2" @click="(showSuccessModal = false), (printStatus = 'printing')">닫기</button>
         </div>
+      </div>
+      <div class="button-container2" v-if="isPhotoBox">
+        <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
       </div>
 
       <div v-if="showFailureModal" class="modal2">
@@ -83,7 +86,7 @@
 
       <div v-if="showLocationPopup" class="modal2">
         <button class="exit-button" @click="showLocationPopup = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px" />
         </button>
         <div class="modal-content2">
           <img :src="locationFindPopupImgUrl" class="image" alt="Image from URL" />
@@ -92,47 +95,46 @@
 
       <div v-show="showLocationMap" class="modal2">
         <button class="exit-button" @click="showLocationMap = false">
-          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px; " />
+          <img src="../../assets/icon/close-button.png" alt="X" style="width: 35px; height: 45px" />
         </button>
         <div class="modal-content2">
           <div id="map"></div>
         </div>
       </div>
-
     </div>
   </vue-final-modal>
 </template>
-  
+
 <script>
+import { ref, toRefs, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
 
-import { ref, toRefs } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute } from "vue-router";
-
-import useSavePrintStatus from '../../composables/useSavePrintStatus';
+import useSavePrintStatus from "../../composables/useSavePrintStatus";
 
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const { eventId } = toRefs(route.query);
-    const { getters } = useStore();
+    const { getters, dispatch } = useStore();
     const showVModal = ref(false);
-    const imageUrl = ref('');
+    const imageUrl = ref("");
     const deviceLocationFindYn = ref(false);
-    const deviceLocationFindButtonText = ref('');
+    const deviceLocationFindButtonText = ref("");
     const freePrintControlYn = ref(false);
     const freePrintCustomerCount = ref(10);
     const deviceGpsList = ref([]);
-    const deviceNumber = ref('');
+    const deviceNumber = ref("");
     const printNumber = ref(1);
-    const printStatus = ref('printing');
+    const printStatus = ref("printing");
     const showDeviceModal = ref(false);
     const showSuccessModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
     const showErrorModal2 = ref(false);
-    const locationFindExposureType = ref('MAP');
-    const locationFindPopupImgUrl = ref('');
+    const locationFindExposureType = ref("MAP");
+    const locationFindPopupImgUrl = ref("");
     const showLocationPopup = ref(false);
     const showLocationMap = ref(false);
 
@@ -140,9 +142,7 @@ export default {
     const markerLatLng = ref(null);
     const maker = ref(null);
 
-    const {
-      putSavePrintStatus
-    } = useSavePrintStatus();
+    const { putSavePrintStatus } = useSavePrintStatus();
 
     const initMap = () => {
       if (typeof window.naver === "undefined") {
@@ -173,46 +173,47 @@ export default {
           map: map.value,
         });
       });
-
     };
 
     const openModal = (url) => {
-      imageUrl.value = url
+      imageUrl.value = url;
       showVModal.value = true;
-      deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
-      deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
-      locationFindExposureType.value = getters['eventData/locationFindExposureType'];
-      locationFindPopupImgUrl.value = getters['eventData/locationFindPopupImgUrl'];
-      freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
-      freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
-      deviceGpsList.value = getters['eventData/deviceGpsList'];
-
+      deviceLocationFindYn.value = getters["eventData/deviceLocationFindSettingYn"] === "Y";
+      deviceLocationFindButtonText.value = getters["eventData/deviceLocationFindButtonText"];
+      locationFindExposureType.value = getters["eventData/locationFindExposureType"];
+      locationFindPopupImgUrl.value = getters["eventData/locationFindPopupImgUrl"];
+      freePrintControlYn.value = getters["eventData/freePrintControlYn"] === "Y";
+      freePrintCustomerCount.value = getters["eventData/freePrintCustomerCount"];
+      deviceGpsList.value = getters["eventData/deviceGpsList"];
     };
 
     const checkDeviceNumber = (deviceNumber) => {
-      return deviceNumber.value === '0000' || deviceNumber.value === '0001';
-    }
+      return deviceNumber.value === "0000" || deviceNumber.value === "0001";
+    };
 
     const increasePrints = () => {
-      if (printNumber.value < freePrintCustomerCount.value)
-        printNumber.value++;
-    }
+      if (printNumber.value < freePrintCustomerCount.value) printNumber.value++;
+    };
 
     const decreasePrints = () => {
       if (printNumber.value > 0) {
         printNumber.value--;
       }
-    }
+    };
+
+    const isPhotoBox = computed(() => {
+      return parent.location.href.indexOf("photo-box") > -1;
+    });
 
     let incorrectDeviceNumberCount = 0;
 
     const print = () => {
       putSavePrintStatus({
         eventId: eventId.value,
-        ocbMbrId: 'test',
-        clintUniqueKey: 'test',
-        printResultStatus: 'TRY',
-      })
+        ocbMbrId: "test",
+        clintUniqueKey: "test",
+        printResultStatus: "TRY",
+      });
       if (!checkDeviceNumber(deviceNumber)) {
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
@@ -236,30 +237,29 @@ export default {
       }
       showSuccessModal.value = true;
       setTimeout(() => {
-        printStatus.value = 'success';
+        printStatus.value = "success";
         putSavePrintStatus({
           eventId: eventId.value,
-          ocbMbrId: 'test',
-          clintUniqueKey: 'test',
-          printResultStatus: 'SUCCESS',
-        })
+          ocbMbrId: "test",
+          clintUniqueKey: "test",
+          printResultStatus: "SUCCESS",
+        });
       }, 2000);
-    }
+    };
 
     const exit = () => {
       showVModal.value = false;
-    }
+    };
 
     const locationFind = () => {
-      if (locationFindExposureType.value === 'MAP') {
+      if (locationFindExposureType.value === "MAP") {
         showLocationMap.value = true;
         initMap();
         map.value.setSize(new window.naver.maps.Size(window.innerWidth * 1, window.innerHeight * 1));
-
       } else {
         showLocationPopup.value = true;
       }
-    }
+    };
 
     const webBack = () => {
       if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
@@ -275,7 +275,17 @@ export default {
         window.onpopstate = null;
         exit();
       }
-    }
+    };
+
+    const decoratePhoto = async () => {
+      await dispatch("eventData/setSeletedPhoto", imageUrl.value);
+
+      if (isPhotoBox.value) {
+        router.push({ name: "WebView", query: { eventId: eventId.value } });
+      } else {
+        router.go(0);
+      }
+    };
 
     return {
       webBack,
@@ -296,14 +306,16 @@ export default {
       printStatus,
       showErrorModal,
       locationFind,
+      decoratePhoto,
+      isPhotoBox,
       showLocationPopup,
       showLocationMap,
       locationFindPopupImgUrl,
       freePrintCustomerCount,
-      showErrorModal2
-    }
+      showErrorModal2,
+    };
   },
-}
+};
 </script>
 
 <style scoped>
@@ -321,7 +333,7 @@ export default {
   width: 100%;
   height: 75vh;
   position: relative;
-  top: 0vh
+  top: 0vh;
 }
 
 .exit-button {
@@ -408,7 +420,6 @@ export default {
   text-align: left;
 }
 
-
 .circle-message {
   display: flex;
   justify-content: center;
@@ -440,7 +451,7 @@ export default {
   font-size: 0.3em;
   margin: 20px 0;
   text-align: center;
-  color: #000
+  color: #000;
 }
 
 .prints-count {
@@ -499,5 +510,19 @@ export default {
   border: none;
   background-color: transparent;
   font-size: 1em;
+}
+
+.round-button-blue {
+  display: inline-block;
+  margin-top: 3.5vh;
+  border-radius: 24px;
+  background-color: #5948ee;
+  white-space: nowrap;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #fff);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 </style>

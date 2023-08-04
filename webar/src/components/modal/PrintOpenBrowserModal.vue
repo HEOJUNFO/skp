@@ -3,28 +3,36 @@
     <div class="main-content">
       <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-          <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" />
+          <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="button-container2">
         <div class="prints-count">
-          <span
-            style="color: #000;text-align: center;font-family: Inter;font-size: 18px;font-style: normal;font-weight: 500;line-height: 140%; ">출력
-            장 수</span>
-          <button v-if="printNumber > 1" @click="decreasePrints" style="margin-left: 15%;"><svg
-              xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+          <span style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 500; line-height: 140%"
+            >출력 장 수</span
+          >
+          <button v-if="printNumber > 1" @click="decreasePrints" style="margin-left: 15%">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
-                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg></button>
-          <span class="prints-number" style="margin-left: 9%; margin-right: 9%;">{{ printNumber }}</span>
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <span class="prints-number" style="margin-left: 9%; margin-right: 9%">{{ printNumber }}</span>
           <button v-if="printNumber < freePrintCustomerCount" @click="increasePrints">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 14V28M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
-                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                stroke="black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -35,15 +43,14 @@
       <div v-if="showErrorModal" class="modal">
         <button class="close-button2" @click="showErrorModal = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content4">
           <h2>디바이스번호 불일치</h2>
           <br />
           <p>디바이스 번호를 확인후 다시 입력해주세요.</p>
-          <input class="device-number-input2" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력">
+          <input class="device-number-input2" type="text" v-model="deviceNumber" placeholder="출력프린터 기기번호 입력" />
           <button class="round-button-red" @click="print()">확인</button>
         </div>
       </div>
@@ -53,37 +60,34 @@
           <br />
           <p>기기번호를 다시 확인하세요.</p>
           <p>출력페이지를 종료합니다.</p>
-          <button class="round-button-red" @click="showFiveModal = false, showDeviceModal = false">확인</button>
+          <button class="round-button-red" @click="(showFiveModal = false), (showDeviceModal = false)">확인</button>
         </div>
       </div>
       <div class="button-container2">
-        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치
-          보기&nbsp;&nbsp;➔</button>
+        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치 보기&nbsp;&nbsp;➔</button>
       </div>
       <div v-if="showDeviceModal" class="modal2">
-        <button class="exit-button" @click="showDeviceModal = false, showErrorModal = false, showFiveModal = false">
+        <button class="exit-button" @click="(showDeviceModal = false), (showErrorModal = false), (showFiveModal = false)">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content">
-          <p
-            style="color: #000;text-align: center;font-family: Corinthia;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
-            키오스크 화면에 보이는</p>
-          <p
-            style="color: #000;text-align: center;font-family: Corinthia;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
-            기기번호를 입력해 주세요.</p>
-          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력">
-          <button class="round-button-red2"
-            @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
+          <p style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
+            키오스크 화면에 보이는
+          </p>
+          <p style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
+            기기번호를 입력해 주세요.
+          </p>
+          <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력" />
+          <button class="round-button-red2" @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
         </div>
       </div>
       <div v-if="showPrintModal" class="modal2">
         <div class="modal-content3">
           <h1 v-if="printStatus === 'printing' || printStatus === 'waiting'" class="highlight-text">사진 출력이 요청되었습니다</h1>
           <div v-if="printStatus === 'printing' || printStatus === 'waiting'" class="spinner-container">
-            <img id="spinner" src="../../assets/icon/spinning3.png">
+            <img id="spinner" src="../../assets/icon/spinning3.png" />
             <span v-if="printStatus === 'printing'" class="spinner-text">출력중</span>
             <span v-if="printStatus === 'waiting'" class="spinner-text">전송중</span>
           </div>
@@ -94,26 +98,31 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 18.375V12.25M21 24.5H21.0175M17.325 33.6L19.88 37.0067C20.26 37.5133 20.4499 37.7666 20.6828 37.8572C20.8868 37.9365 21.1132 37.9365 21.3172 37.8572C21.5501 37.7666 21.74 37.5133 22.12 37.0067L24.675 33.6C25.188 32.916 25.4445 32.574 25.7574 32.3129C26.1745 31.9647 26.667 31.7185 27.1959 31.5936C27.5925 31.5 28.02 31.5 28.875 31.5C31.3212 31.5 32.5443 31.5 33.5091 31.1004C34.7955 30.5675 35.8175 29.5455 36.3504 28.2591C36.75 27.2943 36.75 26.0712 36.75 23.625V13.65C36.75 10.7097 36.75 9.23959 36.1778 8.11655C35.6744 7.1287 34.8713 6.32555 33.8834 5.82222C32.7604 5.25 31.2903 5.25 28.35 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V23.625C5.25 26.0712 5.25 27.2943 5.64963 28.2591C6.18248 29.5455 7.20451 30.5675 8.49091 31.1004C9.45571 31.5 10.6788 31.5 13.125 31.5C13.98 31.5 14.4075 31.5 14.8041 31.5936C15.333 31.7185 15.8255 31.9647 16.2426 32.3129C16.5555 32.574 16.812 32.916 17.325 33.6Z"
-                stroke="#EE4848" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                stroke="#EE4848"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <p class="error-text">디바이스(통신) 오류로</p>
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
-          <button v-if="printStatus === 'success'" class="round-button-red3"
-            @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
-          <button v-if="printStatus === 'failure'" class="round-button-red2"
-            @click="showPrintModal = false, printStatus = 'printing'">닫기</button>
+          <button v-if="printStatus === 'success'" class="round-button-red3" @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
+          <button v-if="printStatus === 'failure'" class="round-button-red2" @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
         </div>
+      </div>
+      <div class="button-container2" v-if="isPhotoBox">
+        <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
       </div>
 
       <div v-if="showFailureModal" class="modal2">
         <div class="modal-content">
           <h1 class="highlight-text">무료출력 가능 횟수가</h1>
           <h1 class="highlight-text">초과되었습니다.</h1>
-          <br>
-          <br>
+          <br />
+          <br />
           <div class="circle-message">
             <p>죄송합니다.</p>
           </div>
@@ -124,8 +133,7 @@
       <div v-if="showLocationPopup" class="modal2">
         <button class="exit-button" @click="showLocationPopup = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content2">
@@ -136,8 +144,7 @@
       <div v-show="showLocationMap" class="modal2">
         <button class="exit-button2" @click="showLocationMap = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <div class="button-container">
@@ -146,49 +153,49 @@
               <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
-            {{ currentDevice.deviceName }}</span>
+          <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd"> {{ currentDevice.deviceName }}</span>
           <button v-if="deviceOn" @click="nextLocation()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg></button>
+            </svg>
+          </button>
         </div>
         <div class="modal-content2">
           <div id="map"></div>
         </div>
       </div>
-
     </div>
   </vue-final-modal>
 </template>
-  
-<script>
 
-import { ref, toRefs } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute } from "vue-router";
-import axios from 'axios';
+<script>
+import { ref, toRefs, computed } from "vue";
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
+
 import usePvLog from "@/composables/usePvLog";
 
-import useSavePrintStatus from '../../composables/useSavePrintStatus';
+import useSavePrintStatus from "../../composables/useSavePrintStatus";
 
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const { eventId } = toRefs(route.query);
-    const { getters } = useStore();
+    const { getters, dispatch } = useStore();
     const showVModal = ref(false);
-    const imageUrl = ref('');
+    const imageUrl = ref("");
     const deviceLocationFindYn = ref(false);
-    const deviceLocationFindButtonText = ref('');
-    const locationFindExposureType = ref('MAP');
-    const locationFindPopupImgUrl = ref('');
+    const deviceLocationFindButtonText = ref("");
+    const locationFindExposureType = ref("MAP");
+    const locationFindPopupImgUrl = ref("");
     const freePrintControlYn = ref(false);
     const freePrintCustomerCount = ref(10);
     const deviceGpsList = ref([]);
-    const deviceNumber = ref('');
+    const deviceNumber = ref("");
     const printNumber = ref(1);
-    const printStatus = ref('waiting');
+    const printStatus = ref("waiting");
     const showDeviceModal = ref(false);
     const showPrintModal = ref(false);
     const showFailureModal = ref(false);
@@ -199,14 +206,11 @@ export default {
     const map = ref(null);
     const marker = ref(null);
     const currentDevice = ref({
-      deviceName: '디바이스 없음'
+      deviceName: "디바이스 없음",
     });
     const deviceOn = ref(false);
 
-
-    const {
-      putSavePrintStatus
-    } = useSavePrintStatus();
+    const { putSavePrintStatus } = useSavePrintStatus();
 
     const { getPvLogParams, putPvLog } = usePvLog();
 
@@ -234,21 +238,21 @@ export default {
           url: require("../../assets/icon/marker.png"),
           size: new window.naver.maps.Size(52, 52),
           origin: new window.naver.maps.Point(0, 0),
-          anchor: new window.naver.maps.Point(26, 26)
-        }
+          anchor: new window.naver.maps.Point(26, 26),
+        },
       });
     };
 
     const openModal = (url) => {
-      imageUrl.value = url
+      imageUrl.value = url;
       showVModal.value = true;
-      deviceLocationFindYn.value = getters['eventData/deviceLocationFindSettingYn'] === 'Y';
-      deviceLocationFindButtonText.value = getters['eventData/deviceLocationFindButtonText'];
-      locationFindExposureType.value = getters['eventData/locationFindExposureType'];
-      locationFindPopupImgUrl.value = getters['eventData/locationFindPopupImgUrl'];
-      freePrintControlYn.value = getters['eventData/freePrintControlYn'] === 'Y';
-      freePrintCustomerCount.value = getters['eventData/freePrintCustomerCount'];
-      deviceGpsList.value = getters['eventData/deviceGpsList'];
+      deviceLocationFindYn.value = getters["eventData/deviceLocationFindSettingYn"] === "Y";
+      deviceLocationFindButtonText.value = getters["eventData/deviceLocationFindButtonText"];
+      locationFindExposureType.value = getters["eventData/locationFindExposureType"];
+      locationFindPopupImgUrl.value = getters["eventData/locationFindPopupImgUrl"];
+      freePrintControlYn.value = getters["eventData/freePrintControlYn"] === "Y";
+      freePrintCustomerCount.value = getters["eventData/freePrintCustomerCount"];
+      deviceGpsList.value = getters["eventData/deviceGpsList"];
 
       if (deviceGpsList.value.length > 0) {
         currentDevice.value = deviceGpsList.value[0];
@@ -262,26 +266,28 @@ export default {
       // setTimeout(() => {
       //   putPvLog(getPvLogParams(0, "/main/photobox/detail"));
       // }, 100);
-
     };
 
     const increasePrints = () => {
-      if (printNumber.value < freePrintCustomerCount.value)
-        printNumber.value++;
-    }
+      if (printNumber.value < freePrintCustomerCount.value) printNumber.value++;
+    };
 
     const decreasePrints = () => {
       if (printNumber.value > 1) {
         printNumber.value--;
       }
-    }
+    };
+
+    const isPhotoBox = computed(() => {
+      return parent.location.href.indexOf("photo-box") > -1;
+    });
 
     let incorrectDeviceNumberCount = 0;
 
     const print = async () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
 
-      if (!await checkDeviceNumber(deviceNumber)) {
+      if (!(await checkDeviceNumber(deviceNumber))) {
         showErrorModal.value = true;
         incorrectDeviceNumberCount += 1;
         if (incorrectDeviceNumberCount >= 5) {
@@ -296,13 +302,11 @@ export default {
         incorrectDeviceNumberCount = 0;
       }
 
-
       if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
         showFailureModal.value = true;
         return;
       } else if (freePrintCustomerCount.value >= printNumber.value) {
         freePrintCustomerCount.value -= printNumber.value;
-
       }
 
       if (await imgUpload(imageUrl)) {
@@ -310,32 +314,32 @@ export default {
         getUserHistory();
       } else {
         showPrintModal.value = true;
-        printStatus.value = 'failure';
+        printStatus.value = "failure";
         putSavePrintStatus({
           eventId: eventId.value,
-          ocbMbrId: 'test',
-          clintUniqueKey: 'test',
-          printResultStatus: 'FAIL',
-        })
+          ocbMbrId: "test",
+          clintUniqueKey: "test",
+          printResultStatus: "FAIL",
+        });
       }
-    }
+    };
 
     const getUserHistory = async () => {
-      var url = "https://go.selpic.co.kr/skapi/order/" + "cultureconTestKey"
+      var url = "https://go.selpic.co.kr/skapi/order/" + "cultureconTestKey";
 
-      if (deviceNumber.value === '0000') {
-        printStatus.value = 'success';
+      if (deviceNumber.value === "0000") {
+        printStatus.value = "success";
         return;
-      } else if (deviceNumber.value === '0001') {
-        printStatus.value = 'failure';
+      } else if (deviceNumber.value === "0001") {
+        printStatus.value = "failure";
         return;
-      } else if (deviceNumber.value === '0002') {
-        printStatus.value = 'waiting';
+      } else if (deviceNumber.value === "0002") {
+        printStatus.value = "waiting";
         setTimeout(() => {
-          printStatus.value = 'printing';
+          printStatus.value = "printing";
         }, 2000);
         setTimeout(() => {
-          printStatus.value = 'success';
+          printStatus.value = "success";
         }, 4000);
         return;
       }
@@ -343,28 +347,28 @@ export default {
       try {
         const response = await axios.get(url);
         if (response.data.length <= 0) {
-          printStatus.value = 'failure';
+          printStatus.value = "failure";
           return;
         }
 
         let info = response.data[0];
         console.log(info);
         switch (info.status) {
-          case 'S': // 
-            printStatus.value = 'success';
+          case "S": //
+            printStatus.value = "success";
             break;
-          case 'F': // 실패
-            printStatus.value = 'failure';
+          case "F": // 실패
+            printStatus.value = "failure";
             break;
-          case 'W': // 전송중
-            printStatus.value = 'waiting';
+          case "W": // 전송중
+            printStatus.value = "waiting";
             break;
-          case 'P': // 인쇄중
-            printStatus.value = 'printing';
+          case "P": // 인쇄중
+            printStatus.value = "printing";
             break;
         }
 
-        if (info.status === 'W' || info.status === 'P') {
+        if (info.status === "W" || info.status === "P") {
           setTimeout(() => {
             getUserHistory();
           }, 2000);
@@ -373,8 +377,7 @@ export default {
         console.log("Network error: ", error);
         return;
       }
-
-    }
+    };
 
     const imgUpload = async (imageUrl) => {
       let byteString = atob(imageUrl.value.split(",")[1]);
@@ -387,21 +390,21 @@ export default {
       let blob = new Blob([arrayBuffer], { type: "image/jpeg" });
 
       var url = "https://go.selpic.co.kr/skapi/upload";
-      // 인화 업로드 
+      // 인화 업로드
       var formData = new FormData();
 
-      formData.append("robot_id", "H150" + deviceNumber.value);      //키오스크 아이디
-      formData.append("user_id", "cultureconTestKey");                       //회원 키
+      formData.append("robot_id", "H150" + deviceNumber.value); //키오스크 아이디
+      formData.append("user_id", "cultureconTestKey"); //회원 키
       formData.append("file", blob, "img.jpeg");
 
       try {
         const response = await axios({
           url: url,
-          method: 'POST',
+          method: "POST",
           data: formData,
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+            "Content-Type": "multipart/form-data",
+          },
         });
 
         return response.data.upload === true;
@@ -409,12 +412,10 @@ export default {
         console.log("network error.", error);
         return false;
       }
-
-    }
-
+    };
 
     const checkDeviceNumber = async (deviceNumber) => {
-      if (deviceNumber.value === '0000' || deviceNumber.value === '0001' || deviceNumber.value === '0002') {
+      if (deviceNumber.value === "0000" || deviceNumber.value === "0001" || deviceNumber.value === "0002") {
         return true;
       }
       var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;
@@ -422,19 +423,18 @@ export default {
       try {
         const response = await axios.get(url);
         const data = response.data;
-        return data.status === 'normal';
+        return data.status === "normal";
       } catch (error) {
         return false;
       }
-    }
+    };
 
     const exit = () => {
       showVModal.value = false;
-    }
+    };
 
     const locationFind = () => {
-
-      if (locationFindExposureType.value === 'MAP') {
+      if (locationFindExposureType.value === "MAP") {
         showLocationMap.value = true;
         initMap();
         if (deviceGpsList.value.length > 0) {
@@ -443,7 +443,7 @@ export default {
       } else {
         showLocationPopup.value = true;
       }
-    }
+    };
 
     const prevLocation = () => {
       let prevIndex = deviceGpsList.value.indexOf(currentDevice.value) - 1;
@@ -453,8 +453,7 @@ export default {
       currentDevice.value = deviceGpsList.value[prevIndex];
       marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
       map.value.setCenter(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
-
-    }
+    };
 
     const nextLocation = () => {
       let nextIndex = deviceGpsList.value.indexOf(currentDevice.value) + 1;
@@ -464,7 +463,7 @@ export default {
       currentDevice.value = deviceGpsList.value[nextIndex];
       marker.value.setPosition(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
       map.value.setCenter(new window.naver.maps.LatLng(currentDevice.value.deviceGpsLatitude, currentDevice.value.deviceGpsLongitude));
-    }
+    };
 
     const xDown = ref(null);
     const yDown = ref(null);
@@ -474,7 +473,7 @@ export default {
       const firstTouch = e.touches[0];
       xDown.value = firstTouch.clientX;
       yDown.value = firstTouch.clientY;
-    }
+    };
 
     const handleTouchMove = (e) => {
       if (!xDown.value || !yDown.value) {
@@ -489,24 +488,24 @@ export default {
 
       if (Math.abs(xDiff) > Math.abs(yDiff)) {
         if (xDiff > 0) {
-          swipeDirection.value = 'left';
+          swipeDirection.value = "left";
         } else {
-          swipeDirection.value = 'right';
+          swipeDirection.value = "right";
         }
       }
 
       xDown.value = null;
       yDown.value = null;
-    }
+    };
 
     const handleTouchEnd = () => {
-      if (swipeDirection.value === 'left') {
+      if (swipeDirection.value === "left") {
         nextLocation();
-      } else if (swipeDirection.value === 'right') {
+      } else if (swipeDirection.value === "right") {
         prevLocation();
       }
       swipeDirection.value = null;
-    }
+    };
 
     const webBack = () => {
       if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
@@ -522,8 +521,17 @@ export default {
         window.onpopstate = null;
         exit();
       }
-    }
+    };
 
+    const decoratePhoto = async () => {
+      await dispatch("eventData/setSeletedPhoto", imageUrl.value);
+
+      if (isPhotoBox.value) {
+        router.push({ name: "OpenBrowser", query: { eventId: eventId.value } });
+      } else {
+        router.go(0);
+      }
+    };
 
     return {
       locationFind,
@@ -544,6 +552,8 @@ export default {
       printStatus,
       showErrorModal,
       webBack,
+      decoratePhoto,
+      isPhotoBox,
       showLocationPopup,
       showLocationMap,
       locationFindPopupImgUrl,
@@ -556,9 +566,9 @@ export default {
       handleTouchMove,
       handleTouchStart,
       handleTouchEnd,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>
@@ -600,22 +610,35 @@ export default {
   background-color: #000;
   white-space: nowrap;
   padding: 13px 20px 13px 24px;
-  color: var(--white, #FFF);
+  color: var(--white, #fff);
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
 }
 
-
 .round-button-red {
   display: inline-block;
   margin-top: 2vh;
   border-radius: 24px;
-  background-color: #EE4848;
+  background-color: #ee4848;
   white-space: nowrap;
   padding: 13px 20px 13px 24px;
-  color: var(--white, #FFF);
+  color: var(--white, #fff);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.round-button-blue {
+  display: inline-block;
+  margin-top: 3.5vh;
+  border-radius: 24px;
+  background-color: #5948ee;
+  white-space: nowrap;
+  padding: 13px 20px 13px 24px;
+  color: var(--white, #fff);
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -628,9 +651,9 @@ export default {
   height: 6vh;
   margin-top: 9vh;
   border-radius: 24px;
-  background-color: #EE4848;
+  background-color: #ee4848;
   white-space: nowrap;
-  color: var(--white, #FFF);
+  color: var(--white, #fff);
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -644,9 +667,9 @@ export default {
   height: 6vh;
   margin-top: 3.5vh;
   border-radius: 24px;
-  background-color: #EE4848;
+  background-color: #ee4848;
   white-space: nowrap;
-  color: var(--white, #FFF);
+  color: var(--white, #fff);
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -727,7 +750,6 @@ export default {
   height: 80vh;
 }
 
-
 .modal-content4 {
   background-color: #fff;
   text-align: center;
@@ -745,7 +767,6 @@ export default {
   line-height: 140%;
 }
 
-
 .circle-message {
   display: flex;
   justify-content: center;
@@ -753,7 +774,7 @@ export default {
   height: 242px;
   width: 242px;
   border-radius: 50%;
-  background-color: #EE4848;
+  background-color: #ee4848;
   color: #fff;
   text-align: center;
   margin-left: 18%;
@@ -857,7 +878,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #EE4848;
+  color: #ee4848;
   text-align: center;
   font-family: NanumSquare Neo OTF;
   font-size: 18px;
