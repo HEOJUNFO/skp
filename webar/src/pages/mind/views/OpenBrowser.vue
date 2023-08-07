@@ -22,6 +22,7 @@
 <script>
 import { onMounted, ref, computed, provide, watch } from "vue";
 import { useStore } from "vuex";
+import { EventBus } from "@/js/EventBus.js";
 
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
 import NavBar from "../../../components/common/NavBar.vue";
@@ -85,6 +86,19 @@ export default {
     const { rejectVideo, loadScene, rquestOrientationPermission, allowOrientationPermission, rejectOrientationPermission } = useEventHandlers();
 
     const { characterList, filterList, stickerList, tabList, frameList, setList } = useWindowEvent();
+
+
+    const setCharacter = ref(null);
+
+    EventBus.on("setCharacter", (id) => {
+      setCharacter.value = id;
+    });
+
+    EventBus.on("deleteCharacterItem", () => {
+      const index = characterList.value.findIndex((character) => character.id === setCharacter.value);
+      characterList.value[index].select = false;
+
+    });
 
     // video load complete
     const loadVideo = () => {

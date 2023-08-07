@@ -1115,7 +1115,7 @@ export const jsonData = {
             photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
             photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
             photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/shiba/scene.gltf",     //	원본 이미지 URL	string	
+            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/test/character(1).gltf",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
           },
