@@ -12,7 +12,7 @@
       <img id="trash-texture" src="../../assets/icon/black-trash-button.png">
     </a-assets>
 
-    <a-entity v-if="selectCharacter" position="0 -1 0">
+    <a-entity class="character" v-if="selectCharacter" position="0 -1 0">
       <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"
         :visible="selectCharacter.includes(item.id)" @animationcomplete:object="animationcomplete"
         @timeout:object="timeout" />

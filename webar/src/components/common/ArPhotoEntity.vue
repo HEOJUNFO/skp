@@ -25,9 +25,9 @@
 
     </a-gltf-model>
 
-    <a-gltf-model v-else-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
-      @mousedown="startCharacterPress()" @mouseup="cancelCharacterPress(), characterSet(arData)"
-      @animationcomplete="animationcomplete" animation-mixer>
+    <a-gltf-model ref="modelRef" v-else-if="objectType === `CHARACTER`" v-bind="attrs"
+      gesture-handler="locationBased: true" @mousedown="startCharacterPress()"
+      @mouseup="cancelCharacterPress(), characterSet(arData)" @animationcomplete="animationcomplete" animation-mixer>
       <a-box ref="characterRef" class="clickable" position="0 0 0" scale="1 1.75 1" renderOrder="0" raycaster opacity="0"
         translate="true" outline2 alpha-test="0.5">
       </a-box>
@@ -42,6 +42,9 @@
     <a-plane ref="trashRef" id="close-button" position="0 0.3 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
       @mousedown="listUpdate()" :animation="animationData()"></a-plane>
+    <a-plane ref="trashRef2" id="close-button2" position="0 0.3 -1" class="clickable"
+      gesture-handler="locationBased: true" src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5"
+      visible="false" opacity="0.8" translate="true" @mousedown="listUpdate()" :animation="animationData()"></a-plane>
 
   </template>
 </template>
@@ -81,10 +84,13 @@ export default {
     const store = useStore();
     const stickerRef = ref(null);
     const characterRef = ref(null);
+    const modelRef = ref(null);
     const trashRef = ref(null);
+    const trashRef2 = ref(null);
     const isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i);
 
     let startPos = null;
+    let startPos2 = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
     const objectType = computed(() => arData.value.type);
@@ -111,26 +117,28 @@ export default {
       else {
         trashRef.value.object3D.visible = true;
         stickerRef.value.components.outline.setTrash(true);
+
       }
     }
-
     const setCharacterTrash = () => {
       if (arFrameSettingYn.value) {
-        trashRef.value.object3D.position.set(0, 0.55, -1);
+        trashRef2.value.object3D.position.set(0, 0.55, -1);
       }
-      if (trashRef.value.object3D.visible) {
-        trashRef.value.object3D.visible = false;
+      if (trashRef2.value.object3D.visible) {
+        trashRef2.value.object3D.visible = false;
         characterRef.value.components.outline2.setTrash(false);
       }
       else {
-        trashRef.value.object3D.visible = true;
+        trashRef2.value.object3D.visible = true;
         characterRef.value.components.outline2.setTrash(true);
       }
     }
 
     let wasTrashSet = false;
+    let wasTrashSet2 = false;
 
     const startStickerPress = () => {
+      EventBus.setState('Sticker')
       startPos = stickerRef.value.object3D.position.clone();
       if (trashRef.value.object3D.visible) {
         setTrash();
@@ -152,23 +160,23 @@ export default {
     }
 
     const startCharacterPress = () => {
-      console.log("startCharacterPress")
-      startPos = characterRef.value.object3D.position.clone();
-      if (trashRef.value.object3D.visible) {
+      EventBus.setState('Character')
+      startPos2 = modelRef.value.object3D.position.clone();
+      if (trashRef2.value.object3D.visible) {
         setCharacterTrash();
-        wasTrashSet = true;
+        wasTrashSet2 = true;
       } else {
-        wasTrashSet = false;
+        wasTrashSet2 = false;
       }
     }
 
     const cancelCharacterPress = () => {
-      if (startPos === null) return;
-      const endPos = characterRef.value.object3D.position;
-      const distance = startPos.distanceTo(endPos);
+      if (startPos2 === null) return;
+      const endPos = modelRef.value.object3D.position;
+      const distance = startPos2.distanceTo(endPos);
 
-      const threshold = 0.05;
-      if (distance < threshold && !wasTrashSet) {
+      const threshold = 0.01;
+      if (distance < threshold && !wasTrashSet2) {
         setCharacterTrash();
       }
     }
@@ -182,10 +190,14 @@ export default {
     }
 
     const listUpdate = () => {
-      EventBus.emit('deleteStickerItem')
-      EventBus.emit('deleteCharacterItem')
+      const lastValue = EventBus.getState();
+      if (lastValue === 'Sticker') {
+        EventBus.emit('deleteStickerItem')
+      }
+      if (lastValue === 'Character') {
+        EventBus.emit('deleteCharacterItem')
+      }
     }
-
 
     const animationcomplete = () => {
       emit('animationcomplete:object', arData.value.itemID);
@@ -227,10 +239,12 @@ export default {
       listUpdate,
       stickerRef,
       trashRef,
+      trashRef2,
       isIOS,
       stickerSet,
       characterSet,
-      characterRef
+      characterRef,
+      modelRef,
     }
   }
 }
