@@ -28,8 +28,8 @@
     <a-gltf-model ref="modelRef" v-else-if="objectType === `CHARACTER`" v-bind="attrs"
       gesture-handler="locationBased: true" @mousedown="startCharacterPress()"
       @mouseup="cancelCharacterPress(), characterSet(arData)" @animationcomplete="animationcomplete" animation-mixer>
-      <a-box ref="characterRef" class="clickable" position="0 0 0" scale="1 1.75 1" renderOrder="0" raycaster opacity="0"
-        translate="true" outline2 alpha-test="0.5">
+      <a-box ref="characterRef" class="clickable" position="0 0 0" scale="1 1.75 0.01" renderOrder="0" raycaster
+        opacity="0" translate="true" alpha-test="0.5">
       </a-box>
     </a-gltf-model>
 
@@ -126,11 +126,9 @@ export default {
       }
       if (trashRef2.value.object3D.visible) {
         trashRef2.value.object3D.visible = false;
-        characterRef.value.components.outline2.setTrash(false);
       }
       else {
         trashRef2.value.object3D.visible = true;
-        characterRef.value.components.outline2.setTrash(true);
       }
     }
 
@@ -198,6 +196,16 @@ export default {
         EventBus.emit('deleteCharacterItem')
       }
     }
+
+    EventBus.on("toggleBottomBar", () => {
+      if (stickerRef.value) {
+        trashRef.value.object3D.visible = false;
+        stickerRef.value.components.outline.setTrash(false);
+      }
+      if (characterRef.value) {
+        trashRef2.value.object3D.visible = false;
+      }
+    })
 
     const animationcomplete = () => {
       emit('animationcomplete:object', arData.value.itemID);

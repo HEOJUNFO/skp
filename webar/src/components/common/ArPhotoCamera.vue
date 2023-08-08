@@ -5,7 +5,7 @@
 
 <script>
 import { onMounted, ref, reactive } from "vue";
-import { getArPhotoUserMedia } from "@/js/getArPhotoUserMedia";
+import { getArPhotoUserMedia, applyFilter, removeFilter } from "@/js/getArPhotoUserMedia";
 
 export default {
   name: "Camera",
@@ -59,11 +59,12 @@ export default {
       return mode;
     };
 
-    const beautyFilter = (isBeauty) => {
+    const beautyFilter = async (isBeauty) => {
       if (isBeauty) {
-        video.value.style.filter = 'brightness(120%) blur(1.25px)';
+
+        applyFilter(video.value, cameraSettings.facingMode);
       } else {
-        video.value.style.filter = "none";
+        removeFilter(video.value);
       }
     }
 

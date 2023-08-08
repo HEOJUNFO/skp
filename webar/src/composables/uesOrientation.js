@@ -20,10 +20,26 @@ export default function useOrientation() {
       callback(orientation);
     });
   }
-
+  function isFoldable() {
+    const userAgent = navigator.userAgent.toLowerCase();
+  
+    const foldableKeywords = [
+      "fold",          // 일반적인 키워드
+      "galaxy z",      // Samsung Galaxy Z 시리즈
+      "mate x",        // Huawei Mate X 시리즈
+      "razr",          // Motorola Razr
+      "surface duo",   // Microsoft Surface Duo
+      "thinkpad x1",    // Lenovo ThinkPad X1 Fold
+      "sm-f"
+    ]; 
+  
+    return foldableKeywords.some(keyword => userAgent.includes(keyword))
+    
+  }
+  
   function getOrientation() {
-   
-      if (typeof window.orientation === 'undefined') {
+
+      if (typeof window.orientation === 'undefined'|| isFoldable()) {
      return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
       }else{
       return window.orientation === 0 ? 'portrait' : 'landscape';

@@ -106,31 +106,34 @@ export default {
     };
 
     async function capture() {
-      const video = document.querySelector(".event-wrapper video");
       const canvas = document.createElement("canvas");
-      video.pause();
-      let v_width = video.clientWidth * 2;
-      let v_height = video.clientHeight * 2;
+      const videocanvas = beautyOn.value ? document.querySelector(".event-wrapper canvas") : document.querySelector(".event-wrapper video");
+
+      if (beautyOn.value === false) {
+        videocanvas.pause();
+      }
+      let v_width = videocanvas.clientWidth * 2;
+      let v_height = videocanvas.clientHeight * 2;
 
       canvas.width = v_width;
       canvas.height = v_height;
 
       const ctx = canvas.getContext("2d");
 
-      let videoRatio = video.videoWidth / video.videoHeight;
+      let videoRatio = videocanvas.width / videocanvas.height;
       let canvasRatio = v_width / v_height;
 
       let sx, sy, sw, sh;
       if (videoRatio > canvasRatio) {
-        sh = video.videoHeight;
+        sh = videocanvas.height;
         sw = sh * canvasRatio;
         sy = 0;
-        sx = (video.videoWidth - sw) / 2;
+        sx = (videocanvas.width - sw) / 2;
       } else {
-        sw = video.videoWidth;
+        sw = videocanvas.width;
         sh = sw / canvasRatio;
         sx = 0;
-        sy = (video.videoHeight - sh) / 2;
+        sy = (videocanvas.height - sh) / 2;
       }
 
       ctx.save();
@@ -138,7 +141,7 @@ export default {
         ctx.scale(-1, 1);
         ctx.translate(-v_width, 0);
       }
-      ctx.drawImage(video, sx, sy, sw, sh, 0, 0, v_width, v_height);
+      ctx.drawImage(videocanvas, sx, sy, sw, sh, 0, 0, v_width, v_height);
       ctx.restore();
 
       if (isDecorate.value) {
@@ -174,24 +177,6 @@ export default {
         ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
       }
       imageUrl.value = canvas.toDataURL("image/png");
-
-      async function processImage() {
-        try {
-          const image = await window.Jimp.read(imageUrl.value);
-          let processedImage = image.brightness(0.2);
-          processedImage = processedImage.contrast(0.2);
-          processedImage = processedImage.blur(2);
-
-          const src = await processedImage.getBase64Async("image/png");
-          imageUrl.value = src;
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      if (beautyOn.value) {
-        await processImage();
-      }
 
       return imageUrl.value;
     }

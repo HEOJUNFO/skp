@@ -471,6 +471,7 @@ export default {
                 isSecondFrameBarVisible.value = false;
                 isSecondEffectBarVisible.value = false;
             }
+            EventBus.emit("toggleBottomBar")
         };
 
         provide("toggleBottomBar", toggleBottomBar);
@@ -564,6 +565,42 @@ export default {
         const frameButtonStyle = computed(() => ({
             color: arFrameSettingYn.value === "Y" ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0)",
         }));
+
+        var timeout = 3000;
+        var checkInterval = 10000;
+
+        function checkNetwork() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "https://go.selpic.co.kr/skapi/order/" + "cultureconTestKey", true);
+            xhr.timeout = timeout;
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log("network ok")
+                    } else {
+                        alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                        dispatch("url/redirectToMain");
+                        return;
+                    }
+                }
+            };
+
+            xhr.ontimeout = function () {
+                alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                dispatch("url/redirectToMain");
+                return;
+            };
+
+            xhr.onerror = function () {
+                alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                dispatch("url/redirectToMain");
+                return;
+            };
+
+            xhr.send();
+        }
+        setInterval(checkNetwork, checkInterval);
 
         return {
             frameButtonStyle,

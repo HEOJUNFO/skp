@@ -198,13 +198,22 @@ export default {
       isDecorate.value = has;
     };
 
-    const saveImage = () => {
+    const saveImage = async () => {
       //putPvLog(getPvLogParams(1, "/main/photo"));
 
+      const imageUrl = imageurl.value;
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
       const a = document.createElement("a");
-      a.href = imageurl.value;
+      a.href = url;
       a.download = "download.jpg";
+      a.style.display = "none"; // Ensure the link is hidden
+      document.body.appendChild(a);
       a.click();
+      window.URL.revokeObjectURL(url); // Clean up URL object after use
+      document.body.removeChild(a);
 
       photoStoreModal.value.saveImage(imageurl.value);
     };

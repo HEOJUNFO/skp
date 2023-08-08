@@ -145,3 +145,58 @@ export async function getArPhotoUserMedia({videoEl, facingMode}) {
     }
   }
 }
+
+export function applyFilter(videoEl,facingMode) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.display = 'block';
+  canvas.style.objectFit = 'cover';
+  canvas.style.position = 'absolute';
+
+  if(facingMode === 'user') {
+    canvas.style.transform = 'scaleX(-1)';
+  }
+  else {
+    canvas.style.transform = 'scaleX(1)';
+  }
+
+  canvas.width = videoEl.videoWidth;
+  canvas.height = videoEl.videoHeight;
+
+  videoEl.parentNode.insertBefore(canvas, videoEl);
+  videoEl.style.display = 'none';
+
+
+  function processFrame() {
+    ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      data[i] = avg; // red
+      data[i + 1] = avg; // green
+      data[i + 2] = avg; // blue
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+
+    requestAnimationFrame(processFrame);
+  }
+
+  processFrame();
+}
+
+export function removeFilter(videoEl) {
+  const canvas = videoEl.nextSibling; // 비디오 요소 바로 다음 요소인 캔버스 참조
+
+  if (canvas && canvas.tagName === 'CANVAS') {
+    canvas.remove(); // 캔버스 요소 제거
+  }
+
+  videoEl.style.display = 'block'; // 비디오 요소 다시 표시
+}

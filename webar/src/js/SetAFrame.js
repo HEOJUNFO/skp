@@ -239,40 +239,7 @@ export function setAframe() {
         }
     }
 });
-window.AFRAME.registerComponent('outline2', {
-  init: function () {
-      var el = this.el;
 
-      var mesh = el.getObject3D('mesh');
-      var box = new THREE.Box3().setFromObject(mesh);
-      var size = box.getSize(new THREE.Vector3());
-
-      var geometry = new THREE.BoxGeometry(size.x * 1, size.y * 0.7, size.z * 1.05);
-      geometry.translate(0, 0.1, 0);
-      var edges = new THREE.EdgesGeometry(geometry);
-
-      this.outlineObjects = [];
-
-      var numLines = 10;
-
-      for (var i = 0; i < numLines; i++) {
-          var lineMaterial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.1, transparent: true});
-          var line = new THREE.LineSegments(edges, lineMaterial);
-          var offset = i * 0.0005; 
-          line.position.x += offset;
-          line.position.y += offset;
-          this.outlineObjects.push(line);
-          el.object3D.add(line);
-          line.visible = false;
-      }
-  },
-
-  setTrash: function(boolen) {
-      for (var i = 0; i < this.outlineObjects.length; i++) {
-          this.outlineObjects[i].visible = boolen;
-      }
-  }
-});
 
   //---------
 

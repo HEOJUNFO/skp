@@ -3,24 +3,21 @@
     <div class="main-content">
       <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-          <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </button>
       <img :src="imageUrl" class="image" alt="Image from URL" />
       <div class="button-container2">
         <div class="prints-count">
-          <span style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 500; line-height: 140%"
-            >출력 장 수</span
-          >
+          <span
+            style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 500; line-height: 140%">출력
+            장 수</span>
           <button v-if="printNumber > 1" @click="decreasePrints" style="margin-left: 15%">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
           <span class="prints-number" style="margin-left: 9%; margin-right: 9%">{{ printNumber }}</span>
@@ -28,11 +25,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 14V28M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
         </div>
@@ -43,7 +36,8 @@
       <div v-if="showErrorModal" class="modal">
         <button class="close-button2" @click="showErrorModal = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content4">
@@ -64,23 +58,28 @@
         </div>
       </div>
       <div class="button-container2">
-        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치 보기&nbsp;&nbsp;➔</button>
+        <button v-if="deviceLocationFindYn" class="round-button" @click="locationFind()">사진출력기기 위치
+          보기&nbsp;&nbsp;➔</button>
       </div>
       <div v-if="showDeviceModal" class="modal2">
         <button class="exit-button" @click="(showDeviceModal = false), (showErrorModal = false), (showFiveModal = false)">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content">
-          <p style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
+          <p
+            style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
             키오스크 화면에 보이는
           </p>
-          <p style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
+          <p
+            style="color: #000; text-align: center; font-family: Corinthia; font-size: 18px; font-style: normal; font-weight: 400; line-height: 140%">
             기기번호를 입력해 주세요.
           </p>
           <input class="device-number-input" type="text" v-model="deviceNumber" placeholder="기기번호 입력" />
-          <button class="round-button-red2" @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
+          <button class="round-button-red2"
+            @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
         </div>
       </div>
       <div v-if="showPrintModal" class="modal2">
@@ -98,19 +97,17 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 18.375V12.25M21 24.5H21.0175M17.325 33.6L19.88 37.0067C20.26 37.5133 20.4499 37.7666 20.6828 37.8572C20.8868 37.9365 21.1132 37.9365 21.3172 37.8572C21.5501 37.7666 21.74 37.5133 22.12 37.0067L24.675 33.6C25.188 32.916 25.4445 32.574 25.7574 32.3129C26.1745 31.9647 26.667 31.7185 27.1959 31.5936C27.5925 31.5 28.02 31.5 28.875 31.5C31.3212 31.5 32.5443 31.5 33.5091 31.1004C34.7955 30.5675 35.8175 29.5455 36.3504 28.2591C36.75 27.2943 36.75 26.0712 36.75 23.625V13.65C36.75 10.7097 36.75 9.23959 36.1778 8.11655C35.6744 7.1287 34.8713 6.32555 33.8834 5.82222C32.7604 5.25 31.2903 5.25 28.35 5.25H13.65C10.7097 5.25 9.23959 5.25 8.11655 5.82222C7.1287 6.32555 6.32555 7.1287 5.82222 8.11655C5.25 9.23959 5.25 10.7097 5.25 13.65V23.625C5.25 26.0712 5.25 27.2943 5.64963 28.2591C6.18248 29.5455 7.20451 30.5675 8.49091 31.1004C9.45571 31.5 10.6788 31.5 13.125 31.5C13.98 31.5 14.4075 31.5 14.8041 31.5936C15.333 31.7185 15.8255 31.9647 16.2426 32.3129C16.5555 32.574 16.812 32.916 17.325 33.6Z"
-                stroke="#EE4848"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+                stroke="#EE4848" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <p class="error-text">디바이스(통신) 오류로</p>
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
           <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
-          <button v-if="printStatus === 'success'" class="round-button-red3" @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
-          <button v-if="printStatus === 'failure'" class="round-button-red2" @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
+          <button v-if="printStatus === 'success'" class="round-button-red3"
+            @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
+          <button v-if="printStatus === 'failure'" class="round-button-red2"
+            @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
         </div>
       </div>
       <div class="button-container2" v-if="isPhotoBox">
@@ -133,7 +130,8 @@
       <div v-if="showLocationPopup" class="modal2">
         <button class="exit-button" @click="showLocationPopup = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
         <div class="modal-content2">
@@ -144,7 +142,8 @@
       <div v-show="showLocationMap" class="modal2">
         <button class="exit-button2" @click="showLocationMap = false">
           <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
         <div class="button-container">
@@ -153,7 +152,8 @@
               <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd"> {{ currentDevice.deviceName }}</span>
+          <span @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd"> {{
+            currentDevice.deviceName }}</span>
           <button v-if="deviceOn" @click="nextLocation()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -795,8 +795,9 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
-  font-size: 3em;
+  font-size: 2.5em;
   color: #fff;
+  white-space: nowrap;
 }
 
 .error-text {
