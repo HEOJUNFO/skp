@@ -34,12 +34,12 @@ export default function useOrientation() {
     ]; 
   
     return foldableKeywords.some(keyword => userAgent.includes(keyword))
-    
   }
   
   function getOrientation() {
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 
-      if (typeof window.orientation === 'undefined'|| isFoldable()) {
+      if (typeof window.orientation === 'undefined'|| isFoldable() || !isIos) {
      return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
       }else{
       return window.orientation === 0 ? 'portrait' : 'landscape';

@@ -1,7 +1,8 @@
 <template>
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
-      <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup" class="exit-button" @click="exit()">
+      <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup && !showPrintModal" class="exit-button"
+        @click="exit()">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
           <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" />
@@ -183,6 +184,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const { eventId } = toRefs(route.query);
+    console.log(eventId.value);
     const { getters, dispatch } = useStore();
     const showVModal = ref(false);
     const imageUrl = ref("");
@@ -211,6 +213,7 @@ export default {
     const deviceOn = ref(false);
 
     const { putSavePrintStatus } = useSavePrintStatus();
+    console.log("putSavePrintStatus", putSavePrintStatus);
 
     const { getPvLogParams, putPvLog } = usePvLog();
 
@@ -287,99 +290,14 @@ export default {
     const print = async () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
 
-      if (!(await checkDeviceNumber(deviceNumber))) {
+      if (deviceNumber.value === "" || deviceNumber.value.length == 0) {
         showErrorModal.value = true;
-        incorrectDeviceNumberCount += 1;
-        if (incorrectDeviceNumberCount >= 5) {
-          showErrorModal.value = false;
-          showFiveModal.value = true;
-          showErrorModal.value = false;
-          incorrectDeviceNumberCount = 0;
-        }
         return;
-      } else {
-        showErrorModal.value = false;
-        incorrectDeviceNumberCount = 0;
       }
-
-      if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
-        showFailureModal.value = true;
-        return;
-      } else if (freePrintCustomerCount.value >= printNumber.value) {
-        freePrintCustomerCount.value -= printNumber.value;
-      }
-
-      if (await imgUpload(imageUrl)) {
-        showPrintModal.value = true;
-        getUserHistory();
-      } else {
-        showPrintModal.value = true;
-        printStatus.value = "failure";
-        putSavePrintStatus({
-          eventId: eventId.value,
-          ocbMbrId: "test",
-          clintUniqueKey: "test",
-          printResultStatus: "FAIL",
-        });
-      }
+      getUserHistory(checkHistory)
     };
 
-    const getUserHistory = async () => {
-      var url = "https://go.selpic.co.kr/skapi/order/" + "cultureconTestKey";
-
-      if (deviceNumber.value === "0000") {
-        printStatus.value = "success";
-        return;
-      } else if (deviceNumber.value === "0001") {
-        printStatus.value = "failure";
-        return;
-      } else if (deviceNumber.value === "0002") {
-        printStatus.value = "waiting";
-        setTimeout(() => {
-          printStatus.value = "printing";
-        }, 2000);
-        setTimeout(() => {
-          printStatus.value = "success";
-        }, 4000);
-        return;
-      }
-
-      try {
-        const response = await axios.get(url);
-        if (response.data.length <= 0) {
-          printStatus.value = "failure";
-          return;
-        }
-
-        let info = response.data[0];
-        console.log(info);
-        switch (info.status) {
-          case "S": //
-            printStatus.value = "success";
-            break;
-          case "F": // 실패
-            printStatus.value = "failure";
-            break;
-          case "W": // 전송중
-            printStatus.value = "waiting";
-            break;
-          case "P": // 인쇄중
-            printStatus.value = "printing";
-            break;
-        }
-
-        if (info.status === "W" || info.status === "P") {
-          setTimeout(() => {
-            getUserHistory();
-          }, 2000);
-        }
-      } catch (error) {
-        console.log("Network error: ", error);
-        return;
-      }
-    };
-
-    const imgUpload = async (imageUrl) => {
+    const imgUpload = async () => {
       let byteString = atob(imageUrl.value.split(",")[1]);
       let arrayBuffer = new ArrayBuffer(byteString.length);
       let intArray = new Uint8Array(arrayBuffer);
@@ -393,8 +311,8 @@ export default {
       // 인화 업로드
       var formData = new FormData();
 
-      formData.append("robot_id", "H150" + deviceNumber.value); //키오스크 아이디
-      formData.append("user_id", "cultureconTestKey"); //회원 키
+      formData.append("robot_id", deviceNumber.value); //키오스크 아이디
+      formData.append("user_id", '01234567'); //회원 키
       formData.append("file", blob, "img.jpeg");
 
       try {
@@ -407,27 +325,139 @@ export default {
           },
         });
 
-        return response.data.upload === true;
+        if (response.data.upload != true) {
+          console.log("upload error.");
+          printStatus.value = "failure";
+          showPrintModal.value = true;
+        } else {
+          getUserHistory(uploadLoading)
+        }
       } catch (error) {
         console.log("network error.", error);
-        return false;
+        printStatus.value = "failure";
+        showPrintModal.value = true;
+        return
       }
-    };
+    }
 
-    const checkDeviceNumber = async (deviceNumber) => {
-      if (deviceNumber.value === "0000" || deviceNumber.value === "0001" || deviceNumber.value === "0002") {
-        return true;
+    const checkKiosk = async () => {
+      if (deviceNumber.value === "0000") {
+        printStatus.value = "success";
+        showPrintModal.value = true;
+        return;
+      } else if (deviceNumber.value === "0001") {
+        printStatus.value = "failure";
+        return;
+      } else if (deviceNumber.value === "0002") {
+        printStatus.value = "waiting";
+        setTimeout(() => {
+          printStatus.value = "printing";
+        }, 2000);
+        setTimeout(() => {
+          printStatus.value = "success";
+        }, 4000);
+        return;
+      } else if (deviceNumber.value === "0132") {
+        deviceNumber.value = "A190" + deviceNumber.value;
+        console.log(deviceNumber.value)
       }
+
+
       var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;
 
       try {
         const response = await axios.get(url);
         const data = response.data;
-        return data.status === "normal";
+        console.log(data.status)
+
+        if (data.status !== "normal") {
+          showErrorModal.value = true;
+          incorrectDeviceNumberCount++;
+          if (incorrectDeviceNumberCount >= 5) {
+            showErrorModal.value = false;
+            showFiveModal.value = true;
+            showErrorModal.value = false;
+            incorrectDeviceNumberCount = 0;
+          }
+        } else {
+          showErrorModal.value = false;
+          incorrectDeviceNumberCount = 0;
+          imgUpload()
+        }
       } catch (error) {
-        return false;
+        console.log(error);
+        showErrorModal.value = true;
+        return;
       }
-    };
+    }
+
+    const checkUploadStatus = (data) => {
+
+      let info = data[0]
+      console.log(info.status)
+
+      switch (info.status) {
+        case "S": //
+          printStatus.value = "success";
+          showPrintModal.value = true;
+          break;
+        case "F": // 실패
+          printStatus.value = "failure";
+          showPrintModal.value = true;
+          break;
+        case "W": // 전송중
+          printStatus.value = "waiting";
+          showPrintModal.value = true;
+          break;
+        case "P": // 인쇄중
+          printStatus.value = "printing";
+          showPrintModal.value = true;
+          break;
+      }
+
+      if (info.status == 'W' || info.status == 'P') {
+        setTimeout(() => {
+          getUserHistory(uploadLoading)
+        }, 2000);
+      }
+    }
+
+    const uploadLoading = (data) => {
+      console.log(data.length)
+      if (data.length <= 0) {
+        console.log(data)
+        printStatus.value = "failure";
+        showPrintModal.value = true;
+        return;
+      }
+
+      checkUploadStatus(data)
+    }
+
+    const checkHistory = (data) => {
+      if (data.length <= 0) {
+        console.log(data)
+        printStatus.value = "waiting";
+        showPrintModal.value = true;
+        checkKiosk()
+        return;
+      } else {
+        checkUploadStatus(data)
+      }
+    }
+
+    const getUserHistory = async (callbackFunc) => {
+      var url = "https://go.selpic.co.kr/skapi/order/01234567";
+
+      try {
+        const response = await axios.get(url);
+        console.log(response.data)
+        callbackFunc(response.data);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    }
 
     const exit = () => {
       showVModal.value = false;
