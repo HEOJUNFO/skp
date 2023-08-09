@@ -1,8 +1,9 @@
 <template>
   <vue-final-modal v-model="showVModal">
     <div class="main-content">
-      <button v-if="!showDeviceModal && !showLocationMap && !showLocationPopup && !showPrintModal" class="exit-button"
-        @click="exit()">
+      <button
+        v-if="!showDeviceModal && !showLocationMap && !showLocationPopup && !showPrintWaitModal && !showPrintSuccessModal && !showPrintFailureModal"
+        class="exit-button" @click="exit()">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
           <path d="M31.5 10.5L10.5 31.5M10.5 10.5L31.5 31.5" stroke="black" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" />
@@ -83,7 +84,7 @@
             @click="showErrorModal === false && showFiveModal === false ? print() : null">확인</button>
         </div>
       </div>
-      <div v-if="showPrintModal" class="modal2">
+      <div v-if="showPrintWaitModal" class="modal4">
         <div class="modal-content3">
           <h1 v-if="printStatus === 'printing' || printStatus === 'waiting'" class="highlight-text">사진 출력이 요청되었습니다</h1>
           <div v-if="printStatus === 'printing' || printStatus === 'waiting'" class="spinner-container">
@@ -91,9 +92,10 @@
             <span v-if="printStatus === 'printing'" class="spinner-text">출력중</span>
             <span v-if="printStatus === 'waiting'" class="spinner-text">전송중</span>
           </div>
-          <div v-if="printStatus === 'success'" class="circle-message">
-            <p>출력완료</p>
-          </div>
+        </div>
+      </div>
+      <div v-if="showPrintFailureModal" class="modal2">
+        <div class="modal-content">
           <div v-if="printStatus === 'failure'" class="error">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
               <path
@@ -104,15 +106,21 @@
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
-          <p v-if="printStatus === 'success'" class="bottom-text">출력 디바이스에서 반드시 사진을 수령하세요</p>
-          <button v-if="printStatus === 'success'" class="round-button-red3"
-            @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
-          <button v-if="printStatus === 'failure'" class="round-button-red2"
-            @click="(showPrintModal = false), (printStatus = 'printing')">닫기</button>
+          <button class="round-button-red2"
+            @click="(showPrintFailureModal = false), (printStatus = 'printing')">닫기</button>
         </div>
       </div>
       <div class="button-container2" v-if="isPhotoBox">
         <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
+      </div>
+
+      <div v-if="showPrintSuccessModal" class="modal2">
+        <div class="modal-content">
+          <div class="circle-message">
+            <p>출력완료</p>
+          </div>
+          <button class="round-button-red2" @click="showPrintSuccessModal = false">닫기</button>
+        </div>
       </div>
 
       <div v-if="showFailureModal" class="modal2">
@@ -122,7 +130,7 @@
           <br />
           <br />
           <div class="circle-message">
-            <p>죄송합니다.</p>
+            <p>죄송합니다</p>
           </div>
           <button class="round-button-red2" @click="showFailureModal = false">닫기</button>
         </div>
@@ -199,7 +207,9 @@ export default {
     const printNumber = ref(1);
     const printStatus = ref("waiting");
     const showDeviceModal = ref(false);
-    const showPrintModal = ref(false);
+    const showPrintWaitModal = ref(false);
+    const showPrintFailureModal = ref(false);
+    const showPrintSuccessModal = ref(false);
     const showFailureModal = ref(false);
     const showErrorModal = ref(false);
     const showFiveModal = ref(false);
@@ -211,6 +221,11 @@ export default {
       deviceName: "디바이스 없음",
     });
     const deviceOn = ref(false);
+    const tempUserKey = ref(null);
+
+    const randomNumberEight = () => {
+      return Math.floor(Math.random() * 100000000);
+    };
 
     const { putSavePrintStatus } = useSavePrintStatus();
     console.log("putSavePrintStatus", putSavePrintStatus);
@@ -290,6 +305,8 @@ export default {
     const print = async () => {
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
 
+      tempUserKey.value = randomNumberEight();
+
       if (deviceNumber.value === "" || deviceNumber.value.length == 0) {
         showErrorModal.value = true;
         return;
@@ -312,7 +329,7 @@ export default {
       var formData = new FormData();
 
       formData.append("robot_id", deviceNumber.value); //키오스크 아이디
-      formData.append("user_id", '01234567'); //회원 키
+      formData.append("user_id", tempUserKey.value); //회원 키
       formData.append("file", blob, "img.jpeg");
 
       try {
@@ -328,14 +345,16 @@ export default {
         if (response.data.upload != true) {
           console.log("upload error.");
           printStatus.value = "failure";
-          showPrintModal.value = true;
+          showPrintWaitModal.value = false;
+          showPrintFailureModal.value = true;
         } else {
           getUserHistory(uploadLoading)
         }
       } catch (error) {
         console.log("network error.", error);
         printStatus.value = "failure";
-        showPrintModal.value = true;
+        showPrintWaitModal.value = false;
+        showPrintFailureModal.value = true;
         return
       }
     }
@@ -343,18 +362,24 @@ export default {
     const checkKiosk = async () => {
       if (deviceNumber.value === "0000") {
         printStatus.value = "success";
-        showPrintModal.value = true;
+        showPrintWaitModal.value = false;
+        showPrintSuccessModal.value = true;
         return;
       } else if (deviceNumber.value === "0001") {
         printStatus.value = "failure";
+        showPrintWaitModal.value = false;
+        showPrintFailureModal.value = true;
         return;
       } else if (deviceNumber.value === "0002") {
         printStatus.value = "waiting";
+        showPrintWaitModal.value = true;
         setTimeout(() => {
           printStatus.value = "printing";
         }, 2000);
         setTimeout(() => {
           printStatus.value = "success";
+          showPrintWaitModal.value = false;
+          showPrintSuccessModal.value = true;
         }, 4000);
         return;
       } else if (deviceNumber.value === "0132") {
@@ -368,9 +393,9 @@ export default {
       try {
         const response = await axios.get(url);
         const data = response.data;
-        console.log(data.status)
 
         if (data.status !== "normal") {
+          showPrintWaitModal.value = false;
           showErrorModal.value = true;
           incorrectDeviceNumberCount++;
           if (incorrectDeviceNumberCount >= 5) {
@@ -382,11 +407,19 @@ export default {
         } else {
           showErrorModal.value = false;
           incorrectDeviceNumberCount = 0;
+          if (freePrintControlYn.value && freePrintCustomerCount.value < printNumber.value) {
+            showPrintWaitModal.value = false;
+            showFailureModal.value = true;
+            return;
+          } else if (freePrintCustomerCount.value >= printNumber.value) {
+            freePrintCustomerCount.value -= printNumber.value;
+          }
+          console.log("print start");
           imgUpload()
         }
       } catch (error) {
-        console.log(error);
-        showErrorModal.value = true;
+        console.log("network error.", error);
+        showFailureModal.value = true;
         return;
       }
     }
@@ -399,19 +432,21 @@ export default {
       switch (info.status) {
         case "S": //
           printStatus.value = "success";
-          showPrintModal.value = true;
+          showPrintWaitModal.value = false;
+          showPrintSuccessModal.value = true;
           break;
         case "F": // 실패
           printStatus.value = "failure";
-          showPrintModal.value = true;
+          showPrintWaitModal.value = false;
+          showPrintFailureModal.value = true;
           break;
         case "W": // 전송중
           printStatus.value = "waiting";
-          showPrintModal.value = true;
+          showPrintWaitModal.value = true;
           break;
         case "P": // 인쇄중
           printStatus.value = "printing";
-          showPrintModal.value = true;
+          showPrintWaitModal.value = true;
           break;
       }
 
@@ -427,7 +462,8 @@ export default {
       if (data.length <= 0) {
         console.log(data)
         printStatus.value = "failure";
-        showPrintModal.value = true;
+        showPrintWaitModal.value = false;
+        showPrintFailureModal.value = true;
         return;
       }
 
@@ -438,7 +474,7 @@ export default {
       if (data.length <= 0) {
         console.log(data)
         printStatus.value = "waiting";
-        showPrintModal.value = true;
+        showPrintWaitModal.value = true;
         checkKiosk()
         return;
       } else {
@@ -447,7 +483,7 @@ export default {
     }
 
     const getUserHistory = async (callbackFunc) => {
-      var url = "https://go.selpic.co.kr/skapi/order/01234567";
+      var url = "https://go.selpic.co.kr/skapi/order/" + tempUserKey.value;
 
       try {
         const response = await axios.get(url);
@@ -541,7 +577,9 @@ export default {
       if (showDeviceModal.value || showLocationMap.value || showLocationPopup.value) {
         showDeviceModal.value = false;
         showFailureModal.value = false;
-        showPrintModal.value = false;
+        showPrintWaitModal.value = false;
+        showPrintSuccessModal.value = false;
+        showPrintFailureModal.value = false;
         showErrorModal.value = false;
         showLocationMap.value = false;
         showLocationPopup.value = false;
@@ -584,7 +622,9 @@ export default {
       exit,
       showDeviceModal,
       showFailureModal,
-      showPrintModal,
+      showPrintWaitModal,
+      showPrintSuccessModal,
+      showPrintFailureModal,
       printNumber,
       deviceNumber,
       printStatus,
@@ -750,7 +790,18 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: #fff;
-  display: inline;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal4 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
   justify-content: center;
   align-items: center;
 }
@@ -773,7 +824,7 @@ export default {
 .modal-content {
   background-color: #fff;
   text-align: center;
-  margin-top: 19vh;
+  margin-top: 5vh;
 }
 
 .modal-content3 {
@@ -815,7 +866,6 @@ export default {
   background-color: #ee4848;
   color: #fff;
   text-align: center;
-  margin-left: 18%;
   margin-bottom: 10vh;
 }
 
