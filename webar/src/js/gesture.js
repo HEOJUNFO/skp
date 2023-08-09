@@ -1,3 +1,5 @@
+import { EventBus } from "@/js/EventBus";
+
 export function setGesture() {
   window.AFRAME.registerComponent("gesture-handler", {
       schema: {
@@ -91,6 +93,7 @@ export function setGesture() {
       },
     
       handleScale: function (event) {
+        EventBus.emit('scale')
         if (this.isVisible) {
           this.scaleFactor *=
             1 + event.detail.spreadChange / event.detail.startSpread;

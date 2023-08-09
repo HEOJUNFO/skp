@@ -205,6 +205,16 @@ export default {
       }
     })
 
+    EventBus.on("scale", () => {
+      if (stickerRef.value) {
+        trashRef.value.object3D.visible = false;
+        stickerRef.value.components.outline.setTrash(false);
+      }
+      if (characterRef.value) {
+        trashRef2.value.object3D.visible = false;
+      }
+    })
+
     const animationcomplete = () => {
       emit('animationcomplete:object', arData.value.itemID);
     }
