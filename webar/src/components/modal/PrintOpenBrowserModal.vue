@@ -106,10 +106,12 @@
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
-          <button class="round-button-red2" @click="showPrintFailureModal = false">닫기</button>
+          <button class="round-button-red2"
+            @click="showPrintFailureModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
         </div>
       </div>
-      <div class="button-container2" v-if="isPhotoBox">
+      <div class="button-container2"
+        v-if="isPhotoBox && !showDeviceModal && !showFailureModal && !showPrintFailureModal && !showPrintSuccessModal && !showPrintWaitModal">
         <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
       </div>
 
@@ -134,7 +136,8 @@
           <div class="circle-message">
             <p>죄송합니다</p>
           </div>
-          <button class="round-button-red2" @click="showFailureModal = false">닫기</button>
+          <button class="round-button-red2"
+            @click="showFailureModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
         </div>
       </div>
 
@@ -319,17 +322,22 @@ export default {
     };
 
     const imgUpload = async () => {
-      let byteString = atob(imageUrl.value.split(",")[1]);
-      let arrayBuffer = new ArrayBuffer(byteString.length);
-      let intArray = new Uint8Array(arrayBuffer);
+      let blob
+      if (!isPhotoBox.value) {
+        let byteString = atob(imageUrl.value.split(",")[1]);
+        let arrayBuffer = new ArrayBuffer(byteString.length);
+        let intArray = new Uint8Array(arrayBuffer);
 
-      for (let i = 0; i < byteString.length; i++) {
-        intArray[i] = byteString.charCodeAt(i);
+        for (let i = 0; i < byteString.length; i++) {
+          intArray[i] = byteString.charCodeAt(i);
+        }
+        blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+        const url2 = window.URL.createObjectURL(blob);
+        console.log(url2);
+      } else {
+        blob = await fetch(imageUrl.value).then((r) => r.blob());
+
       }
-      let blob = new Blob([arrayBuffer], { type: "image/jpeg" });
-      const url2 = window.URL.createObjectURL(blob);
-      console.log(url2);
-
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
       var formData = new FormData();
@@ -337,6 +345,7 @@ export default {
       formData.append("robot_id", deviceNumber.value); //키오스크 아이디
       formData.append("user_id", tempUserKey.value); //회원 키
       formData.append("file", blob, "img.jpeg");
+
 
       try {
         const response = await axios({

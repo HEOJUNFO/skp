@@ -139,7 +139,6 @@ export default {
       EventBus.setState('Sticker')
       startPos = stickerRef.value.object3D.position.clone();
       if (trashRef.value.object3D.visible) {
-        setTrash();
         wasTrashSet = true;
       } else {
         wasTrashSet = false;
@@ -161,7 +160,6 @@ export default {
       EventBus.setState('Character')
       startPos2 = modelRef.value.object3D.position.clone();
       if (trashRef2.value.object3D.visible) {
-        setCharacterTrash();
         wasTrashSet2 = true;
       } else {
         wasTrashSet2 = false;
