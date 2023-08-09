@@ -224,6 +224,7 @@ export default {
     });
     const deviceOn = ref(false);
     const tempUserKey = ref(null);
+    const info = ref(null);
 
     const randomNumberEight = () => {
       return Math.floor(Math.random() * 100000000);
@@ -305,6 +306,7 @@ export default {
     let incorrectDeviceNumberCount = 0;
 
     const print = async () => {
+      info.value = null;
       putPvLog(getPvLogParams(1, "/main/photobox/detail"));
 
       tempUserKey.value = randomNumberEight();
@@ -431,10 +433,13 @@ export default {
 
     const checkUploadStatus = (data) => {
 
-      let info = data[0]
-      console.log(info.status)
+      if (info.value === 'X') {
+        return;
+      }
 
-      switch (info.status) {
+      info.value = data[0]
+
+      switch (info.value.status) {
         case "S": //
           printStatus.value = "success";
           showPrintWaitModal.value = false;
@@ -455,7 +460,7 @@ export default {
           break;
       }
 
-      if (info.status == 'W' || info.status == 'P') {
+      if (info.value.status == 'W' || info.value.status == 'P') {
         setTimeout(() => {
           getUserHistory(uploadLoading)
         }, 2000);
@@ -463,7 +468,6 @@ export default {
     }
 
     const uploadLoading = (data) => {
-      console.log(data.length)
       if (data.length <= 0) {
         console.log(data)
         printStatus.value = "failure";
@@ -489,7 +493,6 @@ export default {
 
     const getUserHistory = async (callbackFunc) => {
       var url = "https://go.selpic.co.kr/skapi/order/" + tempUserKey.value;
-
       try {
         const response = await axios.get(url);
         console.log(response.data)
@@ -589,6 +592,7 @@ export default {
         showLocationMap.value = false;
         showLocationPopup.value = false;
         showFiveModal.value = false;
+        info.value = 'X';
         window.onpopstate = null;
       } else {
         window.onpopstate = null;

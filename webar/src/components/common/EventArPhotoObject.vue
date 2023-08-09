@@ -144,10 +144,12 @@ export default {
     }, { deep: true });
 
     function generateEntity(jsonData, fileName) {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      console.log('isIOS', isIOS);
       return jsonData.map(data => {
         const position = `${data.position.x} ${data.position.y} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
-        const scale = `${data.scale.x} ${data.scale.y} ${data.scale.z}`;
+        const scale = `${data.scale.x + (isIOS ? 0.1 : 0.05)} ${data.scale.y + (isIOS ? 0.1 : 0.05)} ${data.scale.z + (isIOS ? 0.1 : 0.05)}`;
 
         return `<a-entity class='face' id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
         <a-gltf-model position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
