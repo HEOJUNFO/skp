@@ -4,6 +4,7 @@ export const url = {
   namespaced: true,
   state: () => ({
     eventMainUrl: "/web-event/main.html",
+    eventPhotoBoxUrl: "/webar/index.html#/photo-box",
     eventWinningFormUrl: "/web-event/give-away.html",
     eventAppUrl: "ocbt://com.skmc.okcashbag.home_google/",
     actionType: "WEB",
@@ -31,6 +32,16 @@ export const url = {
         } else {
           container.location.href = `${state.eventMainUrl}?${query}`;
         }
+      }
+    },
+    // photobox redirect
+    redirectToPhotoBox({ state }, success) {
+      const container = window.top;
+      const query = container.location.href.split("?")[1] || "";
+      if (success) {
+        container.location.href = `${state.eventPhotoBoxUrl}?redirect=true&${query}`;
+      } else {
+        container.location.href = `${state.eventPhotoBoxUrl}?${query}`;
       }
     },
     // 당첨 정보 팝업

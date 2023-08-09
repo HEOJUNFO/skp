@@ -209,8 +209,8 @@ export default {
       const newHeight = window.innerWidth * aspectRatio;
 
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}px`);
-      eventArPhotoObjectRef.value.arSceneResize()
-    }
+      eventArPhotoObjectRef.value.arSceneResize();
+    };
 
     const toggleBeautyFilter = () => {
       beautyOn.value = !beautyOn.value;
@@ -270,8 +270,6 @@ export default {
     const initDecorate = () => {
       const decorateImage = getters["eventData/selectedPhoto"];
       if (decorateImage) {
-        document.querySelector(".frame-top").style.display = "none";
-        document.querySelector(".frame-bottom").style.display = "none";
         selectedPhoto.value = decorateImage;
         dispatch("eventData/setSeletedPhoto", "");
       }

@@ -364,16 +364,19 @@ export default {
     const checkKiosk = async () => {
       if (deviceNumber.value === "0000") {
         printStatus.value = "success";
+        showErrorModal.value = false;
         showPrintWaitModal.value = false;
         showPrintSuccessModal.value = true;
         return;
       } else if (deviceNumber.value === "0001") {
         printStatus.value = "failure";
+        showErrorModal.value = false;
         showPrintWaitModal.value = false;
         showPrintFailureModal.value = true;
         return;
       } else if (deviceNumber.value === "0002") {
         printStatus.value = "waiting";
+        showErrorModal.value = false;
         showPrintWaitModal.value = true;
         setTimeout(() => {
           printStatus.value = "printing";

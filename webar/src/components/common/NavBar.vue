@@ -151,8 +151,7 @@
         </div>
         <slot></slot>
         <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1">
-            <button v-if="!isCapturing && arFrameSettingYn === 'Y' && !isDecorate" @click="frameToggleBar"
-                class="frame-button">
+            <button v-if="!isCapturing && arFrameSettingYn === 'Y'" @click="frameToggleBar" class="frame-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <path
                         d="M5 13C5 10.1997 5 8.79961 5.54497 7.73005C6.02433 6.78924 6.78924 6.02433 7.73005 5.54497C8.79961 5 10.1997 5 13 5H27C29.8003 5 31.2004 5 32.27 5.54497C33.2108 6.02433 33.9757 6.78924 34.455 7.73005C35 8.79961 35 10.1997 35 13V27C35 29.8003 35 31.2004 34.455 32.27C33.9757 33.2108 33.2108 33.9757 32.27 34.455C31.2004 35 29.8003 35 27 35H13C10.1997 35 8.79961 35 7.73005 34.455C6.78924 33.9757 6.02433 33.2108 5.54497 32.27C5 31.2004 5 29.8003 5 27V13Z"
@@ -425,7 +424,12 @@ export default {
         };
 
         const exit = () => {
-            dispatch("url/redirectToMain");
+            if (props.isDecorate) {
+                dispatch("url/redirectToPhotoBox");
+            } else {
+                dispatch("url/redirectToMain");
+            }
+
             return;
         };
 
@@ -471,7 +475,7 @@ export default {
                 isSecondFrameBarVisible.value = false;
                 isSecondEffectBarVisible.value = false;
             }
-            EventBus.emit("toggleBottomBar")
+            EventBus.emit("toggleBottomBar");
         };
 
         provide("toggleBottomBar", toggleBottomBar);
@@ -571,15 +575,15 @@ export default {
 
         function checkNetwork() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', "https://go.selpic.co.kr/skapi/order/" + "0000", true);
+            xhr.open("GET", "https://go.selpic.co.kr/skapi/order/" + "0000", true);
             xhr.timeout = timeout;
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        console.log("network ok")
+                        console.log("network ok");
                     } else {
-                        alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                        alert("네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요");
                         dispatch("url/redirectToMain");
                         return;
                     }
@@ -587,13 +591,13 @@ export default {
             };
 
             xhr.ontimeout = function () {
-                alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                alert("네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요");
                 dispatch("url/redirectToMain");
                 return;
             };
 
             xhr.onerror = function () {
-                alert('네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요');
+                alert("네트워크 환경이 원할하지 않습니다. 잠시 후 다시 이용해 주세요");
                 dispatch("url/redirectToMain");
                 return;
             };
