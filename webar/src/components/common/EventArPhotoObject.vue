@@ -145,9 +145,11 @@ export default {
 
     function generateEntity(jsonData, fileName) {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      console.log('isIOS', isIOS);
+      const isIOSMini = isIphoneMini();
+      console.log(isIOSMini, isIOS)
+
       return jsonData.map(data => {
-        const position = `${data.position.x} ${data.position.y} ${data.position.z}`;
+        const position = `${data.position.x} ${data.position.y + (isIOSMini ? 0 : 0.25)} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
         const scale = `${data.scale.x + (isIOS ? 0.1 : 0.05)} ${data.scale.y + (isIOS ? 0.1 : 0.05)} ${data.scale.z + (isIOS ? 0.1 : 0.05)}`;
 
@@ -157,6 +159,11 @@ export default {
       </a-entity>`;
       });
     }
+    const isIphoneMini = () => {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      return isIOS && window.screen.height <= 812; // iPhone mini의 특정 높이 기준을 확인
+    };
+
     function generateParticle(jsonData, fileName) {
       return jsonData.map(data => {
         const preset = `${data.preset}`;
