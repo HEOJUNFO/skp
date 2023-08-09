@@ -16,7 +16,7 @@
             style="color: #000; text-align: center; font-family: Inter; font-size: 18px; font-style: normal; font-weight: 500; line-height: 140%">출력
             장 수</span>
           <button v-if="printNumber > 1" @click="decreasePrints" style="margin-left: 15%">
-            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 42 42" fill="none">
               <path
                 d="M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
                 stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -24,7 +24,7 @@
           </button>
           <span class="prints-number" style="margin-left: 9%; margin-right: 9%">{{ printNumber }}</span>
           <button v-if="printNumber < freePrintCustomerCount" @click="increasePrints">
-            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 42 42" fill="none">
               <path
                 d="M21 14V28M14 21H28M38.5 21C38.5 30.665 30.665 38.5 21 38.5C11.335 38.5 3.5 30.665 3.5 21C3.5 11.335 11.335 3.5 21 3.5C30.665 3.5 38.5 11.335 38.5 21Z"
                 stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -119,6 +119,8 @@
           <div class="circle-message">
             <p>출력완료</p>
           </div>
+          <p class="bottom-text">출력 디바이스에서</p>
+          <p class="bottom-text">반드시 사진을 수령하세요</p>
           <button class="round-button-red2" @click="showPrintSuccessModal = false">닫기</button>
         </div>
       </div>
@@ -958,7 +960,6 @@ export default {
 .spinner-container {
   position: absolute;
   top: 50%;
-
   transform: translate(0%, -50%);
 }
 
@@ -983,6 +984,16 @@ export default {
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
+  line-height: 140%;
+}
+
+.prints-number {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
   line-height: 140%;
 }
 </style>
