@@ -106,8 +106,7 @@
             <p class="error-text">출력이 불가능 합니다.</p>
           </div>
 
-          <button class="round-button-red2"
-            @click="(showPrintFailureModal = false), (printStatus = 'printing')">닫기</button>
+          <button class="round-button-red2" @click="showPrintFailureModal = false">닫기</button>
         </div>
       </div>
       <div class="button-container2" v-if="isPhotoBox">
@@ -121,7 +120,8 @@
           </div>
           <p class="bottom-text">출력 디바이스에서</p>
           <p class="bottom-text">반드시 사진을 수령하세요</p>
-          <button class="round-button-red2" @click="showPrintSuccessModal = false">닫기</button>
+          <button class="round-button-red2"
+            @click="showPrintSuccessModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
         </div>
       </div>
 
@@ -194,7 +194,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const { eventId } = toRefs(route.query);
-    console.log(eventId.value);
+    console.log(eventId);
     const { getters, dispatch } = useStore();
     const showVModal = ref(false);
     const imageUrl = ref("");
@@ -327,6 +327,8 @@ export default {
         intArray[i] = byteString.charCodeAt(i);
       }
       let blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+      const url2 = window.URL.createObjectURL(blob);
+      console.log(url2);
 
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
@@ -507,6 +509,12 @@ export default {
       showVModal.value = false;
     };
 
+    const close = () => {
+      if (isPhotoBox.value) {
+        showVModal.value = false;
+      }
+    };
+
     const locationFind = () => {
       if (locationFindExposureType.value === "MAP") {
         showLocationMap.value = true;
@@ -653,6 +661,7 @@ export default {
       handleTouchMove,
       handleTouchStart,
       handleTouchEnd,
+      close
     };
   },
 };

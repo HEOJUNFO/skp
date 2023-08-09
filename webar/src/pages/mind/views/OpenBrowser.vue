@@ -112,8 +112,9 @@ export default {
       if (beautyOn.value === false) {
         videocanvas.pause();
       }
+
       let v_width = videocanvas.clientWidth * 2;
-      let v_height = videocanvas.clientHeight * 2;
+      let v_height = (v_width * 6) / 4;
 
       canvas.width = v_width;
       canvas.height = v_height;
