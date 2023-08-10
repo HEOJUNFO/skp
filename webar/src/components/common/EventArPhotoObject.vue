@@ -97,8 +97,7 @@ export default {
             .then(json => {
               json.some(data => {
                 if (data.dataType === 'image') {
-                  assets.insertAdjacentHTML('beforeend', `<img id="${asset.selectId}" src="${data.file}" crossOrigin="anonymous">`);
-                  return true;
+                  assets.insertAdjacentHTML('beforeend', `<img id="${asset.selectId}" src="${data.url}" crossOrigin="anonymous">`);
                 }
               })
             });
