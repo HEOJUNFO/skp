@@ -64,12 +64,12 @@ export default {
 
         applyFilter(video.value, cameraSettings.facingMode, {
           blurValue: 0,
-          brightnessValue: "1.16",
-          contrastValue: "1.06",
+          brightnessValue: "1.18",
+          contrastValue: "0.92",
           grayscaleValue: "0.1",
           hueRotateValue: "0",
           invertValue: "0",
-          saturateValue: "1.13",
+          saturateValue: "0.89",
           sepiaValue: "0"
         });
       } else {
