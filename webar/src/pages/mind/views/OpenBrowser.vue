@@ -25,7 +25,7 @@ import { useStore } from "vuex";
 import { EventBus } from "@/js/EventBus.js";
 
 import ArPhotoContainer from "../../../components/common/ArPhotoContainer";
-import NavBar from "../../../components/common/NavBar.vue";
+import NavBar from "../../../components/common/NavBar";
 import EventArPhotoObject from "../../../components/common/EventArPhotoObject";
 import ArPhotoCamera from "@/components/common/ArPhotoCamera";
 import TutorialModal from "@/components/modal/TutorialModal";
@@ -98,6 +98,17 @@ export default {
       const index = characterList.value.findIndex((character) => character.id === setCharacter.value);
       characterList.value[index].select = false;
 
+    });
+
+    const setTap = ref(null);
+
+    EventBus.on("setTap", (id) => {
+      setTap.value = id;
+    });
+
+    EventBus.on("deleteTapItem", () => {
+      const index = tabList.value.findIndex((tab) => tab.id === setTap.value);
+      tabList.value[index].select = false;
     });
 
     // video load complete

@@ -142,22 +142,22 @@ export default {
       }
       if (trashRef2.value.object3D.visible) {
         trashRef2.value.object3D.visible = false;
-        stickerRef2.value.components.outline.setTrash(false);
+        if (stickerRef2.value) {
+          stickerRef2.value.components.outline.setTrash(false);
+        }
       }
       else {
         trashRef2.value.object3D.visible = true;
-        stickerRef2.value.components.outline.setTrash(true);
+        if (stickerRef2.value) {
+          stickerRef2.value.components.outline.setTrash(true);
+        }
       }
     }
-
-
 
     const startStickerPress = () => {
       EventBus.setState('Sticker')
       startPos = stickerRef.value.object3D.position.clone();
       startScale = stickerRef.value.object3D.scale.clone();
-
-
     }
 
     const cancelStickerPress = () => {
@@ -166,8 +166,7 @@ export default {
       const endScale = stickerRef.value.object3D.scale;
       const distance = startPos.distanceTo(endPos);
 
-
-      const threshold = 0.05;
+      const threshold = 0.1;
       if (distance < threshold && startScale.equals(endScale)) {
         setTrash();
       }
@@ -199,8 +198,7 @@ export default {
         endScale = modelRef.value.object3D.scale;
       }
       const distance = startPos2.distanceTo(endPos);
-
-      const threshold = 0.01;
+      const threshold = 0.05;
       if (distance < threshold && startScale2.equals(endScale)) {
         setCharacterTrash();
       }
@@ -216,6 +214,7 @@ export default {
 
     const listUpdate = () => {
       const lastValue = EventBus.getState();
+      console.log(lastValue)
       if (lastValue === 'Sticker') {
         EventBus.emit('deleteStickerItem')
       }
