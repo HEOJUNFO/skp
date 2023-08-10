@@ -570,7 +570,7 @@ export default {
             color: arFrameSettingYn.value === "Y" ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0)",
         }));
 
-        var timeout = 3000;
+        var timeout = 60000;
         var checkInterval = 10000;
 
         function checkNetwork() {
