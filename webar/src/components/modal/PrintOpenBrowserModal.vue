@@ -339,6 +339,12 @@ export default {
 
       }
 
+      let url2 = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url2;
+      a.download = 'test.jpg';
+      a.click();
+
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
       var formData = new FormData();

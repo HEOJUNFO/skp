@@ -99,6 +99,7 @@ export default {
 
     let startPos = null;
     let startPos2 = null;
+    let startScale = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
     const objectType = computed(() => {
@@ -150,26 +151,25 @@ export default {
       }
     }
 
-    let wasTrashSet = false;
-    let wasTrashSet2 = false;
+
 
     const startStickerPress = () => {
       EventBus.setState('Sticker')
       startPos = stickerRef.value.object3D.position.clone();
-      if (trashRef.value.object3D.visible) {
-        wasTrashSet = true;
-      } else {
-        wasTrashSet = false;
-      }
+      startScale = stickerRef.value.object3D.scale.clone();
+
+
     }
 
     const cancelStickerPress = () => {
       if (startPos === null) return;
       const endPos = stickerRef.value.object3D.position;
+      const endScale = stickerRef.value.object3D.scale;
       const distance = startPos.distanceTo(endPos);
 
+
       const threshold = 0.05;
-      if (distance < threshold && !wasTrashSet) {
+      if (distance < threshold && startScale.equals(endScale)) {
         setTrash();
       }
     }
@@ -181,11 +181,7 @@ export default {
       } else {
         startPos2 = modelRef.value.object3D.position.clone();
       }
-      if (trashRef2.value.object3D.visible) {
-        wasTrashSet2 = true;
-      } else {
-        wasTrashSet2 = false;
-      }
+
     }
 
     const cancelCharacterPress = () => {
@@ -200,7 +196,7 @@ export default {
       const distance = startPos2.distanceTo(endPos);
 
       const threshold = 0.01;
-      if (distance < threshold && !wasTrashSet2) {
+      if (distance < threshold) {
         setCharacterTrash();
       }
     }
