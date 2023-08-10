@@ -149,7 +149,7 @@ export default {
       console.log(isIOSMini, isIOS)
 
       return jsonData.map(data => {
-        const position = `${data.position.x} ${data.position.y + (isIOSMini ? 0 : 0.1)} ${data.position.z}`;
+        const position = `${data.position.x} ${data.position.y + (!isIOSMini && isIOS ? 0.1 : 0)} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
         const scale = `${data.scale.x + (isIOS ? 0.1 : 0.05)} ${data.scale.y + (isIOS ? 0.1 : 0.05)} ${data.scale.z + (isIOS ? 0.1 : 0.05)}`;
 
