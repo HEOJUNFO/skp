@@ -146,7 +146,18 @@ export async function getArPhotoUserMedia({videoEl, facingMode}) {
   }
 }
 
-export function applyFilter(videoEl,facingMode) {
+export function applyFilter(videoEl, facingMode, filterValues) {
+  const {
+    blurValue,
+    brightnessValue,
+    contrastValue,
+    grayscaleValue,
+    hueRotateValue,
+    invertValue,
+    saturateValue,
+    sepiaValue
+  } = filterValues;
+
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -169,22 +180,22 @@ export function applyFilter(videoEl,facingMode) {
   videoEl.parentNode.insertBefore(canvas, videoEl);
   videoEl.style.display = 'none';
 
+  const filterStyle = `
+    blur(${blurValue}px) 
+    brightness(${brightnessValue}) 
+    contrast(${contrastValue}) 
+    grayscale(${grayscaleValue}) 
+    hue-rotate(${hueRotateValue}deg) 
+    invert(${invertValue}) 
+    saturate(${saturateValue}) 
+    sepia(${sepiaValue})
+  `;
 
   function processFrame() {
+    ctx.save(); 
+    ctx.filter = filterStyle;
     ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
-
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-
-    for (let i = 0; i < data.length; i += 4) {
-      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-      data[i] = avg; // red
-      data[i + 1] = avg; // green
-      data[i + 2] = avg; // blue
-    }
-
-    ctx.putImageData(imageData, 0, 0);
-
+    ctx.restore(); 
     requestAnimationFrame(processFrame);
   }
 

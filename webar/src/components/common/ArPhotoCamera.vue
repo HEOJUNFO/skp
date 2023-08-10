@@ -62,7 +62,16 @@ export default {
     const beautyFilter = async (isBeauty) => {
       if (isBeauty) {
 
-        applyFilter(video.value, cameraSettings.facingMode);
+        applyFilter(video.value, cameraSettings.facingMode, {
+          blurValue: 0,
+          brightnessValue: "1.16",
+          contrastValue: "1.06",
+          grayscaleValue: "0.1",
+          hueRotateValue: "0",
+          invertValue: "0",
+          saturateValue: "1.13",
+          sepiaValue: "0"
+        });
       } else {
         removeFilter(video.value);
       }
