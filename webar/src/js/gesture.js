@@ -64,6 +64,7 @@ export function setGesture() {
         this.el.sceneEl.removeEventListener("onefingerrotX", this.handleRotationX);
       },
       handleMove: function (event) {
+        EventBus.emit('scale')
         if (this.isVisible) {
     
           this.el.object3D.position.x += event.detail.positionChange.x * this.data.moveFactor;
