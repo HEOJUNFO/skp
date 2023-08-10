@@ -200,6 +200,8 @@ export default {
         if (!fileName || entity.id === fileName) {
           let modelElement = entity.querySelector('a-gltf-model');
           modelElement.setAttribute('visible', isVisible);
+          let modelElement2 = entity.querySelector('a-plane');
+          modelElement2.setAttribute('visible', isVisible);
         }
       });
     }
