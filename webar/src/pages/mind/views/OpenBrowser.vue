@@ -114,7 +114,7 @@ export default {
       }
 
       let v_width = videocanvas.clientWidth * 2;
-      let v_height = (v_width * 6) / 4;
+      let v_height = videocanvas.clientHeight * 2;
 
       canvas.width = v_width;
       canvas.height = v_height;

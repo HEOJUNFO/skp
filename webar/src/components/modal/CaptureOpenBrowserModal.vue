@@ -204,15 +204,30 @@ export default {
       const imageUrl = imageurl.value;
       const response = await fetch(imageUrl);
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
 
+      const img = new Image();
+      img.src = URL.createObjectURL(blob);
+      await new Promise((resolve) => img.onload = resolve);
+
+      const targetWidth = img.width;
+      const targetHeight = (targetWidth / 4) * 6;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+      const newBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg'));
+
+      const url = window.URL.createObjectURL(newBlob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "download.jpg";
-      a.style.display = "none"; // Ensure the link is hidden
+      a.style.display = "none";
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(url); // Clean up URL object after use
+      window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
 
       photoStoreModal.value.saveImage(imageurl.value);
