@@ -89,7 +89,6 @@ export default {
       const userAgent = window.navigator.userAgent.toLowerCase();
       const match = userAgent.match(/(iphone\sos)\s([\d_]+)/);
       const version = match ? match[2].replace(/_/g, '.') : -1;
-      console.log('ios version', version)
       return parseInt(version);
     }
 

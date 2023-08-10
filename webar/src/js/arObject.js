@@ -174,9 +174,12 @@ function getRotation({rotationX, rotationY, rotationZ}) {
  * @param data
  * @returns {Object}
  */
-export const getObjectAttrs = (data) => {
+export const getObjectAttrs = (data) => { 
 
-  const {type} = data;
+let {type} = data;
+  if(type === 'CHARACTER') {
+    data.file.includes('gltf') ? type = 'CHARACTER' : type = 'STICKER'
+  }
   /**
    * shpere 타입
    * 크기가 raduis임으로 sizeX만을 사용한다.

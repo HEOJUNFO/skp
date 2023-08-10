@@ -338,6 +338,7 @@ export default {
         blob = await fetch(imageUrl.value).then((r) => r.blob());
 
       }
+
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
       var formData = new FormData();

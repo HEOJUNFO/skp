@@ -1127,6 +1127,14 @@ export const jsonData = {
             photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
           },
+          {
+            id: 890,
+            sort: 1,
+            photoContentChoiceType: "DIRECT",
+            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
+            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
+            photoContentTabMenuType: "CHARACTER"
+          },
         ],
 
         stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)

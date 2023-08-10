@@ -26,12 +26,19 @@
     </a-gltf-model>
 
     <a-gltf-model ref="modelRef" v-else-if="objectType === `CHARACTER`" v-bind="attrs"
-      gesture-handler="locationBased: true" @mousedown="startCharacterPress()"
-      @mouseup="cancelCharacterPress(), characterSet(arData)" @animationcomplete="animationcomplete" animation-mixer>
+      gesture-handler="locationBased: true" @mousedown="startCharacterPress(), characterSet(arData)"
+      @mouseup="cancelCharacterPress()" @animationcomplete="animationcomplete" animation-mixer>
       <a-box ref="characterRef" class="clickable" position="0 0 0" scale="1 1.75 0.01" renderOrder="0" raycaster
         opacity="0" translate="true" alpha-test="0.5">
       </a-box>
     </a-gltf-model>
+
+    <a-image ref="stickerRef2" v-else-if="objectType === `STICKER2`" v-bind="attrs" outline
+      gesture-handler="locationBased: true" @mousedown="startCharacterPress(), characterSet(arData)"
+      @mouseup="cancelCharacterPress()">
+      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
+        translate="true" alpha-test="0.5"> </a-box>
+    </a-image>
 
     <a-image ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
       gesture-handler="locationBased: true" @mousedown="startStickerPress(), stickerSet(arData)"
@@ -83,6 +90,7 @@ export default {
   setup(props, { emit }) {
     const store = useStore();
     const stickerRef = ref(null);
+    const stickerRef2 = ref(null);
     const characterRef = ref(null);
     const modelRef = ref(null);
     const trashRef = ref(null);
@@ -93,7 +101,15 @@ export default {
     let startPos2 = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
-    const objectType = computed(() => arData.value.type);
+    const objectType = computed(() => {
+      if (arData.value.type === 'CHARACTER') {
+        return arData.value.file.includes('gltf') ? 'CHARACTER' : 'STICKER2';
+      }
+      return arData.value.type;
+    });
+    console.log('objectType.value', objectType.value)
+
+
     arData.value.objectType = arType.value;
     const attrs = ref(getObjectAttrs(arData.value))
 
@@ -126,9 +142,11 @@ export default {
       }
       if (trashRef2.value.object3D.visible) {
         trashRef2.value.object3D.visible = false;
+        stickerRef2.value.components.outline.setTrash(false);
       }
       else {
         trashRef2.value.object3D.visible = true;
+        stickerRef2.value.components.outline.setTrash(true);
       }
     }
 
@@ -158,7 +176,11 @@ export default {
 
     const startCharacterPress = () => {
       EventBus.setState('Character')
-      startPos2 = modelRef.value.object3D.position.clone();
+      if (objectType.value === 'STICKER2') {
+        startPos2 = stickerRef2.value.object3D.position.clone();
+      } else {
+        startPos2 = modelRef.value.object3D.position.clone();
+      }
       if (trashRef2.value.object3D.visible) {
         wasTrashSet2 = true;
       } else {
@@ -168,7 +190,13 @@ export default {
 
     const cancelCharacterPress = () => {
       if (startPos2 === null) return;
-      const endPos = modelRef.value.object3D.position;
+      let endPos;
+
+      if (objectType.value === 'STICKER2') {
+        endPos = stickerRef2.value.object3D.position;
+      } else {
+        endPos = modelRef.value.object3D.position;
+      }
       const distance = startPos2.distanceTo(endPos);
 
       const threshold = 0.01;
@@ -203,6 +231,10 @@ export default {
       if (characterRef.value) {
         trashRef2.value.object3D.visible = false;
       }
+      if (stickerRef2.value) {
+        trashRef2.value.object3D.visible = false;
+        stickerRef2.value.components.outline.setTrash(false);
+      }
     })
 
     EventBus.on("scale", () => {
@@ -212,6 +244,10 @@ export default {
       }
       if (characterRef.value) {
         trashRef2.value.object3D.visible = false;
+      }
+      if (stickerRef2.value) {
+        trashRef2.value.object3D.visible = false;
+        stickerRef2.value.components.outline.setTrash(false);
       }
     })
 
@@ -254,6 +290,7 @@ export default {
       cancelStickerPress,
       listUpdate,
       stickerRef,
+      stickerRef2,
       trashRef,
       trashRef2,
       isIOS,

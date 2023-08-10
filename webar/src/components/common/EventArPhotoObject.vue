@@ -49,12 +49,12 @@ export default {
 
   setup(props, { emit }) {
     const { stickerAsset } = toRefs(props);
-    const { tabList } = toRefs(props);
+    const { tabList, characterList } = toRefs(props);
     const isMindARFace = ref(false);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
 
-    const selectCharacter = ref([1]);
+    const selectCharacter = ref([]);
     const selectFilter = ref([]);
     const selectTab = ref([]);
 
@@ -81,11 +81,11 @@ export default {
     function addStickersToAssets(stickerAsset) {
       let assets = document.querySelector('a-assets');
       stickerAsset.value.forEach((asset) => {
-        if (asset.type === 'STICKER') {
+        if (asset.file.includes('png')) {
           assets.insertAdjacentHTML('beforeend', `<img id="${asset.selectId}" src="${asset.file}" crossOrigin="anonymous">`);
         }
       });
-
+      selectCharacter.value = [1]
     }
 
     let entitiesCreated = {};
@@ -233,6 +233,7 @@ export default {
       emit('load:scene');
       addStickersToAssets(stickerAsset);
       addStickersToAssets(tabList);
+      addStickersToAssets(characterList);
     }
 
     const permissionGranted = () => {

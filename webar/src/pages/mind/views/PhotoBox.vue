@@ -66,9 +66,50 @@ export default {
         async uploadImage(event) {
             let file = event.target.files[0];
             if (!file) return;
-            // Save the image to IndexedDB
-            let id = await this.data.saveImage(file);
-            let newImage = { id: id, url: URL.createObjectURL(file) };
+
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            await new Promise((resolve) => {
+                reader.onload = resolve;
+            });
+
+            let img = new Image();
+            img.src = reader.result;
+
+            await new Promise((resolve) => {
+                img.onload = resolve;
+            });
+
+            let targetWidth = 4;
+            let targetHeight = 6;
+            let targetRatio = targetWidth / targetHeight;
+
+            let originalWidth = img.width;
+            let originalHeight = img.height;
+            let originalRatio = originalWidth / originalHeight;
+
+            let cropWidth, cropHeight;
+
+            if (originalRatio > targetRatio) {
+                cropHeight = originalHeight;
+                cropWidth = cropHeight * targetRatio;
+            } else {
+                cropWidth = originalWidth;
+                cropHeight = cropWidth / targetRatio;
+            }
+
+            let canvas = document.createElement('canvas');
+            canvas.width = cropWidth;
+            canvas.height = cropHeight;
+            let ctx = canvas.getContext('2d');
+            ctx.drawImage(img, (originalWidth - cropWidth) / 2, (originalHeight - cropHeight) / 2, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+
+            let croppedImage = await new Promise((resolve) => {
+                canvas.toBlob(resolve);
+            });
+
+            let id = await this.data.saveImage(croppedImage);
+            let newImage = { id: id, url: URL.createObjectURL(croppedImage) };
 
             this.imagesData.unshift(newImage);
 
