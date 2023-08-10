@@ -69,9 +69,9 @@
           <button v-if="printStatus === 'fail'" class="round-button2" @click="(showSuccessModal = false), (printStatus = 'printing')">닫기</button>
         </div>
       </div>
-      <div class="button-container2" v-if="isPhotoBox">
+      <!-- <div class="button-container2" v-if="isPhotoBox">
         <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
-      </div>
+      </div> -->
 
       <div v-if="showFailureModal" class="modal2">
         <div class="modal-content">

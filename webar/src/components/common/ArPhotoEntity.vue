@@ -100,6 +100,7 @@ export default {
     let startPos = null;
     let startPos2 = null;
     let startScale = null;
+    let startScale2 = null;
 
     const { arData, arType, touchEffectType } = toRefs(props);
     const objectType = computed(() => {
@@ -108,8 +109,6 @@ export default {
       }
       return arData.value.type;
     });
-    console.log('objectType.value', objectType.value)
-
 
     arData.value.objectType = arType.value;
     const attrs = ref(getObjectAttrs(arData.value))
@@ -178,8 +177,10 @@ export default {
       EventBus.setState('Character')
       if (objectType.value === 'STICKER2') {
         startPos2 = stickerRef2.value.object3D.position.clone();
+        startScale2 = stickerRef2.value.object3D.scale.clone();
       } else {
         startPos2 = modelRef.value.object3D.position.clone();
+        startScale2 = modelRef.value.object3D.scale.clone();
       }
 
     }
@@ -187,16 +188,20 @@ export default {
     const cancelCharacterPress = () => {
       if (startPos2 === null) return;
       let endPos;
+      let endScale;
 
       if (objectType.value === 'STICKER2') {
         endPos = stickerRef2.value.object3D.position;
+        endScale = stickerRef2.value.object3D.scale;
+
       } else {
         endPos = modelRef.value.object3D.position;
+        endScale = modelRef.value.object3D.scale;
       }
       const distance = startPos2.distanceTo(endPos);
 
       const threshold = 0.01;
-      if (distance < threshold) {
+      if (distance < threshold && startScale2.equals(endScale)) {
         setCharacterTrash();
       }
     }

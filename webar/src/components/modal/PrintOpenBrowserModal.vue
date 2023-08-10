@@ -107,13 +107,13 @@
           </div>
 
           <button class="round-button-red2"
-            @click="showPrintFailureModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
+            @click="(showPrintFailureModal = false), (showDeviceModal = false), close(), (deviceNumber = null)">닫기</button>
         </div>
       </div>
-      <div class="button-container2"
+      <!-- <div class="button-container2"
         v-if="isPhotoBox && !showDeviceModal && !showFailureModal && !showPrintFailureModal && !showPrintSuccessModal && !showPrintWaitModal">
         <button class="round-button-blue" @click="decoratePhoto">사진 꾸미기&nbsp;&nbsp;➔</button>
-      </div>
+      </div> -->
 
       <div v-if="showPrintSuccessModal" class="modal2">
         <div class="modal-content">
@@ -123,7 +123,7 @@
           <p class="bottom-text">출력 디바이스에서</p>
           <p class="bottom-text">반드시 사진을 수령하세요</p>
           <button class="round-button-red2"
-            @click="showPrintSuccessModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
+            @click="(showPrintSuccessModal = false), (showDeviceModal = false), close(), (deviceNumber = null)">닫기</button>
         </div>
       </div>
 
@@ -137,7 +137,7 @@
             <p>죄송합니다</p>
           </div>
           <button class="round-button-red2"
-            @click="showFailureModal = false, showDeviceModal = false, close(), deviceNumber = null">닫기</button>
+            @click="(showFailureModal = false), (showDeviceModal = false), close(), (deviceNumber = null)">닫기</button>
         </div>
       </div>
 
@@ -275,8 +275,14 @@ export default {
       locationFindExposureType.value = getters["eventData/locationFindExposureType"];
       locationFindPopupImgUrl.value = getters["eventData/locationFindPopupImgUrl"];
       freePrintControlYn.value = getters["eventData/freePrintControlYn"] === "Y";
-      freePrintCustomerCount.value = getters["eventData/freePrintCustomerCount"];
       deviceGpsList.value = getters["eventData/deviceGpsList"];
+
+      const storedValue = localStorage.getItem('freePrintCustomerCount');
+      if (storedValue) {
+        freePrintCustomerCount.value = parseInt(storedValue, 10);
+      } else {
+        freePrintCustomerCount.value = getters["eventData/freePrintCustomerCount"];
+      }
 
       if (deviceGpsList.value.length > 0) {
         currentDevice.value = deviceGpsList.value[0];
@@ -318,11 +324,11 @@ export default {
         showErrorModal.value = true;
         return;
       }
-      getUserHistory(checkHistory)
+      getUserHistory(checkHistory);
     };
 
     const imgUpload = async () => {
-      let blob
+      let blob;
       if (!isPhotoBox.value) {
         let byteString = atob(imageUrl.value.split(",")[1]);
         let arrayBuffer = new ArrayBuffer(byteString.length);
@@ -336,14 +342,7 @@ export default {
         console.log(url2);
       } else {
         blob = await fetch(imageUrl.value).then((r) => r.blob());
-
       }
-
-      let url2 = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url2;
-      a.download = 'test.jpg';
-      a.click();
 
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
@@ -352,7 +351,6 @@ export default {
       formData.append("robot_id", deviceNumber.value); //키오스크 아이디
       formData.append("user_id", tempUserKey.value); //회원 키
       formData.append("file", blob, "img.jpeg");
-
 
       try {
         const response = await axios({
@@ -370,16 +368,16 @@ export default {
           showPrintWaitModal.value = false;
           showPrintFailureModal.value = true;
         } else {
-          getUserHistory(uploadLoading)
+          getUserHistory(uploadLoading);
         }
       } catch (error) {
         console.log("network error.", error);
         printStatus.value = "failure";
         showPrintWaitModal.value = false;
         showPrintFailureModal.value = true;
-        return
+        return;
       }
-    }
+    };
 
     const checkKiosk = async () => {
       if (deviceNumber.value === "0000") {
@@ -409,9 +407,7 @@ export default {
         return;
       } else if (deviceNumber.value === "0132") {
         deviceNumber.value = "A190" + deviceNumber.value;
-        console.log(deviceNumber.value)
       }
-
 
       var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;
 
@@ -438,24 +434,24 @@ export default {
             return;
           } else if (freePrintCustomerCount.value >= printNumber.value) {
             freePrintCustomerCount.value -= printNumber.value;
+            localStorage.setItem('freePrintCustomerCount', freePrintCustomerCount.value);
           }
           console.log("print start");
-          imgUpload()
+          imgUpload();
         }
       } catch (error) {
         console.log("network error.", error);
         showFailureModal.value = true;
         return;
       }
-    }
+    };
 
     const checkUploadStatus = (data) => {
-
-      if (info.value === 'X') {
+      if (info.value === "X") {
         return;
       }
 
-      info.value = data[0]
+      info.value = data[0];
 
       switch (info.value.status) {
         case "S": //
@@ -478,48 +474,48 @@ export default {
           break;
       }
 
-      if (info.value.status == 'W' || info.value.status == 'P') {
+      if (info.value.status == "W" || info.value.status == "P") {
         setTimeout(() => {
-          getUserHistory(uploadLoading)
+          getUserHistory(uploadLoading);
         }, 2000);
       }
-    }
+    };
 
     const uploadLoading = (data) => {
       if (data.length <= 0) {
-        console.log(data)
+        console.log(data);
         printStatus.value = "failure";
         showPrintWaitModal.value = false;
         showPrintFailureModal.value = true;
         return;
       }
 
-      checkUploadStatus(data)
-    }
+      checkUploadStatus(data);
+    };
 
     const checkHistory = (data) => {
       if (data.length <= 0) {
-        console.log(data)
+        console.log(data);
         printStatus.value = "waiting";
         showPrintWaitModal.value = true;
-        checkKiosk()
+        checkKiosk();
         return;
       } else {
-        checkUploadStatus(data)
+        checkUploadStatus(data);
       }
-    }
+    };
 
     const getUserHistory = async (callbackFunc) => {
       var url = "https://go.selpic.co.kr/skapi/order/" + tempUserKey.value;
       try {
         const response = await axios.get(url);
-        console.log(response.data)
+        console.log(response.data);
         callbackFunc(response.data);
       } catch (error) {
         console.log(error);
         return;
       }
-    }
+    };
 
     const exit = () => {
       showVModal.value = false;
@@ -616,7 +612,7 @@ export default {
         showLocationMap.value = false;
         showLocationPopup.value = false;
         showFiveModal.value = false;
-        info.value = 'X';
+        info.value = "X";
         window.onpopstate = null;
       } else {
         window.onpopstate = null;
@@ -677,7 +673,7 @@ export default {
       handleTouchMove,
       handleTouchStart,
       handleTouchEnd,
-      close
+      close,
     };
   },
 };
