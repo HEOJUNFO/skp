@@ -36,15 +36,15 @@
     <a-image ref="stickerRef2" v-else-if="objectType === `STICKER2`" v-bind="attrs" outline
       gesture-handler="locationBased: true" @mousedown="startCharacterPress(), characterSet(arData)"
       @mouseup="cancelCharacterPress()">
-      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
-        translate="true" alpha-test="0.5"> </a-box>
+      <a-box class="clickable" position="0 0 -0.2" scale="1 1 0.2" renderOrder="0" raycaster opacity="0" translate="true"
+        alpha-test="0.5"> </a-box>
     </a-image>
 
     <a-image ref="stickerRef" v-else-if="objectType === `STICKER`" v-bind="attrs" outline
       gesture-handler="locationBased: true" @mousedown="startStickerPress(), stickerSet(arData)"
       @mouseup="cancelStickerPress()">
-      <a-box class="clickable" position="0 0 -0.2" scale="0.5 0.5 0.2" renderOrder="0" raycaster opacity="0"
-        translate="true" alpha-test="0.5"> </a-box>
+      <a-box class="clickable" position="0 0 -0.2" scale="1 1 0.2" renderOrder="0" raycaster opacity="0" translate="true"
+        alpha-test="0.5"> </a-box>
     </a-image>
     <a-plane ref="trashRef" id="close-button" position="0 0.3 -1" class="clickable" gesture-handler="locationBased: true"
       src="#trash-texture" width="0.22" height="0.22" alpha-test="0.5" visible="false" opacity="0.8" translate="true"
