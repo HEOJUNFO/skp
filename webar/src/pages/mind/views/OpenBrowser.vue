@@ -100,17 +100,6 @@ export default {
 
     });
 
-    const setTap = ref(null);
-
-    EventBus.on("setTap", (id) => {
-      setTap.value = id;
-    });
-
-    EventBus.on("deleteTapItem", () => {
-      const index = tabList.value.findIndex((tab) => tab.id === setTap.value);
-      tabList.value[index].select = false;
-    });
-
     // video load complete
     const loadVideo = () => {
       loadedVideo.value = true;
