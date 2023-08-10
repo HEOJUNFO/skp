@@ -49,7 +49,7 @@ export default {
 
   setup(props, { emit }) {
     const { stickerAsset } = toRefs(props);
-    const { tabList, characterList } = toRefs(props);
+    const { tabList, characterList, filterList } = toRefs(props);
     const isMindARFace = ref(false);
     const isMindARImage = ref(false);
     const stickerList = ref([]);
@@ -88,6 +88,24 @@ export default {
       selectCharacter.value = [1]
     }
 
+    function addfilterToAssets(filterList) {
+      let assets = document.querySelector('a-assets');
+      filterList.value.forEach((asset) => {
+        if (asset.file.includes('json')) {
+          fetch(asset.file)
+            .then(response => response.json())
+            .then(json => {
+              json.some(data => {
+                if (data.dataType === 'image') {
+                  assets.insertAdjacentHTML('beforeend', `<img id="${asset.selectId}" src="${data.file}" crossOrigin="anonymous">`);
+                  return true;
+                }
+              })
+            });
+        }
+      });
+    }
+
     let entitiesCreated = {};
     let particleCreated = {};
 
@@ -121,7 +139,7 @@ export default {
             if (hasPreset(json) === false) {
               isMindARFace.value = true;
               if (!entitiesCreated[fileName]) {
-                generateEntity(json, fileName).forEach(entity => {
+                generateEntity(json, fileName, file).forEach(entity => {
                   document.querySelector('a-scene').insertAdjacentHTML('beforeend', entity);
                 });
                 entitiesCreated[fileName] = true;
@@ -143,10 +161,11 @@ export default {
       });
     }, { deep: true });
 
-    function generateEntity(jsonData, fileName) {
+    function generateEntity(jsonData, fileName, json) {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
       const isIOSMini = isIphoneMini();
-
+      let src = '';
+      filterList.value.forEach((filter) => { if (filter.file === json) { src = '#' + filter.selectId } })
       return jsonData.map(data => {
         const position = `${data.position.x} ${data.position.y + (!isIOSMini && isIOS ? 0.1 : 0)} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
@@ -154,7 +173,7 @@ export default {
 
         if (data.dataType === 'image') {
           return `<a-entity class='face' width="1" height="1" material="transparent: true; alphaTest: 0.5;" id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
-        <a-plane position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
+        <a-plane position="${position}" rotation="${rotation}" scale="${scale}" src="${src}"
           visible="true"></a-plane>
       </a-entity>`;
         }
@@ -247,6 +266,7 @@ export default {
       addStickersToAssets(stickerAsset);
       addStickersToAssets(tabList);
       addStickersToAssets(characterList);
+      addfilterToAssets(filterList);
     }
 
     const permissionGranted = () => {

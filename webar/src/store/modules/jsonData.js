@@ -1083,6 +1083,7 @@ export const jsonData = {
             photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/data (1).json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 0,                      //	순서	int	
+            id: 555,
           },
           {
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
@@ -1091,6 +1092,7 @@ export const jsonData = {
             photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/head01.json",     //	원본 이미지 URL	string	
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 1,                      //	순서	int	
+            id: 556,
           },
           { 
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
@@ -1099,6 +1101,7 @@ export const jsonData = {
             photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/head02.json",     //	원본 이미지 URL	string
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 2,                      //	순서	int
+            id: 557,
           },
           { 
             photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
@@ -1107,6 +1110,7 @@ export const jsonData = {
             photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/Headset(2).json",     //	원본 이미지 URL	string
             photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
             sort: 3,                      //	순서	int
+            id: 558,
           },
         ],
 
