@@ -146,17 +146,24 @@ export default {
     function generateEntity(jsonData, fileName) {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
       const isIOSMini = isIphoneMini();
-      console.log(isIOSMini, isIOS)
 
       return jsonData.map(data => {
         const position = `${data.position.x} ${data.position.y + (!isIOSMini && isIOS ? 0.1 : 0)} ${data.position.z}`;
         const rotation = `${data.rotation.x} ${data.rotation.y} ${data.rotation.z}`;
         const scale = `${data.scale.x + (isIOS ? 0.1 : 0.05)} ${data.scale.y + (isIOS ? 0.1 : 0.05)} ${data.scale.z + (isIOS ? 0.1 : 0.05)}`;
 
-        return `<a-entity class='face' id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
+        if (data.dataType === 'image') {
+          return `<a-entity class='face' width="1" height="1" material="transparent: true; alphaTest: 0.5;" id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
+        <a-plane position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
+          visible="true"></a-plane>
+      </a-entity>`;
+        }
+        else {
+          return `<a-entity class='face' id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
         <a-gltf-model position="${position}" rotation="${rotation}" scale="${scale}" src="${data.url}"
           visible="true"></a-gltf-model>
       </a-entity>`;
+        }
       });
     }
     const isIphoneMini = () => {
