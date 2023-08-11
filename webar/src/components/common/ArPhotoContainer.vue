@@ -99,8 +99,8 @@ export default {
     });
 
     const eventWrapperStyles = ref({
-      top: '14vh',
-      height: '69vh',
+      top: '8vh',
+      height: '77vh',
       width: '100%'
     });
 

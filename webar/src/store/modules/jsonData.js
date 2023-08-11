@@ -967,7 +967,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
@@ -993,173 +993,318 @@ export const jsonData = {
         filmResultFooterImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDU5LkV7fe41e322ad0d2ec7d5537c4590a167.png  ",	      // 	하단 이미지 url	String	하단 이미지 url
       },
       photoContentsInfo: {
-
-        frameContentsInfo: [              // 프레임 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO2030",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (1).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO CAR",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_02t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (1).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
-
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO MUSIC",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_03.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 2,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO WISH",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_04t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/model@main/CC (1).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 3,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO GOGO",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_05.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 4,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "EXPO PRAY",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06t.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_06.png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "BASE",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 5,                      //	순서	int	
-          },
-
+        frameContentsInfo: [
+            {
+                id: 932,
+                sort: 1,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (1)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (1).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (1).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 933,
+                sort: 2,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (2)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (2).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (2).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 934,
+                sort: 3,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (4)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (4).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (4).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 935,
+                sort: 4,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (5)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (5).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (5).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 936,
+                sort: 5,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (6)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (6).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (6).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 937,
+                sort: 6,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (7)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (7).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (7).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 938,
+                sort: 7,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (8)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (8).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (8).png",
+                photoContentTabMenuType: "FRAME"
+            },
+            {
+                id: 939,
+                sort: 8,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "CC_Skin (3)",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/frame/Thumbnail/Thumbnail_CC_Skin (3).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/frame/origin/CC_Skin (3).png",
+                photoContentTabMenuType: "FRAME"
+            }
         ],
-        tabContentsInfo: [                // 탭 콘텐츠 정보(array)
-         {
-            id: 101,
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/danjong//models/King_V4.gltf",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-          {
-            id: 102,
-            photoContentChoiceType: "DIRECT",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "워케이션가자",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/kangwon/img/model/stiker (2).png",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
-          {
-            id: 103,
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "star",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://img.freepik.com/premium-vector/star-vector-icon-star-symbol-isolated-white-background-element-customer-product-rating-review-flat-icon-apps-websites-achievements-games_646072-218.jpg",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "particleData.json",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 2,                      //	순서	int	
-          },
+        "tabContentsInfo": [
+            {
+                id: 940,
+                sort: 1,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCo4rX23cbd4e314c99f1630ce0f0cd0724c74.png",
+                photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCo6Ep7e0c12a65f6117f368c62d56eb6eed11.png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 941,
+                sort: 2,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCo97ze0a91a5a83d4f91dec523a92a9e200e4.png",
+                photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCoayKfb503cb335b7763f30082f0156997835.png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 942,
+                sort: 3,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYComZf42f0837206fe6079e454b01b2353a454.png",
+                photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCooCmd200b0c00ba73406c54618cedc161fd1.png",
+                photoContentTabMenuType: "STICKER"
+            }
         ],
-        filterContentsInfo: [             //  필터 콘텐츠 정보(array)
-          {
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "star",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://img.freepik.com/premium-vector/star-vector-icon-star-symbol-isolated-white-background-element-customer-product-rating-review-flat-icon-apps-websites-achievements-games_646072-218.jpg",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/data (1).json",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-            id: 555,
-          },
-          {
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "snow",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://media.istockphoto.com/id/157695460/ko/%EB%B2%A1%ED%84%B0/%EC%8A%A4%EB%85%B8%EC%9D%B4-%EB%B0%B0%EA%B2%BD%EA%B8%B0%EC%88%A0.jpg?s=612x612&w=0&k=20&c=RwusLjukQekbzKVRizUuht_EqiuffrpL8wRegjMFEhA=",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/head01.json",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-            id: 556,
-          },
-          { 
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "rain",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://cdn.pixabay.com/photo/2014/09/21/14/39/surface-455124_1280.jpg",     //	썸네일 이미지 URL	string
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/head02.json",     //	원본 이미지 URL	string
-            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 2,                      //	순서	int
-            id: 557,
-          },
-          { 
-            photoContentChoiceType: "",   //	컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "face",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://cdn-icons-png.flaticon.com/512/1231/1231006.png",     //	썸네일 이미지 URL	string
-            photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/Headset(2).json",     //	원본 이미지 URL	string
-            photoContentTabMenuType: "FILTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 3,                      //	순서	int
-            id: 558,
-          },
+        "filterContentsInfo": [
+            {
+                id: 943,
+                sort: 1,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Glasses (1).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (1).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 944,
+                sort: 2,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Glasses (2).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (2).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 945,
+                sort: 3,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Glasses (3).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (3).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (3).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 946,
+                sort: 4,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (1).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (1).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (1).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 947,
+                sort: 5,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (2).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (2).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (2).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 948,
+                sort: 6,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (3).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (3).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (3).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 949,
+                sort: 7,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (5).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (5).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (5).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 950,
+                sort: 8,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (6).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (6).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (6).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 951,
+                sort: 9,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Hat (7).json",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (7).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (7).json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 952,
+                sort: 10,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCp*Pp9846e4091ad117658050cc3b323766ed.png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/snow/snow.json",
+                photoContentTabMenuType: "FILTER"
+            },
+            {
+                id: 953,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/star/star.json",
+                photoContentTabMenuType: "FILTER"
+            }
         ],
-
-        characterContentsInfo: [  
-          {
-            id: 890,
-            sort: 1,
-            photoContentChoiceType: "DIRECT",
-            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
-            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
-            photoContentTabMenuType: "CHARACTER"
-          },       
-          {
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "단이",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/King_V3.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/test/character(1).gltf",     //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 0,                      //	순서	int	
-          },
-          {
-            photoContentChoiceType: "DIRECT",   //  컨텐츠 메뉴 선택 타입	string	라이브러리 :  LIBRARY / 직접등록 : DIRECT
-            photoFileName: "영이",            //	파일명	string	라이브러리 선택시 필수
-            photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/danjong/img/model/Queen_V2.png",     //	썸네일 이미지 URL	string	
-            photoOriginalFileUrl: "https://dt-static.syrup.co.kr/3d/test/character(2).gltf",    //	원본 이미지 URL	string	
-            photoContentTabMenuType: "CHARACTER",  //	컨텐츠 타입	string	필터 : FILTER / 캐릭터 : CHARACTER  / 스티커 : STICKER - 탭메뉴선택시 필수
-            sort: 1,                      //	순서	int	
-          },
+        "characterContentsInfo": [
+            {
+                id: 954,
+                sort: 1,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Thumbnail_character(1).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(1).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/character/origin/character(1).gltf",
+                photoContentTabMenuType: "CHARACTER"
+            },
+            {
+                id: 955,
+                sort: 2,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "Thumbnail_character(2).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(2).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/character/origin/character(2).gltf",
+                photoContentTabMenuType: "CHARACTER"
+            }
         ],
-
-        stickerContentsInfo: [            // 스티커 콘텐츠 정보(array)
-          {
-            id: 890,
-            sort: 1,
-            photoContentChoiceType: "DIRECT",
-            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
-            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
-            photoContentTabMenuType: "STICKER"
-          },
-          {
-            id: 891,
-            sort: 2,
-            photoContentChoiceType: "DIRECT",
-            photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwpWgaad37985024e673dfcbc0e745ca853af.png",
-            photoOriginalFileUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXDQwrSbedc834e14ca4f48cd0eff054a056942d.png",
-            photoContentTabMenuType: "STICKER"                     //	순서	int	
-          },
-        ],
-      },
+        "stickerContentsInfo": [
+            {
+                id: 956,
+                sort: 1,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (1).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (1).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (1).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 957,
+                sort: 2,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (2).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (2).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (2).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 958,
+                sort: 3,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (3).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (3).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (3).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 959,
+                sort: 4,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (4).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (4).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (4).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 960,
+                sort: 5,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (5).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (5).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (5).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 961,
+                sort: 6,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (6).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (6).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (6).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 962,
+                sort: 7,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (7).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (7).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (7).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 963,
+                sort: 8,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (8).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (8).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (8).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 964,
+                sort: 9,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (9).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (9).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (9).png",
+                photoContentTabMenuType: "STICKER"
+            },
+            {
+                id: 965,
+                sort: 10,
+                photoContentChoiceType: "LIBRARY",
+                photoFileName: "sticker (10).png",
+                photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/sticker/Thumbnail/Thumbnail_sticker (10).png",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/sticker/origin/sticker (10).png",
+                photoContentTabMenuType: "STICKER"
+            }
+        ]
+    },
     },
     actionObjectBasic: null,
     actionObjectMission: null,

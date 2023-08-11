@@ -113,8 +113,8 @@ export default {
         videocanvas.pause();
       }
 
-      let v_width = videocanvas.clientWidth * 2;
-      let v_height = videocanvas.clientHeight * 2;
+      let v_width = videocanvas.clientWidth * 5;
+      let v_height = videocanvas.clientHeight * 5;
 
       canvas.width = v_width;
       canvas.height = v_height;
@@ -206,8 +206,8 @@ export default {
 
     const setEventWrapperStyles = (x, y) => {
       var aspectRatio = y / x;
-      const newTop = -18 * aspectRatio + 41;
-      const newWidth = window.innerHeight * 0.69 / aspectRatio;
+      const newTop = -18 * aspectRatio + 35;
+      const newWidth = window.innerHeight * 0.77 / aspectRatio;
 
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newWidth}px`);
       if (eventArPhotoObjectRef.value) {

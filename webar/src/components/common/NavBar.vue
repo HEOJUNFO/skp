@@ -658,7 +658,7 @@ export default {
 .top-bar {
     position: absolute;
     width: 100%;
-    height: 14vh;
+    height: 8vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "aspect timer flip beauty exit";
@@ -689,7 +689,7 @@ export default {
     z-index: 3;
     position: absolute;
     width: 100%;
-    height: 17vh;
+    height: 15vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
@@ -739,7 +739,7 @@ export default {
     color: #fff;
     justify-content: space-around;
     align-items: center;
-    bottom: 8vh;
+    bottom: 9vh;
     flex-direction: column;
     background-color: #fff;
     padding-bottom: 1vh;
