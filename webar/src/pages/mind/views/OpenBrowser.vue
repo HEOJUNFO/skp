@@ -207,10 +207,12 @@ export default {
     const setEventWrapperStyles = (x, y) => {
       var aspectRatio = y / x;
       const newTop = -18 * aspectRatio + 41;
-      const newHeight = window.innerWidth * aspectRatio;
+      const newWidth = window.innerHeight * 0.69 / aspectRatio;
 
-      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newHeight}px`);
-      eventArPhotoObjectRef.value.arSceneResize();
+      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newWidth}px`);
+      if (eventArPhotoObjectRef.value) {
+        eventArPhotoObjectRef.value.arSceneResize();
+      }
     };
 
     const toggleBeautyFilter = () => {
@@ -289,6 +291,8 @@ export default {
       startLoading();
 
       initDecorate();
+
+      setEventWrapperStyles(4, 6)
     });
 
     watch(loadingState, async (newVal) => {

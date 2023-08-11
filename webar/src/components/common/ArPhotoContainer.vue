@@ -100,12 +100,13 @@ export default {
 
     const eventWrapperStyles = ref({
       top: '14vh',
-      height: '69vh'
+      height: '69vh',
+      width: '100%'
     });
 
-    const setEventWrapperStyles = (newTop, newHeight) => {
+    const setEventWrapperStyles = (newTop, newWidth) => {
       eventWrapperStyles.value.top = newTop;
-      eventWrapperStyles.value.height = newHeight;
+      eventWrapperStyles.value.width = newWidth;
     }
 
     provide('setEventWrapperStyles', setEventWrapperStyles);

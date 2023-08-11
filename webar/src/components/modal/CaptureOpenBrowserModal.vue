@@ -88,8 +88,8 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import usePvLog from "@/composables/usePvLog";
 
-import PrintOpenBrowserModal from "./PrintOpenBrowserModal.vue";
-import PhotoStoreModal from "./PhotoStoreModal.vue";
+import PrintOpenBrowserModal from "./PrintOpenBrowserModal";
+import PhotoStoreModal from "./PhotoStoreModal";
 import EventCompleteModal from "./EventCompleteModal.vue";
 
 import useResultData from "@/composables/useResultData";
@@ -205,21 +205,7 @@ export default {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
 
-      const img = new Image();
-      img.src = URL.createObjectURL(blob);
-      await new Promise((resolve) => img.onload = resolve);
-
-      const targetWidth = img.width;
-      const targetHeight = (targetWidth / 4) * 6;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
-      const newBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg'));
-      const url = window.URL.createObjectURL(newBlob);
+      const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "download.jpg";
@@ -238,7 +224,7 @@ export default {
 
     const back = () => {
       toggleBarVisibility();
-      setEventWrapperStyles();
+      setEventWrapperStyles(4, 6);
       showVModal.value = false;
       document.querySelector(".main-content").scrollTop = 0;
     };

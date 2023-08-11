@@ -342,21 +342,6 @@ export default {
         blob = await fetch(imageUrl.value).then((r) => r.blob());
       }
 
-      const img = new Image();
-      img.src = URL.createObjectURL(blob);
-      await new Promise((resolve) => img.onload = resolve);
-
-      const targetWidth = img.width;
-      const targetHeight = (targetWidth / 4) * 6;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
-      blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg'));
-
       var url = "https://go.selpic.co.kr/skapi/upload";
       // 인화 업로드
       var formData = new FormData();
