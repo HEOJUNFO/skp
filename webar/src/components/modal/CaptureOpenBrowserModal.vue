@@ -151,6 +151,8 @@ export default {
     const filmResultFooterImgYn = computedPropertyGenerator("filmResultFooterImgSettingYn", true);
     const filmResultFooterImgUrl = computedPropertyGenerator("filmResultFooterImgUrl", false);
     const filmResultImgUrl = computedPropertyGenerator("filmResultImgUrl", false);
+    const arFrameSettingYn = computedPropertyGenerator("arFrameSettingYn", true);
+    console.log(arFrameSettingYn.value)
 
     function generateHashTagString(hashTags) {
       var hashTagString = hashTags.map(function (tag) {
@@ -220,13 +222,13 @@ export default {
     };
 
     const toggleBarVisibility = inject("secondToggleBarVisibility");
-    const setEventWrapperStyles = inject("setEventWrapperStyles");
 
     const back = () => {
       toggleBarVisibility();
-      setEventWrapperStyles(4, 6);
+
       showVModal.value = false;
       document.querySelector(".main-content").scrollTop = 0;
+
     };
 
     const share = async () => {

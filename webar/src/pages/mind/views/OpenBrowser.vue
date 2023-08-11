@@ -77,6 +77,11 @@ export default {
       return isLoading === "Y";
     });
 
+    const arFrameSettingYn = computed(() => {
+      const isArFrameSetting = store.getters["eventData/arFrameSettingYn"];
+      return isArFrameSetting === "Y";
+    });
+
     const isDecorate = computed(() => (selectedPhoto.value ? true : false));
 
     const { getEventData } = useEventData({ dispatch });
@@ -187,6 +192,9 @@ export default {
     };
 
     const secondToggleBarVisibility = () => {
+      if (arFrameSettingYn.value) {
+        setEventWrapperStyles(4, 6);
+      } else { setEventWrapperStyles(1, 1); }
       navbarRef.value.secondToggleBarVisibility();
     };
 
@@ -205,13 +213,33 @@ export default {
     };
 
     const setEventWrapperStyles = (x, y) => {
+      console.log(x, y)
       var aspectRatio = y / x;
-      const newTop = -18 * aspectRatio + 35;
-      const newWidth = window.innerHeight * 0.77 / aspectRatio;
+      let newWidth = null;
+      let newHeight = null;
 
-      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newWidth}px`);
+      let newTop = -18 * aspectRatio + 35;
+      if (aspectRatio == 1) {
+        newWidth = window.innerWidth;
+        newHeight = window.innerWidth;
+
+      }
+      else {
+        newWidth = window.innerHeight * 0.77 / aspectRatio;
+        newHeight = window.innerHeight * 0.77;
+      }
+
+      if (window.innerHeight > window.innerWidth * 2) {
+        newWidth = newWidth * 0.85;
+        newTop = newTop + 6;
+        newHeight = newWidth * aspectRatio;
+      }
+      console.log(newTop, newWidth, newHeight)
+
+      containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newWidth}px`, `${newHeight}px`);
       if (eventArPhotoObjectRef.value) {
         eventArPhotoObjectRef.value.arSceneResize();
+        console.log("resize")
       }
     };
 
@@ -292,7 +320,12 @@ export default {
 
       initDecorate();
 
-      setEventWrapperStyles(4, 6)
+      if (arFrameSettingYn.value) {
+        setEventWrapperStyles(4, 6)
+      }
+      else {
+        setEventWrapperStyles(1, 1)
+      }
     });
 
     watch(loadingState, async (newVal) => {

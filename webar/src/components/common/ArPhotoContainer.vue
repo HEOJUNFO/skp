@@ -104,9 +104,12 @@ export default {
       width: '100%'
     });
 
-    const setEventWrapperStyles = (newTop, newWidth) => {
+    const setEventWrapperStyles = (newTop, newWidth, newHeight) => {
       eventWrapperStyles.value.top = newTop;
       eventWrapperStyles.value.width = newWidth;
+      if (newHeight !== 'nullpx') {
+        eventWrapperStyles.value.height = newHeight;
+      }
     }
 
     provide('setEventWrapperStyles', setEventWrapperStyles);

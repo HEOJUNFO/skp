@@ -11,10 +11,10 @@
                 </div>
             </div>
         </div>
-        <div class="top-bar" v-show="isBarVisible" style="background-color: white">
+        <div class="top-bar" v-show="isBarVisible" style="background-color: white" :style="topBarStyle">
             <button v-if="!isCapturing && arFrameSettingYn === 'N' && !isDecorate" @click="toggleAspectRatio"
                 class="aspect-button">
-                <div v-if="aspectRatio === 0">
+                <div v-if="aspectRatio === 1">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_13_43)">
                             <rect width="32" height="32" fill="white" />
@@ -35,7 +35,7 @@
                         style="color: #000; text-align: center; font-family: Inter; font-size: 10px; font-style: normal; font-weight: 400; line-height: normal">
                         비율</p>
                 </div>
-                <div v-if="aspectRatio === 1">
+                <div v-if="aspectRatio === 0">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_13_42)">
                             <rect width="32" height="32" fill="white" />
@@ -150,7 +150,8 @@
             </button>
         </div>
         <slot></slot>
-        <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1">
+        <div v-show="!isSecondFrameBarVisible && !isSecondEffectBarVisible && isBarVisible" class="bottom-bar-1"
+            :style="bottomBarStyle">
             <button v-if="!isCapturing && arFrameSettingYn === 'Y'" @click="frameToggleBar" class="frame-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <path
@@ -358,9 +359,9 @@ export default {
         const toggleAspectRatio = () => {
             aspectRatio.value = (aspectRatio.value + 1) % 3;
             if (aspectRatio.value === 0) {
-                setEventWrapperStyles(4, 6);
-            } else if (aspectRatio.value === 1) {
                 setEventWrapperStyles(1, 1);
+            } else if (aspectRatio.value === 1) {
+                setEventWrapperStyles(4, 6);
             } else if (aspectRatio.value === 2) {
                 setEventWrapperStyles(814, 1218);
             }
@@ -570,6 +571,14 @@ export default {
             color: arFrameSettingYn.value === "Y" ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0)",
         }));
 
+        const topBarStyle = computed(() => ({
+            height: window.innerHeight > window.innerWidth * 2 ? "14vh" : "8vh",
+        }));
+
+        const bottomBarStyle = computed(() => ({
+            height: window.innerHeight > window.innerWidth * 2 ? "20vh" : "15vh",
+        }));
+
         var timeout = 60000;
         var checkInterval = 10000;
 
@@ -637,6 +646,8 @@ export default {
             selectSticker,
             isFlipCamera,
             secondToggleBarVisibility,
+            topBarStyle,
+            bottomBarStyle,
         };
     },
 };
@@ -689,7 +700,6 @@ export default {
     z-index: 3;
     position: absolute;
     width: 100%;
-    height: 15vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "frame capture effect";
