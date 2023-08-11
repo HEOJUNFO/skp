@@ -213,7 +213,6 @@ export default {
     };
 
     const setEventWrapperStyles = (x, y) => {
-      console.log(x, y)
       var aspectRatio = y / x;
       let newWidth = null;
       let newHeight = null;
@@ -234,12 +233,10 @@ export default {
         newTop = newTop + 6;
         newHeight = newWidth * aspectRatio;
       }
-      console.log(newTop, newWidth, newHeight)
 
       containerRef.value.setEventWrapperStyles(`${newTop}vh`, `${newWidth}px`, `${newHeight}px`);
       if (eventArPhotoObjectRef.value) {
         eventArPhotoObjectRef.value.arSceneResize();
-        console.log("resize")
       }
     };
 
