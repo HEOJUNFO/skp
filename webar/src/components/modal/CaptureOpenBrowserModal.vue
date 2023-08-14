@@ -185,7 +185,7 @@ export default {
     };
 
     const openModal = (imageUrl) => {
-      putPvLog(getPvLogParams(0, "/main/photo"));
+      // putPvLog(getPvLogParams(0, "/main/photo"));
       imageurl.value = imageUrl;
       showVModal.value = true;
       setTimeout(() => {

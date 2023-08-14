@@ -118,8 +118,8 @@ export default {
         videocanvas.pause();
       }
 
-      let v_width = videocanvas.clientWidth * 5;
-      let v_height = videocanvas.clientHeight * 5;
+      let v_width = videocanvas.clientWidth * 3.5;
+      let v_height = videocanvas.clientHeight * 3.5;
 
       canvas.width = v_width;
       canvas.height = v_height;
@@ -207,7 +207,7 @@ export default {
     const captureing = async () => {
       const data = await capture();
       captureModal.value.openModal(data);
-      captureModal.value.decorateCapture(isDecorate.value);
+      // captureModal.value.decorateCapture(isDecorate.value);
       navbarRef.value.secondToggleBarVisibility();
     };
 

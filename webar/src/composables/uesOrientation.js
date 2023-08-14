@@ -27,16 +27,18 @@ export default function useOrientation() {
   function getOrientation() {
     const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const keyboardOpen = window.innerHeight < initialHeight;
+    console.log('keyboardOpen', keyboardOpen);
 
-
-      if (typeof window.orientation === 'undefined'|| !isIos || !keyboardOpen) {
-     return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
-      }else{
-      return window.orientation === 0 ? 'portrait' : 'landscape';
+      if(typeof window.orientation === 'undefined'){
+        return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+      }else if(!isIos && !keyboardOpen){
+        return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+      }
+      else{
+        return window.orientation === 0 ? 'portrait' : 'landscape';
       }
   }
   
-
   return {
     checkOrientation
   }
