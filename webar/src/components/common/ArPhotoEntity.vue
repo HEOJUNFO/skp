@@ -1,35 +1,11 @@
 
 <template>
   <template v-if="arData">
-    <a-sphere v-if="objectType === `SPHERE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
-
-    <a-cylinder v-else-if="objectType === `CYLINDER`" v-bind="attrs" class="clickable"
-      gesture-handler="locationBased: true" @animationcomplete="animationcomplete" />
-
-    <a-box v-else-if="objectType === `CUBE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
-
-    <a-image v-else-if="objectType === `IMAGE`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
-
-    <a-entity v-else-if="objectType === `GIF`" v-bind="attrs" class="clickable" gesture-handler="locationBased: true"
-      @animationcomplete="animationcomplete" />
-
-    <a-video v-else-if="objectType === `VIDEO`" loop="false" v-bind="attrs" class="clickable"
-      gesture-handler="locationBased: true" @animationcomplete="animationcomplete" animation-mixer />
-
-    <a-gltf-model v-else-if="objectType === `3D`" v-bind="attrs" gesture-handler="locationBased: true"
+    <a-gltf-model ref="modelRef" v-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box class="clickable" position="0 0 0" scale="3 3 3" renderOrder="0" raycaster visible="false"> </a-box>
-
-    </a-gltf-model>
-
-    <a-gltf-model ref="modelRef" v-else-if="objectType === `CHARACTER`" v-bind="attrs"
-      gesture-handler="locationBased: true" @mousedown="startCharacterPress(), characterSet(arData)"
-      @mouseup="cancelCharacterPress()" @animationcomplete="animationcomplete" animation-mixer>
-      <a-box ref="characterRef" class="clickable" position="0 0 0" scale="1 1.75 0.01" renderOrder="0" raycaster
-        opacity="0" translate="true" alpha-test="0.5">
+      <a-box ref="characterRef" position="0 0 0" scale="1 1.75 0.01" renderOrder="0" raycaster opacity="0"
+        translate="true" alpha-test="0.5" @mousedown="startCharacterPress(), characterSet(arData)"
+        @mouseup="cancelCharacterPress()">
       </a-box>
     </a-gltf-model>
 

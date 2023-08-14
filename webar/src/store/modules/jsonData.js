@@ -967,7 +967,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
@@ -1199,7 +1199,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(1).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/character/origin/character(1).gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/DangDang_V2.gltf",
                 photoContentTabMenuType: "CHARACTER"
             },
             {
@@ -1208,7 +1208,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(2).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/character/origin/character(2).gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/Wipoong_V2.gltf",
                 photoContentTabMenuType: "CHARACTER"
             }
         ],

@@ -2,12 +2,12 @@
   <a-scene ref="arSceneEl" embedded
     :mindar-face="isMindARImage == false ? 'uiError:no; uiLoading:no; uiScanning:no;' : null"
     :mindar-image="isMindARImage ? 'imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind; uiError:no; uiLoading:no; uiScanning:no' : null"
-    gesture-detector renderer="gammaOutput: false; physicallyCorrectLights: false; " color-space="sRGB"
-    vr-mode-ui="enabled: false"
+    gesture-detector renderer="gammaOutput: true; physicallyCorrectLights: false; colorManagement: true; "
+    color-space="sRGB" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: true;deviceMotionMessage: 브라우저가 동작 및 방향에 접근하는 것을 허용 하시겠습니까?;allowButtonText: 허용; allowButtonText: 허용; denyButtonText: 거절;"
-    debug="false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"
-    @deviceorientationpermissiongranted="permissionGranted" @deviceorientationpermissionrejected="permissionRejected"
-    @deviceorientationpermissionrequested="permissionRequested" @loaded="loaded">
+    debug="false" cursor="rayOrigin: mouse" @deviceorientationpermissiongranted="permissionGranted"
+    @deviceorientationpermissionrejected="permissionRejected" @deviceorientationpermissionrequested="permissionRequested"
+    @loaded="loaded">
     <a-assets>
       <img id="trash-texture" src="../../assets/icon/black-trash-button.png">
     </a-assets>
@@ -46,7 +46,6 @@ export default {
     'animationcomplete'
   ],
   components: { ArPhotoObject },
-
   setup(props, { emit }) {
     const { stickerAsset } = toRefs(props);
     const { tabList, characterList, filterList } = toRefs(props);

@@ -389,29 +389,20 @@ export default {
         }
 
         const selectImage = (images, imageId) => {
-            if (isSecondFrameBarVisible.value) {
-                images.forEach((image) => {
-                    image.select = false;
-                });
-            }
             const selectedImage = images.find((image) => image.id === imageId);
 
-            if (selectedImage && selectedImage.type !== "FILTER") {
-                selectedImage.select = selectedImage.select ? false : true;
-            }
+            const toggleSelectionForImage = (image) => {
+                if (image.id === imageId) {
+                    image.select = !image.select;
+                } else {
+                    image.select = false;
+                }
+            };
 
-            if (selectedImage && selectedImage.type === "FILTER") {
-                images.forEach((image) => {
-                    if (image.id !== imageId) {
-                        image.select = false;
-                    } else {
-                        if (image.select) {
-                            image.select = false;
-                        } else {
-                            image.select = true;
-                        }
-                    }
-                });
+            if (isSecondFrameBarVisible.value || (selectedImage && selectedImage.type === "FILTER")) {
+                images.forEach(toggleSelectionForImage);
+            } else if (selectedImage && selectedImage.type !== "FILTER") {
+                selectedImage.select = !selectedImage.select;
             }
         };
 

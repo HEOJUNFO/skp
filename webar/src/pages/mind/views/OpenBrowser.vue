@@ -175,12 +175,18 @@ export default {
       if (document.querySelector(".frame-top") && document.querySelector(".frame-bottom") && !isDecorate.value) {
         const topSrc = document.querySelector(".frame-top").style.backgroundImage.slice(5, -2);
         const bottomSrc = document.querySelector(".frame-bottom").style.backgroundImage.slice(5, -2);
+        let frameTop = null;
+        let frameBottom = null;
 
-        const frameTop = await loadImage(topSrc);
-        const frameBottom = await loadImage(bottomSrc);
+        if (topSrc !== '' && bottomSrc !== '') {
+          console.log(topSrc, bottomSrc)
+          frameTop = await loadImage(topSrc);
+          frameBottom = await loadImage(bottomSrc);
 
-        ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height / 2, 0, 0, v_width, v_height / 2);
-        ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
+          ctx.drawImage(frameTop, 0, 0, frameTop.width, frameTop.height / 2, 0, 0, v_width, v_height / 2);
+          ctx.drawImage(frameBottom, 0, frameBottom.height / 2, frameBottom.width, frameBottom.height / 2, 0, v_height / 2, v_width, v_height / 2);
+        }
+
       }
       imageUrl.value = canvas.toDataURL("image/png");
 
