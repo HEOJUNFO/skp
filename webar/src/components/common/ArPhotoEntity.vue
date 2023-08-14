@@ -3,9 +3,8 @@
   <template v-if="arData">
     <a-gltf-model ref="modelRef" v-if="objectType === `CHARACTER`" v-bind="attrs" gesture-handler="locationBased: true"
       @animationcomplete="animationcomplete" animation-mixer>
-      <a-box ref="characterRef" position="0 0 0" scale="1 1.75 0.01" renderOrder="0" raycaster opacity="0"
-        translate="true" alpha-test="0.5" @mousedown="startCharacterPress(), characterSet(arData)"
-        @mouseup="cancelCharacterPress()">
+      <a-box ref="characterRef" position="0 0 1" scale="1 1.75 0.01" renderOrder="0" opacity="0" translate="true"
+        alpha-test="0.5" @mousedown="startCharacterPress(), characterSet(arData)" @mouseup="cancelCharacterPress()">
       </a-box>
     </a-gltf-model>
 
