@@ -192,10 +192,8 @@ export function applyFilter(videoEl, facingMode, filterValues) {
   `;
 
   function processFrame() {
-    ctx.save(); 
     ctx.filter = filterStyle;
     ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
-    ctx.restore(); 
     requestAnimationFrame(processFrame);
   }
 
