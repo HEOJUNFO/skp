@@ -27,7 +27,6 @@ export default function useOrientation() {
   function getOrientation() {
     const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const keyboardOpen = window.innerHeight < initialHeight;
-    console.log('keyboardOpen', keyboardOpen);
 
       if(typeof window.orientation === 'undefined'){
         return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';

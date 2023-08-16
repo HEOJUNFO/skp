@@ -405,6 +405,8 @@ export default {
         return;
       } else if (deviceNumber.value === "0132") {
         deviceNumber.value = "A190" + deviceNumber.value;
+      } else if (deviceNumber.value === "0395" || deviceNumber.value === "0396") {
+        deviceNumber.value = "A230" + deviceNumber.value;
       }
 
       var url = "https://go.selpic.co.kr/skapi/kiosk/" + deviceNumber.value;

@@ -179,7 +179,6 @@ export default {
         let frameBottom = null;
 
         if (topSrc !== '' && bottomSrc !== '') {
-          console.log(topSrc, bottomSrc)
           frameTop = await loadImage(topSrc);
           frameBottom = await loadImage(bottomSrc);
 
