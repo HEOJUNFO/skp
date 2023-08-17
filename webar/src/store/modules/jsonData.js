@@ -967,7 +967,7 @@ export const jsonData = {
       photoLogicalInfo: {
         tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
-        arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
+        arFrameSettingYn: "N",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
         tabMenuTitle: "양양서피비치",                 //	탭메뉴 제목	String	
         arFilterSettingYn: "Y",            //	AR 필터 설정 	String	설정안함 : N / 설정함 : Y
@@ -1100,7 +1100,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (1).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1109,7 +1109,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (2).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(1).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1118,7 +1118,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (3).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Glasses (3).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Face(7).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1127,7 +1127,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (1).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Face(6).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1136,7 +1136,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (2).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(1).json",
                 photoContentTabMenuType: "FILTER"
             },
             {

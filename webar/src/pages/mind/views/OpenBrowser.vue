@@ -156,21 +156,19 @@ export default {
         ctx.drawImage(decoPhoto, 0, 0, v_width, v_height);
       }
 
-      let scComp = document.querySelector("a-scene").components.screenshot;
-      var isVREnabled = scComp.el.renderer.xr.enabled;
-      var renderer = scComp.el.renderer;
+      let sceneEl = document.querySelector('a-scene');
+      let cameraEl = sceneEl.querySelector('[camera]');
 
-      var params = scComp.setCapture("perspective");
-      params.size.width = parseInt(v_width * 1.35);
-      params.size.height = parseInt(v_height * 1.35);
+      let tempCanvas = document.createElement('canvas');
+      tempCanvas.width = v_width;
+      tempCanvas.height = v_height;
+      let context = tempCanvas.getContext('webgl', { preserveDrawingBuffer: true });
+      let tempRenderer = new window.THREE.WebGLRenderer({ canvas: tempCanvas, context: context });
+      tempRenderer.outputEncoding = window.THREE.sRGBEncoding
+      tempRenderer.setSize(v_width, v_height);
+      tempRenderer.render(sceneEl.object3D, cameraEl.getObject3D('camera'));
 
-      renderer.xr.enabled = false;
-      scComp.renderCapture(params.camera, params.size, params.projection);
-
-      renderer.xr.enabled = isVREnabled;
-      let imgData = scComp.canvas;
-
-      ctx.drawImage(imgData, 0, 0, v_width, v_height);
+      ctx.drawImage(tempCanvas, 0, 0, v_width, v_height);
 
       if (document.querySelector(".frame-top") && document.querySelector(".frame-bottom") && !isDecorate.value) {
         const topSrc = document.querySelector(".frame-top").style.backgroundImage.slice(5, -2);
