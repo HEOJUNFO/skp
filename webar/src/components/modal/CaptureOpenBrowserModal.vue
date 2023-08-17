@@ -366,7 +366,7 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  height: 10vh;
+  height: 13vh;
   margin-top: 1.5vh;
 }
 
@@ -459,7 +459,7 @@ export default {
   height: 20vh;
   margin-top: 2vh;
   padding-top: 2vh;
-  padding-bottom: 1vh;
+  padding-bottom: 3vh;
   gap: 1vh;
   background-color: #fff;
 }

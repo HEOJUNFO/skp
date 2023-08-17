@@ -985,11 +985,11 @@ export const jsonData = {
         agreePopupText: "안녕하세요. Play AR입니다.\\n인스타 이벤트 참여를 위해서는\\n개인정보사용 동의가 필요합니다.",	  // 	동의 팝업 문구	String	
         agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
         agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
-        photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintSettingYn: "N",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
-        photoGiveAwaySettingYn: "Y",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoGiveAwaySettingYn: "N",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
-        filmResultFooterImgSettingYn: "Y",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
+        filmResultFooterImgSettingYn: "N",	// 	결과 하단 이미지 설정 여부 	String	설정안함 : N / 설정함 : Y
         filmResultFooterImgUrl: "https://sodarimg.syrup.co.kr/is/marketing/202307/17TXDU5LkV7fe41e322ad0d2ec7d5537c4590a167.png  ",	      // 	하단 이미지 url	String	하단 이미지 url
       },
       photoContentsInfo: {
@@ -1100,7 +1100,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand.json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand(5).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1145,7 +1145,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (3).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(5).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand(6).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
