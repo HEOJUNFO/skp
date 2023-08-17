@@ -159,6 +159,8 @@ export default {
       let sceneEl = document.querySelector('a-scene');
       let cameraEl = sceneEl.querySelector('[camera]');
 
+      traverseSceneAndDisableMipmaps(sceneEl.object3D);
+
       let tempCanvas = document.createElement('canvas');
       tempCanvas.width = v_width;
       tempCanvas.height = v_height;
@@ -188,6 +190,33 @@ export default {
       imageUrl.value = canvas.toDataURL("image/png");
 
       return imageUrl.value;
+    }
+
+    function disableMipmapsForMaterials(material) {
+      if (material instanceof window.THREE.MeshStandardMaterial ||
+        material instanceof window.THREE.MeshBasicMaterial ||
+        material instanceof window.THREE.MeshLambertMaterial ||
+        material instanceof window.THREE.MeshPhongMaterial ||
+        material instanceof window.THREE.ShaderMaterial || material instanceof window.THREE.RawShaderMaterial) {
+        if (material.map) {
+          material.map.minFilter = window.THREE.LinearFilter; material.map.wrapS = window.THREE.ClampToEdgeWrapping;
+          material.map.wrapT = window.THREE.ClampToEdgeWrapping;
+        }
+      }
+    }
+
+    function traverseSceneAndDisableMipmaps(object) {
+      if (object.material) {
+        if (Array.isArray(object.material)) {
+          object.material.forEach(disableMipmapsForMaterials);
+        } else {
+          disableMipmapsForMaterials(object.material);
+        }
+      }
+
+      if (object.children) {
+        object.children.forEach(traverseSceneAndDisableMipmaps);
+      }
     }
 
     const toggleBarVisibility = () => {

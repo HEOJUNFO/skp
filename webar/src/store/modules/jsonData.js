@@ -1109,7 +1109,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(1).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(3).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1136,7 +1136,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(1).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(4).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1145,7 +1145,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (3).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (3).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(5).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1154,7 +1154,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (5).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (5).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (5).json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(6).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
