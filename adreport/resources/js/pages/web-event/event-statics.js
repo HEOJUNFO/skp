@@ -13,6 +13,8 @@
     var connectionSurveyStaticsTemplate = Handlebars.compile($("#connectionSurveyStaticsTemplate").html());
     var connectionStaticsTargetGenderTemplate = Handlebars.compile($("#connectionStaticsTargetGenderTemplate").html());
     var connectionStaticsTargetAgeTemplate = Handlebars.compile($("#connectionStaticsTargetAgeTemplate").html());
+    var photoPrintResultStaticsTemplate = Handlebars.compile($("#photoPrintResultStaticsTemplate").html());
+    var photoBoxStaticsTemplate = Handlebars.compile($("#photoBoxStaticsTemplate").html());
 
     const qs = is.parseQuery();
 
@@ -62,8 +64,13 @@
     };
 
     //통계 API 함수
-    const _allStatics = function(params) {
+    const _allStatics = function() {
         const apiUrl = "/api/v1/web-event-front/statics/all";
+        const searchDay = $.getValueById("datepicker");
+        const params = {
+            eventId : eventId,
+            searchDay : searchDay
+        };
         is.postFetchLoading(apiUrl, params, $loading, _allStaticsCallback);
     };
 
@@ -78,12 +85,21 @@
             let connectionStatics = result.connectionStatics;
             if (connectionStatics) {
                 $.showElement("#connectionTitleDiv");
-                //AR일때
-                if (eventType === is.eventType.AR) {
+                //AR, 포토일때
+                if (eventType === is.eventType.AR || eventType === is.eventType.PHOTO) {
                     $.removeElement("#connectionTable");
 
                     $.showElement("#connectionTableView");
                     $("#connectionTableView").html(connectionStaticsTemplate(connectionStatics.result));
+                    
+                    //포토일때 - 페이지접속 누적/기준일 만 보여준다
+                    if (eventType === is.eventType.PHOTO) {
+                        const size = $("#connectionTable thead tr th").length;
+                        for (let i=1; i<size; i++) {
+                            $("#connectionTable thead tr th").eq(i).hide();
+                            $("#connectionTable tbody tr td").eq(i).hide();
+                        }
+                    }
                 }
                 //서베이고일때
                 if (eventType === is.eventType.SURVEY) {
@@ -112,6 +128,29 @@
                     $.showElement("#connectionTargetAgeDiv");
                     $.showElement("#connectionTargetAgeTableView");
                     $("#connectionTargetAgeTableView").html(connectionStaticsTargetAgeTemplate(ageTargetStatics.result));
+                }
+            }
+
+            if (eventType === is.eventType.PHOTO) {
+                //AR포토 촬영 결과 통계
+                const photoPrintResultStatics = result.photoPrintResultStatics;
+                if (photoPrintResultStatics) {
+                    $.removeElement("#photoPrintResultStaticsTable");
+
+                    $.showElement("#photoPrintResultStaticsDiv");
+                    $.showElement("#photoPrintResultStaticsTitleDiv");
+
+                    $("#photoPrintResultStaticsTableView").html(photoPrintResultStaticsTemplate(photoPrintResultStatics.result));
+                }
+                //AR포토 포토함 통계
+                const photoBoxStatics = result.photoBoxStatics;
+                if (photoBoxStatics) {
+                    $.removeElement("#photoBoxStaticsTable");
+                    
+                    $.showElement("#photoBoxStaticsDiv");
+                    $.showElement("#photoBoxStaticsDivTitleDiv");
+
+                    $("#photoBoxStaticsDivStaticsTableView").html(photoBoxStaticsTemplate(photoBoxStatics.result));
                 }
             }
 
@@ -157,17 +196,8 @@
         
     };
 
-    //검색버튼
-    $(document).on("click", "#searchBtn", function() {
-        const searchDay = $.getValueById("datepicker");
-        const params = {
-            eventId : eventId,
-            searchDay : searchDay
-        };
-        _allStatics(params);
-    });
+    is.clickEvent("#searchBtn", _allStatics);
 
-    //nft 이벤트인지 확인
     _checkSubscriptionNft(eventId);
 
 }(jQuery, window, document));

@@ -39,7 +39,7 @@ const usePvLog = () => {
     return result;
   };
 
-  const getPvLogParams = (num, pageId, order, code, type) => {
+  const getPvLogParams = (num, pageId, order, code, type,time) => {
     // const BR_CODE_OCB = "1",
     //   BR_CODE_SYRUP = "2",
     //   BR_CODE_WEB = "3",
@@ -97,6 +97,7 @@ const usePvLog = () => {
     params.order = order;
     params.code = code;
     params.type = type;
+    params.created_time = time;
 
     if (num === "0" && pageId === "/main") {
       if (qs.trCd) {

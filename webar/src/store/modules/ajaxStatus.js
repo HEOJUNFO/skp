@@ -27,7 +27,7 @@ export const ajaxStatus = {
     setResponse({commit, dispatch}, {resultCode, resultMessage}) {
       commit('SET_RESULT_CODE', resultCode);
       commit('SET_RESULT_MESSAGE', resultMessage);
-      
+      console.log('resultCode', resultCode)
       switch (resultCode) {
         case 200:
           break;
@@ -49,7 +49,6 @@ export const ajaxStatus = {
           dispatch('url/redirectToMain', null, {root: true})
           break;
       }
-
     },
   }
 }

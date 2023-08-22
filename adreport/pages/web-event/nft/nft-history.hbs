@@ -3,17 +3,18 @@ layout: default-event.hbs
 title: Play AR
 jsfile:
 - pages/web-event/nft/nft-history
+- pages/web-event/ocb
 ---
 
 <div class="wrap">
 
     <!-- header 영역  -->
-    <header class="moweb_header">
-        <a href="javascript:history.back(-1);">&lt;</a>
+    <header class="moweb_header" style="display: none;">
+        <a href="javascript:is.goMain();">&lt;</a>
         <div><span></span></div>
     </header>
     <!-- //header 영역 -->
-<section>
+<section id="nftHistorySection" style="display: none;">
         <!-- 당첨 이력 조회 -->
         <div class="nft_win_history">
             <div class="history_wrap">

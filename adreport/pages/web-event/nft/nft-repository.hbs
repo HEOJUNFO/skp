@@ -3,11 +3,12 @@ layout: default-event.hbs
 title: Play AR
 jsfile:
 - pages/web-event/nft/nft-repository
+- pages/web-event/ocb
 ---
 <div class="wrap">
     <!-- header 영역  -->
     <header class="moweb_header">
-        <a href="javascript:$.goEventMainPage();">&lt;</a>
+        <a href="javascript:is.goMain();">&lt;</a>
         <div><span><span id="titleName"></span></div>
     </header>
     <!-- //header 영역 -->
@@ -118,12 +119,19 @@ jsfile:
                                 \{{#each this}}
                                 <div class="swiper-slide">
                                     <a href="javascript:void(0);">
+                                        <!-- OCB쿠폰 -->
+                                        \{{#if (isNotNull this.ocbCouponId)}}
+                                            <div class="img_wrap" onclick="javascript:ocbApp.goOcbPage('couponDetail', \{{this.ocbCouponId}});"><img src="\{{this.ocbCouponImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                        \{{/if}}
+                                        <!-- OCB쿠폰 -->
+                                        <!-- AR쿠폰 -->
                                         \{{#ifvalue this.isUse value=false}}
                                         <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
                                         \{{/ifvalue}}
                                         \{{#ifvalue this.isUse value=true}}
                                         <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
                                         \{{/ifvalue}}
+                                        <!-- AR쿠폰 -->
                                     </a>
                                 </div>
                                 \{{/each}}
@@ -142,12 +150,19 @@ jsfile:
                         \{{#each this}}
                         <li>
                             <a href="javascript:void(0);">
+                                <!-- OCB쿠폰 -->
+                                \{{#if (isNotNull this.ocbCouponId)}}
+                                    <div class="img_wrap" onclick="javascript:ocbApp.goOcbPage('couponDetail', \{{this.ocbCouponId}});"><img src="\{{this.ocbCouponImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
+                                \{{/if}}
+                                <!-- OCB쿠폰 -->
+                                <!-- AR쿠폰 -->
                                  \{{#ifvalue this.isUse value=false}}
                                 <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
                                 \{{/ifvalue}}
                                 \{{#ifvalue this.isUse value=true}}
                                 <div class="img_wrap" onclick="javascript:$.goDetail(\{{id}}, \{{this.arEventNftCouponInfoEntity.arEventWinningEntity.arEventWinningId}});"><img src="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.nftInactiveImgUrl}}" alt="" data-nftid="\{{this.nftCouponInfoId}}" data-repositoryid="\{{this.id}}" data-product-name="\{{this.arEventNftCouponInfoEntity.arEventWinningEntity.productName}}"></div>
                                 \{{/ifvalue}}
+                                <!-- AR쿠폰 -->
                             </a>
                         </li>
                         \{{/each}}
@@ -156,7 +171,7 @@ jsfile:
                 </div>
             
 
-                <div class="event">
+                <div class="event" style="display: none;">
                     <span class="event_title">지금 참여가능한 Event</span>
                     <div class="event_swiper">
                         <div class="swiper-container">

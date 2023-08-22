@@ -4,6 +4,8 @@ import router from './router';
 import store from '@/store';
 
 import aframe from 'aframe';
+
+
 import 'aframe-extras';
 import 'aframe-gif-shader';
 import registerClickDrag from 'aframe-click-drag-component';

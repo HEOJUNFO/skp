@@ -181,7 +181,7 @@ jsfile:
                             </div>
                             <!-- //접속 통계 - 목표달성 수 기준 -->
 
-                            <!-- //접속 통계 - 목표달성 수 기준 - 연령병 -->
+                            <!-- //접속 통계 - 목표달성 수 기준 - 연령별 -->
                             <div class="sta_wrap" id="connectionTargetAgeDiv" style="display: none">
                                 <div class="sta_tit_box">
                                     <h2>접속 통계(목표달성수 기준 - 연령별)</h2>
@@ -360,6 +360,88 @@ jsfile:
                                 <!--// 테이블 영역 -->
                             </div>
                             <!-- //NFT 보관함 통계 -->
+                            
+                            <!-- AR포토 촬영 결과 통계 -->
+                            <div class="sta_wrap"  id="photoPrintResultStaticsDiv" style="display: none;">
+                                <div class="sta_tit_box" id="photoPrintResultStaticsTitleDiv" style="display: none;">
+                                    <h2>AR포토 촬영 결과  통계</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="photoPrintResultStaticsTableView">
+                                    <script id="photoPrintResultStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="photoPrintResultStaticsTable">
+                                        <colgroup>
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                            <col width="20%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">촬영결과페에지 PV<br>누적/기준일</th>
+                                                <th scope="col">저장 클릭 PV<br>누적/기준일</th>
+                                                <th scope="col">공유 클릭 PV<br>누적/기준일</th>
+                                                <th scope="col">해시태그 복사 클릭 PV<br>누적/기준일</th>
+                                                <th scope="col">사진 출력 클릭 PV<br>누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>\{{ this.mainPhotoCnt }}</td>
+                                                <td>\{{ this.saveClickCnt }}</td>
+                                                <td>\{{ this.shareClickCnt }}</td>
+                                                <td>\{{ this.hashtagClickCnt }}</td>
+                                                <td>\{{ this.printClickCnt }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //AR포토 촬영 결과 통계 -->
+
+                            <!-- AR포토 포토함 통계 -->
+                            <div class="sta_wrap"  id="photoBoxStaticsDiv" style="display: none;">
+                                <div class="sta_tit_box" id="photoBoxStaticsDivTitleDiv" style="display: none;">
+                                    <h2>AR포토 포토함 통계</h2>
+                                </div>
+
+                                <!-- 테이블 영역 -->
+                                <div class="tb_col_view" id="photoBoxStaticsDivStaticsTableView">
+                                    <script id="photoBoxStaticsTemplate" type="text/x-handlebars-template">
+                                    <table id="photoBoxStaticsTable">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">AR포토함PV 누적/기준일</th>
+                                                <th scope="col">출력 요청 누적/기준일</th>
+                                                <th scope="col">출력 성공 누적/기준일</th>
+                                                <th scope="col">출력 실패 누적/기준일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>\{{ this.photoboxCnt }}</td>
+                                                <td>\{{ this.printRequestCnt }}</td>
+                                                <td>\{{ this.printSuccessCnt }}</td>
+                                                <td>\{{ this.printFailCnt }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </script>
+                                </div>
+                                <!--// 테이블 영역 -->
+                            </div>
+                            <!-- //AR포토 포토함 통계 -->
+
 
                             <!-- 시간별 통계 -->
                             <div class="sta_wrap">

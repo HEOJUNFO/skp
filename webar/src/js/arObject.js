@@ -4,6 +4,7 @@
  * @returns {string}
  */
 
+
 export const getObjectType = (type) => {
   const TYPES = ['SPHERE', 'CUBE', 'CYLINDER', 'IMAGE', 'GIF', 'VIDEO', '3D'];
   return TYPES[type];
@@ -134,6 +135,7 @@ function getRandomPosition(num, min = -2, max = 2) {
   return !isNaN(parseFloat(num)) ? num : getRandomArbitrary(min, max);
 }
 
+
 /**
  * 개별적인 X,Y,Z를 취합해서 position string 생성
  * @param positionX
@@ -172,9 +174,12 @@ function getRotation({rotationX, rotationY, rotationZ}) {
  * @param data
  * @returns {Object}
  */
-export const getObjectAttrs = (data) => {
+export const getObjectAttrs = (data) => { 
 
-  const {type} = data;
+let {type} = data;
+  if(type === 'CHARACTER') {
+    data.file.includes('gltf') ? type = 'CHARACTER' : type = 'STICKER'
+  }
   /**
    * shpere 타입
    * 크기가 raduis임으로 sizeX만을 사용한다.
@@ -306,6 +311,28 @@ export const getObjectAttrs = (data) => {
       animation: getStayAnimation(data.stayEffectType, {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
       src: `#${data.objectType}_${data.itemID}`
       // ['animation-mixer']: data['animation-mixer']
+    }
+  }
+  if (type === 'CHARACTER') {
+     const scale = getScale({sizeX: 0.5, sizeY: 0.5, sizeZ: 0.5});
+    return {
+      position: getPosition({positionX: 0, positionY: 1, positionZ: -2}),
+      scale,
+      ['frustum-culled']: false,
+      animation: getStayAnimation("", {x: scale.sizeX, y: scale.sizeY, z: scale.sizeZ}),
+      src: data.file.toString()
+      // ['animation-mixer']: data['animation-mixer']
+    }
+  }
+  if (type === 'STICKER') {
+    const width = data.sizeX ? data.sizeX : 1;
+    const height = data.sizeY ? data.sizeY : 1;
+    return {
+      width,
+      height,
+      ['alpha-test']: 0.5,
+      src: '#'+data.selectId,
+      position: getPosition({positionX: getRandomArbitrary(-0.3,0.3), positionY: getRandomArbitrary(0.6,1.6), positionZ: -2}),
     }
   }
 }

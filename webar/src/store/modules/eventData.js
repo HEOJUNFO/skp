@@ -1,12 +1,15 @@
 //function import from src/apis/index.js
-import { getEventData, getEventResult } from "@/apis";
+import { getEventData, getEventResult, getEventPhotoBox, getEventPrint } from "@/apis";
 
 export const eventData = {
   namespaced: true,
   state: () => ({
     eventData: {},
     eventResult: {},
+    photoBoxData: {},
+    printData: {},
     isEventFinish: false,
+    selectedPhoto: "",
   }),
   mutations: {
     ["SET_EVENT_DATA"](state, payload) {
@@ -15,13 +18,28 @@ export const eventData = {
     ["SET_EVENT_RESULT"](state, payload) {
       state.eventResult = payload;
     },
+    ["SET_PHOTO_BOX_DATA"](state, payload) {
+      state.photoBoxData = payload;
+    },
+    ["SET_PRINT_DATA"](state, payload) {
+      state.printData = payload;
+    },
     ["isEventFinish"](state, payload) {
       state.isEventFinish = payload;
+    },
+    ["SET_SELECTED_PHOTO"](state, payload) {
+      state.selectedPhoto = payload;
     },
   },
   getters: {
     eventData({ eventData }) {
       return eventData;
+    },
+    photoBoxData({ photoBoxData }) {
+      return photoBoxData;
+    },
+    printData({ printData }) {
+      return printData;
     },
     // 3d객체 정보
     arObjectInfoList({ eventData }) {
@@ -35,9 +53,37 @@ export const eventData = {
       }
     },
     // asset 정보
+    frameContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return photoContentsInfo?.frameContentsInfo?.map(getContentsData) ?? [];
+    },
+    characterContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return photoContentsInfo?.characterContentsInfo?.map(getContentsData) ?? [];
+    },
+    tabContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return photoContentsInfo?.tabContentsInfo?.map(getContentsData) ?? [];
+    },
+    filterContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return photoContentsInfo?.filterContentsInfo?.map(getContentsData) ?? [];
+    },
+    stickerContentsInfoList({ eventData }) {
+      const { photoContentsInfo } = eventData;
+      return photoContentsInfo?.stickerContentsInfo?.map(getContentsData) ?? [];
+    },
     arAssetInfoList({ eventData }) {
       const { arObjectInfo } = eventData;
       return Array.isArray(arObjectInfo) ? arObjectInfo.reduce(getAssetData, []) : [];
+    },
+    bannerList({ photoBoxData }) {
+      const { bannerList } = photoBoxData;
+      return Array.isArray(bannerList) ? bannerList.map(getBannerData) : [];
+    },
+    deviceGpsList({ photoBoxData }) {
+      const { deviceGpsList } = photoBoxData;
+      return Array.isArray(deviceGpsList) ? deviceGpsList.map(getDeviceGpsData) : [];
     },
     // stamp 정보
     stampPanelInfo({ eventData }) {
@@ -95,6 +141,98 @@ export const eventData = {
     backgroundUri({ eventData }) {
       return eventData?.arSkinImage ?? "";
     },
+    backgroundUriList({ eventData }) {
+      return eventData?.arSkinImageList ?? [];
+    },
+    loadingImgYn({ eventData }) {
+      return eventData?.loadingImgYn ?? "N";
+    },
+    loadingImgUrl({ eventData }) {
+      return eventData?.loadingImgUrl ?? "/img/loading01_114x120.gif";
+    },
+    tutorialYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "tutorialYn", "N");
+    },
+    photoRatioSettingType({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoRatioSettingType", "BASIC");
+    },
+    arFrameSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "arFrameSettingYn", "N");
+    },
+    photoTabMenuAddSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoTabMenuAddSettingYn", "N");
+    },
+    tabMenuTitle({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "tabMenuTitle", "default");
+    },
+    arFilterSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "arFilterSettingYn", "N");
+    },
+    arCharacterSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "arCharacterSettingYn", "N");
+    },
+    arStickerSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "arStickerSettingYn", "N");
+    },
+    filmResultImgUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "filmResultImgUrl", "default");
+    },
+    hashTagSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "hashTagSettingYn", "N");
+    },
+    hashTagValue({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "hashTagValue", "default");
+    },
+    shareAgreePopupSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "shareAgreePopupSettingYn", "N");
+    },
+    agreePopupText({ eventData }) {
+      let text = eventData?.photoLogicalInfo?.agreePopupText ?? "default";
+      return text.replace(/\\n/g, "\n");
+    },
+    agreePopupDetailLinkUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "agreePopupDetailLinkUrl", "default");
+    },
+    agreePopupInputText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "agreePopupInputText", "default");
+    },
+    photoPrintSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoPrintSettingYn", "N");
+    },
+    photoPrintButtonText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoPrintButtonText", "default");
+    },
+    photoGiveAwaySettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoGiveAwaySettingYn", "N");
+    },
+    photoGiveAwayButtonText({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "photoGiveAwayButtonText", "default");
+    },
+    filmResultFooterImgSettingYn({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "filmResultFooterImgSettingYn", "N");
+    },
+    filmResultFooterImgUrl({ eventData }) {
+      return getPhotoLogicalInfoProperty(eventData, "filmResultFooterImgUrl", "default");
+    },
+    deviceLocationFindSettingYn({ photoBoxData }) {
+      return photoBoxData?.deviceLocationFindSettingYn ?? "N";
+    },
+    deviceLocationFindButtonText({ photoBoxData }) {
+      return photoBoxData?.deviceLocationFindButtonText ?? "";
+    },
+    locationFindExposureType({ photoBoxData }) {
+      return photoBoxData?.locationFindExposureType ?? "NONE";
+    },
+    locationFindPopupImgUrl({ photoBoxData }) {
+      return photoBoxData?.locationFindPopupImgUrl ?? "";
+    },
+    freePrintControlYn({ photoBoxData }) {
+      return photoBoxData?.freePrintControlYn ?? "N";
+    },
+    freePrintCustomerCount({ photoBoxData }) {
+      return photoBoxData?.freePrintCustomerCount ?? 10;
+    },
+
     templateType(state) {
       return state.eventData?.eventLogicalType;
     },
@@ -103,6 +241,9 @@ export const eventData = {
     },
     isEventFinish(state) {
       return state.isEventFinish;
+    },
+    selectedPhoto({ selectedPhoto }) {
+      return selectedPhoto ? selectedPhoto : sessionStorage.getItem("selectedPhoto");
     },
   },
   actions: {
@@ -117,9 +258,34 @@ export const eventData = {
         // 에러처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        // alert(err);
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-        // return err
+      }
+    },
+    //포토함 데이터 파싱
+    async getEventPhotoBox({ commit, dispatch }, params) {
+      try {
+        const res = await getEventPhotoBox(params);
+        if (res.data.resultCode.toString() === "200") {
+          commit("SET_PHOTO_BOX_DATA", res.data.result);
+          return;
+        }
+        // 에러 처리
+        dispatch("ajaxStatus/setResponse", res.data, { root: true });
+      } catch ({ status: resultCode, statusText: resultMessage }) {
+        dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
+      }
+    },
+    async getEventPrint({ commit, dispatch }, params) {
+      try {
+        const res = await getEventPrint(params);
+        if (res.data.resultCode.toString() === "200") {
+          commit("SET_PRINT_DATA", res.data.result);
+          return;
+        }
+        // 에러 처리
+        dispatch("ajaxStatus/setResponse", res.data, { root: true });
+      } catch ({ status: resultCode, statusText: resultMessage }) {
+        dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
       }
     },
     // 이벤트 결과 파싱
@@ -133,9 +299,7 @@ export const eventData = {
         // 에러 처리
         dispatch("ajaxStatus/setResponse", res.data, { root: true });
       } catch ({ status: resultCode, statusText: resultMessage }) {
-        // alert(err);
         dispatch("ajaxStatus/setResponse", { resultCode, resultMessage }, { root: true });
-        // return err
       }
     },
     // session storage에 저장된 오브젝트 데이터 파싱
@@ -143,6 +307,20 @@ export const eventData = {
       return new Promise((resolve) => {
         const storageData = sessionStorage.getItem("skWebArJson");
         commit("SET_EVENT_DATA", JSON.parse(storageData));
+        resolve(storageData);
+      });
+    },
+    async getStroagePhotoBoxData({ commit }) {
+      return new Promise((resolve) => {
+        const storageData = sessionStorage.getItem("skPhotoBoxJson");
+        commit("SET_PHOTO_BOX_DATA", JSON.parse(storageData));
+        resolve(storageData);
+      });
+    },
+    async getStroagePrintData({ commit }) {
+      return new Promise((resolve) => {
+        const storageData = sessionStorage.getItem("skWebArPrintJson");
+        commit("SET_PRINT_DATA", JSON.parse(storageData));
         resolve(storageData);
       });
     },
@@ -156,6 +334,10 @@ export const eventData = {
     },
     setIsEventFinish({ commit }, param) {
       commit("isEventFinish", param);
+    },
+    setSeletedPhoto({ commit }, param) {
+      sessionStorage.setItem("selectedPhoto", param);
+      commit("SET_SELECTED_PHOTO", param);
     },
   },
 };
@@ -283,6 +465,21 @@ function getScanningStampData(item) {
     disableThumbnailUri: inactiveThumbnailUrl,
   };
 }
+function getContentsData(item) {
+  const {id, photoContentChoiceType, photoFileName, photoThumbnailImgUrl, photoOriginalFileUrl, photoContentTabMenuType, sort } = item;
+
+  let formattedSourceUri = photoOriginalFileUrl.endsWith(".zip") ? "" : photoOriginalFileUrl.replace(/\s/g, "%20").replace(/\(/g, "%28").replace(/\)/g, "%29");
+
+  return {
+    itemID: sort,
+    chocieType: photoContentChoiceType,
+    tabMenuType: photoContentTabMenuType,
+    thumbnailUri: photoThumbnailImgUrl,
+    sourceUri: formattedSourceUri,
+    fileName: photoFileName,
+    selectID: id,
+  };
+}
 // 브릿지 데이터 파싱
 function getBridgeData(item) {
   const {
@@ -347,4 +544,33 @@ function getScanningBridgeData(item) {
       forcePlayTime: bridgeForceExposureTimeSecond,
     },
   ];
+}
+
+function getBannerData(item) {
+  const { arNftBannerId, bannerImgUrl, bannerTargetUrl, bannerSort } = item;
+  const formattedBannerTargetUrl = bannerTargetUrl.startsWith("https://") ? bannerTargetUrl : "https://" + bannerTargetUrl;
+
+  return {
+    itemID: arNftBannerId,
+    bannerImgUrl: bannerImgUrl,
+    bannerTargetUrl: formattedBannerTargetUrl,
+    bannerSort: bannerSort,
+  };
+}
+
+function getDeviceGpsData(item) {
+  const { deviceGpsId, sort, deviceName, gpsName, thirdPartyType, deviceGpsLatitude, deviceGpsLongitude } = item;
+  return {
+    itemID: deviceGpsId,
+    sort: sort,
+    deviceName: deviceName,
+    gpsName: gpsName,
+    thirdPartyType: thirdPartyType,
+    deviceGpsLatitude: deviceGpsLatitude,
+    deviceGpsLongitude: deviceGpsLongitude,
+  };
+}
+
+function getPhotoLogicalInfoProperty(eventData, propertyName, defaultValue) {
+  return eventData?.photoLogicalInfo?.[propertyName] ?? defaultValue;
 }

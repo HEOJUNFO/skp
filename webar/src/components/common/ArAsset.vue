@@ -1,11 +1,11 @@
 <template>
   <img
-      v-if="!(assetType === 'VIDEO' || assetType === '3D')"
+      v-if="!(assetType === 'VIDEO' || assetType === '3D')" 
       ref="assetEl"
       v-bind="assetAttr"
   />
   <video
-      v-if="assetType === 'VIDEO'"
+      v-if="assetType === 'VIDEO'  "
       ref="assetEl"
       v-bind="assetAttr"
       @ended="endedVideo"
@@ -28,8 +28,9 @@ export default {
   emits:['ended:video'],
   setup(props, {emit}) {
     const assetEl = ref(null);
-
+   
     const {assetData} = toRefs(props);
+ 
     // asset 속성
     const assetAttr = computed(()=>getAssetAttrs(assetData.value));
     // asset타입

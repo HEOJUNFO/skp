@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export function setAframe() {
   /*
   window.AFRAME.registerComponent('play-on-click', {
@@ -170,9 +172,76 @@ export function setAframe() {
     }
   });
 
+  window.AFRAME.registerComponent('frustum-culled', {
+    schema: {default: false},
+    init: function () {
+      this.el.addEventListener('model-loaded', this.update.bind(this));
+    },
+    update: function () {
+      var mesh = this.el.getObject3D('mesh');
+      var data = this.data;
+      if (!mesh) { return; }
+      mesh.traverse(function (node) {
+        if (node.isMesh) {
+          node.frustumCulled = data;
+        }
+      });
+    }
+  });
+
+  window.AFRAME.registerComponent('alpha-test', {
+    schema: {default: 0.0},
+    init: function () {
+      this.el.addEventListener('model-loaded', this.update.bind(this));
+    },
+    update: function () {
+      var mesh = this.el.getObject3D('mesh');
+      var data = this.data;
+      if (!mesh) { return; }
+      mesh.traverse(function (node) {
+        if (node.isMesh) {
+          node.material.alphaTest = data;
+        }
+      });
+    }
+  });
+
+  window.AFRAME.registerComponent('outline', {
+    init: function () {
+        var el = this.el;
+
+        var mesh = el.getObject3D('mesh');
+        var box = new THREE.Box3().setFromObject(mesh);
+        var size = box.getSize(new THREE.Vector3());
+
+        var geometry = new THREE.BoxGeometry(size.x * 1, size.y * 1, size.z * 1.05);
+        var edges = new THREE.EdgesGeometry(geometry);
+
+        this.outlineObjects = [];
+
+        var numLines = 10;
+
+        for (var i = 0; i < numLines; i++) {
+            var lineMaterial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.1, transparent: true});
+            var line = new THREE.LineSegments(edges, lineMaterial);
+            var offset = i * 0.0005; 
+            line.position.x += offset;
+            line.position.y += offset;
+            this.outlineObjects.push(line);
+            el.object3D.add(line);
+            line.visible = false;
+        }
+    },
+ 
+    setTrash: function(boolen) {
+        for (var i = 0; i < this.outlineObjects.length; i++) {
+            this.outlineObjects[i].visible = boolen;
+        }
+    }
+});
+
+
   //---------
-
-
 
   /*window.AFRAME.registerComponent('click-drag', {
     schema: {
