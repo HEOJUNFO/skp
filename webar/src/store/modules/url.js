@@ -6,12 +6,12 @@ export const url = {
     eventMainUrl: "/web-event/main.html",
     eventPhotoBoxUrl: "/webar/index.html#/photo-box",
     eventWinningFormUrl: "/web-event/give-away.html",
-    eventAppUrl: "ocbt://com.skmc.okcashbag.home_google/",
-    actionType: "WEB",
+    eventAppUrl: "ocbt://com.skmc.okcashbag.home_google/detail/event?url=",
+    actionType: "",
   }),
   getters: {
     actionType({ actionType }) {
-      return actionType;
+      return actionType ? actionType : sessionStorage.getItem("actionType");
     },
   },
   mutations: {
@@ -24,8 +24,15 @@ export const url = {
     redirectToMain({ state }, success) {
       const container = window.top;
       const query = container.location.href.split("?")[1] || "";
-      if (state.actionType === "OCB") {
-        container.location.href = state.eventAppUrl;
+      const actionType = state.actionType ? state.actionType : sessionStorage.getItem("actionType");
+      if (actionType === "OCB") {
+        const hostNamePrefix = container.location.hostname.split(".")[0];
+        const inAppPageUrl = encodeURIComponent(`https://${hostNamePrefix}.syrup.co.kr/web-event/main.html?${query}`);
+        // container.location.href = `${state.eventAppUrl}${inAppPageUrl}`;
+        window.location.href = `${state.eventAppUrl}${inAppPageUrl}`;
+        setTimeout(() => {
+          container.location.href = "https://m.okcashbag.com/g/ma/main.mocb";
+        }, 1000);
       } else {
         if (success) {
           container.location.href = `${state.eventMainUrl}?redirect=true&${query}`;
@@ -65,6 +72,7 @@ export const url = {
     },
     // 인입 경로 (WEB: 오픈웹, OCB: OCB)
     setActionType({ commit }, param) {
+      sessionStorage.setItem("actionType", param);
       commit("SET_ACTION_TYPE", param);
     },
   },

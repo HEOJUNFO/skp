@@ -88,14 +88,14 @@ export default {
     const getIOSVersion = () => {
       const userAgent = window.navigator.userAgent.toLowerCase();
       const match = userAgent.match(/(iphone\sos)\s([\d_]+)/);
-      const version = match ? match[2].replace(/_/g, '.') : -1;
+      const version = match ? match[2].replace(/_/g, ".") : -1;
       return parseInt(version);
-    }
+    };
 
     onMounted(async () => {
       const iosVersion = getIOSVersion();
       if (iosVersion < 14 && isIOS()) {
-        alert('OS 업데이트후 사용이 가능합니다. IOS 14 이상으로 업데이트 해주세요.');
+        alert("OS 업데이트후 사용이 가능합니다. IOS 14 이상으로 업데이트 해주세요.");
         await dispatch("url/redirectToMain");
         return;
       }
@@ -104,8 +104,7 @@ export default {
       const isLocal = window.location.port !== "";
 
       if (isLocal) {
-        eventValidation =
-          "eMsVwlMMRrOEIVREgkU4Mm+j2vZa3+lFPmdVoOaIIosyGtS8B+nV5Z8DztY+DF2IRIKFVQLvYk1F+jYXDrOhBkI4UMAjOhIpPEf93EcfDRS602uIY7abnryfG34pwx6ZoimE0qO9/hLHakSR3RYD6vHLtysDYrmUCzLUHy6gQnjhzw1zKLG3T0PTbL6qQ5jc";
+        eventValidation = "eMsVwlMMRrOEIVREgkU4MvKu35tphZ/qhPToC6SXxYBWeCDgXJafFPhVzsCBRDz1Xp/NZPRXVwgjeAu/9ED7WNQJ8ayYVWQldkDaKWkbUh8=";
       }
 
       if (!isLocal && !eventId?.value) {
@@ -139,13 +138,13 @@ export default {
         };
 
         //로컬 테스트용
-        console.log("params", params);
-        await dispatch("jsonData/setActionObjectFrame");
-        await dispatch("jsonData/setPhotoBoxData");
+        // console.log("params", params);
+        // await dispatch("jsonData/setActionObjectFrame");
+        // await dispatch("jsonData/setPhotoBoxData");
 
         // 배포용
-        // await dispatch("eventData/getEventData", params);
-        // await dispatch("eventData/getEventPhotoBox", params);
+        await dispatch("eventData/getEventData", params);
+        await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
@@ -153,6 +152,9 @@ export default {
 
         const eventValidationData = JSON.parse(aes256Decode(eventValidation));
         await dispatch("url/setActionType", eventValidationData.activeType);
+        if (eventValidationData.phoneNumber) {
+          sessionStorage.setItem("userMdn", eventValidationData.phoneNumber);
+        }
 
         let newData;
         if (eventValidationData !== "photo") {
