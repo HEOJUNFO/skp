@@ -69,8 +69,22 @@ export function setGesture() {
     
           this.el.object3D.position.x += event.detail.positionChange.x * this.data.moveFactor;
           this.el.object3D.position.y -= event.detail.positionChange.y * this.data.moveFactor;
-    
-        }
+
+      var rotationAmount = event.detail.positionChange.x * 100;
+      
+      if (rotationAmount > 0) {
+        this.el.object3D.rotation.y -= window.THREE.Math.degToRad(rotationAmount); 
+      } else if (rotationAmount < 0) {
+        this.el.object3D.rotation.y += window.THREE.Math.degToRad(-rotationAmount); 
+      }
+
+      var rotationAmountY = event.detail.positionChange.y * 100;
+      if (rotationAmountY > 0) {
+          this.el.object3D.rotation.x -= window.THREE.Math.degToRad(rotationAmountY); 
+      } else if (rotationAmountY < 0) {
+          this.el.object3D.rotation.x += window.THREE.Math.degToRad(-rotationAmountY); 
+      }
+  }
       },
       //회전 커스텀 함수 월드기준으로 회전한다
       handleRotation : function (axis, event){       

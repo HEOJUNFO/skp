@@ -154,9 +154,11 @@ export default {
     function generateHashTagString(hashTags) {
       var hashTagString = hashTags.map(function (tag) {
         return "#" + tag;
-      });
+      }).join(" ");
 
-      return hashTagString.join(" ");
+      var formattedString = hashTagString.replace(/(#[^\s]+ [^\s]+) /g, "$1\n");
+
+      return formattedString;
     }
 
     const copyToClipboard = (hashTags) => {
@@ -251,6 +253,7 @@ export default {
       ];
 
       const shareData = {
+        url: window.location.href,
         files: filesArray,
       };
       if (!navigator.share) {

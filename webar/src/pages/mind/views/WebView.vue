@@ -1,9 +1,9 @@
 <template>
+  <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
   <tutorial-modal ref="tutorialRef" v-show="tutorialPopup" @close="tutorialPopup = false"></tutorial-modal>
   <nav-bar ref="navbarRef" :frame-list="frameList" :character-list="characterList" :filter-list="filterList"
     :sticker-list="stickerList" :tab-list="tabList" :is-decorate="isDecorate">
     <ar-photo-container ref="containerRef">
-      <browser-check-modal v-if="isNaverBrowser" @close="isNaverBrowser = false"></browser-check-modal>
       <ar-photo-camera ref="cameraRef" @loadeddata="loadVideo" @reject:video="rejectVideo" />
       <template v-if="loadedVideo">
         <img id="deco-photo" v-if="selectedPhoto" :src="selectedPhoto"

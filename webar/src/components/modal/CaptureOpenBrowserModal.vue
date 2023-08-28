@@ -40,7 +40,7 @@
             style="color: #000; text-align: center; font-family: Pretendard; font-size: 16px; font-style: normal; font-weight: 800; line-height: 140%">
             필수 해시태그
           </h1>
-          <p v-html="generateHashTagString(hashTagValue)"></p>
+          <pre v-html="generateHashTagString(hashTagValue)"></pre>
           <button class="copy-button" @click="copyToClipboard(hashTagValue)">해시태그 복사하기</button>
           <transition name="fade">
             <div v-show="isCopyCilp" class="copy-alert">해시태그가 클립보드에 복사되었습니다.</div>
@@ -155,9 +155,11 @@ export default {
     function generateHashTagString(hashTags) {
       var hashTagString = hashTags.map(function (tag) {
         return "#" + tag;
-      });
+      }).join(" ");
 
-      return hashTagString.join(" ");
+      var formattedString = hashTagString.replace(/(#[^\s]+ [^\s]+) /g, "$1\n");
+
+      return formattedString;
     }
 
     const copyToClipboard = (hashTags) => {
@@ -252,6 +254,7 @@ export default {
       ];
 
       const shareData = {
+        url: window.location.href,
         files: filesArray,
       };
       if (!navigator.share) {
@@ -464,13 +467,7 @@ export default {
   background-color: #fff;
 }
 
-.hashtag {
-  display: inline-block;
-}
-
-.box p {
-  word-wrap: break-word;
-  max-width: 170px;
+.box pre {
   color: #000;
   font-family: Pretendard;
   font-size: 16px;
