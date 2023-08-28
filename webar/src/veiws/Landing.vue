@@ -107,6 +107,8 @@ export default {
         eventValidation = "eMsVwlMMRrOEIVREgkU4MvKu35tphZ/qhPToC6SXxYBWeCDgXJafFPhVzsCBRDz1Xp/NZPRXVwgjeAu/9ED7WNQJ8ayYVWQldkDaKWkbUh8=";
       }
 
+      sessionStorage.setItem("event_validation", eventValidation);
+
       if (!isLocal && !eventId?.value) {
         // TODO query 없음! 리턴 처리 or 창닫기 로직 백엔드와 개발해서 추가
         // console.log('파라미터 없음! 리턴 처리 or 창닫기')
@@ -138,13 +140,13 @@ export default {
         };
 
         //로컬 테스트용
-        // console.log("params", params);
-        // await dispatch("jsonData/setActionObjectFrame");
-        // await dispatch("jsonData/setPhotoBoxData");
+        console.log("params", params);
+        await dispatch("jsonData/setActionObjectFrame");
+        await dispatch("jsonData/setPhotoBoxData");
 
         // 배포용
-        await dispatch("eventData/getEventData", params);
-        await dispatch("eventData/getEventPhotoBox", params);
+        // await dispatch("eventData/getEventData", params);
+        // await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];

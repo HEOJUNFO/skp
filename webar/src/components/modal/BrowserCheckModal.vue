@@ -23,11 +23,17 @@ export default {
     },
     changeBrowser() {
       var eventId = extractEventId(window.location.href);
+      var arDataValue = sessionStorage.getItem("event_validation");
+
       if (!eventId) {
         console.error("Event ID not found in the URL");
         return;
       }
       var targetUrl = window.location.host + '/#/?eventId=' + eventId;
+
+      if (arDataValue) {
+        targetUrl += "&arData=" + arDataValue;
+      }
 
       if (navigator.userAgent.match(/iPhone|iPad/i)) {
         //ios
@@ -50,10 +56,10 @@ export default {
         const match = url.match(/eventId=([^&]*)/);
         return match ? match[1] : null;
       }
+
     }
-
-
   }
+
 }
 </script>
   
