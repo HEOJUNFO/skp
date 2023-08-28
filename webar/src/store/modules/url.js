@@ -28,10 +28,13 @@ export const url = {
       if (actionType === "OCB") {
         const hostNamePrefix = container.location.hostname.split(".")[0];
         const inAppPageUrl = encodeURIComponent(`https://${hostNamePrefix}.syrup.co.kr/web-event/main.html?${query}`);
-        // container.location.href = `${state.eventAppUrl}${inAppPageUrl}`;
-        window.location.href = `${state.eventAppUrl}${inAppPageUrl}`;
+
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        const hrefContainer = /iphone|ipad|ipod/.test(userAgent) ? container : window;
+
+        hrefContainer.location.href = `${state.eventAppUrl}${inAppPageUrl}`;
         setTimeout(() => {
-          container.location.href = "https://m.okcashbag.com/g/ma/main.mocb";
+          hrefContainer.location.href = "https://m.okcashbag.com/g/ma/main.mocb";
         }, 1000);
       } else {
         if (success) {

@@ -13,6 +13,7 @@
 
 <script>
 const IOS_CHROME_MARKET_URL = "https://apps.apple.com/kr/app/google-chrome/id535886823";
+
 export default {
   name: "BrowserCheckModal",
 
@@ -21,8 +22,12 @@ export default {
       this.$emit('close');
     },
     changeBrowser() {
-      document.body.innerHTML = "";
-      var targetUrl = window.location.host + window.location.pathname + window.location.search;
+      var eventId = extractEventId(window.location.href);
+      if (!eventId) {
+        console.error("Event ID not found in the URL");
+        return;
+      }
+      var targetUrl = window.location.host + '/#/?eventId=' + eventId;
 
       if (navigator.userAgent.match(/iPhone|iPad/i)) {
         //ios
@@ -41,7 +46,12 @@ export default {
         //android
         location.href = "intent://" + targetUrl + "#Intent;scheme=https;package=com.android.chrome;end";
       }
+      function extractEventId(url) {
+        const match = url.match(/eventId=([^&]*)/);
+        return match ? match[1] : null;
+      }
     }
+
 
   }
 }

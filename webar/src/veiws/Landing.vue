@@ -138,13 +138,13 @@ export default {
         };
 
         //로컬 테스트용
-        console.log("params", params);
-        await dispatch("jsonData/setActionObjectFrame");
-        await dispatch("jsonData/setPhotoBoxData");
+        // console.log("params", params);
+        // await dispatch("jsonData/setActionObjectFrame");
+        // await dispatch("jsonData/setPhotoBoxData");
 
         // 배포용
-        // await dispatch("eventData/getEventData", params);
-        // await dispatch("eventData/getEventPhotoBox", params);
+        await dispatch("eventData/getEventData", params);
+        await dispatch("eventData/getEventPhotoBox", params);
 
         // store에서 데이터 파싱
         eventData.value = getters["eventData/eventData"];
