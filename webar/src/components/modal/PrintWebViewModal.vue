@@ -149,7 +149,7 @@
           </svg>
         </button>
         <div class="modal-content2">
-          <img :src="locationFindPopupImgUrl" class="image" alt="Image from URL" />
+          <img :src="locationFindPopupImgUrl" class="image2" alt="Image from URL" />
         </div>
       </div>
 
@@ -284,11 +284,14 @@ export default {
         freePrintCustomerCount.value = getters["eventData/freePrintCustomerCount"];
       }
 
-      if (deviceGpsList.value.length > 0) {
+      if (deviceGpsList.value.length > 0 && locationFindExposureType.value === "MAP") {
         currentDevice.value = deviceGpsList.value[0];
         if (deviceGpsList.value.length > 1) {
           deviceOn.value = true;
         }
+      }
+      else if (locationFindExposureType.value === "POPUP") {
+        deviceLocationFindYn.value = true;
       } else {
         deviceLocationFindYn.value = false;
       }
@@ -695,6 +698,12 @@ export default {
   height: 49vh;
   position: relative;
   margin-top: 10vh;
+}
+
+.image2 {
+  width: 100%;
+  height: 90vh;
+  position: relative;
 }
 
 .exit-button {

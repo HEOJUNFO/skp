@@ -12,6 +12,7 @@
 </template>
 
 <script>
+const IOS_CHROME_MARKET_URL = "https://apps.apple.com/kr/app/google-chrome/id535886823";
 export default {
   name: "BrowserCheckModal",
 
@@ -20,7 +21,26 @@ export default {
       this.$emit('close');
     },
     changeBrowser() {
-      window.location.href = "https://www.google.com/chrome/";
+      document.body.innerHTML = "";
+      var targetUrl = window.location.host + window.location.pathname + window.location.search;
+
+      if (navigator.userAgent.match(/iPhone|iPad/i)) {
+        //ios
+        var visitedAt = (new Date()).getTime();
+        setTimeout(
+          function () {
+            if ((new Date()).getTime() - visitedAt < 2000) {
+              location.href = IOS_CHROME_MARKET_URL;
+            }
+          }, 500);
+
+        setTimeout(function () {
+          location.href = "googlechromes://" + targetUrl;
+        }, 0);
+      } else {
+        //android
+        location.href = "intent://" + targetUrl + "#Intent;scheme=https;package=com.android.chrome;end";
+      }
     }
 
   }

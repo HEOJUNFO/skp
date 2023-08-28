@@ -156,10 +156,25 @@ export default {
         return "#" + tag;
       }).join(" ");
 
-      var formattedString = hashTagString.replace(/(#[^\s]+ [^\s]+) /g, "$1\n");
+      var splitBySpace = hashTagString.split(' ');
+      var formattedString = '';
+      var currentLength = 0;
 
-      return formattedString;
+      for (var i = 0; i < splitBySpace.length; i++) {
+        var currentTag = splitBySpace[i];
+
+        if (currentLength + currentTag.length > 25) {
+          formattedString += '\n' + currentTag + ' ';
+          currentLength = currentTag.length + 1;
+        } else {
+          formattedString += currentTag + ' ';
+          currentLength += currentTag.length + 1;
+        }
+      }
+
+      return formattedString.trim();
     }
+
 
     const copyToClipboard = (hashTags) => {
       putPvLog(getPvLogParams(3, "/main/photo"));

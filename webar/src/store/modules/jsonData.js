@@ -747,7 +747,7 @@ export const jsonData = {
     offsetPhotoBoxData: {
       deviceLocationFindSettingYn: "Y", //디바이스 위치 찾기 버튼 설정 여부 설정안함: N / 설정함: Y
       deviceLocationFindButtonText: "셀픽 디바이스 찾기", //디바이스 위치 찾기 버튼 문구
-      locationFindExposureType: "MAP", //위치 찾기 노출 설정 지도보기: MAP / 팝업보기: POPUP
+      locationFindExposureType: "POPUP", //위치 찾기 노출 설정 지도보기: MAP / 팝업보기: POPUP
       locationFindPopupImgUrl: "https://dt-static.syrup.co.kr/busanexpo/img/skin/skin_01.png", //위치 찾기 팝업 이미지 URL
       freePrintControlYn: "Y", //무료출력수 제어 설정안함: N / 설정함: Y
       freePrintCustomerCount: "3", //무료출력수 제어 설정 값
@@ -976,16 +976,15 @@ export const jsonData = {
         filmResultImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202307/17TXPZUMWG7670fd3ecc43bb78a9aacbba1eecd253.png",             //	촬영 결과 이미지 url	String	
         hashTagSettingYn: "Y",	            //  해시태그 설정 여부 	String	설정안함 : N / 설정함 : Y
         hashTagValue: [
-          "AR포토개발",
-          "모두화이팅",
-          "AR포토개발",
-          "모두화이팅",
+          "SK플래닛",
+          "QA팀",
+          "OK캐쉬백",
       ],                // 	해시태그 값 	String	콤마 , 로 구분자
         shareAgreePopupSettingYn: "Y",	    // 	공유하기 동의팝업 설정여부 	String	설정안함 : N / 설정함 : Y
         agreePopupText: "안녕하세요. Play AR입니다.\\n인스타 이벤트 참여를 위해서는\\n개인정보사용 동의가 필요합니다.",	  // 	동의 팝업 문구	String	
         agreePopupDetailLinkUrl: "https://www.naver.com/",	    // 	자세히 보기 링크 url	String	
         agreePopupInputText: "  인스타ID를 입력해주세요",	        // 	동의 입력창 기본 문구	String	
-        photoPrintSettingYn: "N",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
+        photoPrintSettingYn: "Y",	        // 	사진 출력 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoPrintButtonText: "사진 출력하기",	        // 	사진 출력 버튼명	String	
         photoGiveAwaySettingYn: "N",	      // 	경품 당첨 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoGiveAwayButtonText: "경품 추첨하기",	    // 	경품 당첨 버튼명	String	
