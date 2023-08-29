@@ -29,7 +29,7 @@ export default {
         console.error("Event ID not found in the URL");
         return;
       }
-      var targetUrl = window.location.host + '/#/?eventId=' + eventId;
+      var targetUrl = window.location.host + '/webar/index.html#/?eventId=' + eventId;
 
       if (arDataValue) {
         targetUrl += "&arData=" + arDataValue;

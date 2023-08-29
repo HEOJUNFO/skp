@@ -11,6 +11,9 @@
     <a-assets>
       <img id="trash-texture" src="../../assets/icon/black-trash-button.png">
     </a-assets>
+    <a-light type="ambient" color="fff" intensity="0.9"></a-light>
+    <a-light type="directional" position="-5 10 5" intensity="0.5" target="#target"></a-light>
+    <a-entity id="target" position="0 0 0"></a-entity>
 
     <a-entity class="character" v-if="selectCharacter" position="0 -1 0">
       <ar-photo-object v-for="item in characterList" :key="`arphotoobject_${item.id}`" :ar-data="item"

@@ -965,7 +965,7 @@ export const jsonData = {
         },
       ],
       photoLogicalInfo: {
-        tutorialYn: "Y",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
+        tutorialYn: "N",                   //  튜토리얼 사용 설정	String	설정안함 : N / 설정함 : Y
         photoRatioSettingType:"BASIC",         //  AR 포토 비율 설정 	String	기본비율 : BASIC / 확장비율 : EXTENSION
         arFrameSettingYn: "Y",             //  AR 프레임 설정 여부 	String	설정안함 : N / 설정함 : Y
         photoTabMenuAddSettingYn: "Y",     //  탭메뉴 추가설정 	String	설정안함 : N / 설정함 : Y
@@ -1198,7 +1198,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(1).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(1).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/DangDang_V2.gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/gobuki.gltf",
                 photoContentTabMenuType: "CHARACTER"
             },
             {
@@ -1207,7 +1207,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(2).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(2).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/png@main/Wipoong_V2.gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/winkbugi.gltf",
                 photoContentTabMenuType: "CHARACTER"
             }
         ],
