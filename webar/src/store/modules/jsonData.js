@@ -1099,7 +1099,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand(5).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/bubble(11).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1108,7 +1108,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(3).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/bubble(20).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1117,7 +1117,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (3).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Face(7).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/cheek.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1126,7 +1126,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (1).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Face(6).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/crown.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1135,7 +1135,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (2).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(4).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/earring.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1144,7 +1144,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (3).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/HeadBand(6).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/emoji(1).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1153,7 +1153,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (5).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (5).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/arphoto/seoul/Sunglasses(6).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/emoji(2).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1162,7 +1162,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (6).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (6).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (6).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/emoji(3).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1171,7 +1171,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (7).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (7).png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Hat (7).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/emoji(4).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1179,7 +1179,7 @@ export const jsonData = {
                 sort: 10,
                 photoContentChoiceType: "DIRECT",
                 photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCp*Pp9846e4091ad117658050cc3b323766ed.png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/snow/snow.json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/headset(1).json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1187,7 +1187,106 @@ export const jsonData = {
                 sort: 11,
                 photoContentChoiceType: "DIRECT",
                 photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
-                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/sodar/filter/star/star.json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/headset(2).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 954,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/headset(3).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/heart(1).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/heart(2).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/heart(4).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/leaf(1).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/leaf(2).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/leaf(3).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/puppyhead.json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/sunglasses(1).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/sunglasses(2).json",
+                photoContentTabMenuType: "FILTER"
+            }
+            ,
+            {
+                id: 955,
+                sort: 11,
+                photoContentChoiceType: "DIRECT",
+                photoThumbnailImgUrl: "https://playardev.syrup.co.kr/sodarimg/is/marketing/202308/17TYYCq2Hrf54f33492a74f29a86e1fea1a4d91a35.png",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/sunglasses(3).json",
                 photoContentTabMenuType: "FILTER"
             }
         ],
@@ -1198,7 +1297,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(1).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(1).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/gobuki.gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/Kumsuni.gltf",
                 photoContentTabMenuType: "CHARACTER"
             },
             {
@@ -1207,7 +1306,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Thumbnail_character(2).png",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/character/Thumbnail/Thumbnail_character(2).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/winkbugi.gltf",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpFace@main/Kumdori.gltf",
                 photoContentTabMenuType: "CHARACTER"
             }
         ],
