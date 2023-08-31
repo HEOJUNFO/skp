@@ -193,23 +193,27 @@ export default {
 
     function generateParticle(jsonData, fileName) {
       return jsonData.map(data => {
-        const preset = `${data.preset}`;
-        const color = `${data.color}`;
-        const particleCount = `${data.particleCount}`;
-        const velocityValue = `${data.velocityValue}`;
-        const accelerationValue = `${data.accelerationValue}`;
-        const maxAge = `${data.maxAge}`;
-        const size = `${data.size}`;
-        const sizeSpread = `${data.sizeSpread}`;
-        const opacity = `${data.opacity}`;
-        const opacitySpread = `${data.opacitySpread}`;
-        const positionSpread = `${data.positionSpread}`;
+        //const position = `${data.position}`;
         const texture = `${data.texture}`;
+        const color = `${data.color}`;
+        const velocity = `${data.velocity}`;
+        const acceleration = `${data.acceleration}`;
+        const velocitySpread = `${data.velocitySpread}`;
+        const maxAge = `${data.maxAge}`;
+        const textureFrames = `${data.textureFrames}`;
+        const particleCount = `${data.particleCount}`;
+        const distribution = `${data.distribution}`;
+        const activeMultiplier = `${data.activeMultiplier}`;
+        const positionSpread = `${data.positionSpread}`;
+        const radius = `${data.radius}`;
+        const drag = `${data.drag}`;
+        const opacity = `${data.opacity}`;
+        const size = `${data.size * 10}`;
 
-        return `<a-entity class='particle' id="${fileName}" position="0 -8 -15" visible="true"
-        particle-system="preset:${preset}; size:${size}; particleCount:${particleCount}; color:${color}; 
-        velocityValue:${velocityValue}; accelerationValue:${accelerationValue}; maxAge:${maxAge}; sizeSpread:${sizeSpread}; 
-        opacity:${opacity}; opacitySpread:${opacitySpread}; positionSpread:${positionSpread}; texture:${texture};"
+        return `<a-entity class='particle' id="${fileName}" position="0 8 -15" visible="true"
+        spe-particles="texture:${texture}; color:${color} ; velocity:${velocity}; velocity-spread:${velocitySpread}; acceleration:${acceleration}; max-age:${maxAge};
+         texture-frames:${textureFrames}; particle-count:${particleCount}; distribution:${distribution}; active-multiplier:${activeMultiplier}; position-spread:${positionSpread}; 
+         radius:${radius}; drag:${drag}; opacity:${opacity}; size:${size};"
          ></a-entity>`;
       });
     }
@@ -240,7 +244,7 @@ export default {
     }
 
     function hasPreset(json) {
-      return json.some(data => Object.prototype.hasOwnProperty.call(data, 'preset'));
+      return json.some(data => Object.prototype.hasOwnProperty.call(data, 'distribution'));
     }
 
     // 애니메이션 재생 완료

@@ -1099,7 +1099,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/bubble(11).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/firework2.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1108,7 +1108,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/bubble(20).json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/fog2.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1117,7 +1117,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (3).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (3).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/cheek.json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/snow2.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1126,7 +1126,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Hat (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Hat/Thumbnail_Hat (1).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/crown.json",
+                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/sprite2.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
