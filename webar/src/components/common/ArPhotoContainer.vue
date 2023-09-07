@@ -1,10 +1,11 @@
 <template>
   <div class="event-wrapper" :style="eventWrapperStyles" @mousedown="disableClick ? toggleBottomBar() : null">
     <slot></slot>
-    <div v-if="arFrameSettingYn" @mousedown="disableClick ? toggleBottomBar() : null" class="frame-top"
-      :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
+    <div v-if="arFrameSettingYn && loadingState === 'COMPLETE'" @mousedown="disableClick ? toggleBottomBar() : null"
+      class="frame-top" :style="{ 'backgroundImage': `url(${frameUrl})`, 'top': `${0}px` }">
     </div>
-    <div v-if="arFrameSettingYn" class="frame-bottom" :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
+    <div v-if="arFrameSettingYn && loadingState === 'COMPLETE'" class="frame-bottom"
+      :style="{ 'backgroundImage': `url(${frameUrl})` }"></div>
     <div v-if="loadingYn && loadingState !== 'COMPLETE'" class="ArPhotoloading">
       <img :src="loadingUrl" alt="로딩 이미지">
       <div class="progress-bar">
