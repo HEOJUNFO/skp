@@ -1099,7 +1099,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (1).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (1).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/firework2.json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/filter/data_3.json",
                 photoContentTabMenuType: "FILTER"
             },
             {
@@ -1108,7 +1108,7 @@ export const jsonData = {
                 photoContentChoiceType: "LIBRARY",
                 photoFileName: "Glasses (2).json",
                 photoThumbnailImgUrl: "https://dt-static.syrup.co.kr/sodar/filter/Glasses/Thumbnail_Glasses (2).png",
-                photoOriginalFileUrl: "https://cdn.jsdelivr.net/gh/HEOJUNFO/skpJson@main/fog2.json",
+                photoOriginalFileUrl: "https://dt-static.syrup.co.kr/filter/data_4.json",
                 photoContentTabMenuType: "FILTER"
             },
             {

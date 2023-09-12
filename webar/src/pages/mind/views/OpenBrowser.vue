@@ -112,11 +112,11 @@ export default {
 
     async function capture() {
       const canvas = document.createElement("canvas");
-      const videocanvas = beautyOn.value ? document.querySelector(".event-wrapper canvas") : document.querySelector(".event-wrapper video");
+      const videocanvas = document.querySelector(".event-wrapper video");
 
-      if (beautyOn.value === false) {
-        videocanvas.pause();
-      }
+
+      videocanvas.pause();
+
 
       let v_width = videocanvas.clientWidth * 3.5;
       let v_height = videocanvas.clientHeight * 3.5;
@@ -156,6 +156,10 @@ export default {
         ctx.drawImage(decoPhoto, 0, 0, v_width, v_height);
       }
 
+      imageUrl.value = canvas.toDataURL("image/png");
+
+
+
       let sceneEl = document.querySelector('a-scene');
       let cameraEl = sceneEl.querySelector('[camera]');
 
@@ -188,6 +192,22 @@ export default {
 
       }
       imageUrl.value = canvas.toDataURL("image/png");
+
+      async function processImage() {
+        try {
+          const image = await window.Jimp.read(imageUrl.value);
+          let processedImage = image.brightness(0.23);
+          processedImage = processedImage.contrast(0.13);
+
+          const src = await processedImage.getBase64Async("image/png");
+          imageUrl.value = src;
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      if (beautyOn.value) {
+        await processImage();
+      }
 
       return imageUrl.value;
     }
