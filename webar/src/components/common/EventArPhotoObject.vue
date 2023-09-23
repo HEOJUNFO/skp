@@ -173,9 +173,9 @@ export default {
         const scale = `${data.scale.x + (isIOS ? 0.1 : 0.05)} ${data.scale.y + (isIOS ? 0.1 : 0.05)} ${data.scale.z + (isIOS ? 0.1 : 0.05)}`;
 
         if (data.dataType === 'image') {
-          return `<a-entity class='face' width="1" height="1" material="transparent: true; alphaTest: 0.5;" id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
-        <a-plane position="${position}" rotation="${rotation}" scale="${scale}" src="${src}"
-          visible="true"></a-plane>
+          return `<a-entity class='face' width="1" height="1" id="${fileName}" mindar-face-target="anchorIndex: ${data.facePosition}">
+        <a-plane opacity="1" translate="true" alpha-test="0.5"  position="${position}" rotation="${rotation}" scale="${scale}" src="${src}"
+          visible="true" ></a-plane>
       </a-entity>`;
         }
         else {
