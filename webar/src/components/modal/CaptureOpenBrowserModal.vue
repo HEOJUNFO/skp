@@ -247,7 +247,7 @@ export default {
 
     const share = async () => {
       if (shareAgreePopupYn) {
-        putPvLog(getPvLogParams(1, "/main/photo/popup", undefined, undefined, undefined, new Date().toISOString()));
+        //putPvLog(getPvLogParams(1, "/main/photo/popup", undefined, undefined, undefined, new Date().toISOString()));
         console.log(eventId.value);
         // setTimeout(() => {
         //   putLogPersonAgree({
@@ -256,7 +256,7 @@ export default {
         //   });
         // }, 1000);
       } else {
-        putPvLog(getPvLogParams(2, "/main/photo"));
+        // putPvLog(getPvLogParams(2, "/main/photo"));
       }
 
       const blob = await (await fetch(imageurl.value)).blob();
@@ -268,7 +268,7 @@ export default {
       ];
 
       const shareData = {
-        url: window.location.href,
+        // url: window.location.href,
         files: filesArray,
       };
       if (!navigator.share) {
@@ -285,7 +285,7 @@ export default {
 
     const agreeShare = () => {
       showAgreeModal.value = true;
-      putPvLog(getPvLogParams(2, "/main/photo"));
+      //putPvLog(getPvLogParams(2, "/main/photo"));
       // setTimeout(() => {
       //   putPvLog(getPvLogParams(0, "/main/photo/popup"));
       // }, 100);
